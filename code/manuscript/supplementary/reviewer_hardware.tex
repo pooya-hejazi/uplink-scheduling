@@ -16,8 +16,15 @@ Median paired floor / later rate (\%) & 17.15 & 27.51 & 6.76 & 24.46\\
 Projected floor coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
 Combined interval coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
 Joint residual-event coverage (\%) & 97.40 & 98.08 & 70.26 & 75.74\\
+\multicolumn{5}{l}{\textit{Test-frame noise-scale diagnostics (pooled entries)}}\\
+Mean early channel power & 1256.871 & 1256.871 & 1074.461 & 1074.461\\
+Mean difference power & 18.398 & 12.249 & 121.622 & 43.954\\
+Median difference power & 3.537 & 2.907 & 18.558 & 8.394\\
+Relative mean difference power (dB) & -18.345 & -20.112 & -9.462 & -13.882\\
+Single magnitude residual: median & 4.335 & 4.335 & 6.283 & 6.283\\
+Single magnitude residual: 97.5th percentile & 30.489 & 30.489 & 35.521 & 35.521\\
 \bottomrule\end{tabular}
 \par\medskip\begin{minipage}{\linewidth}\small
-The phase score uses projection-magnitude differences for $L_P$ and optimally phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$. The floor percentage is the median of paired $100L_P/R_{\rm later}$ ratios, not the ratio of marginal medians. Exhaustive fixed-equal-power enumeration on all eligible early frames gives median early-ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz; this is a discrete reference, not a continuous-power optimum. LO fails nominal 95\% joint coverage under both scores. Its rate floors hold through slack, even where the residual events fail.
+The phase score uses projection-magnitude differences for $L_P$ and phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$; floor percentages are medians of paired $100L_P/R_{\rm later}$ ratios. Difference powers pool frames, users, retained streams and tones; ratios divide their mean by mean early power. Independent unit-variance pilot noise predicts raw mean power two. The single magnitude residual is phase invariant, so its quantiles repeat across raw/phase columns; it pools the 12 scheduled projections per test frame before maximization. Note~6 defines the normalization and its limits. Exhaustive fixed-equal-power early schedules give median ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz, a discrete reference. LO fails nominal 95\% joint coverage under both scores; its rate floors hold through slack.
 \end{minipage}
 \end{table}

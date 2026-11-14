@@ -1,23 +1,17 @@
-# Numerical changes and their sources
+# Numerical changes and sources — third revision
 
-`Numerical_changes.csv` enumerates every numeric occurrence in changed paragraphs/tables of the editable Article and supplement, compared with commit f7adc44d04b660d07ab3c7faadb4f432e26f5b66. Context is retained to distinguish rates, counts, parameters and equation constants. Rewritten or relocated paragraphs also include their unchanged numbers; the ledger does not classify those as newly measured outcomes. References and cross-reference labels are excluded from token extraction.
+The CSV enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
 
-All following paths are relative to `code/manuscript/revision/` in GitHub, or `Gate_4/revision/` in the journal software archive. CSV files retain unrounded values; the companion Source Data files map these values to every display.
+Paths below are relative to code/manuscript/revision in GitHub, or Gate_4/revision in Supplementary Software 1.
 
-| Result / displayed values | Numerical source | Calculation / interpretation |
+| Added or clarified result | Exact scalar source | Aggregation and check |
 |---|---|---|
-| Paired iteration counts 507/0/5/0 and 505/0/4/3; exact P 0.0625/0.125 | round2_data/iteration_paired_tests.csv | round2_summary.py; conditioning on discordant topology pairs |
-| Added median times 2.5850/6.7841 and 22.7841/95.4903 ms | round2_data/latency_increments.csv | Differences computed before rounding |
-| 38/63 iteration budgets; 38.39/176.35 versus 35.59/164.01 ms; 6,144 new calls | round2_data/time_budget.json, time_budget_pilot.csv, time_control_calls.csv, time_control_blocks.csv, time_control_summary.csv, time_control_paired_tests.csv | round2_compute.py; timing-only pilot then frozen budgets, 512 topologies per size, three repetitions |
-| Achieved rates, retention and learned lower-rate increments | reviewer_data/absolute_rates.csv, absolute_rate_summary.csv; round2_data/achieved_rate_comparison.csv | Verified common action path; difference of marginal medians distinguished from paired ratios |
-| Analytic slack/loss means, medians and endpoint IQRs | round2_data/decomposition_distribution.csv | round2_summary.py; enclosing continuous references |
-| Separate 16-user upper-table split | round2_data/integer_table_reference.csv | Exact integer-table reference, not a physical continuous optimum |
-| O1 width sweep: zero changed entries; shortlist counts | round2_data/o1_budget_entries.csv | round2_refinement.py; 64 tiles, fixed action/prices |
-| O1 depth medians 1.119582/1.118334/1.117494 and T4 1.113253/1.080005/0.867040 | round2_data/o1_depth.csv, o1_depth_summary.csv | 16/64/256 children for scheduled entries, verified matching witness |
-| O1 two-/four-user slack 1.03877/0.90425 and action loss 0.13522/0.15193 | round2_data/o1_small_references.csv | round2_refinement.py and round2_oracle.py; all 128 references resolved, largest four-user width 9.999108e-7 bit/s/Hz |
-| Raw and phase-invariant radii, LF, LP, UF, later rates, widths and coverage | round2_data/hardware_comparison_HUB.csv, hardware_comparison_LO.csv, hardware_phase_HUB.csv, hardware_phase_LO.csv | round2_hardware.py, same chronological split/rank; every certificate replayed |
-| Phase medians/IQRs, equivalent CFO and noise benchmark | round2_data/hardware_phase_rotations_HUB.csv, hardware_phase_rotations_LO.csv, hardware_phase_HUB.json, hardware_phase_LO.json | Six user-frame diagnostics; frequency conversion is not causal attribution |
-| Sionna 2.2.0 / TR 38.901 V19.2.0; dated configuration and pilot lock | protocol_provenance.json; round2_data/reference_verification.json | Frozen generator plus official documentation/publisher records |
-| Unchanged primary rates, times, confidence intervals, structural fixtures and geometry in rewritten passages | ../source_data/, reviewer_data/, ../supplementary/data/ and original audit results | Original confirmatory records remain byte-identical; source hashes were rechecked |
+| HUB raw difference mean/median 18.398139868 / 3.536998356; aligned 12.249401226 / 2.906931151 | round3_data/hardware_scale_HUB.json; hardware_scale_summary.csv | 1,859,328 entries over 1,614 test frames, six users, 64 streams and three tones |
+| LO raw difference mean/median 121.622382397 / 18.557571253; aligned 43.954320613 / 8.394412304 | round3_data/hardware_scale_LO.json; hardware_scale_summary.csv | 1,715,742 entries over 1,513 test frames, six users, 63 streams and three tones |
+| Mean early powers 1256.871195248 and 1074.460899573; raw/aligned relative powers -18.345168571/-20.111759132 dB and -9.461771095/-13.881890441 dB | Same JSONs; hardware_scale_frames_HUB/LO.csv; hardware_scale_stream_tone_HUB/LO.csv | Ratios of pooled means; frame and stream-by-tone summaries reproduce the means |
+| Single-projection median/q97.5: HUB 4.335309914/30.489072302, LO 6.282940600/35.520708093 | Same JSONs; round3_diagnostics.py | Pools 12 magnitude residuals per frame; all reconstructed maxima and input hashes match round2_data/hardware_phase_HUB/LO.csv |
+| Tangent binding in all 507,904 O1 pair-tone entries; zero box wins or ties; minimum box/child margins 1.219302/0.228126 nats | round3_data/o1_binding_bounds.csv | Production priced-bound arithmetic and all 16 children, 64 tiles; existing table ticks reproduced exactly |
+| Explicit 16/64/256-child O1 baseline and results | round2_data/o1_depth_summary.csv | Existing results only, newly written out in prose |
+| Methods summaries moved to Supplementary Note 4 | Existing primary audit tables and simulation summaries | Original learned-versus-baseline intervals, subgradient passes and time retained |
 
-No calculation is replaced by an unfilled marker. Persistent DOI registration is the outstanding external action, not a missing numerical result.
+The diagnostic does not identify active-period noise variance or an impairment mechanism. It does not rescale archived hardware rates. All original confirmatory inputs and all 591 first-revision numerical records retain their hashes. DOI registration is deferred until acceptance by author decision.

@@ -1,0 +1,12 @@
+{
+  "documented_sionna_version": "2.2.0",
+  "generator": "code/channel_models/generate_native.py",
+  "generator_sha256": "5b1dc3ce13f90c09b146e80d71db964263039463fb1c54dbb3aad71d86092b53",
+  "option": "spec_version='19.2' explicitly passed to CDL and UMa",
+  "runtime_version_banner_present": false,
+  "official_sources": [
+    "https://github.com/NVlabs/sionna/releases/tag/v2.2.0",
+    "https://nvlabs.github.io/sionna/v2.2.0/phy/api/channel/wireless/sionna.phy.channel.tr38901.SystemLevelScenario.html"
+  ],
+  "scope": "Archived source and documented environment agree with official API; generation log lacks independent patch-version attestation."
+}

@@ -32,6 +32,12 @@ SUPPLEMENTARY_DATA.update({
          'round2_hardware_phase_rotations_HUB', 'round2_hardware_phase_rotations_LO'])
 })
 
+SUPPLEMENTARY_DATA['Supplementary_Table_10'][1].append('round3_o1_binding_bounds')
+SUPPLEMENTARY_DATA['Supplementary_Table_13'][1].extend([
+    'round3_hardware_scale_summary', *[
+        f'round3_hardware_scale_{kind}_{mode}'
+        for kind in ('frames', 'stream_tone') for mode in ('HUB', 'LO')]])
+
 
 def annotated(name, description, files):
     chunks = [name.replace("_", " ") + " source data", description,

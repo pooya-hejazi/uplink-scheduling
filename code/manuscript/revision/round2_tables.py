@@ -39,6 +39,11 @@ def build():
             'time_control_calls', 'time_control_blocks', 'time_control_summary', 'time_control_paired_tests',
             'o1_budget_entries', 'o1_depth', 'o1_depth_summary', 'o1_small_references']
     keep += [f'hardware_{kind}_{mode}' for kind in ('phase', 'phase_rotations', 'comparison') for mode in ('HUB', 'LO')]
+    diagnostic = HERE/'round3_data'
+    scale = [json.loads((diagnostic/f'hardware_scale_{mode}.json').read_text()) for mode in ('HUB', 'LO')]
+    pd.DataFrame(scale).to_csv(diagnostic/'hardware_scale_summary.csv', index=False)
+    for path in diagnostic.glob('*.csv'):
+        shutil.copy2(path, SUP/'data'/('round3_'+path.name))
     for name in keep:
         path = OUT/(name+'.csv')
         assert path.exists(), path
@@ -110,7 +115,10 @@ def build():
         for stat, fn in [('Mean', np.mean), ('Median', np.median)]:
             after += f'{k} & {stat} & {fn(group.U-group.L):.6f} & '+bracket(fn(group.slack_lo), fn(group.slack_hi))+' & '+bracket(fn(group.suboptimality_lo), fn(group.suboptimality_hi))+f' & {fn(group.reference_width):.3g}'+r'\\'+'\n'
     after += r'\bottomrule\end{tabular}\par\smallskip'+'\n'
-    after += r'The width sweep partitions every chosen rectangle into 16 children. No upper-table tick changes on any tile at any budget: the child mixed signal/interference bounds remain above the parent tangent/box bound. The action has 16 scheduled entries; the shortlist column gives their minimum/median/maximum counts in the refined set. The depth sweep instead refines these 16 entries into 16, 64 or 256 children while keeping the original action, powers and tone/power prices fixed. Matching upper witnesses and the four-term identity are rebuilt and checked. Small references use the nested first two/four users of all 64 O1 tiles with the original channel normalization. Two-user roots are exact to their reported outward numerical enclosures; four-user complete labelled enumeration uses validated continuous Taylor/box bounds to $10^{-6}$ bit/s/Hz. All rates are bit/s/Hz; different $K$ have different feasible problems.'
+    binding = pd.read_csv(diagnostic/'o1_binding_bounds.csv')
+    assert len(binding) == 64 and binding.entries.sum() == 507904
+    assert (binding.tangent_strict == binding.entries).all() and not binding.child_below_tangent.any()
+    after += r'The width sweep partitions every chosen rectangle into 16 children. No upper-table tick changes at any budget. Direct comparison of all 507,904 entries across the 64 tiles confirms that each parent concave-log tangent bound is below both its box bound and its maximum child mixed bound; the tangent remains binding across all four width budgets. The action has 16 scheduled entries; the shortlist column gives their minimum/median/maximum counts in the refined set. The depth sweep refines these entries into 16, 64 or 256 children with the original action, powers and tone/power prices fixed. Matching witnesses and the four-term identity are rebuilt and checked. Small references use the nested first two and four users of all 64 O1 tiles with the original channel normalization. Two-user roots have outward numerical enclosures; four-user complete labelled enumeration uses validated continuous Taylor/box bounds to $10^{-6}$ bit/s/Hz. Rates are bit/s/Hz; different $K$ have different feasible problems.'
     table('reviewer_refinement.tex', 'O1 enclosure width, partition depth and small continuous references at 10 dB. Each experiment uses the same 64 guarded tiles.', 'supp:refinement',
           ['Entries refined', 'Entries changed', 'Scheduled in shortlist', 'Median $G$', 'Median $T_4$'], rows, after)
 
@@ -128,9 +136,18 @@ def build():
     assert len(comparison) == 4
     records = comparison.to_dict('records')
     rows = [[label, *[f'{100*r[key]:.2f}' if fmt == 'pct' else format(r[key], fmt) for r in records]] for label, key, fmt in quantities]
+    rows.append([r'\multicolumn{5}{l}{\textit{Test-frame noise-scale diagnostics (pooled entries)}}'])
+    for label, rawkey, phasekey in [
+        ('Mean early channel power', 'early_mean', 'early_mean'),
+        ('Mean difference power', 'raw_mean', 'phase_mean'),
+        ('Median difference power', 'raw_median', 'phase_median'),
+        ('Relative mean difference power (dB)', 'raw_relative_db', 'phase_relative_db'),
+        ('Single magnitude residual: median', 'projection_median', 'projection_median'),
+        ('Single magnitude residual: 97.5th percentile', 'projection_q975', 'projection_q975')]:
+        rows.append([label, *[f'{r[key]:.3f}' for r in scale for key in (rawkey, phasekey)]])
     table('reviewer_hardware.tex', r'Chronological RENEW calibration: raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are bit/s/Hz; radii use whitened digital channel units. Percentages describe these recordings.', 'supp:hardware_calibration',
           ['Quantity', 'HUB raw', 'HUB phase', 'LO raw', 'LO phase'], rows,
-          r'The phase score uses projection-magnitude differences for $L_P$ and optimally phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$. The floor percentage is the median of paired $100L_P/R_{\rm later}$ ratios, not the ratio of marginal medians. Exhaustive fixed-equal-power enumeration on all eligible early frames gives median early-ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz; this is a discrete reference, not a continuous-power optimum. LO fails nominal 95\% joint coverage under both scores. Its rate floors hold through slack, even where the residual events fail.')
+          r'The phase score uses projection-magnitude differences for $L_P$ and phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$; floor percentages are medians of paired $100L_P/R_{\rm later}$ ratios. Difference powers pool frames, users, retained streams and tones; ratios divide their mean by mean early power. Independent unit-variance pilot noise predicts raw mean power two. The single magnitude residual is phase invariant, so its quantiles repeat across raw/phase columns; it pools the 12 scheduled projections per test frame before maximization. Note~6 defines the normalization and its limits. Exhaustive fixed-equal-power early schedules give median ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz, a discrete reference. LO fails nominal 95\% joint coverage under both scores; its rate floors hold through slack.')
     print('Round-two tables and scalar source data generated.')
 
 

@@ -1,0 +1,33 @@
+\paragraph{Noise scale of the stored pilot differences.}
+We pooled the 1,614 HUB and 1,513 LO test frames, six users, 64 and 63
+retained streams, respectively, and three tones. This gives 1,859,328 HUB
+and 1,715,742 LO complex entries. For each user, frame and tone we aligned
+the later vector using
+\(\theta^*=\arg\sum_a h^{(0)*}_a h^{(1)}_a\).
+We summarized both \(|h^{(1)}-h^{(0)}|^2\) and
+\(|e^{-\mathrm{i}\theta^*}h^{(1)}-h^{(0)}|^2\), with equal weight per entry.
+Their pooled means and medians, and
+\(10\log_{10}(\operatorname{mean}|\Delta h|^2/
+\operatorname{mean}|h^{(0)}|^2)\), appear in Supplementary Table~13.
+The denominator is a pooled mean, not a mean of individual ratios.
+Stream-by-tone summaries and frame-level means accompany the Source Data.
+Projection quantiles pool 19,368 HUB and 18,156 LO individual terms
+\(\big||d^Hh^{(1)}|-|d^Hh^{(0)}|\big|\), for unit-norm stored filters,
+before the 12-term frame maximum. Reconstructed maxima agree with every
+archived phase-invariant test score; both input digests match the original replay.
+
+The raw mean powers, 18.398 and 121.622, exceed the independent unit-variance
+pilot-noise prediction of two; phase alignment reduces them to 12.249 and
+43.954, respectively. Mean early powers are 1,256.871 and 1,074.461 in
+quiet-slot whitened units, so aligned mean relative errors of $-20.112$ and
+$-13.882$ dB can coexist with large absolute projection residuals. These are
+descriptive pilot-to-pilot ratios, not measurements of transmitter EVM.
+Signal-dependent distortion, synchronization jitter, multipath leakage
+between extraction windows, correlated errors, or a quiet-slot variance
+that understates pilot-period noise could contribute. Stored channel pairs
+do not separate these mechanisms or identify active-period noise variance.
+Consequently, these hardware rates are conditional on the frozen quiet-slot
+noise metric. If that metric understates active-period noise and distortion,
+rates may be optimistic; gaps, pass fractions and floor ratios must then be
+recomputed with the appropriate model. The present diagnostic does not
+establish a correction factor or an unconditional upper bound on physical rates.

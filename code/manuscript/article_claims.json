@@ -1,7 +1,7 @@
 {
-  "article_pages": 32,
+  "article_pages": 29,
   "certificate_pages": 3,
-  "abstract_whitespace_words": 136,
+  "abstract_whitespace_words": 133,
   "introduction_paragraphs": 4,
   "results_subsections": 6,
   "figures": {
@@ -12,7 +12,7 @@
     "fig5_phase": "1707b6c7e03f89f11b487164b5b7f2d6661fb59335654023fd52063d96fe50bb",
     "fig6_hardware": "c24dff41410753820d3fd69411c6484f14d844c233b3b8d2aa701676c6b9dde4"
   },
-  "article_sha256": "1c2b7750b328bedfdb3a2838d8e63526d4b548a4d1816441f014929217cb49b6",
+  "article_sha256": "9de9bf0e55567bec40aba314ff1cbb827c23d40a3ed6fa4cd118e6c62018a35d",
   "audit_certificate_json_sha256": "62b6fca787188fe6dd571fdc33734b9b781bd8faa3de57da8ee3e08b0a0a5aeb",
   "primary_counts": {
     "32": {
@@ -36,7 +36,7 @@
   "compared_to_independent_audit": true,
   "package_includes_raw_rice": false,
   "supplement_pages": 34,
-  "supplement_sha256": "ace348f883666c6df4117e942465bd7332657c7dd6589f3652c412da4db48f39",
+  "supplement_sha256": "b847c80bc406448bf797a5922ca29d32492a2a9f35f3476f4670222bffe6679f",
   "supplementary_notes": 7,
   "supplementary_figures": 8,
   "supplementary_tables": 16,
@@ -96,5 +96,48 @@
       "HUB": 0.9807930607187113,
       "LO": 0.7574355584930601
     }
+  },
+  "round3": {
+    "HUB": {
+      "mode": "HUB",
+      "frames": 1614,
+      "users": 6,
+      "streams": 64,
+      "tones": 3,
+      "entries": 1859328,
+      "projections": 19368,
+      "early_mean": 1256.871195247553,
+      "raw_mean": 18.398139867845533,
+      "raw_median": 3.536998356160251,
+      "phase_mean": 12.249401226139565,
+      "phase_median": 2.906931151031528,
+      "raw_relative_db": -18.34516857099659,
+      "phase_relative_db": -20.11175913178036,
+      "projection_median": 4.335309914491016,
+      "projection_q975": 30.48907230246453,
+      "aggregation": "Equal-weight pooling over held-out frames, users, retained RF streams and three tones; projection quantiles pool 12 individual scheduled magnitudes per frame before maximization. Ratios divide pooled means, not per-entry ratios.",
+      "interpretation": "Descriptive pilot-to-pilot relative error in quiet-slot whitened units, not an active-period noise or transmitter EVM estimate. Stored pairs cannot identify signal-dependent error versus underestimated pilot-period noise/distortion."
+    },
+    "LO": {
+      "mode": "LO",
+      "frames": 1513,
+      "users": 6,
+      "streams": 63,
+      "tones": 3,
+      "entries": 1715742,
+      "projections": 18156,
+      "early_mean": 1074.4608995726567,
+      "raw_mean": 121.6223823966146,
+      "raw_median": 18.557571252616082,
+      "phase_mean": 43.95432061260749,
+      "phase_median": 8.394412303749217,
+      "raw_relative_db": -9.461771094921922,
+      "phase_relative_db": -13.88189044121219,
+      "projection_median": 6.2829406003229575,
+      "projection_q975": 35.52070809293707,
+      "aggregation": "Equal-weight pooling over held-out frames, users, retained RF streams and three tones; projection quantiles pool 12 individual scheduled magnitudes per frame before maximization. Ratios divide pooled means, not per-entry ratios.",
+      "interpretation": "Descriptive pilot-to-pilot relative error in quiet-slot whitened units, not an active-period noise or transmitter EVM estimate. Stored pairs cannot identify signal-dependent error versus underestimated pilot-period noise/distortion."
+    },
+    "o1_binding_entries": 507904
   }
 }

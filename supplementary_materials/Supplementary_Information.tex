@@ -587,6 +587,8 @@ separate post-freeze benchmark of all 512 native 32-user blocks.
 Those swaps retain the deterministic power price and replace the named
 field. Their baseline is rerun within that benchmark.
 
+The original learned-versus-deterministic pass increases were 1.17 percentage points at 32 users (95\% stratified bootstrap interval 0.39--2.15) and 0.98 at 64 users (0.20--1.95). The original resource-subgradient baseline passed on 359 of 512 and 294 of 512 topologies, respectively, with a median complete time of 715 ms at 64 users.
+
 \subsection{Timing cohorts, sensitivity records and the selectivity diagnostic}
 Supplementary Table~\ref{supp:table3} and Supplementary Fig.~\ref{supp:fig1} use the 12,288 timed
 primary calls. For each topology and method, the primary gap is the
@@ -644,72 +646,72 @@ within each native profile.
 
 
 \begingroup\small\setlength{\tabcolsep}{4pt}
-\begin{longtable}{rllrrrr}\caption{Native 10-dB primary results by profile. Panel A gives gap quantiles (bit/s/Hz) and joint passes; Panel B gives median stage times (ms). GPU time is included in host prediction time.}\label{supp:table3}\\
-\toprule $K$ & Profile & Method & Pass & p05 & p50 & p95\\\midrule\endfirsthead\toprule $K$ & Profile & Method & Pass & p05 & p50 & p95\\\midrule\endhead\bottomrule\endfoot
-32 & A & Subgradient baseline & 101/128 & 0.071 & 0.121 & 0.179\\
-32 & A & Deterministic search & 126/128 & 0.037 & 0.077 & 0.117\\
-32 & A & Network only & 74/128 & 0.088 & 0.145 & 0.198\\
-32 & A & Learned warm start & 128/128 & 0.030 & 0.070 & 0.110\\
-32 & B & Subgradient baseline & 119/128 & 0.059 & 0.102 & 0.145\\
-32 & B & Deterministic search & 128/128 & 0.022 & 0.055 & 0.091\\
-32 & B & Network only & 104/128 & 0.074 & 0.119 & 0.186\\
-32 & B & Learned warm start & 128/128 & 0.017 & 0.051 & 0.085\\
-32 & C & Subgradient baseline & 127/128 & 0.040 & 0.079 & 0.117\\
-32 & C & Deterministic search & 128/128 & 0.024 & 0.050 & 0.078\\
-32 & C & Network only & 125/128 & 0.059 & 0.095 & 0.146\\
-32 & C & Learned warm start & 128/128 & 0.023 & 0.046 & 0.073\\
-32 & UMa & Subgradient baseline & 12/128 & 0.113 & 0.205 & 0.377\\
-32 & UMa & Deterministic search & 124/128 & 0.008 & 0.074 & 0.139\\
-32 & UMa & Network only & 0/128 & 0.270 & 0.399 & 0.552\\
-32 & UMa & Learned warm start & 128/128 & 0.003 & 0.062 & 0.129\\
-64 & A & Subgradient baseline & 97/128 & 0.084 & 0.121 & 0.162\\
-64 & A & Deterministic search & 128/128 & 0.046 & 0.084 & 0.109\\
-64 & A & Network only & 85/128 & 0.103 & 0.139 & 0.182\\
-64 & A & Learned warm start & 128/128 & 0.046 & 0.078 & 0.098\\
-64 & B & Subgradient baseline & 96/128 & 0.065 & 0.093 & 0.130\\
-64 & B & Deterministic search & 128/128 & 0.032 & 0.053 & 0.073\\
-64 & B & Network only & 127/128 & 0.079 & 0.109 & 0.138\\
-64 & B & Learned warm start & 128/128 & 0.031 & 0.050 & 0.073\\
-64 & C & Subgradient baseline & 98/128 & 0.059 & 0.081 & 0.113\\
-64 & C & Deterministic search & 128/128 & 0.040 & 0.055 & 0.077\\
-64 & C & Network only & 128/128 & 0.073 & 0.097 & 0.123\\
-64 & C & Learned warm start & 128/128 & 0.038 & 0.054 & 0.075\\
-64 & UMa & Subgradient baseline & 3/128 & 0.129 & 0.192 & 0.263\\
-64 & UMa & Deterministic search & 120/128 & 0.043 & 0.098 & 0.153\\
-64 & UMa & Network only & 0/128 & 0.310 & 0.379 & 0.473\\
-64 & UMa & Learned warm start & 125/128 & 0.040 & 0.092 & 0.144\\\end{longtable}\addtocounter{table}{-1}\renewcommand{\theHtable}{\arabic{table}B}\begin{longtable}{rllrrrrrr}\multicolumn{9}{l}{\textbf{B. Median stage and complete times}}\\\toprule $K$ & Profile & Method & Box & Dual & Primal & NN & GPU & All\\\midrule\endfirsthead\toprule $K$ & Profile & Method & Box & Dual & Primal & NN & GPU & All\\\midrule\endhead\bottomrule\endfoot
-32 & A & Subgradient baseline & 8.3 & 27.6 & 2.3 & 0.0 & 0.0 & 36.7\\
-32 & A & Deterministic search & 6.5 & 5.9 & 4.3 & 0.0 & 0.0 & 17.8\\
-32 & A & Network only & 7.2 & 1.4 & 0.8 & 16.8 & 11.9 & 27.1\\
-32 & A & Learned warm start & 6.4 & 8.8 & 9.6 & 16.3 & 11.9 & 42.0\\
-32 & B & Subgradient baseline & 8.2 & 51.0 & 2.5 & 0.0 & 0.0 & 72.4\\
-32 & B & Deterministic search & 6.3 & 5.9 & 4.3 & 0.0 & 0.0 & 17.3\\
-32 & B & Network only & 7.1 & 1.5 & 0.8 & 16.0 & 11.4 & 26.3\\
-32 & B & Learned warm start & 6.4 & 9.1 & 9.5 & 16.0 & 11.4 & 41.6\\
-32 & C & Subgradient baseline & 8.2 & 27.6 & 2.5 & 0.0 & 0.0 & 38.2\\
-32 & C & Deterministic search & 6.4 & 5.8 & 4.3 & 0.0 & 0.0 & 17.8\\
-32 & C & Network only & 7.2 & 1.4 & 0.8 & 17.8 & 12.2 & 28.0\\
-32 & C & Learned warm start & 6.4 & 9.1 & 9.4 & 17.8 & 12.1 & 42.7\\
-32 & UMa & Subgradient baseline & 8.4 & 88.6 & 35.5 & 0.0 & 0.0 & 136.7\\
-32 & UMa & Deterministic search & 6.6 & 6.8 & 4.4 & 0.0 & 0.0 & 18.9\\
-32 & UMa & Network only & 7.3 & 1.8 & 0.8 & 17.5 & 12.2 & 27.6\\
-32 & UMa & Learned warm start & 6.6 & 10.5 & 9.5 & 17.0 & 11.9 & 44.3\\
-64 & A & Subgradient baseline & 61.4 & 214.4 & 4.3 & 0.0 & 0.0 & 324.4\\
-64 & A & Deterministic search & 50.2 & 13.5 & 9.4 & 0.0 & 0.0 & 76.2\\
-64 & A & Network only & 55.2 & 3.8 & 1.1 & 78.2 & 63.1 & 142.2\\
-64 & A & Learned warm start & 50.4 & 22.0 & 20.3 & 78.2 & 63.0 & 174.3\\
-64 & B & Subgradient baseline & 60.8 & 428.9 & 193.8 & 0.0 & 0.0 & 720.9\\
-64 & B & Deterministic search & 49.8 & 14.0 & 9.3 & 0.0 & 0.0 & 75.9\\
-64 & B & Network only & 55.2 & 3.9 & 1.1 & 78.6 & 63.1 & 142.6\\
-64 & B & Learned warm start & 49.3 & 22.0 & 20.4 & 77.8 & 63.0 & 172.8\\
-64 & C & Subgradient baseline & 62.4 & 421.8 & 89.9 & 0.0 & 0.0 & 559.4\\
-64 & C & Deterministic search & 52.1 & 15.1 & 9.5 & 0.0 & 0.0 & 80.7\\
-64 & C & Network only & 55.7 & 3.9 & 1.0 & 78.0 & 63.1 & 142.5\\
-64 & C & Learned warm start & 49.4 & 24.6 & 19.7 & 78.1 & 63.0 & 175.4\\
-64 & UMa & Subgradient baseline & 62.2 & 969.9 & 325.6 & 0.0 & 0.0 & 1354.2\\
-64 & UMa & Deterministic search & 50.5 & 19.3 & 9.3 & 0.0 & 0.0 & 82.2\\
-64 & UMa & Network only & 55.6 & 5.1 & 1.1 & 78.9 & 63.2 & 144.5\\
-64 & UMa & Learned warm start & 50.1 & 30.4 & 19.8 & 78.8 & 63.1 & 184.0\\\end{longtable}\endgroup
+\begin{longtable}{lrlrrrr}\caption{Native 10-dB primary results by profile. Panel A gives gap quantiles (bit/s/Hz) and joint passes; Panel B gives median stage times (ms). GPU time is included in host prediction time.}\label{supp:table3}\\
+\toprule Method & $K$ & Profile & Pass & p05 & p50 & p95\\\midrule\endfirsthead\toprule Method & $K$ & Profile & Pass & p05 & p50 & p95\\\midrule\endhead\bottomrule\endfoot
+Subgradient baseline & 32 & A & 101/128 & 0.071 & 0.121 & 0.179\\
+Deterministic search & 32 & A & 126/128 & 0.037 & 0.077 & 0.117\\
+Network only & 32 & A & 74/128 & 0.088 & 0.145 & 0.198\\
+Learned warm start & 32 & A & 128/128 & 0.030 & 0.070 & 0.110\\
+Subgradient baseline & 32 & B & 119/128 & 0.059 & 0.102 & 0.145\\
+Deterministic search & 32 & B & 128/128 & 0.022 & 0.055 & 0.091\\
+Network only & 32 & B & 104/128 & 0.074 & 0.119 & 0.186\\
+Learned warm start & 32 & B & 128/128 & 0.017 & 0.051 & 0.085\\
+Subgradient baseline & 32 & C & 127/128 & 0.040 & 0.079 & 0.117\\
+Deterministic search & 32 & C & 128/128 & 0.024 & 0.050 & 0.078\\
+Network only & 32 & C & 125/128 & 0.059 & 0.095 & 0.146\\
+Learned warm start & 32 & C & 128/128 & 0.023 & 0.046 & 0.073\\
+Subgradient baseline & 32 & UMa & 12/128 & 0.113 & 0.205 & 0.377\\
+Deterministic search & 32 & UMa & 124/128 & 0.008 & 0.074 & 0.139\\
+Network only & 32 & UMa & 0/128 & 0.270 & 0.399 & 0.552\\
+Learned warm start & 32 & UMa & 128/128 & 0.003 & 0.062 & 0.129\\
+Subgradient baseline & 64 & A & 97/128 & 0.084 & 0.121 & 0.162\\
+Deterministic search & 64 & A & 128/128 & 0.046 & 0.084 & 0.109\\
+Network only & 64 & A & 85/128 & 0.103 & 0.139 & 0.182\\
+Learned warm start & 64 & A & 128/128 & 0.046 & 0.078 & 0.098\\
+Subgradient baseline & 64 & B & 96/128 & 0.065 & 0.093 & 0.130\\
+Deterministic search & 64 & B & 128/128 & 0.032 & 0.053 & 0.073\\
+Network only & 64 & B & 127/128 & 0.079 & 0.109 & 0.138\\
+Learned warm start & 64 & B & 128/128 & 0.031 & 0.050 & 0.073\\
+Subgradient baseline & 64 & C & 98/128 & 0.059 & 0.081 & 0.113\\
+Deterministic search & 64 & C & 128/128 & 0.040 & 0.055 & 0.077\\
+Network only & 64 & C & 128/128 & 0.073 & 0.097 & 0.123\\
+Learned warm start & 64 & C & 128/128 & 0.038 & 0.054 & 0.075\\
+Subgradient baseline & 64 & UMa & 3/128 & 0.129 & 0.192 & 0.263\\
+Deterministic search & 64 & UMa & 120/128 & 0.043 & 0.098 & 0.153\\
+Network only & 64 & UMa & 0/128 & 0.310 & 0.379 & 0.473\\
+Learned warm start & 64 & UMa & 125/128 & 0.040 & 0.092 & 0.144\\\end{longtable}\addtocounter{table}{-1}\renewcommand{\theHtable}{\arabic{table}B}\begin{longtable}{lrlrrrrrr}\multicolumn{9}{l}{\textbf{B. Median stage and complete times}}\\\toprule Method & $K$ & Profile & Box & Dual & Primal & NN & GPU & All\\\midrule\endfirsthead\toprule Method & $K$ & Profile & Box & Dual & Primal & NN & GPU & All\\\midrule\endhead\bottomrule\endfoot
+Subgradient baseline & 32 & A & 8.3 & 27.6 & 2.3 & 0.0 & 0.0 & 36.7\\
+Deterministic search & 32 & A & 6.5 & 5.9 & 4.3 & 0.0 & 0.0 & 17.8\\
+Network only & 32 & A & 7.2 & 1.4 & 0.8 & 16.8 & 11.9 & 27.1\\
+Learned warm start & 32 & A & 6.4 & 8.8 & 9.6 & 16.3 & 11.9 & 42.0\\
+Subgradient baseline & 32 & B & 8.2 & 51.0 & 2.5 & 0.0 & 0.0 & 72.4\\
+Deterministic search & 32 & B & 6.3 & 5.9 & 4.3 & 0.0 & 0.0 & 17.3\\
+Network only & 32 & B & 7.1 & 1.5 & 0.8 & 16.0 & 11.4 & 26.3\\
+Learned warm start & 32 & B & 6.4 & 9.1 & 9.5 & 16.0 & 11.4 & 41.6\\
+Subgradient baseline & 32 & C & 8.2 & 27.6 & 2.5 & 0.0 & 0.0 & 38.2\\
+Deterministic search & 32 & C & 6.4 & 5.8 & 4.3 & 0.0 & 0.0 & 17.8\\
+Network only & 32 & C & 7.2 & 1.4 & 0.8 & 17.8 & 12.2 & 28.0\\
+Learned warm start & 32 & C & 6.4 & 9.1 & 9.4 & 17.8 & 12.1 & 42.7\\
+Subgradient baseline & 32 & UMa & 8.4 & 88.6 & 35.5 & 0.0 & 0.0 & 136.7\\
+Deterministic search & 32 & UMa & 6.6 & 6.8 & 4.4 & 0.0 & 0.0 & 18.9\\
+Network only & 32 & UMa & 7.3 & 1.8 & 0.8 & 17.5 & 12.2 & 27.6\\
+Learned warm start & 32 & UMa & 6.6 & 10.5 & 9.5 & 17.0 & 11.9 & 44.3\\
+Subgradient baseline & 64 & A & 61.4 & 214.4 & 4.3 & 0.0 & 0.0 & 324.4\\
+Deterministic search & 64 & A & 50.2 & 13.5 & 9.4 & 0.0 & 0.0 & 76.2\\
+Network only & 64 & A & 55.2 & 3.8 & 1.1 & 78.2 & 63.1 & 142.2\\
+Learned warm start & 64 & A & 50.4 & 22.0 & 20.3 & 78.2 & 63.0 & 174.3\\
+Subgradient baseline & 64 & B & 60.8 & 428.9 & 193.8 & 0.0 & 0.0 & 720.9\\
+Deterministic search & 64 & B & 49.8 & 14.0 & 9.3 & 0.0 & 0.0 & 75.9\\
+Network only & 64 & B & 55.2 & 3.9 & 1.1 & 78.6 & 63.1 & 142.6\\
+Learned warm start & 64 & B & 49.3 & 22.0 & 20.4 & 77.8 & 63.0 & 172.8\\
+Subgradient baseline & 64 & C & 62.4 & 421.8 & 89.9 & 0.0 & 0.0 & 559.4\\
+Deterministic search & 64 & C & 52.1 & 15.1 & 9.5 & 0.0 & 0.0 & 80.7\\
+Network only & 64 & C & 55.7 & 3.9 & 1.0 & 78.0 & 63.1 & 142.5\\
+Learned warm start & 64 & C & 49.4 & 24.6 & 19.7 & 78.1 & 63.0 & 175.4\\
+Subgradient baseline & 64 & UMa & 62.2 & 969.9 & 325.6 & 0.0 & 0.0 & 1354.2\\
+Deterministic search & 64 & UMa & 50.5 & 19.3 & 9.3 & 0.0 & 0.0 & 82.2\\
+Network only & 64 & UMa & 55.6 & 5.1 & 1.1 & 78.9 & 63.2 & 144.5\\
+Learned warm start & 64 & UMa & 50.1 & 30.4 & 19.8 & 78.8 & 63.1 & 184.0\\\end{longtable}\endgroup
 \begin{table}[htbp]\centering\small
 \caption{Frozen seed selection and post-freeze component swaps. Validation scores average four gap cutoffs fixed before test evaluation. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}
 \begin{tabular}{rrrrrr}\toprule Seed & Score & Median gap & Median ms & Final loss & Train s\\\midrule
@@ -966,7 +968,7 @@ Entries refined & Entries changed & Scheduled in shortlist & Median $G$ & Median
 4 & Mean & 1.056186 & [0.90425, 0.90425] & [0.15193, 0.15193] & 9.55e-07\\
 4 & Median & 1.118458 & [0.94817, 0.94817] & [0.16614, 0.16614] & 9.9e-07\\
 \bottomrule\end{tabular}\par\smallskip
-The width sweep partitions every chosen rectangle into 16 children. No upper-table tick changes on any tile at any budget: the child mixed signal/interference bounds remain above the parent tangent/box bound. The action has 16 scheduled entries; the shortlist column gives their minimum/median/maximum counts in the refined set. The depth sweep instead refines these 16 entries into 16, 64 or 256 children while keeping the original action, powers and tone/power prices fixed. Matching upper witnesses and the four-term identity are rebuilt and checked. Small references use the nested first two/four users of all 64 O1 tiles with the original channel normalization. Two-user roots are exact to their reported outward numerical enclosures; four-user complete labelled enumeration uses validated continuous Taylor/box bounds to $10^{-6}$ bit/s/Hz. All rates are bit/s/Hz; different $K$ have different feasible problems.
+The width sweep partitions every chosen rectangle into 16 children. No upper-table tick changes at any budget. Direct comparison of all 507,904 entries across the 64 tiles confirms that each parent concave-log tangent bound is below both its box bound and its maximum child mixed bound; the tangent remains binding across all four width budgets. The action has 16 scheduled entries; the shortlist column gives their minimum/median/maximum counts in the refined set. The depth sweep refines these entries into 16, 64 or 256 children with the original action, powers and tone/power prices fixed. Matching witnesses and the four-term identity are rebuilt and checked. Small references use the nested first two and four users of all 64 O1 tiles with the original channel normalization. Two-user roots have outward numerical enclosures; four-user complete labelled enumeration uses validated continuous Taylor/box bounds to $10^{-6}$ bit/s/Hz. Rates are bit/s/Hz; different $K$ have different feasible problems.
 \end{minipage}
 \end{table}
 
@@ -1191,11 +1193,52 @@ Median paired floor / later rate (\%) & 17.15 & 27.51 & 6.76 & 24.46\\
 Projected floor coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
 Combined interval coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
 Joint residual-event coverage (\%) & 97.40 & 98.08 & 70.26 & 75.74\\
+\multicolumn{5}{l}{\textit{Test-frame noise-scale diagnostics (pooled entries)}}\\
+Mean early channel power & 1256.871 & 1256.871 & 1074.461 & 1074.461\\
+Mean difference power & 18.398 & 12.249 & 121.622 & 43.954\\
+Median difference power & 3.537 & 2.907 & 18.558 & 8.394\\
+Relative mean difference power (dB) & -18.345 & -20.112 & -9.462 & -13.882\\
+Single magnitude residual: median & 4.335 & 4.335 & 6.283 & 6.283\\
+Single magnitude residual: 97.5th percentile & 30.489 & 30.489 & 35.521 & 35.521\\
 \bottomrule\end{tabular}
 \par\medskip\begin{minipage}{\linewidth}\small
-The phase score uses projection-magnitude differences for $L_P$ and optimally phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$. The floor percentage is the median of paired $100L_P/R_{\rm later}$ ratios, not the ratio of marginal medians. Exhaustive fixed-equal-power enumeration on all eligible early frames gives median early-ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz; this is a discrete reference, not a continuous-power optimum. LO fails nominal 95\% joint coverage under both scores. Its rate floors hold through slack, even where the residual events fail.
+The phase score uses projection-magnitude differences for $L_P$ and phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$; floor percentages are medians of paired $100L_P/R_{\rm later}$ ratios. Difference powers pool frames, users, retained streams and tones; ratios divide their mean by mean early power. Independent unit-variance pilot noise predicts raw mean power two. The single magnitude residual is phase invariant, so its quantiles repeat across raw/phase columns; it pools the 12 scheduled projections per test frame before maximization. Note~6 defines the normalization and its limits. Exhaustive fixed-equal-power early schedules give median ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz, a discrete reference. LO fails nominal 95\% joint coverage under both scores; its rate floors hold through slack.
 \end{minipage}
 \end{table}
+
+\paragraph{Noise scale of the stored pilot differences.}
+We pooled the 1,614 HUB and 1,513 LO test frames, six users, 64 and 63
+retained streams, respectively, and three tones. This gives 1,859,328 HUB
+and 1,715,742 LO complex entries. For each user, frame and tone we aligned
+the later vector using
+\(\theta^*=\arg\sum_a h^{(0)*}_a h^{(1)}_a\).
+We summarized both \(|h^{(1)}-h^{(0)}|^2\) and
+\(|e^{-\mathrm{i}\theta^*}h^{(1)}-h^{(0)}|^2\), with equal weight per entry.
+Their pooled means and medians, and
+\(10\log_{10}(\operatorname{mean}|\Delta h|^2/
+\operatorname{mean}|h^{(0)}|^2)\), appear in Supplementary Table~13.
+The denominator is a pooled mean, not a mean of individual ratios.
+Stream-by-tone summaries and frame-level means accompany the Source Data.
+Projection quantiles pool 19,368 HUB and 18,156 LO individual terms
+\(\big||d^Hh^{(1)}|-|d^Hh^{(0)}|\big|\), for unit-norm stored filters,
+before the 12-term frame maximum. Reconstructed maxima agree with every
+archived phase-invariant test score; both input digests match the original replay.
+
+The raw mean powers, 18.398 and 121.622, exceed the independent unit-variance
+pilot-noise prediction of two; phase alignment reduces them to 12.249 and
+43.954, respectively. Mean early powers are 1,256.871 and 1,074.461 in
+quiet-slot whitened units, so aligned mean relative errors of $-20.112$ and
+$-13.882$ dB can coexist with large absolute projection residuals. These are
+descriptive pilot-to-pilot ratios, not measurements of transmitter EVM.
+Signal-dependent distortion, synchronization jitter, multipath leakage
+between extraction windows, correlated errors, or a quiet-slot variance
+that understates pilot-period noise could contribute. Stored channel pairs
+do not separate these mechanisms or identify active-period noise variance.
+Consequently, these hardware rates are conditional on the frozen quiet-slot
+noise metric. If that metric understates active-period noise and distortion,
+rates may be optimistic; gaps, pass fractions and floor ratios must then be
+recomputed with the appropriate model. The present diagnostic does not
+establish a correction factor or an unconditional upper bound on physical rates.
 
 
 

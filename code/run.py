@@ -60,7 +60,7 @@ def run(script,args=(),cwd=None):
 
 def main():
     tasks=['verify-math','verify-records','verify-inputs','prepare','figures','supplementary-figures','reviewer-rates','reviewer-decomposition','reviewer-refinement','reviewer-compute','hardware-decode','hardware-evaluate','round2-summary','round2-time-pilot','round2-time-control','round2-refinement','round2-small-reference','round2-hardware','build-paper','build-supplement','build-response','build-diffs','build-native','verify-scheduler','generate-training','train','confirmatory-test','summarize']
-    tasks.append('round2-check')
+    tasks.extend(['round2-check', 'round3-hardware', 'round3-bounds'])
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('task',choices=tasks)
     parser.add_argument('--mode',choices=['HUB','LO'])
@@ -94,9 +94,17 @@ def main():
             if not a.tectonic or not a.latexdiff:parser.error('build-diffs requires --tectonic and --latexdiff')
             arguments+=['--perl',a.perl,'--latexdiff',a.latexdiff]
         run(CODE/'document_tools'/('build_response.py' if a.task=='build-response' else 'build_diffs.py'),arguments);return
-    if (a.task.startswith('hardware-') or a.task=='round2-hardware') and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
+    if (a.task.startswith('hardware-') or a.task in ('round2-hardware','round3-hardware')) and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
     prepare()
     if a.task=='prepare':return
+    if a.task.startswith('round3-'):
+        run(WORK/'Gate_4/revision/round3_diagnostics.py',[a.mode if a.task=='round3-hardware' else 'bounds'],WORK)
+        run(WORK/'Gate_4/revision/round2_tables.py',cwd=WORK)
+        dest=ROOT/'results/round3';dest.mkdir(parents=True,exist_ok=True)
+        for path in (WORK/'Gate_4/revision/round3_data').glob('*'):
+            if path.suffix in {'.csv','.json'}:shutil.copy2(path,dest/path.name)
+        print('Third-round scalar diagnostics:',dest)
+        return
     if a.task=='round2-check':run(WORK/'Gate_4/revision/round2_oracle.py',cwd=WORK);return
     research={'build-native':('Gate_2B/build_native.py',[]),'verify-scheduler':('Gate_2B/verify.py',[]),'generate-training':('Gate_2/generate_native.py',['fit','val','cal64']),'train':('Gate_2B/learn.py',['train']),'confirmatory-test':('Gate_2B/campaign.py',['final','test'])}
     if a.task in research:

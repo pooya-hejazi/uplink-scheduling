@@ -1,23 +1,27 @@
-# Final verification — 14 November 2026
+# Final verification — third revision, 14 November 2026
 
-Target: **Nature Computational Science**, traditional subscription publishing preference. The official Article limits were checked at https://www.nature.com/natcomputsci/content. The authors chose the 3,500-word ceiling rather than the longer target in the editorial attachment.
+Target: Nature Computational Science; traditional subscription preference. The author's 3,500-word main-body limit remains in force.
 
 | Check | Result |
 |---|---|
-| Main body / Abstract | 3,410 / 136 whitespace-delimited words; main count excludes Abstract, Methods, references and legends and conservatively includes TeX notation |
-| Current PDFs | Article 32 pages; Supplementary Information 34; response 8; cover letter 1 |
-| Marked PDFs | Article 36 pages; Supplementary Information 37; baseline source/image hashes verified against commit f7adc44d04b660d07ab3c7faadb4f432e26f5b66 |
-| Displays / references | Six main figures; seven supplementary notes; sixteen supplementary tables; eight supplementary figures; all 51 references retained |
-| Unfilled TeX markers | No active `\todo` marker in current Article or Supplementary Information |
-| Scientific consistency | Edition checker passed, including all 6,144 time-control calls, paired counts, new hardware calibration and 128 resolved O1 small references |
-| Original numerical records | All 591 first-round numerical files remain byte-identical; original confirmatory input archives retain their hashes |
-| Reproduction entry point | Mathematical fixtures, archived-record verification, second-round summaries, main figures, O1 reference self-checks and Article/SI/response builds succeeded through code/run.py |
-| Visual layout | Main figures and selected full-size pages inspected; Tables 3, 7, 8, 10 and 13 align; Table 16 label, Supplementary Fig. 4c and six-user fixture spacing checked |
-| Clean final TeX builds | No undefined references, missing glyphs or overfull boxes in Article, SI, response or cover letter; ordinary underfull spacing warnings remain |
-| Referee response | R1–R6 and Minor 1–13 quoted exactly in the response data; locations are printed PDF margin numbers, with an Article hash and anchor map |
-| Reviewer candidates | Six complementary candidates; current affiliations/contacts verified from primary sources, with authors' private conflict checks still required before nomination |
-| DOI | Author-directed deferral until acceptance; complete offline deposit stays private, no external record or DOI created |
+| Word counts | Main body 3,487; Abstract 133; Online Methods 4,767. Conservative whitespace count includes TeX notation; main body excludes Abstract, Methods, references and legends. |
+| Current PDFs | Article 29 pages; Supplementary Information 34; response 4; Cover Letter 1. |
+| Marked PDFs | Article 32 pages; supplement 37. Exact preceding round-two baseline: 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Baseline sources and figure hashes supplied. |
+| Scientific displays | Six main figures; seven supplementary notes; sixteen supplementary tables; eight supplementary figures; 51 references. |
+| New hardware check | Original 1,614 HUB and 1,513 LO test frames; every input digest and phase-score maximum authenticated. Pooled, frame-level and stream-by-tone scalar results retained. |
+| O1 binding check | Tangent strictly binding in all 507,904 entries; no box wins or ties; all maximum child bounds exceed the tangent. Original integer tables reproduced. |
+| Original records | All 591 first-round numerical files retain their SHA-256 digests. No confirmatory inputs or results changed. |
+| Entry-point execution | verify-math, verify-records, round2-summary, round3-bounds and both round3-hardware modes passed through code/run.py. All new diagnostic output bytes match the canonical calculations. Article, SI, response and marked-PDF builds also passed through code/run.py. |
+| Scientific edition check | Existing mathematical/claim/record checks plus the new noise-scale aggregation and binding-bound checks passed. |
+| Archive integrity | Source Data: 33 members; Supplementary Software: 1,647 members. ZIP checks, external digests and every internal software SHA-256 passed. |
+| Visual review | Main Abstract and revised Results/Discussion/disclosure; SI Tables 3 (both panels), 7, 8, 9, 10 and 13; new Note 6; response and Cover Letter inspected. Reordered marked tables show full previous/revised versions with correct numbering. |
+| TeX output | All six delivered PDFs compile without undefined references, missing glyphs or overfull boxes. Ordinary underfull spacing warnings remain. |
+| Response | All T1–T5 sections quoted exactly; Article locations use the printed margin ruler and are bound to the final PDF hash. |
+| Sionna provenance | Frozen source explicitly sets spec_version='19.2'; documented release 2.2.0 agrees with official versioned API. The generation log has no package-version banner, so patch-version runtime attestation remains unavailable. See software_version_verification.json. |
+| DOI | Author-directed deferral until acceptance. Complete private offline package; no DOI or public archival record created. |
 
-The 51-reference total preserves the requested citations; the journal describes 50 as a guideline. The existing sn-jnl class is retained, the introduction heading is omitted in the submission PDF, and Methods is headed Online Methods. Secondary technical details were moved to Methods without deleting scientific results.
+The nine listed 2026 journal references retain their publisher-deposited DOI verification records from 14 November 2026; the 3GPP reference was checked against ETSI. The journal's 50-reference recommendation is a guideline; all 51 requested references are retained.
 
-The scientific conclusions remain bounded by the stated model and evidence: no significant learning benefit over the paired compute controls; unresolved analytic reference tails at four to eight users; exact small O1 results do not resolve the 32-user optimum; and LO phase-invariant residual coverage remains below nominal. No journal submission or reviewer invitation has been made. Raw Rice recordings and reconstructed complex measurement channels are excluded from distributable files.
+The new noise-scale check is exploratory. It rules out the simple independent unit-pilot-noise explanation for the observed mean residual power, but does not identify active-period noise variance, a correction factor or a causal physical impairment. Rate interpretation remains conditional on the frozen quiet-slot noise metric. Original simulations and model training were not rerun for this editorial revision.
+
+Confidential companion manuscripts and the Cover Letter remain in the local editorial_only package, outside GitHub. They are prepared for the editor to forward to referees; no journal submission or reviewer invitation has occurred. Final human author review of submission declarations and private reviewer conflicts remains necessary before submission.

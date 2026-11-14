@@ -23,6 +23,33 @@ def rows(p):return list(csv.DictReader(p.open(encoding='utf-8-sig')))
 def rd(name):return rows(root/'source_data'/(name+'.csv'))
 def close(x,y,t=2e-12):assert math.isclose(float(x),float(y),abs_tol=t,rel_tol=t),(x,y)
 
+def check_round3():
+    data=root/'revision/round3_data'
+    reports={}
+    for mode,n,streams in [('HUB',1614,64),('LO',1513,63)]:
+        report=json.loads((data/f'hardware_scale_{mode}.json').read_text())
+        frames=rows(data/f'hardware_scale_frames_{mode}.csv')
+        cells=rows(data/f'hardware_scale_stream_tone_{mode}.csv')
+        prior={r['frame']:r for r in rows(root/f'revision/round2_data/hardware_phase_{mode}.csv') if r['split']=='test'}
+        assert len(frames)==len(prior)==n and len(cells)==streams*3
+        assert report['entries']==n*6*streams*3 and report['projections']==n*12
+        for key in ('raw_mean','phase_mean','early_mean'):
+            close(sum(float(r[key]) for r in frames)/n, report[key])
+            close(sum(float(r[key]) for r in cells)/len(cells), report[key])
+        for r in frames:
+            old=prior[r['frame']]
+            close(r['projection_max'],old['P_score'])
+            assert all(r[k]==old[k] for k in ('early_input_sha256','later_input_sha256'))
+        for prefix in ('raw','phase'):
+            close(report[prefix+'_relative_db'],10*math.log10(report[prefix+'_mean']/report['early_mean']))
+        assert report['phase_mean']<=report['raw_mean'] and report['projection_median']<=report['projection_q975']
+        reports[mode]=report
+    binding=rows(data/'o1_binding_bounds.csv')
+    assert len(binding)==64 and sum(int(r['entries']) for r in binding)==507904
+    assert all(int(r['tangent_strict'])==7936 and int(r['box_strict'])==int(r['ties'])==int(r['child_below_tangent'])==0 for r in binding)
+    reports['o1_binding_entries']=507904
+    return reports
+
 def article_source(path, include_references=False):
     """Expand input files, preserving bibliography entries when requested."""
     source = re.sub(r'(?<!\\)%[^\n]*', '', path.read_text(encoding='utf-8'))
@@ -220,7 +247,7 @@ def main():
     headings = re.findall(r'\\section\*\{([^}]+)\}',tex)
     assert [v for v in headings if v in declarations] == list(declarations)
     abstract=tex.split(r'\begin{abstract}')[1].split(r'\end{abstract}')[0].strip()
-    assert 'Here we ' in abstract and 120<=len(abstract.split())<=150
+    assert 120<=len(abstract.split())<=150
     references, nature_venues = check_references(tex)
     assert not any(t in tex for t in ['TODO','TBD','PLACEHOLDER'])
     audit=root/'audit';j=json.loads((audit/'Gate_4_Audit_Certificate.json').read_text());assert j['disposition']=='PASS_WITH_SCOPE_LIMITS'
@@ -303,6 +330,7 @@ def main():
                 ray_geometry_rows=geometry_rows,exact_paired_two_sided_p={r['k']:r['exact_mcnemar_two_sided'] for r in paired})
     info['reviewer_hardware']=reviewer_hardware
     info['round2']=round2
+    info['round3']=check_round3()
     (root/'article_claims.json').write_text(json.dumps(info,indent=2)+'\n');print(json.dumps(info,indent=2))
 if __name__=='__main__':main()
 

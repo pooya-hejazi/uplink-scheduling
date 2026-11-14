@@ -1,101 +1,45 @@
 {
-  "pdf_sha256": "1c2b7750b328bedfdb3a2838d8e63526d4b548a4d1816441f014929217cb49b6",
+  "pdf_sha256": "9de9bf0e55567bec40aba314ff1cbb827c23d40a3ed6fa4cd118e6c62018a35d",
   "locations": {
     "abstract": {
       "page_start": 1,
       "page_end": 1,
       "line_start": 21,
-      "line_end": 34,
-      "anchor_start": "Certifying a decision in coupled",
-      "anchor_end": "decisions themselves"
+      "line_end": 33,
+      "anchor_start": "Certifying coupled discrete",
+      "anchor_end": "coverage remains below nominal"
     },
-    "primary": {
-      "page_start": 4,
-      "page_end": 5,
-      "line_start": 179,
-      "line_end": 197,
-      "anchor_start": "We first asked how tightly",
-      "anchor_end": "sensitivity grid"
+    "noise": {
+      "page_start": 7,
+      "page_end": 8,
+      "line_start": 321,
+      "line_end": 327,
+      "anchor_start": "Mean per-entry difference powers",
+      "anchor_end": "these stored pairs cannot distinguish them"
     },
-    "rates": {
-      "page_start": 5,
-      "page_end": 5,
-      "line_start": 198,
-      "line_end": 209,
-      "anchor_start": "Simple matching already delivered high rates",
-      "anchor_end": "at these two sizes"
-    },
-    "learning": {
-      "page_start": 5,
-      "page_end": 6,
-      "line_start": 210,
-      "line_end": 237,
-      "anchor_start": "A three-layer message-passing network",
-      "anchor_end": "the smaller median gap at 64 users"
-    },
-    "iteration": {
-      "page_start": 5,
-      "page_end": 5,
-      "line_start": 217,
-      "line_end": 227,
-      "anchor_start": "To distinguish learned initialization",
-      "anchor_end": "15.4897 bit/s/Hz"
-    },
-    "time_budget": {
-      "page_start": 5,
-      "page_end": 6,
-      "line_start": 228,
-      "line_end": 237,
-      "anchor_start": "A separate timing-only pilot",
-      "anchor_end": "the smaller median gap at 64 users"
-    },
-    "decomposition": {
-      "page_start": 6,
-      "page_end": 6,
-      "line_start": 242,
-      "line_end": 253,
-      "anchor_start": "How much of the remaining interval",
-      "anchor_end": "not a measured physical rate loss"
+    "limitation": {
+      "page_start": 8,
+      "page_end": 8,
+      "line_start": 355,
+      "line_end": 357,
+      "anchor_start": "If quiet-slot variance understates",
+      "anchor_end": "appropriate noise model"
     },
     "o1": {
       "page_start": 6,
       "page_end": 6,
-      "line_start": 254,
-      "line_end": 274,
-      "anchor_start": "Propagation geometry also changes tightness",
-      "anchor_end": "exact 32-user decomposition"
+      "line_start": 256,
+      "line_end": 265,
+      "anchor_start": "Refining all 16 scheduled entries",
+      "anchor_end": "They do not establish the exact 32-user decomposition"
     },
-    "hardware": {
-      "page_start": 7,
-      "page_end": 8,
-      "line_start": 289,
-      "line_end": 330,
-      "anchor_start": "Six-user Rice RENEW recordings",
-      "anchor_end": "transport from the early pilot to the later observation"
-    },
-    "raw_calibration": {
-      "page_start": 7,
-      "page_end": 7,
-      "line_start": 303,
-      "line_end": 313,
-      "anchor_start": "We asked whether removing phase sensitivity",
-      "anchor_end": "the rate floors held through slack"
-    },
-    "phase": {
-      "page_start": 7,
-      "page_end": 8,
-      "line_start": 313,
-      "line_end": 330,
-      "anchor_start": "Median absolute phase rotations",
-      "anchor_end": "transport from the early pilot to the later observation"
-    },
-    "discussion": {
-      "page_start": 8,
-      "page_end": 8,
-      "line_start": 338,
-      "line_end": 362,
-      "anchor_start": "The central computational contribution",
-      "anchor_end": "independent acquisitions to establish reproducibility"
+    "protocol": {
+      "page_start": 18,
+      "page_end": 18,
+      "line_start": 814,
+      "line_end": 826,
+      "anchor_start": "The configuration was fixed before",
+      "anchor_end": "not capped identically on each topology"
     },
     "sionna": {
       "page_start": 15,
@@ -105,53 +49,29 @@
       "anchor_start": "The native experiments used Sionna",
       "anchor_end": "parameter tables"
     },
-    "protocol": {
-      "page_start": 18,
-      "page_end": 18,
-      "line_start": 814,
-      "line_end": 824,
-      "anchor_start": "The configuration was fixed before",
-      "anchor_end": "capped identically on each topology"
-    },
-    "ai": {
-      "page_start": 21,
-      "page_end": 21,
-      "line_start": 962,
-      "line_end": 966,
-      "anchor_start": "The authors used GPT Astra",
-      "anchor_end": "remains with the authors"
+    "methods": {
+      "page_start": 13,
+      "page_end": 13,
+      "line_start": 553,
+      "line_end": 592,
+      "anchor_start": "Building and checking the interval",
+      "anchor_end": "integer decomposition numerators"
     },
     "availability": {
-      "page_start": 22,
-      "page_end": 22,
-      "line_start": 967,
-      "line_end": 990,
+      "page_start": 19,
+      "page_end": 20,
+      "line_start": 857,
+      "line_end": 882,
       "anchor_start": "Data availability",
       "anchor_end": "Matching uses the LEMON graph library"
     },
-    "fig4": {
-      "page_start": 30,
-      "page_end": 30,
-      "line_start": 1365,
-      "line_end": 1372,
-      "anchor_start": "Certified gaps and decision times across price-search strategies",
-      "anchor_end": "separate from panels"
-    },
-    "fig5": {
-      "page_start": 31,
-      "page_end": 31,
-      "line_start": 1411,
-      "line_end": 1419,
-      "anchor_start": "Achieved rates, remaining optimality uncertainty",
-      "anchor_end": "grey cells are unaffordable"
-    },
-    "fig6": {
-      "page_start": 32,
-      "page_end": 32,
-      "line_start": 1456,
-      "line_end": 1465,
-      "anchor_start": "Early-input certificates and chronological calibration",
-      "anchor_end": "paired widths and floor fractions"
+    "disclosure": {
+      "page_start": 19,
+      "page_end": 19,
+      "line_start": 852,
+      "line_end": 856,
+      "anchor_start": "Large language models",
+      "anchor_end": "responsibility for the final content"
     }
   },
   "convention": "Inclusive printed margin-ruler lines bracketing the identified text; not LaTeX source lines."

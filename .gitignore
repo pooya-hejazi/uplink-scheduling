@@ -13,3 +13,4 @@ __pycache__/
 *.iq
 **/rice_private/
 **/private/
+**/diff_input_*.tex

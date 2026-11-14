@@ -300,11 +300,11 @@ def write_note(summary, seeds, swaps, complete, transition, ledger):
             f"{r.enclosure_ms_p50:.1f}",f"{r.dual_ms_p50:.1f}",f"{r.primal_ms_p50:.1f}",
             f"{r.neural_ms_p50:.1f}",f"{r.gpu_ms_p50:.1f}",f"{r.total_ms_p50:.1f}"])
     s3 = r"\begingroup\small\setlength{\tabcolsep}{4pt}"+'\n'
-    s3 += r"\begin{longtable}{rllrrrr}\caption{Native 10-dB primary results by profile. Panel A gives gap quantiles (bit/s/Hz) and joint passes; Panel B gives median stage times (ms). GPU time is included in host prediction time.}\label{supp:table3}\\"+'\n'
-    s3 += r"\toprule $K$ & Profile & Method & Pass & p05 & p50 & p95\\\midrule\endfirsthead\toprule $K$ & Profile & Method & Pass & p05 & p50 & p95\\\midrule\endhead\bottomrule\endfoot"+'\n'
-    s3 += '\n'.join(' & '.join(map(str,r[:7]))+r'\\' for r in gap_rows)
-    s3 += r"\end{longtable}\addtocounter{table}{-1}\renewcommand{\theHtable}{\arabic{table}B}\begin{longtable}{rllrrrrrr}\multicolumn{9}{l}{\textbf{B. Median stage and complete times}}\\\toprule $K$ & Profile & Method & Box & Dual & Primal & NN & GPU & All\\\midrule\endfirsthead\toprule $K$ & Profile & Method & Box & Dual & Primal & NN & GPU & All\\\midrule\endhead\bottomrule\endfoot"+'\n'
-    s3 += '\n'.join(' & '.join(map(str,r))+r'\\' for r in stage_rows)
+    s3 += r"\begin{longtable}{lrlrrrr}\caption{Native 10-dB primary results by profile. Panel A gives gap quantiles (bit/s/Hz) and joint passes; Panel B gives median stage times (ms). GPU time is included in host prediction time.}\label{supp:table3}\\"+'\n'
+    s3 += r"\toprule Method & $K$ & Profile & Pass & p05 & p50 & p95\\\midrule\endfirsthead\toprule Method & $K$ & Profile & Pass & p05 & p50 & p95\\\midrule\endhead\bottomrule\endfoot"+'\n'
+    s3 += '\n'.join(' & '.join(map(str,[r[2],r[0],r[1],*r[3:7]]))+r'\\' for r in gap_rows)
+    s3 += r"\end{longtable}\addtocounter{table}{-1}\renewcommand{\theHtable}{\arabic{table}B}\begin{longtable}{lrlrrrrrr}\multicolumn{9}{l}{\textbf{B. Median stage and complete times}}\\\toprule Method & $K$ & Profile & Box & Dual & Primal & NN & GPU & All\\\midrule\endfirsthead\toprule Method & $K$ & Profile & Box & Dual & Primal & NN & GPU & All\\\midrule\endhead\bottomrule\endfoot"+'\n'
+    s3 += '\n'.join(' & '.join(map(str,[r[2],r[0],r[1],*r[3:]]))+r'\\' for r in stage_rows)
     s3 += r"\end{longtable}\endgroup"+'\n'
     s4 = r"\begin{table}[htbp]\centering\small" + "\n" + r"\caption{Frozen seed selection and post-freeze component swaps. Validation scores average four prespecified gap cutoffs. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}" + "\n"
     s4 += r"\begin{tabular}{rrrrrr}\toprule Seed & Score & Median gap & Median ms & Final loss & Train s\\\midrule" + "\n"
@@ -336,7 +336,11 @@ def write_note(summary, seeds, swaps, complete, transition, ledger):
     f2=figure(2,r"Stage-time and load sensitivity. Panels a and b show 32 and 64 users, respectively; panel c shows the shuffled-order comparison. Left and centre, dots show medians and whiskers show p05--p95 across 512 block-level stage medians. Zero GPU/host-network times for the classical methods are omitted on the log axis. GPU and host neural intervals overlap. Right, p05/median/p95 of shuffled-call latency divided by the same block's original median, for 52 blocks. Circles denote 32 users and squares 64 users. Colours identify the same methods throughout.")
     f3=figure(3,r"Four-term decomposition and the fixed-policy selectivity test. Panels a--d show 32 users and e--h show 64 users, with CDL-A, CDL-B, CDL-C and UMa from left to right. Panels i and j show absolute and relative contributions for the fixed sequential action at 16 users. The upper eight panels stack mean terms over 128 native blocks per profile, size and SNR in the separately timed sensitivity grid. All four means sum to the mean interval, including the small unused-power term. The lower panels show medians and interquartile bands over 128 analytic 16-user blocks at each interpolation. The sequential action's \(T_2\) and the price-selected matching's conflict statistic use different pairings. The dotted line marks one half of the action interval.")
     f4=figure(4,r"Exact labelled-table comparisons at 16 users and 10 dB. Panels a--d show CDL-A, CDL-B, CDL-C and UMa, respectively. Each panel shows 128 independent native blocks. Both axes are in bit/s/Hz. The vertical value is \(R_\beta-D(H)\), and the horizontal value is \(R_\beta-A_\beta\). The dotted diagonal is equality, and each annotation reports its within-profile Spearman correlation. The comparison concerns the rounded integer table.")
-    (HERE/"note4_solver.tex").write_text(NOTE+"\n"+s3+s4+s5+"\n"+'\\input{reviewer_rates}\n\\input{reviewer_compute}\n\\input{reviewer_decomposition}\n'+f4+f3+f1+f2,encoding="utf-8")
+    extra = r'The original learned-versus-deterministic pass increases were 1.17 percentage points at 32 users (95\% stratified bootstrap interval 0.39--2.15) and 0.98 at 64 users (0.20--1.95). The original resource-subgradient baseline passed on 359 of 512 and 294 of 512 topologies, respectively, with a median complete time of 715 ms at 64 users.'
+    heading = r'\subsection{Timing cohorts, sensitivity records and the selectivity diagnostic}'
+    assert NOTE.count(heading) == 1
+    note = NOTE.replace(heading, extra+'\n\n'+heading)
+    (HERE/"note4_solver.tex").write_text(note+"\n"+s3+s4+s5+"\n"+'\\input{reviewer_rates}\n\\input{reviewer_compute}\n\\input{reviewer_decomposition}\n'+f4+f3+f1+f2,encoding="utf-8")
 
 
 if __name__ == "__main__":

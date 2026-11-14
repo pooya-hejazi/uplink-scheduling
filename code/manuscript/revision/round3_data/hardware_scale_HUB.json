@@ -1,0 +1,20 @@
+{
+  "mode": "HUB",
+  "frames": 1614,
+  "users": 6,
+  "streams": 64,
+  "tones": 3,
+  "entries": 1859328,
+  "projections": 19368,
+  "early_mean": 1256.871195247553,
+  "raw_mean": 18.398139867845533,
+  "raw_median": 3.536998356160251,
+  "phase_mean": 12.249401226139565,
+  "phase_median": 2.906931151031528,
+  "raw_relative_db": -18.34516857099659,
+  "phase_relative_db": -20.11175913178036,
+  "projection_median": 4.335309914491016,
+  "projection_q975": 30.48907230246453,
+  "aggregation": "Equal-weight pooling over held-out frames, users, retained RF streams and three tones; projection quantiles pool 12 individual scheduled magnitudes per frame before maximization. Ratios divide pooled means, not per-entry ratios.",
+  "interpretation": "Descriptive pilot-to-pilot relative error in quiet-slot whitened units, not an active-period noise or transmitter EVM estimate. Stored pairs cannot identify signal-dependent error versus underestimated pilot-period noise/distortion."
+}

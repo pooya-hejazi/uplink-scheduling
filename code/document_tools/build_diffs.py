@@ -7,7 +7,7 @@ import subprocess
 
 def table_versions(old, current):
     """Show structurally changed tables in full instead of merging their column layouts."""
-    pattern = r'\\begin\{table\}(?:\[[^]]*\])?.*?\\end\{table\}'
+    pattern = r'\\begin\{table\}(?:\[[^]]*\])?.*?\\end\{table\}|\\begingroup\\small\\setlength\{\\tabcolsep\}\{4pt\}.*?\\endgroup'
     def tables(text):
         return {re.search(r'\\label\{([^}]+)\}', block)[1]: block
                 for block in re.findall(pattern, text, re.S)
@@ -22,6 +22,13 @@ def table_versions(old, current):
         old, current = old.replace(a, token), current.replace(b, token)
         a = re.sub(r'\\label\{[^}]+\}', '', a).replace(r'\caption{', r'\caption*{Previous version. ')
         b = b.replace(r'\caption{', r'\caption{Revised version. ')
+        if r'\begin{longtable}' in a:
+            # A reordered multipage table needs whole versions and a restored caption counter.
+            a = a.replace(r'\arabic{table}B', r'previous.\arabic{table}B')
+            a = (r'\begingroup\edef\DIFsavedtable{\number\value{table}}\color{red}'
+                 r'\renewcommand{\theHtable}{previous.\arabic{table}}'+a+
+                 r'\setcounter{table}{\DIFsavedtable}\endgroup')
+            b = r'\begingroup\color{blue}'+b+r'\endgroup'
         a = re.sub(r'(\\begin\{table\})(?:\[[^]]*\])?', lambda m: m[1]+'[p]'+r'\color{red}', a)
         b = re.sub(r'(\\begin\{table\})(?:\[[^]]*\])?', lambda m: m[1]+'[p]'+r'\color{blue}', b)
         replacements[token] = a+'\n'+b
@@ -47,7 +54,9 @@ def main():
         replacements = {}
         if directory == 'paper':
             for stem in ('fig4_scaling', 'fig5_phase', 'fig6_hardware'):
-                old = old.replace('figures/'+stem+'.pdf', 'marked_changes/previous_figures/'+stem+'.pdf')
+                previous_figure = baseline/'previous_figures'/(stem+'.pdf')
+                if previous_figure.read_bytes() != (target/'figures'/(stem+'.pdf')).read_bytes():
+                    old = old.replace('figures/'+stem+'.pdf', 'marked_changes/previous_figures/'+stem+'.pdf')
         else:
             old, current_text, replacements = table_versions(old, current_text)
         old_path = baseline/('diff_input_'+previous)
@@ -56,11 +65,16 @@ def main():
         current_path.write_text(current_text, encoding='utf-8')
         # Graphic-state assignments before a multicolumn break TeX alignment in the supplement.
         graphics = 'both' if directory == 'paper' else 'none'
-        command = [args.perl, args.latexdiff, '--encoding=utf8', '--math-markup=whole',
+        command = [args.perl, args.latexdiff, '--encoding=utf8', '--math-markup=whole', '--append-textcmd=abstract',
                    '--graphics-markup='+graphics, str(old_path), str(current_path)]
         result = subprocess.run(command, capture_output=True, check=True)
         assert b'DIFadd' in result.stdout and b'DIFdel' in result.stdout
         marked = result.stdout.decode('utf-8').replace('\r\n', '\n')
+        if directory == 'paper':
+            a = old.split(r'\abstract{', 1)[1].split(r'\maketitle', 1)[0]
+            b = current_text.split(r'\abstract{', 1)[1].split(r'\maketitle', 1)[0]
+            if a != b:
+                assert 'DIFadd' in marked.split(r'\abstract{', 1)[1].split(r'\maketitle', 1)[0]
         for token, versions in replacements.items():
             marked = re.sub(r'%DIFDELCMD[^\n]*'+re.escape(token)+r'[^\n]*', '', marked)
             assert marked.count(token) == 1, token

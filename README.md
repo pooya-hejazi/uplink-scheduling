@@ -32,7 +32,7 @@ python run.py figures
 
 These commands verify exact mathematical fixtures and archived audit records, recalculate scalar summaries/tables and regenerate all six main figures. No GPU or source recordings are needed. Figure outputs are in `code/manuscript/figures/` and `results/figures/`. Generated-file bytes may differ across plotting/TeX versions; numerical CSVs and hashes identify the supplied edition. Use a working copy when regenerating files covered by the manifest.
 
-The Article contains 3,410 main-body words and a 136-word Abstract by a conservative whitespace count excluding Methods, references and legends. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
+The Article contains 3,487 main-body words, a 133-word Abstract and 4,767 Online Methods words by a conservative whitespace count excluding Methods, references and legends. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
 
 ## Complete experiment inputs
 
@@ -50,7 +50,7 @@ Authenticated browser downloads are also supported. Preparation verifies SHA-256
 
 ## Recompute the reviewer analyses
 
-The first-round and second-round numerical records are separate. These commands operate on the prepared local workspace:
+The three revision rounds have separate numerical records. These commands operate on the prepared local workspace:
 
 ```sh
 python run.py reviewer-rates
@@ -62,6 +62,7 @@ python run.py round2-time-pilot
 python run.py round2-time-control
 python run.py round2-refinement
 python run.py round2-small-reference
+python run.py round3-bounds
 python run.py supplementary-figures
 ```
 
@@ -69,7 +70,7 @@ The timing pilot selects deterministic budgets for the current workstation; omit
 
 The O1 reference command enumerates every labelled schedule at two/four users with a 32,768-split cap and reports enclosing physical-optimum intervals. All 128 supplied small O1 references resolved to 1e-6 bit/s/Hz; the four-user maximum width is 9.999108e-7. A fresh run can take several hours. The separate analytic four-to-eight-user references retain unresolved tails. The exact 16-user integer-table optimum is not the physical continuous optimum.
 
-Scalar rerun outputs go to `results/` and second-round outputs to `results/round2/`. Supplementary plots go to `results/supplementary_figures/`. Reruns do not replace the published source CSVs automatically. `round2-summary` regenerates the published tables from the included scalar results.
+Scalar rerun outputs go to `results/` second-round outputs to `results/round2/` and third-round diagnostics to `results/round3/`. Supplementary plots go to `results/supplementary_figures/`. Reruns do not replace the published source CSVs automatically. `round2-summary` regenerates the published tables from the included scalar results.
 
 The compute controls use the frozen CUDA/PyTorch proposer. Set `GATE_GPU_PY` to that environment's Python executable. Native matching targets 64-bit Windows, Zig 0.13.0 and LEMON 1.3.1. Channel generation uses Sionna 2.2.0 with explicit `spec_version='19.2'`; training needs CUDA-enabled PyTorch. The input archives preserve checkpoints and environment records. No training is required for the scalar reconstruction or certificate replay.
 
@@ -86,7 +87,7 @@ python run.py build-diffs --tectonic PATH_TO_TECTONIC --perl PATH_TO_PERL --late
 
 Add `--only-cached` for offline TeX builds after its resources have been cached. The builders update `paper/` and `supplementary_materials/`. `Source_Data.zip` has one annotated file for each of the six main figures, eight supplementary figures and sixteen supplementary tables, plus exact fixtures, README and checksums.
 
-The response quotes R1–R6 and Minor 1–13 verbatim. Locations refer to **printed PDF margin lines**, and supplementary locations to printed pages. Its location map is recalculated if the Article PDF changes. Marked PDFs compare against the archived preceding submission, identified in `paper/marked_changes/README.md`; changed supplementary tables show full previous and revised versions to preserve alignment.
+The response quotes T1–T5 verbatim. Locations refer to **printed PDF margin lines**, and supplementary locations to printed pages. Its location map is recalculated if the Article PDF changes. Marked PDFs compare against the archived preceding submission, identified in `paper/marked_changes/README.md`; changed supplementary tables show full previous and revised versions to preserve alignment.
 
 ## Recorded-pilot replay
 
@@ -96,14 +97,18 @@ Obtain original recordings under their source terms from [Rice RENEW](https://re
 python run.py hardware-decode --mode HUB
 python run.py hardware-evaluate --mode HUB
 python run.py round2-hardware --mode HUB
+python run.py round3-hardware --mode HUB
 python run.py hardware-decode --mode LO
 python run.py hardware-evaluate --mode LO
 python run.py round2-hardware --mode LO
+python run.py round3-hardware --mode LO
 ```
 
 The decoder checks HTTPS byte ranges, ETags and early-channel hashes. Reconstructed complex channels stay inside the ignored execution workspace; only scalar summaries are copied to `results`. Configure `REQUESTS_CA_BUNDLE` if an institutional TLS proxy requires its trusted CA bundle. TLS verification stays enabled.
 
 The first 256 eligible post-prefix frames calibrate radii (rank 251); 1,614 HUB and 1,513 LO frames test them. Raw and phase-invariant results refer to the observable second LTS. Phase-invariant floors reach median paired fractions 27.51%/24.46%, but LO joint residual coverage remains 75.74%, below nominal 95%. Rate-floor coverage through slack is not evidence of successful nominal calibration. One dependent capture per clock mode does not establish population coverage, oscillator causality or decoded payload throughput.
+
+The third-round check pools per-entry raw and phase-aligned pilot difference powers, their ratios to mean early power, and individual scheduled magnitude residuals before frame maximization. Table 13 states the aggregation. HUB and LO aligned mean powers are 12.249 and 43.954 against an independent unit-noise reference of two. These observations do not identify active-period noise variance or a physical impairment mechanism. Rates are conditional on the quiet-slot noise metric; no correction factor is inferred. `round3-bounds` confirms that the tangent is binding for all 507,904 checked O1 entries. Included scalar data support table regeneration without source recordings.
 
 ## Other stages and integrity
 

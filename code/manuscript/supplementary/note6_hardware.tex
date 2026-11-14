@@ -129,6 +129,7 @@ The vector alignment minimizes separately for each user/tone; the diagnostic pha
 As a thermal-noise-only benchmark, independently drawn proper complex pilot errors of unit variance give difference variance two. A unit-filter projection then has tail probability \(\exp(-x^2/2)\); a union bound over 12 projections gives the 97.5\% threshold \(\sqrt{2\log(12/0.025)}=3.51391\). The expected maximum for 12 independent projections is 2.44453. Holding the observed early filters fixed and retaining correlations between projections, 16,384 Monte Carlo blocks per capture give expected maxima 2.44987 (HUB) and 2.44705 (LO), with Monte Carlo standard errors 0.00377 and 0.00378. This benchmark isolates noise and does not model the dependence of estimated filters on their noisy pilots, cross-stream noise correlation, or drift. The observed raw radii of 87.36 and 165.26 greatly exceed it. Removing phase sensitivity raises the floors, yet LO joint-event coverage remains 75.74\%, below nominal 95\%; its universal floor coverage is sustained by slack.
 
 \input{reviewer_hardware}
+\input{reviewer_noise_scale}
 
 
 The sensitivity replay selects 32 integer-spaced frames from 128 to 1,999,
