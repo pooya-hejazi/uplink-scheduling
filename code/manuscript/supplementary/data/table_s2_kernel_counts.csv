@@ -1,0 +1,3 @@
+k,s,power_prices,cached_roots,priced_root_updates,refined_entries_per_price,lazy_leaves,total_lazy_rate_box_calls,eager_leaves,optional_leaf_ratio,total_call_ratio
+32,16,4,7936,31744,32,2048,9984,507904,248.00,50.872
+64,32,4,64512,258048,128,8192,72704,4128768,504.00,56.789

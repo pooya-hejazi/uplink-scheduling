@@ -1,0 +1,8 @@
+mode,n,median_gap
+deterministic_polish,512,0.061340424675109695
+swap_learned_primal,512,0.10453238870720405
+one_shot_MLP_projected,512,0.810352701388668
+swap_learned_beta,512,0.08219251200309063
+swap_learned_anchor,512,0.08073326042308704
+swap_learned_priority,512,0.06134043953773727
+P3_repair_only,512,0.18698149821323717

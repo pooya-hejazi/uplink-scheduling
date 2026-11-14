@@ -1,0 +1,11 @@
+key,study,system_receiver,optimization_learning,guarantee,relation
+viterbo,Viterbo and Hottinen,Equal-energy paired uplink; MMSE/ML detection,Optimal pairing,Optimum in its pairing model,Tone-dependent conflicts and continuous powers
+fan,Fan et al.,LTE uplink; linear MMSE,Pairing and contiguous allocation,Discrete search with prescribed powers,Full power-domain ceiling for a delivered action
+ruder2013,Ruder et al. (2013),SC-FDMA; receiver-specific metrics,Blossom pairing and joint grouping,Small full-enumeration benchmark,Scalable checked relaxation across labelled tones
+ruder2014,Ruder et al. (2014),SC-FDMA; imperfect scheduling CSI,MMSE prediction and grouping,Small perfect-CSI search benchmark,Calibrated errors along stored receive directions
+prasad,Prasad et al.,LTE-A; matroid/knapsack constraints,Submodular scheduling,Approximation and restricted-model upper bounds,Additive action-specific interval in the paired model
+shenfptwo,Shen and Yu,Interfering uplinks; powers/beamformers,Fractional programming and matching,Iterative objective improvement,Upper endpoint covers alternative feasible decisions
+matthiesen,Matthiesen et al.,Continuous interference optimization,Mixed-monotonic branch and bound,Global enclosures at the search tolerance,Pairwise boxes combined with a matching relaxation
+dinitz,Dinitz et al.,Weighted bipartite matching,Predicted duals and feasibility repair,Exact matching after repair,General-graph pairing with continuous rate scores
+lei,Lei et al.,Regression with exchangeable examples,Split-conformal prediction,Finite-sample marginal coverage,Policy-specific vector and directional block maxima
+johnstone,Johnstone and Cox,Robust optimization,Conformal ellipsoidal uncertainty,Coverage-calibrated uncertainty sets,Distinct uncertainty needs of action and oracle

@@ -1,0 +1,50 @@
+% Scientific supplement. Regenerate the literature note with revision/build_references.py.
+\documentclass[10pt,letterpaper]{article}
+\usepackage[margin=0.80in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,longtable,array}
+\usepackage{placeins}
+\usepackage[font=small,labelfont=bf,labelsep=period]{caption}
+\usepackage[hidelinks]{hyperref}
+\urlstyle{same}
+\setlength{\emergencystretch}{2em}
+\setlength{\parindent}{1em}
+\setlength{\LTpre}{0.5em}
+\setlength{\LTpost}{0.5em}
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\figurename}{Supplementary Figure}
+\renewcommand{\tablename}{Supplementary Table}
+\makeatletter
+\def\input@path{{supplementary/}}
+\def\section@cntformat{Supplementary Note\ \thesection.\quad}
+\renewcommand{\@seccntformat}[1]{\@ifundefined{#1@cntformat}{\csname the#1\endcsname\quad}{\csname #1@cntformat\endcsname}}
+\makeatother
+\raggedbottom
+\hypersetup{pdftitle={Supplementary Information for Bounding the rate loss of individual wireless uplink schedules},pdfauthor={Pooya Hejazi and Masoud Sabaei}}
+\begin{document}
+\begin{center}
+{\Large\bfseries Supplementary Information\par}
+\medskip
+{\large Bounding the rate loss of individual wireless uplink schedules\par}
+\medskip
+Pooya Hejazi and Masoud Sabaei
+\end{center}
+\noindent The seven notes give the mathematical derivations, numerical enclosures, solver specification, extended simulations and measurement processing underlying the Article. Rates are normalized per occupied tone in bit/s/Hz unless stated as aggregate nats. Supplementary Tables 1--16 and Supplementary Figures 1--8 retain the observation units and computational scope of their source experiments.
+\input{supplementary/note7_literature}
+\FloatBarrier
+\input{supplementary/note1_proofs}
+\FloatBarrier
+\input{supplementary/note2_gaussian}
+\FloatBarrier
+\input{supplementary/note4_solver}
+\FloatBarrier
+\input{supplementary/note5_physics}
+\FloatBarrier
+\input{supplementary/note6_hardware}
+\FloatBarrier
+\input{supplementary/note3_numerics}
+\clearpage
+\renewcommand{\refname}{Supplementary References}
+\input{supplementary/references}
+\end{document}

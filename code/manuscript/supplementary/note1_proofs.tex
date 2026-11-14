@@ -1,0 +1,246 @@
+\section{Complete mathematical proofs}
+\label{supp:proofs}
+
+\subsection{Model, receiver and rate normalization}
+There are $K=2S$ users and $S$ labelled tones. A feasible decision partitions the users into $S$ unordered pairs, assigns those pairs bijectively to the tones, and chooses powers satisfying $p_-\le p_i\le p_+$ and $\sum_i p_i\le P$, where $0<p_-\le p_+$ and $P\ge Kp_-$. Each user appears once. On tone $s$ carrying $e=\{i,j\}$, the noise-whitened observation is
+\begin{equation}
+ y_s=\sqrt{p_i}h_{is}x_i+\sqrt{p_j}h_{js}x_j+n_s,
+ \qquad \mathbb E[n_sn_s^H]=I_N.
+ \label{supp:observation}
+\end{equation}
+The Gaussian symbols are independent with unit variance. Each user has a separate linear combiner and treats its partner as interference. All sums below are in aggregate nats. Dividing by $S\ln2$ gives the rate per occupied bandwidth in bit/s/Hz used in the Article.
+
+For a nonzero combiner $v$, set $B_i=I_N+p_jh_{js}h_{js}^H$, which is positive definite. Cauchy--Schwarz gives
+\begin{equation}
+ \frac{p_i|v^Hh_{is}|^2}{v^HB_iv}
+ =p_i\frac{|(B_i^{1/2}v)^H B_i^{-1/2}h_{is}|^2}
+                 {\|B_i^{1/2}v\|^2}
+ \le p_i h_{is}^HB_i^{-1}h_{is}.
+ \label{supp:mmse-cs}
+\end{equation}
+For $h_{is}\ne0$, equality holds when $v$ is a nonzero multiple of $B_i^{-1}h_{is}$. At $h_{is}=0$ every combiner has zero desired SINR. The matrix inversion lemma supplies
+\begin{equation}
+ B_i^{-1}=I_N-\frac{p_jh_{js}h_{js}^H}{1+p_j\|h_{js}\|^2}.
+ \label{supp:mmse-inverse}
+\end{equation}
+Writing $x=p_i\|h_{is}\|^2$, $y=p_j\|h_{js}\|^2$ and
+$r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
+\begin{equation}
+ \gamma_i=x\left(1-\frac{ry}{1+y}\right),\quad
+ \gamma_j=y\left(1-\frac{rx}{1+x}\right),\quad
+ q_{e,s}=\ln(1+\gamma_i)+\ln(1+\gamma_j).
+ \label{supp:mmse-rate}
+\end{equation}
+If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
+
+\subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
+The following derivation establishes the continuous-power bound, vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. The contribution comparison and overlap disclosure are retained in the accompanying editorial documents.
+
+Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
+\begin{equation}
+ H_{e,s}\ge\sup_{\substack{h'\in\mathcal H\\a,b\in[p_-,p_+]}}
+          \{q_{e,s}(a,b;h')-\lambda(a+b)\}.
+ \label{supp:table-condition}
+\end{equation}
+Define $D(H)$ as the maximum sum of entries over feasible labelled schedules,
+$w_e=\max_s(H_{e,s}-\beta_s)$, and $M(w)$ as the maximum weight of a perfect user matching. For every $h\in\mathcal H$,
+\begin{equation}
+ V(h)\le\lambda P+D(H)
+       \le\lambda P+\sum_s\beta_s+M(w).
+ \label{supp:theorem1}
+\end{equation}
+To prove the first inequality, apply equation~(\ref{supp:table-condition}) at the actual channel and powers of any feasible decision. Its pairs partition the users, so restoring their power charges contributes $\lambda\sum_i p_i\le\lambda P$. Its table sum is at most $D(H)$. Maximizing its rate proves the result. For the second inequality, subtract the price of each assigned tone. A bijection uses every tone once, and hence restores exactly $\sum_s\beta_s$. Each adjusted entry is bounded by $w_e$, and its pairs form a perfect matching. The proof allows negative table entries and prices.
+
+The odd-set matching formulation~\cite{edmonds} yields a witness that can be checked by finite sums. Let $\alpha_i\in\mathbb R$, let $\mathcal B$ be a family of odd vertex sets, and let $z_B\ge0$. Require, for every edge $e=\{i,j\}$,
+\begin{equation}
+ \alpha_i+\alpha_j+\sum_{B\in\mathcal B:e\subseteq B}z_B\ge w_e.
+ \label{supp:odd-inequality}
+\end{equation}
+Summing over a perfect matching charges each vertex once. Inside an odd set $B$, disjoint edges can occupy at most $(|B|-1)/2$ pairs. Consequently
+\begin{equation}
+ M(w)\le W_{\mathrm{dual}}
+ :=\sum_i\alpha_i+\sum_{B\in\mathcal B}\frac{|B|-1}{2}z_B.
+ \label{supp:odd-objective}
+\end{equation}
+Equality between a feasible matching's weight and $W_{\mathrm{dual}}$ proves that both attain $M(w)$. This verification uses the edge inequalities, odd cardinalities, nonnegative set prices and equality of objectives. For example, give weight one to edges inside either of two disjoint triangles and zero to cross edges. Any perfect matching has at most two unit edges, and this value is attained. The two triangle prices $z_B=1$ with zero vertex prices certify the value two. Assigning one half to every triangle edge satisfies the degree equations and has value three, demonstrating the role of the odd-set constraints.
+
+If an odd-set witness is unavailable, choose arbitrary vertex prices and repair the tone prices by
+\begin{equation}
+ \beta'_s=\max_{e=\{i,j\}}(H_{e,s}-\alpha_i-\alpha_j),\qquad
+ U_{\mathrm{repair}}=\lambda P+\sum_i\alpha_i+\sum_s\beta'_s.
+ \label{supp:p3}
+\end{equation}
+The repaired inequalities hold for every pair and tone. Summing them on a labelled schedule proves $V(h)\le U_{\mathrm{repair}}$. They also imply $\max_s(H_{e,s}-\beta'_s)\le\alpha_i+\alpha_j$. Thus the repaired witness bounds every perfect matching on its own adjusted table, including the implemented matching needed for the decomposition below. A failed odd-set check can therefore lead to a valid repaired upper endpoint. The exact posterior statistic requires a separately verified optimal matching.
+
+\subsection{Signed quantization and the table actually verified}
+For any real signed edge weight and $\Gamma=2^{40}$, upward quantization obeys
+\begin{equation}
+ \widehat w_e=\lceil\Gamma w_e\rceil,
+ \qquad 0\le\widehat w_e/\Gamma-w_e<\Gamma^{-1}.
+ \label{supp:quantization}
+\end{equation}
+Let $m_*$ maximize the real weights and $\widehat m$ maximize the quantized weights. Evaluating $\widehat w$ on $m_*$ proves the lower inequality below. Evaluating the strict per-edge error on $\widehat m$, which has exactly $S$ edges, proves the upper inequality
+\begin{equation}
+ 0\le M(\widehat w)/\Gamma-M(w)<S/\Gamma.
+ \label{supp:quantization-optimum}
+\end{equation}
+Ceiling rounds toward positive infinity also for negative values. In units of one tick, the signed inputs $(-3/2,-1,0,5/3)$ become $(-1,-1,0,2)$. A matching routine must enforce a perfect matching even when some edges are negative.
+
+The implementation first encloses each continuous entry by a finite binary64 upper endpoint $\overline H_{e,s}$, then stores $\widehat H_{e,s}=\lceil\Gamma\overline H_{e,s}\rceil$. Its tone prices are integer ticks $b_s$, representing $\beta_s=b_s/\Gamma$. It computes
+\begin{equation}
+ \widehat w_e=\max_s(\widehat H_{e,s}-b_s)
+ =\left\lceil\Gamma\max_s(\overline H_{e,s}-\beta_s)\right\rceil.
+ \label{supp:table-quantization}
+\end{equation}
+The equality follows because integer translation commutes with ceiling and a finite maximum is attained. Thus equation~(\ref{supp:quantization-optimum}) compares the integer relaxation with the unrounded enclosure table at those same prices. The allowance concerns quantization after the continuous enclosure has been computed. Additional enclosure slack remains in the certificate. Multiplication of a finite representable endpoint by $2^{40}$ is an exact exponent shift within the admitted range; the implementation rejects nonfinite endpoints and out-of-range integer operations. Subsequent edge inequalities and objectives are checked against the stored integer table. The quarter-tick representation of the native matching potentials and the directed arithmetic are detailed in Supplementary Note~7.
+
+\subsection{Theorem 2. The posterior cost of enforcing tone labels}
+Let $m_\beta$ be an optimal perfect matching for $w$, and let $A_\beta$ be its best bijective assignment to the tones, evaluated using $H$. This is a bipartite assignment problem~\cite{kuhn}. Put
+\begin{equation}
+ \begin{aligned}
+ R_\beta&=\sum_s\beta_s+M(w),\\
+ d(\beta)&=\max_e\left\{\max_s(H_{e,s}-\beta_s)
+                         -\min_s(H_{e,s}-\beta_s)\right\}.
+ \end{aligned}
+ \label{supp:conflict-definitions}
+\end{equation}
+The upper relaxation gives $D(H)\le R_\beta$, while feasibility of the assigned matching gives $A_\beta\le D(H)$. For its optimal bijection $s_\beta(e)$,
+\begin{equation}
+ \begin{aligned}
+ 0\le R_\beta-D(H)&\le\Delta_{\mathrm{conflict}}:=R_\beta-A_\beta,\\
+ \Delta_{\mathrm{conflict}}
+ &=\sum_{e\in m_\beta}\bigl[w_e-H_{e,s_\beta(e)}+\beta_{s_\beta(e)}\bigr]
+ \le S\,d(\beta).
+ \end{aligned}
+ \label{supp:theorem2}
+\end{equation}
+Every bracket is nonnegative and bounded by that edge's adjusted range. There are $S$ brackets, proving the last inequality. When $H_{e,s}=a_e+b_s$, choosing $\beta_s=b_s$ makes every range zero and gives $R_\beta=D(H)=A_\beta$. All quantities in equation~(\ref{supp:theorem2}) must use one identical table. With quantized scores the argument is exact in ticks. Its comparison with an unrounded table requires the explicit quantization allowance.
+
+\subsection{Exact four-user physical counterexample}
+Take $S=N=2$ with unit powers and unit noise. Define
+$a=(1,0)$, $b=(0,1)$, $c=(3/5,4/5)$ and $d=(-4/5,3/5)$, and assign ordered user vectors $(a,b,c,d)$ on tone 1 and $(a,c,b,d)$ on tone 2. All norms equal one, so a pair's rate is $2\ln(2-r/2)$. For each choice of the pair on tone 1, its complement must occupy tone 2. These are the six feasible labelled schedules. The following exact arithmetic lists both squared overlaps, both logarithm arguments and their product.
+\begin{center}
+\setlength{\tabcolsep}{7pt}
+\begin{tabular}{ccrrrrr}
+Tone 1 & Tone 2 & $r_1$ & $r_2$ & $2-r_1/2$ & $2-r_2/2$ & Product\\ \hline
+$12$ & $34$ & $0$ & $9/25$ & $2$ & $91/50$ & $91/25$\\
+$13$ & $24$ & $9/25$ & $0$ & $91/50$ & $2$ & $91/25$\\
+$14$ & $23$ & $16/25$ & $16/25$ & $42/25$ & $42/25$ & $1764/625$\\
+$23$ & $14$ & $16/25$ & $16/25$ & $42/25$ & $42/25$ & $1764/625$\\
+$24$ & $13$ & $9/25$ & $0$ & $91/50$ & $2$ & $91/25$\\
+$34$ & $12$ & $0$ & $9/25$ & $2$ & $91/50$ & $91/25$
+\end{tabular}
+\end{center}
+Monotonicity of the logarithm gives $D=2\ln(91/25)$. On tone 1 the disjoint pairs $12,34$ are orthogonal; on tone 2 the disjoint pairs $13,24$ are orthogonal. With $c_{\mathrm{orth}}=2\ln2$, these two matchings separately imply
+\begin{equation}
+ R_\beta\ge2c_{\mathrm{orth}}+\beta_2-\beta_1,
+ \qquad R_\beta\ge2c_{\mathrm{orth}}+\beta_1-\beta_2.
+ \label{supp:four-user-prices}
+\end{equation}
+Therefore $R_\beta\ge2c_{\mathrm{orth}}+|\beta_1-\beta_2|\ge4\ln2$. Equal prices attain $4\ln2$, since every edge rate is at most $2\ln2$ and an orthogonal perfect matching attains that relaxed sum. It follows that
+\begin{equation}
+ \inf_\beta R_\beta-D=4\ln2-2\ln(91/25)=2\ln(100/91)>0.
+ \label{supp:four-user-gap}
+\end{equation}
+Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pair and restores $4\lambda$ in the bound, so it leaves this gap unchanged. The channel construction thus exhibits an irreducible loss caused by discarding tone labels.
+
+\subsection{Exact six-user signed-score fixture}
+The second fixture tests how loose the all-edge range can be. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
+\begin{equation}
+ H_{e_t,s}=\frac{((7t+5s+2ts)\bmod17)-8}{7},
+ \qquad (\beta_0,\beta_1,\beta_2)=(-1/3,0,1/4).
+ \label{supp:six-user-table}
+\end{equation}
+The entries below give $7H$, making the fixture reproducible with integers. This is an abstract signed-score table with no imposed physical-channel realization.
+\begin{center}
+\begin{tabular}{c|rrr@{\qquad}c|rrr@{\qquad}c|rrr}
+Pair & $s=0$ & $1$ & $2$ & Pair & $s=0$ & $1$ & $2$ & Pair & $s=0$ & $1$ & $2$\\ \hline
+12 & $-8$ & $-3$ & $2$ & 23 & $-7$ & $8$ & $6$ & 35 & $-6$ & $2$ & $-7$\\
+13 & $-1$ & $6$ & $-4$ & 24 & $0$ & $0$ & $0$ & 36 & $1$ & $-6$ & $4$\\
+14 & $6$ & $-2$ & $7$ & 25 & $7$ & $-8$ & $-6$ & 45 & $8$ & $3$ & $-2$\\
+15 & $-4$ & $7$ & $1$ & 26 & $-3$ & $1$ & $5$ & 46 & $-2$ & $-5$ & $-8$\\
+16 & $3$ & $-1$ & $-5$ & 34 & $4$ & $-7$ & $-1$ & 56 & $5$ & $4$ & $3$
+\end{tabular}
+\end{center}
+Exact enumeration of the $5\cdot3\cdot1=15$ perfect matchings and their $3!=6$ assignments gives an optimal relaxed matching $(14,23,56)$. Its weights are $(25/21,8/7,22/21)$, summing to $71/21$. Assigning these pairs to tones $(2,1,0)$ attains the labelled optimum. Thus
+\begin{equation}
+ D(H)=A_\beta=\frac{20}{7},\quad
+ R_\beta=-\frac1{12}+\frac{71}{21}=\frac{277}{84},\quad
+ R_\beta-D(H)=\Delta_{\mathrm{conflict}}=\frac{37}{84}.
+ \label{supp:six-user-values}
+\end{equation}
+Pair 25 has adjusted entries $(4/3,-8/7,-31/28)$, giving the largest range $d(\beta)=52/21$. Hence $S\,d(\beta)=52/7$. The posterior bound is exact in this fixture, while the largest range comes from a pair outside the selected matching. Both fixture enumerations were recomputed with rational arithmetic from the archived reference implementation.
+
+\subsection{Exact four-term identity for the delivered action}
+Use a single compatible table, price vector and upper witness. Let $m$ be the \emph{delivered} perfect matching, $s(e)$ its bijection, and $p_e=p_i+p_j$. For each pair let $l_e$ be a downward bound on the rate of its stored filters at these powers, on the stated channel event. Set $L=\sum_{e\in m}l_e$. Require
+\begin{equation}
+ U\ge\lambda P+\sum_s\beta_s+\sum_{e\in m}w_e.
+ \label{supp:decomposition-witness}
+\end{equation}
+Either the odd-set upper bound or the repaired bound in equation~(\ref{supp:p3}), using its repaired tone prices, satisfies this condition. Define
+\begin{equation}
+ \begin{aligned}
+ T_1&=U-\lambda P-\sum_s\beta_s-\sum_{e\in m}w_e,\\
+ T_2&=\sum_{e\in m}\bigl(w_e-H_{e,s(e)}+\beta_{s(e)}\bigr),\\
+ T_3&=\lambda\left(P-\sum_i p_i\right),\\
+ T_4&=\sum_{e\in m}\bigl(H_{e,s(e)}+\lambda p_e-l_e\bigr).
+ \end{aligned}
+ \label{supp:four_terms}
+\end{equation}
+The witness proves $T_1\ge0$, the edge maxima prove $T_2\ge0$, and power feasibility with $\lambda\ge0$ proves $T_3\ge0$. For the fourth term, the recomputed-MMSE pair rate dominates the stored-filter pair rate by equation~(\ref{supp:mmse-cs}). On the channel event,
+$l_e\le q_{e,s(e)}(p_i,p_j;h)\le H_{e,s(e)}+\lambda p_e$, proving $T_4\ge0$. Finally $\sum_e\beta_{s(e)}=\sum_s\beta_s$ and $\sum_e p_e=\sum_i p_i$. Substitution cancels the table entries, edge maxima and intermediate charges, leaving
+\begin{equation}
+ U-L=T_1+T_2+T_3+T_4,\qquad T_a\ge0\quad(a=1,2,3,4).
+ \label{supp:decomposition-identity}
+\end{equation}
+If $m=m_\beta$ and $s(e)$ attains $A_\beta$, then $T_2=\Delta_{\mathrm{conflict}}$. A final action selected from another candidate matching has its own $T_2$, whereas the diagnostic in equation~(\ref{supp:theorem2}) still belongs to $m_\beta$. The serialized identity uses the final action even when the upper endpoint was found earlier in the price search. Its fourth term includes continuous-power enclosure slack, the rate of the chosen powers and filters, and downward rounding. When $L=\max(L_F,L_P)$, the stored $l_e$ values must all come from the selected lower certificate for that same action. The implementation checks the identity in exact integers with common denominator $\Gamma(20\cdot2^{20})$, including power ticks and any witness slack.
+
+\subsection{Theorem 3. Rate bounds along the implemented receive directions}
+Let a fixed pilot-to-action policy produce the feasible schedule, powers and nonzero filters $v_i$. Define $d_i=v_i/\|v_i\|$, and write $j(i)$ and $s(i)$ for the scheduled partner and tone. A policy that can return a zero filter must specify a nonzero replacement direction before calibration. Normalization gives output noise variance one. Given nonnegative radii $b_{ii},b_{ij}$, put
+\begin{equation}
+ \ell_i(b)=\frac{p_i[|d_i^H\hat h_{i,s(i)}|-b_{ii}]_+^2}
+ {1+p_{j(i)}(|d_i^H\hat h_{j(i),s(i)}|+b_{ij})^2}.
+ \label{supp:directional-lower}
+\end{equation}
+On the event $|d_i^H(h_{k,s(i)}-\hat h_{k,s(i)})|\le b_{ik}$ for both $k=i,j(i)$, the reverse triangle inequality lower-bounds the desired amplitude by the clipped numerator amplitude. The triangle inequality upper-bounds the interfering amplitude by the denominator amplitude. Squaring preserves these inequalities, and the denominator is at least one. Therefore $\ell_i(b)$ bounds the SINR of the stored direction from below. Monotonicity of $\ln(1+x)$ and summation yield $L_P\le R_{\mathrm{fix}}(h)$ for a downward sum $L_P$ of these logarithms.
+
+On the full-vector event $E_F=\{\|h_{ks}-\hat h_{ks}\|\le\epsilon_{ks}\text{ for all }k,s\}$, Cauchy--Schwarz gives the directional bounds with $b_{ik}=\epsilon_{k,s(i)}$. This defines $L_F\le R_{\mathrm{fix}}(h)$. Theorem 1 applied to the product of the vector balls gives $V(h)\le U_F$. Thus, on the intersection with the projected event $E_P$,
+\begin{equation}
+ \max(L_F,L_P)\le R_{\mathrm{fix}}(h)\le V(h)\le U_F.
+ \label{supp:theorem3}
+\end{equation}
+Both lower calculations use identical powers, partners, tones and filters. The channel set for the upper calculation must protect every competing decision. For example, take two users whose queried receive directions are both the first coordinate vector in three dimensions. Channels $h_1=(a,t,0)$ and $h_2=(b,0,t)$ have fixed projections $(a,b)$ onto that direction for every $t$. An oracle can receive user 1 on the second coordinate and user 2 on the third, achieving $\ln(1+p_1t^2)+\ln(1+p_2t^2)$, which grows without bound. Thus a direction-only score leaves the oracle uncontrolled whenever the queried directions leave such an unobserved subspace.
+
+\subsection{Theorem 4. Split-conformal calibration of the two channel events}
+Condition on the data used to fit estimators and select policies. Assume the $n$ calibration blocks and one target block $Z_t=(Y_t,h_t)$ are exchangeable under this conditioning. Freeze the complete measurable pilot-to-action map, including feasibility repairs, tie-breaking and the handling of zero filters. Fix positive scale functions $\sigma_{ks}(Y)$ and $s_{ik}(Y)$ on the same fitting split. For each block, evaluate the two maxima
+\begin{equation}
+ \begin{aligned}
+ T_F(Z)&=\max_{k,s}\frac{\|h_{ks}-\hat h_{ks}\|}{\sigma_{ks}(Y)},\\
+ T_P(Z)&=\max_i\ \max_{k\in\{i,j(i)\}}
+ \frac{|d_i^H(h_{k,s(i)}-\hat h_{k,s(i)})|}{s_{ik}(Y)}.
+ \end{aligned}
+ \label{supp:conformal-scores}
+\end{equation}
+The action and its queried projections are recomputed by that same frozen map on every block. Arbitrary dependence between users and tones within a block is allowed.
+
+For $a\in\{F,P\}$ choose $0<\alpha_a<1$ and set
+\begin{equation}
+ k_a=\lceil(n+1)(1-\alpha_a)\rceil,\qquad
+ q_a=\text{$k_a$th smallest of }\{T_a(Z_1),\ldots,T_a(Z_n),+\infty\}.
+ \label{supp:conformal-rank}
+\end{equation}
+Use target radii $\epsilon_{ks}=q_F\sigma_{ks}(Y)$ and $b_{ik}=q_Ps_{ik}(Y)$. A fixed score map preserves exchangeability. Introduce independent continuous tie-breakers for the proof and order the $n+1$ score--tie-breaker pairs lexicographically. Symmetry makes the rank of the target pair uniform on $\{1,\ldots,n+1\}$. If its rank is at most $k_a\le n$, its numerical score is no greater than the $k_a$th calibration score. Retaining all ties in the operational inequality can only enlarge this event. For $k_a=n+1$, the infinite threshold covers every score. Consequently
+\begin{equation}
+ \Pr\{T_a(Z_{n+1})\le q_a\}\ge\frac{k_a}{n+1}\ge1-\alpha_a.
+ \label{supp:single-coverage}
+\end{equation}
+Each maximum in equation~(\ref{supp:conformal-scores}) covers all of its constituent errors at once. Applying the union bound to the two failure events gives
+\begin{equation}
+ \Pr(E_F\cap E_P)\ge1-\alpha_F-\alpha_P,
+ \label{supp:joint-coverage}
+\end{equation}
+without requiring independence between the two scores or separate calibration samples. Combining this event with equation~(\ref{supp:theorem3}) proves the advertised rate interval. This finite-sample rank argument is the split-conformal mechanism underlying the coverage statement~\cite{lei,johnstone}.
+
+For $\alpha_F=\alpha_P=0.025$ and $n=256$, the rank is $\lceil257\cdot0.975\rceil=251$ for each score. At $n=16$, it is $\lceil17\cdot0.975\rceil=17$, selecting $+\infty$. The resulting radii express the information limit of this rank rule with the specified error budget. Upward numerical bounds on calibration scores and radii preserve coverage by enlarging the selected sets.
+
+The probability in equation~(\ref{supp:joint-coverage}) averages over calibration and target blocks under the stated exchangeability assumption. A policy selected using the calibration residuals changes the score map and requires an independent selection split, or a simultaneous block maximum over a fixed candidate family. The latter also covers subsequent choices among those candidates after seeing their calibrated radii. If the calibration target is a later observable pilot $\widetilde h$, its event concerns that pilot. A separately justified error bound $\|h-\widetilde h\|\le\eta$ transfers the guarantee by adding $\eta$ to the full-vector radii and the physical projection radii, since each $d_i$ has unit norm. If that transfer event can fail with probability $\delta$, the joint lower coverage becomes $1-\alpha_F-\alpha_P-\delta$. Selection of accepted schedules and extension to multiple future blocks require their own conditional or simultaneous coverage argument.

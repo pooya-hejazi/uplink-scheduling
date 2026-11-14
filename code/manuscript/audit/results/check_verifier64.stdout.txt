@@ -1,0 +1,6 @@
+compiled-kernel check | Numba 0.62.1 | NumPy 2.3.4
+PASS binary64 logs on 26 inputs including subnormal, max finite and both sides of 1
+PASS lazy roots, bounded refinements, exact rational comparisons, invalid/overflow handling
+  K=32 unpriced roots=7936 priced root updates=31744 refinement leaves=2048 eager leaves=507904 optional-leaf ratio=248.00x all rate-box call ratio=50.872x
+  K=64 unpriced roots=64512 priced root updates=258048 refinement leaves=8192 eager leaves=4128768 optional-leaf ratio=504.00x all rate-box call ratio=56.789x
+ALL COMPILED KERNEL CHECKS PASSED; counts are not end-to-end latency measurements

@@ -1,0 +1,70 @@
+{
+  "native_structure": {
+    "posterior": {
+      "rho": 0.6651767350270394,
+      "ci": [
+        0.6014938916898765,
+        0.7231154136520985
+      ],
+      "valid_bootstrap": 10000
+    },
+    "prior": {
+      "rho": -0.005082312545868395,
+      "ci": [
+        -0.09294858569411717,
+        0.07995861365486374
+      ],
+      "valid_bootstrap": 10000
+    }
+  },
+  "transition_fractions": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "phase_mismatch_von_mises": [
+    {
+      "m1": "0.7",
+      "mse": 0.3125625532019912,
+      "retained_gain": -6.972168234463299
+    },
+    {
+      "m1": "0.9",
+      "mse": 0.1217273476568318,
+      "retained_gain": 0.8961704330202974
+    }
+  ],
+  "phase_rows": 16384,
+  "base_action_bands": 512,
+  "net_cells_recomputed": 15360,
+  "net_win_count": 1005,
+  "ablations": 3584,
+  "uncertainty_cells": 12,
+  "deepmimo_tiles_per_scene": 64,
+  "rice": [
+    {
+      "mode": "HUB",
+      "denominator": 1873,
+      "retained": 1870,
+      "useful": 1867,
+      "fraction": 0.99679658302189,
+      "median_ms": 2.75475,
+      "median_later_change": -2.500990919482371
+    },
+    {
+      "mode": "LO",
+      "denominator": 1873,
+      "retained": 1769,
+      "useful": 1037,
+      "fraction": 0.5536572343833422,
+      "median_ms": 2.7082,
+      "median_later_change": -4.872908410175675
+    }
+  ]
+}

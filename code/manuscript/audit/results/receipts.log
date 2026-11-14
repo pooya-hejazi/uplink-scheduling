@@ -1,0 +1,20 @@
+CPU isolated job: receipts
+C:\Users\p.hejazi\AppData\Local\Temp\g4_independent_cpu_v1\venv\Lib\site-packages\numpy\__init__.py:109: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service
+  from . import _distributor_init
+Checked raw shards 8 / 128 distinct 512
+Checked raw shards 16 / 128 distinct 1024
+Checked raw shards 24 / 128 distinct 1536
+Checked raw shards 32 / 128 distinct 2048
+Checked raw shards 40 / 128 distinct 2560
+Checked raw shards 48 / 128 distinct 3072
+Checked raw shards 56 / 128 distinct 3584
+Checked raw shards 64 / 128 distinct 4096
+Checked raw shards 72 / 128 distinct 4608
+Checked raw shards 80 / 128 distinct 5120
+Checked raw shards 88 / 128 distinct 5632
+Checked raw shards 96 / 128 distinct 6144
+Checked raw shards 104 / 128 distinct 6656
+Checked raw shards 112 / 128 distinct 7168
+Checked raw shards 120 / 128 distinct 7680
+Checked raw shards 128 / 128 distinct 8192
+PASS receipts; elapsed 119.168 seconds

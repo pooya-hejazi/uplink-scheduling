@@ -1,0 +1,21 @@
+\begin{table}[htbp]\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{Chronological RENEW calibration against the observable second LTS. The first 256 eligible post-prefix frames calibrate the radii; all remaining eligible frames test the frozen rule. Rates and widths are bit/s/Hz; radii are in whitened digital channel units. Coverage fractions describe these temporally dependent recordings, without binomial population confidence intervals. The equal-power reference exhausts all 90 labelled pairings at 0.10 per user, with optimal linear combining, on every eligible early input. It is not the continuous-power optimum.}\label{supp:hardware_calibration}
+\begin{tabular}{lll}\toprule
+Quantity & HUB & LO\\
+\midrule
+Calibration frames & 256 & 256\\
+Test frames & 1614 & 1513\\
+Vector radius & 100.7147 & 189.2814\\
+Projected radius & 87.3634 & 165.2563\\
+Later rate above projected floor (\%) & 100.00 & 100.00\\
+Later rate in combined interval (\%) & 100.00 & 100.00\\
+Both residual events hold (\%) & 97.40 & 70.26\\
+Median projected lower rate & 3.754 & 1.292\\
+Median vector upper rate & 26.831 & 28.118\\
+Median projected interval width & 23.075 & 26.830\\
+Positive projected floors & 1614 & 1513\\
+Median early ceiling minus equal-power optimum & 3.3257e-05 & 6.8581e-05\\
+\bottomrule\end{tabular}
+\end{table}
+The projected interval is $[L_P,U_F]$; the combined lower endpoint for the interval-coverage diagnostic is $\max(L_P,L_F)$. The early ceiling minus the enumerated equal-power optimum is reported separately from the achieved-action gap. The exhaustive comparison includes both calibration and test frames; calibrated coverage uses test frames only. The 70.26\% joint residual-event coverage on LO does not support a nominal 95\% calibration claim, even though the conservative rate floors cover all observed test rates.

@@ -1,0 +1,6 @@
+{
+  "analytic_units": 512,
+  "method": "exact rational cubic derivative represented in the Bernstein basis and bisected 90 times wherever its convex hull straddles zero; rational candidate boxes, outward 80-digit decimal logarithms",
+  "sealed_global_values_enclosed": 512,
+  "interval_failures": 0
+}

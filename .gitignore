@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+*.log
+!/code/manuscript/audit/results/*.log
+*.aux
+*.out
+/.work/
+/results/
+/data/inputs/
+*.h5
+*.hdf5
+*.iq
+**/rice_private/
+**/private/

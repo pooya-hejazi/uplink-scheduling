@@ -1,0 +1,96 @@
+{
+  "argos_input": "Local private IQ windows re-read; all 99 byte-range digests and three frame-zero digests checked against Gate 3. No IQ or channel coefficients are redistributed.",
+  "argos": [
+    {
+      "regime": "static",
+      "planned": 32,
+      "accepted": 31,
+      "median_first": 0.2250204517155572,
+      "median_second": 0.23778182028605016,
+      "paired_change": 0.017550761479611154,
+      "active_rf": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "validated_source_ranges": 33,
+      "pair_frames_checked": 480,
+      "source_file": "ArgosCSI-8x6-2015-11-28-14-39-47_static.hdf5",
+      "ETag": "\"242b7848-578878c590224\""
+    },
+    {
+      "regime": "env",
+      "planned": 32,
+      "accepted": 32,
+      "median_first": 0.24023887274123662,
+      "median_second": 0.2532832231214771,
+      "paired_change": 0.008301252054655914,
+      "active_rf": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "validated_source_ranges": 33,
+      "pair_frames_checked": 480,
+      "source_file": "ArgosCSI-8x6-2015-11-28-14-43-08_env.hdf5",
+      "ETag": "\"242b7848-5788788d2fed5\""
+    },
+    {
+      "regime": "mob",
+      "planned": 32,
+      "accepted": 22,
+      "median_first": 0.22497954159351866,
+      "median_second": 0.2429884425274067,
+      "paired_change": 0.010803746172678666,
+      "active_rf": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "validated_source_ranges": 33,
+      "pair_frames_checked": 480,
+      "source_file": "ArgosCSI-8x6-2015-11-28-14-47-06_mob.hdf5",
+      "ETag": "\"242b7848-578878b9a10f2\""
+    }
+  ],
+  "renew": {
+    "HUB": {
+      "full_capture_sha256": "aec556198de39208757fddc294af77d4f701d7a24b9f1feb3f1fdc09d36bc0d2",
+      "source_file": "trace-uplink-2022-11-14-2-42-48_1_64x6_0_63_chA.hdf5",
+      "bytes": 4672646072,
+      "etag": "\"11682ebb8-620dc2d740f8f\"",
+      "n_postprefix": 1873,
+      "eligible": 1870,
+      "abstentions": 3,
+      "raw_reaccessed": false
+    },
+    "LO": {
+      "full_capture_sha256": "e5fabc009dce96e527b6919ce744f0b41408f337e0d5334b8dadfa0f13699844",
+      "source_file": "trace-uplink-2022-11-14-7-10-53_1_64x6_0_63_chA.hdf5",
+      "bytes": 4670556888,
+      "etag": "\"116630ad8-620dc9e98f0d3\"",
+      "n_postprefix": 1873,
+      "eligible": 1769,
+      "abstentions": 104,
+      "raw_reaccessed": false
+    }
+  },
+  "renew_input": "Only archived frame and abstention records and raw capture digest metadata were available in the designated session directories. No complete distributed HUB/LO IQ or frame-slice archive was present; the two source files together exceed 9.3 GB. The ECDF denominator is all 1,873 post-prefix frames per mode. No new capture or population inference.",
+  "renew_replayed_frame_rows": 3746,
+  "renew_ecdf_rows": 10580
+}

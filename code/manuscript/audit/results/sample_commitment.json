@@ -1,0 +1,15 @@
+{
+  "protocol": "Without replacement: sort by SHA256(ASCII Gate4-receipt-audit-v1 || NUL || binary ZIP SHA256 || NUL || ASCII source|family|block); take smallest ceil(0.05N) hashes. No stratification, outcome filtering, geography weighting or replacement.",
+  "population": 1152,
+  "selected": 58,
+  "snrs_db": [
+    -5,
+    0,
+    10,
+    20
+  ],
+  "release_sha256": "9102640bd130ee36da315d49e72c93c35300d537db73b056f2fb07964a9d2306",
+  "sample_sha256": "435d79143ad78221acffb37cea4ed4b7d35144df4476f19f3331ad1c6b40d706",
+  "frame_sha256": "779fcb1c0bb0a20c5e067e2b796c184a0a7f989ab45e006d8a0cff9f4cc94632",
+  "committed_utc": "2026-11-13T17:17:51.667013+00:00"
+}

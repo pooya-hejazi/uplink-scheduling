@@ -1,0 +1,514 @@
+{
+  "schema": "research-gate4-cpu-audit/v1",
+  "issued_utc": "2026-11-13T17:49:49.776332+00:00",
+  "disposition": "PASS_WITH_SCOPE_LIMITS",
+  "human_signature": null,
+  "issuer": {
+    "role": "Separate computational audit role in this session",
+    "trained_or_selected_policy": false,
+    "wrote_manuscript": false,
+    "external_human_or_lab_attestation": false,
+    "physical_host_independent": false
+  },
+  "evidence_sha256": "e84913913b8a4c46187970184a5ad53a5f07c2aa1a3256026696fb11a3ccec49",
+  "evidence_files": 56,
+  "release_packages": {
+    "Gate_1": {
+      "sha256": "4486edb88d6e9831c8899bac9a314a0441d584bef7c6575b41a854f6a5c3a58d",
+      "bytes": 555018,
+      "manifest_entries": 11,
+      "inner_manifest_sha256": "d0d295867443ca8c48457e351559eea0fff429091a9960f61291d983e81ef105",
+      "detached_sha256": false
+    },
+    "Gate_2": {
+      "sha256": "95ffd4700d90e0a7c7fc2b7751439826a25bbe918ae4905063b912458cbbc4ac",
+      "bytes": 97229307,
+      "manifest_entries": 227,
+      "inner_manifest_sha256": "e8431f67964a07de5dc762dfb866116c23bb3ef84dbab8b25eaaac9af9c1ef15",
+      "detached_sha256": false
+    },
+    "Gate_2B": {
+      "sha256": "ffb13a8848b093f5522102d2b752c601933c71a98bd730798017600327dda7bd",
+      "bytes": 71217522,
+      "manifest_entries": 224,
+      "inner_manifest_sha256": "ea9be4b33c4e93b515d1c1e1c3e13e9946aafd745f7b286ed7617ee700e242a3",
+      "detached_sha256": true
+    },
+    "Gate_3": {
+      "sha256": "9102640bd130ee36da315d49e72c93c35300d537db73b056f2fb07964a9d2306",
+      "bytes": 447608593,
+      "manifest_entries": 5329,
+      "inner_manifest_sha256": "35e38bf3ca93dd80ea9e1113279a0d39503d5874460622f16998ddd5d5625e98",
+      "detached_sha256": true
+    }
+  },
+  "sample_commitment": {
+    "protocol": "Without replacement: sort by SHA256(ASCII Gate4-receipt-audit-v1 || NUL || binary ZIP SHA256 || NUL || ASCII source|family|block); take smallest ceil(0.05N) hashes. No stratification, outcome filtering, geography weighting or replacement.",
+    "population": 1152,
+    "selected": 58,
+    "snrs_db": [
+      -5,
+      0,
+      10,
+      20
+    ],
+    "release_sha256": "9102640bd130ee36da315d49e72c93c35300d537db73b056f2fb07964a9d2306",
+    "sample_sha256": "435d79143ad78221acffb37cea4ed4b7d35144df4476f19f3331ad1c6b40d706",
+    "frame_sha256": "779fcb1c0bb0a20c5e067e2b796c184a0a7f989ab45e006d8a0cff9f4cc94632",
+    "committed_utc": "2026-11-13T17:17:51.667013+00:00"
+  },
+  "integer_oracle": {
+    "population": 1152,
+    "sampled_units": 58,
+    "strata": {
+      "native": 21,
+      "analytic": 30,
+      "ray": 7
+    },
+    "k16_registered_optima_checked": 232,
+    "nested_analytic_tables_exhaustively_enumerated": 120,
+    "nested_schedule_count": 78510,
+    "signed_random_enumeration_controls": 12,
+    "exact_tick_mismatches": 0
+  },
+  "continuous_two_user": {
+    "analytic_units": 512,
+    "method": "exact rational cubic derivative represented in the Bernstein basis and bisected 90 times wherever its convex hull straddles zero; rational candidate boxes, outward 80-digit decimal logarithms",
+    "sealed_global_values_enclosed": 512,
+    "interval_failures": 0
+  },
+  "rational_and_compiled_fixtures": {
+    "physical_products": [
+      "1764/625",
+      "1764/625",
+      "91/25",
+      "91/25",
+      "91/25",
+      "91/25"
+    ],
+    "physical_gap_nats": "0.1886213589424826537542854487204601615197006058309552943764402826682013785564510265695224963016711620",
+    "t2_relaxation_loss": "37/84",
+    "t2_posterior": "37/84",
+    "t2_prior": "52/7",
+    "ledger": [
+      "1/7",
+      "1",
+      "1",
+      "9"
+    ],
+    "gaussian": {
+      "10": {
+        "ball": {
+          "radius": 1.07100351453912,
+          "upper": 8.483768338693329,
+          "lower": 3.205331863750042
+        },
+        "projected": {
+          "radius": 0.4994574586544669,
+          "upper": 7.697626967477697,
+          "lower": 5.477325259406141
+        },
+        "ball_gap": 5.2784364749432875,
+        "projected_gap": 3.0064430792871883
+      },
+      "160": {
+        "ball": {
+          "radius": 1.07100351453912,
+          "upper": 15.128168313349931,
+          "lower": 11.974458499353844
+        },
+        "projected": {
+          "radius": 0.4994574586544669,
+          "upper": 14.883973864270262,
+          "lower": 13.792846700862277
+        },
+        "ball_gap": 3.1537098139960875,
+        "projected_gap": 1.335321612487654
+      }
+    },
+    "native_match_controls": 21,
+    "compiled_log_decimal_checks": 26,
+    "rational_power_box_grid_points": 9,
+    "complete_archived_control_suites": [
+      "verify_gate1",
+      "check_verifier64"
+    ],
+    "violations": 0
+  },
+  "receipt_reconstruction": {
+    "distinct": 8192,
+    "timing_links": 12288,
+    "raw_topologies": 512,
+    "method_size_decisions": 4096,
+    "raw_independent_primal_actions": 3726,
+    "four_term_nonnegative_identities": 8192,
+    "witnesses": {
+      "odd-set": 1024,
+      "odd-set4": 7168
+    },
+    "hybrid_nondegradation_pairs": 3072,
+    "smallest_threshold_distance": 2.9518886741353167e-05,
+    "largest_upward_display_pad": 3.5500355039845424e-15,
+    "violations": 0
+  },
+  "negative_controls": {
+    "positive_control_id": [
+      "A",
+      0,
+      64,
+      10,
+      "det",
+      0
+    ],
+    "rejected": [
+      "sum-preserving transfer between two ledger terms",
+      "altered covered table digest",
+      "invalid odd set",
+      "duplicated primal user",
+      "negative lower-rate tick",
+      "mismatched denominator",
+      "non-upward displayed gap"
+    ],
+    "unexpected_acceptances": 0
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+    "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+    "python_executable_sha256": "388fe2cffda8a134e7d7dc4e978f7c478857ece6b69694daecbed25e51ec633a",
+    "dependencies": {
+      "numpy": {
+        "version": "2.3.4",
+        "files": 919,
+        "linked_content_sha256": "ff8292636b007cfbea6e10e745cf36ea422755562ceccea978188209762cba9f"
+      },
+      "scipy": {
+        "version": "1.16.3",
+        "files": 1530,
+        "linked_content_sha256": "bb33bdfb8efe3893d93f648460ded9f458e5c87a30643a837976712e4661b373"
+      },
+      "numba": {
+        "version": "0.62.1",
+        "files": 795,
+        "linked_content_sha256": "2b2766a43f577442043b4e88d814123a5e66ff0ebd6ec6ea98a56270376cb26a"
+      },
+      "llvmlite": {
+        "version": "0.45.1",
+        "files": 47,
+        "linked_content_sha256": "34a1b8a2f04978257d63fafcff0e95438ecc2415bde2ce458b3409bde043a28b"
+      },
+      "networkx": {
+        "version": "3.4.2",
+        "files": 585,
+        "linked_content_sha256": "823f0d80f35011749755fa96debeadd93eac325f689791e167528487322c1fb9"
+      },
+      "threadpoolctl": {
+        "version": "3.5.0",
+        "files": 8,
+        "linked_content_sha256": "3bd9942e454f940ab1e0b5b8c3e4960e3d1e20206c2a91fde83986bf694068b6"
+      },
+      "mpmath": {
+        "version": "1.3.0",
+        "files": 95,
+        "linked_content_sha256": "62062670aaec8c865e8e03c44d58970aad3cc8c8ad8de75c6e46cac834f8f334"
+      },
+      "sympy": {
+        "version": "1.13.3",
+        "files": 1556,
+        "linked_content_sha256": "d61b624d2c8290836ea357db06f1489b3539163d096804cc8778871db5c82892"
+      }
+    },
+    "venv_system_site_packages": false,
+    "source": "Local exact-version binary distributions; base CPython stdlib and native system/Conda math-runtime DLLs. No network, torch, GPU or model weights are used.",
+    "threads": 1,
+    "optional_hardware_io": {
+      "h5py": {
+        "version": "3.12.1",
+        "files": 92,
+        "linked_content_sha256": "9968ee99c0fb939e0f71a15424fb32a91ab52c805fe9aabb0eb11e3378bdde6d"
+      }
+    },
+    "optional_hardware_io_scope": "h5py is used only to locate narrowly bounded authenticated Rice source windows; the optional source check requires HTTPS."
+  },
+  "native_rebuild": {
+    "compiler": "Zig 0.13.0 C++ frontend",
+    "compiler_archive_sha256": "d859994725ef9402381e557c60bb57497215682e355204d754ee3df75ee3c158",
+    "lemon_archive_sha256": "71b7c725f4c0b4a8ccb92eb87b208701586cf7a96156ebd821ca3ed855bad3c8",
+    "flags": [
+      "-std=c++14",
+      "-O3",
+      "-DNDEBUG",
+      "-DWIN32",
+      "-shared"
+    ],
+    "compiled_source_sha256": "689761248e9e29ef18a482f4f66e5096032cd7096c3ce52bff5090d96760ffeb",
+    "compiled_dll_sha256": "2674454310f64278435a3771534e22aa406046a5c4bcc6e6c5c100c37dcfc3e0",
+    "released_dll_sha256": "1875cc0a00f5df3be2de2666844e12630d7399d3a2a4f5ac75502510dc8034fc",
+    "fresh_local_and_global_build_cache": true
+  },
+  "primary": [
+    {
+      "k": 32,
+      "method": "legacy",
+      "passed": 359,
+      "n": 512,
+      "median_gap": 0.11379111622608795,
+      "median_ms": 71.32505
+    },
+    {
+      "k": 32,
+      "method": "det",
+      "passed": 506,
+      "n": 512,
+      "median_gap": 0.06134042467511015,
+      "median_ms": 17.851
+    },
+    {
+      "k": 32,
+      "method": "standalone",
+      "passed": 303,
+      "n": 512,
+      "median_gap": 0.13480192710355715,
+      "median_ms": 27.323900000000002
+    },
+    {
+      "k": 32,
+      "method": "hybrid",
+      "passed": 512,
+      "n": 512,
+      "median_gap": 0.05494647727097586,
+      "median_ms": 42.6485
+    },
+    {
+      "k": 64,
+      "method": "legacy",
+      "passed": 294,
+      "n": 512,
+      "median_gap": 0.10830192108047416,
+      "median_ms": 715.42785
+    },
+    {
+      "k": 64,
+      "method": "det",
+      "passed": 504,
+      "n": 512,
+      "median_gap": 0.06662265042238882,
+      "median_ms": 79.62764999999999
+    },
+    {
+      "k": 64,
+      "method": "standalone",
+      "passed": 340,
+      "n": 512,
+      "median_gap": 0.12451502454846314,
+      "median_ms": 142.7379
+    },
+    {
+      "k": 64,
+      "method": "hybrid",
+      "passed": 509,
+      "n": 512,
+      "median_gap": 0.06447003107600444,
+      "median_ms": 177.19580000000002
+    }
+  ],
+  "paired": [
+    {
+      "k": 32,
+      "both_pass": 506,
+      "det_only": 0,
+      "warm_only": 6,
+      "neither": 0,
+      "headroom": 0.01171875,
+      "rescued_fraction": 1.0,
+      "difference": 0.01171875,
+      "bootstrap_low": 0.00390625,
+      "bootstrap_high": 0.021484375,
+      "deterministic_lower_975": 0.978515625,
+      "exact_mcnemar_two_sided": 0.03125,
+      "exact_mcnemar_warm_better_one_sided": 0.015625
+    },
+    {
+      "k": 64,
+      "both_pass": 504,
+      "det_only": 0,
+      "warm_only": 5,
+      "neither": 3,
+      "headroom": 0.015625,
+      "rescued_fraction": 0.625,
+      "difference": 0.009765625,
+      "bootstrap_low": 0.001953125,
+      "bootstrap_high": 0.01953125,
+      "deterministic_lower_975": 0.97265625,
+      "exact_mcnemar_two_sided": 0.0625,
+      "exact_mcnemar_warm_better_one_sided": 0.03125
+    }
+  ],
+  "structural": {
+    "posterior": {
+      "rho": 0.6651767350270394,
+      "ci": [
+        0.6014938916898765,
+        0.7231154136520985
+      ],
+      "valid_bootstrap": 10000
+    },
+    "prior": {
+      "rho": -0.005082312545868395,
+      "ci": [
+        -0.09294858569411717,
+        0.07995861365486374
+      ],
+      "valid_bootstrap": 10000
+    }
+  },
+  "hardware": {
+    "argos_input": "Local private IQ windows re-read; all 99 byte-range digests and three frame-zero digests checked against Gate 3. No IQ or channel coefficients are redistributed.",
+    "argos": [
+      {
+        "regime": "static",
+        "planned": 32,
+        "accepted": 31,
+        "median_first": 0.2250204517155572,
+        "median_second": 0.23778182028605016,
+        "paired_change": 0.017550761479611154,
+        "active_rf": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "validated_source_ranges": 33,
+        "pair_frames_checked": 480,
+        "source_file": "ArgosCSI-8x6-2015-11-28-14-39-47_static.hdf5",
+        "ETag": "\"242b7848-578878c590224\""
+      },
+      {
+        "regime": "env",
+        "planned": 32,
+        "accepted": 32,
+        "median_first": 0.24023887274123662,
+        "median_second": 0.2532832231214771,
+        "paired_change": 0.008301252054655914,
+        "active_rf": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "validated_source_ranges": 33,
+        "pair_frames_checked": 480,
+        "source_file": "ArgosCSI-8x6-2015-11-28-14-43-08_env.hdf5",
+        "ETag": "\"242b7848-5788788d2fed5\""
+      },
+      {
+        "regime": "mob",
+        "planned": 32,
+        "accepted": 22,
+        "median_first": 0.22497954159351866,
+        "median_second": 0.2429884425274067,
+        "paired_change": 0.010803746172678666,
+        "active_rf": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "validated_source_ranges": 33,
+        "pair_frames_checked": 480,
+        "source_file": "ArgosCSI-8x6-2015-11-28-14-47-06_mob.hdf5",
+        "ETag": "\"242b7848-578878b9a10f2\""
+      }
+    ],
+    "renew": {
+      "HUB": {
+        "full_capture_sha256": "aec556198de39208757fddc294af77d4f701d7a24b9f1feb3f1fdc09d36bc0d2",
+        "source_file": "trace-uplink-2022-11-14-2-42-48_1_64x6_0_63_chA.hdf5",
+        "bytes": 4672646072,
+        "etag": "\"11682ebb8-620dc2d740f8f\"",
+        "n_postprefix": 1873,
+        "eligible": 1870,
+        "abstentions": 3,
+        "raw_reaccessed": false
+      },
+      "LO": {
+        "full_capture_sha256": "e5fabc009dce96e527b6919ce744f0b41408f337e0d5334b8dadfa0f13699844",
+        "source_file": "trace-uplink-2022-11-14-7-10-53_1_64x6_0_63_chA.hdf5",
+        "bytes": 4670556888,
+        "etag": "\"116630ad8-620dc9e98f0d3\"",
+        "n_postprefix": 1873,
+        "eligible": 1769,
+        "abstentions": 104,
+        "raw_reaccessed": false
+      }
+    },
+    "renew_input": "Only archived frame and abstention records and raw capture digest metadata were available in the designated session directories. No complete distributed HUB/LO IQ or frame-slice archive was present; the two source files together exceed 9.3 GB. The ECDF denominator is all 1,873 post-prefix frames per mode. No new capture or population inference.",
+    "renew_replayed_frame_rows": 3746,
+    "renew_ecdf_rows": 10580
+  },
+  "verified_claims": [
+    "All released Gate 3 primary receipt payloads and all corresponding timing crosslinks and integer ledgers verified from raw simulated channels; no certificate violation detected.",
+    "Both locked deterministic usefulness endpoints and both stratified bootstrap lower limits reproduced.",
+    "Positive paired warm-start point estimates, strictly below the predeclared K=32 ten-point benefit.",
+    "Posterior (not prior) resource conflict is associated with relaxation loss on the stated native K=16 population. No predeclared selectivity crossing.",
+    "Archived calibration, phase and net decision summaries on their declared domains; no implication for actual unobserved future propagation.",
+    "Two RENEW derived full-capture distributions and raw-window Argos descriptive correlation summaries; no new physical acquisitions."
+  ],
+  "withheld": [
+    "No external human signature or independent laboratory replication.",
+    "The complete raw distributed IQ was not re-accessed; one authenticated pilot frame per mode and its eligible calibration noise frames (three HUB, two LO) were checked. Full distributions were independently reconstructed from archived derived frame rows.",
+    "Neither clock mode supplies twelve independent layouts; LO also misses 75% usefulness. Original elapsed times were rejoined and summarized, not newly benchmarked.",
+    "No blanket two-sided p<0.05 at K=64, preregistered AI superiority, universal phase transition, universal CSI coverage, deployment throughput, or journal acceptance.",
+    "Clean build is a functional source rebuild, not a binary-identical build; the released enclosure primitives are shared numerical specifications. CPUs and base mathematical libraries are on the original workstation."
+  ],
+  "renew_authenticated_source_spot_check": {
+    "results": [
+      {
+        "mode": "HUB",
+        "source_file": "trace-uplink-2022-11-14-2-42-48_1_64x6_0_63_chA.hdf5",
+        "etag": "\"11682ebb8-620dc2d740f8f\"",
+        "frame": 128,
+        "noise_calibration_frames": [
+          56,
+          80,
+          104
+        ],
+        "raw_input_bytes_in_memory": 2580480,
+        "verified_http_pages": 18,
+        "verified_http_bytes": 18874368,
+        "recomputed_three_tone_mean_pair_rho": 0.08521393847151353,
+        "released_mean_pair_rho": 0.08521393847151357,
+        "raw_saved": false
+      },
+      {
+        "mode": "LO",
+        "source_file": "trace-uplink-2022-11-14-7-10-53_1_64x6_0_63_chA.hdf5",
+        "etag": "\"116630ad8-620dc9e98f0d3\"",
+        "frame": 128,
+        "noise_calibration_frames": [
+          80,
+          104
+        ],
+        "raw_input_bytes_in_memory": 2293760,
+        "verified_http_pages": 14,
+        "verified_http_bytes": 14680064,
+        "recomputed_three_tone_mean_pair_rho": 0.06809478943705848,
+        "released_mean_pair_rho": 0.06809478943705849,
+        "raw_saved": false
+      }
+    ],
+    "scope": "Independently re-fetched/authenticated source pages for the frame-128 sensitivity pilot and eligible calibration noise windows (three HUB, two LO); reproduced one numeric field result per capture. Not a full raw capture or a replay of all distributed primary decisions."
+  }
+}

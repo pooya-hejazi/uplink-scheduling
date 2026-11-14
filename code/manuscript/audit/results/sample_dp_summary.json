@@ -1,0 +1,14 @@
+{
+  "population": 1152,
+  "sampled_units": 58,
+  "strata": {
+    "native": 21,
+    "analytic": 30,
+    "ray": 7
+  },
+  "k16_registered_optima_checked": 232,
+  "nested_analytic_tables_exhaustively_enumerated": 120,
+  "nested_schedule_count": 78510,
+  "signed_random_enumeration_controls": 12,
+  "exact_tick_mismatches": 0
+}

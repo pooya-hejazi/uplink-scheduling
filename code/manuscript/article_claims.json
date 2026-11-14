@@ -1,0 +1,92 @@
+{
+  "article_pages": 30,
+  "certificate_pages": 3,
+  "abstract_whitespace_words": 137,
+  "introduction_paragraphs": 5,
+  "results_subsections": 6,
+  "figures": {
+    "fig1_architecture": "b9568e2118447790f31e5c8a91a6067911907b0934a6bd0f4ab303584e3bd861",
+    "fig2_conflict": "16ecd546279d3597f31dbf49a5523c2a7f590ce5bcd30586369a65f7404c34a6",
+    "fig3_uncertainty": "60cae67b0aae2c80dae29ecc59396437ac3436e3bd5cf794edc5dfca89c1c2ad",
+    "fig4_scaling": "ecdc31912f726f2957441741e574929ddbefc1b17ac07c130e57caae27f94468",
+    "fig5_phase": "c125c9c104e9df6242517a159cd028928ac05fc2ca75515a0272e872dec69a98",
+    "fig6_hardware": "a40355059699bf9b5bdd6ce5c42fae3615cc27352f959918ac7ee0dc055a1b06"
+  },
+  "article_sha256": "4f2613631ab8e8662ab37755a35cd07749063c8cbf49edd0d4feb6990d9c10e5",
+  "audit_certificate_json_sha256": "62b6fca787188fe6dd571fdc33734b9b781bd8faa3de57da8ee3e08b0a0a5aeb",
+  "primary_counts": {
+    "32": {
+      "det": 506,
+      "legacy": 359,
+      "standalone": 303,
+      "hybrid": 512
+    },
+    "64": {
+      "det": 504,
+      "legacy": 294,
+      "standalone": 340,
+      "hybrid": 509
+    }
+  },
+  "figure_source_rows": {
+    "primary": 4096,
+    "structural": 512,
+    "uncertainty_cells": 12
+  },
+  "compared_to_independent_audit": true,
+  "package_includes_raw_rice": false,
+  "supplement_pages": 31,
+  "supplement_sha256": "9d4cddfa74b74db5f35fb9e683789141461e4b64f729bc5620b28ce6574269ea",
+  "supplementary_notes": 7,
+  "supplementary_figures": 8,
+  "supplementary_tables": 16,
+  "references": 51,
+  "nature_2026_by_venue": {
+    "Scientific Reports": 1,
+    "Nature Communications": 6
+  },
+  "discussion_paragraphs": 5,
+  "ray_geometry_rows": 1280,
+  "exact_paired_two_sided_p": {
+    "32": "0.03125",
+    "64": "0.0625"
+  },
+  "reviewer_hardware": {
+    "HUB": {
+      "mode": "HUB",
+      "n_calibration": 256,
+      "n_test": 1614,
+      "rank": 251,
+      "alpha_per_event": 0.025,
+      "qF": 100.71473580602807,
+      "qP": 87.3634128620521,
+      "floor_coverage": 1.0,
+      "interval_coverage": 1.0,
+      "joint_score_coverage": 0.9739776951672863,
+      "median_LP": 3.7537052856388926,
+      "median_UF": 26.83096712134993,
+      "median_width": 23.07540430179646,
+      "positive_floors": 1614,
+      "median_equal_power_gap": 3.3257426558463976e-05,
+      "scope": "Chronological within-capture observable-LTS2 evaluation. No exchangeability/population or latent-channel coverage claim."
+    },
+    "LO": {
+      "mode": "LO",
+      "n_calibration": 256,
+      "n_test": 1513,
+      "rank": 251,
+      "alpha_per_event": 0.025,
+      "qF": 189.28143363830188,
+      "qP": 165.25631656808724,
+      "floor_coverage": 1.0,
+      "interval_coverage": 1.0,
+      "joint_score_coverage": 0.7025776602775942,
+      "median_LP": 1.2919441573266002,
+      "median_UF": 28.117755217367502,
+      "median_width": 26.82989731354854,
+      "positive_floors": 1513,
+      "median_equal_power_gap": 6.858067020942826e-05,
+      "scope": "Chronological within-capture observable-LTS2 evaluation. No exchangeability/population or latent-channel coverage claim."
+    }
+  }
+}

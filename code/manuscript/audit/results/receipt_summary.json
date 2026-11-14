@@ -1,0 +1,16 @@
+{
+  "distinct": 8192,
+  "timing_links": 12288,
+  "raw_topologies": 512,
+  "method_size_decisions": 4096,
+  "raw_independent_primal_actions": 3726,
+  "four_term_nonnegative_identities": 8192,
+  "witnesses": {
+    "odd-set": 1024,
+    "odd-set4": 7168
+  },
+  "hybrid_nondegradation_pairs": 3072,
+  "smallest_threshold_distance": 2.9518886741353167e-05,
+  "largest_upward_display_pad": 3.5500355039845424e-15,
+  "violations": 0
+}

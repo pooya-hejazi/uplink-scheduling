@@ -1,0 +1,26 @@
+{
+  "purpose": "Transcription of immutable recorded numerical evidence for Supplementary Tables S1 and S2",
+  "units": {
+    "table_s1": "Rates and gaps in bit/s/Hz per tone; amplitude squared in whitened normalized units",
+    "table_s2": "Integer operation counts and dimensionless ratios"
+  },
+  "sources_sha256": {
+    "Gate_1/verification.log": "0ab1522f0fba1b6451f23fdd2fbb2b02b01910833f0d267ea8bfa3d72f2ad587",
+    "Gate_1/kernel_verification.log": "320b61da76770184577dd393a9fc00cf1197b1b6afffd06507235d87c2ba76d4",
+    "Gate_1/gaussian_bounds.py": "692f2fc566cb351f733671da82f0a5ba55a65539b0a9bf2209167b61bfb69cb9",
+    "Gate_1/verify_gate1.py": "a3cea767ace504ea0197966d8acd35936b0fd17819baf0a59a0e9db69b176d56",
+    "Gate_1/verifier64.py": "27096e8e897b094a77bc014de988e12f9abfc4b3bc63352d42570c6ec85b5b7c",
+    "Gate_2/enclosures.py": "d6ef53c5906c49457bdef7e26ac96ef5f2e35d3bc40086d1e79b4722a046d0b5",
+    "Gate_2B/exact_match.cpp": "689761248e9e29ef18a482f4f66e5096032cd7096c3ce52bff5090d96760ffeb",
+    "Gate_2B/matching.py": "c95b509c15335ae74ea4385ff5fa4f0e0b2b5bdb51312885661e3f56205b59f7",
+    "Gate_2/witness.py": "1a63a5c393f208a92bfc51bbd75ba097f4a504055df654308e460c12ad15af66"
+  },
+  "series_terms": {
+    "gaussian_rational_log": 18,
+    "binary64_reference_log": 20,
+    "integrated_local_log": 3,
+    "exponential_lower_degree": 21,
+    "exponential_upper_degree": 22
+  },
+  "recomputed_campaigns": false
+}

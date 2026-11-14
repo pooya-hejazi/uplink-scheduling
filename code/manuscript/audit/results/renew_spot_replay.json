@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "mode": "HUB",
+      "source_file": "trace-uplink-2022-11-14-2-42-48_1_64x6_0_63_chA.hdf5",
+      "etag": "\"11682ebb8-620dc2d740f8f\"",
+      "frame": 128,
+      "noise_calibration_frames": [
+        56,
+        80,
+        104
+      ],
+      "raw_input_bytes_in_memory": 2580480,
+      "verified_http_pages": 18,
+      "verified_http_bytes": 18874368,
+      "recomputed_three_tone_mean_pair_rho": 0.08521393847151353,
+      "released_mean_pair_rho": 0.08521393847151357,
+      "raw_saved": false
+    },
+    {
+      "mode": "LO",
+      "source_file": "trace-uplink-2022-11-14-7-10-53_1_64x6_0_63_chA.hdf5",
+      "etag": "\"116630ad8-620dc9e98f0d3\"",
+      "frame": 128,
+      "noise_calibration_frames": [
+        80,
+        104
+      ],
+      "raw_input_bytes_in_memory": 2293760,
+      "verified_http_pages": 14,
+      "verified_http_bytes": 14680064,
+      "recomputed_three_tone_mean_pair_rho": 0.06809478943705848,
+      "released_mean_pair_rho": 0.06809478943705849,
+      "raw_saved": false
+    }
+  ],
+  "scope": "Independently re-fetched/authenticated source pages for the frame-128 sensitivity pilot and eligible calibration noise windows (three HUB, two LO); reproduced one numeric field result per capture. Not a full raw capture or a replay of all distributed primary decisions."
+}

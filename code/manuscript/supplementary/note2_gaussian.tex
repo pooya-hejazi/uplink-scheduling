@@ -1,0 +1,108 @@
+\section{Finite-sample Gaussian radii and rational enclosures}
+\label{supp:note2}
+
+\paragraph{Specified receiver and error law.}
+The analytic experiment has \(N=16\) receive dimensions, \(K=32\) users and \(S=16\) tones. Powers are fixed at one and the whitened noise covariance is \(I_{16}\). Let \(u,v\) be orthonormal constant-modulus vectors, with entries of magnitude \(1/4\). On each tone the odd and even users have nominal channels \(Au\) and \(Av\), respectively. The fixed schedule pairs users \(2s-1,2s\) on tone \(s\), using \(u,v\) as their receive directions. Conditional on these centres, errors on all user--tone links are independent proper complex Gaussian vectors with covariance \(\nu^2I_{16}\), where \(\nu^2=1/32\). Thus each real coordinate has variance \(\nu^2/2\). This conditional construction specifies the residual law directly. The two amplitude conventions below distinguish 10-dB combined nominal SNR, \(A_0^2=10\), from 10-dB nominal SNR per antenna, \(A_0^2/16=10\).
+
+\paragraph{Block maxima and calibration order statistics.}
+For a scalar \(z\sim\mathcal{CN}(0,1)\), polar integration gives
+\(\Pr(|z|^2>x)=e^{-x}\) for \(x\geq0\). Convolution of \(d\) independent unit exponentials gives density \(x^{d-1}e^{-x}/(d-1)!\). Integrating by parts yields
+\begin{equation}
+ F_d(x)=1-e^{-x}\sum_{j=0}^{d-1}\frac{x^j}{j!},\qquad x\geq0.
+ \label{supp:eq:erlang}
+\end{equation}
+The full-vector block maximum contains \(m=KS=512\) squared norms, each with \(d=16\). The projected maximum contains \(m=2K=64\) scalar magnitudes, with \(d=1\). For every selected channel, the desired and interfering projections use the orthogonal directions \(u,v\). Isotropy makes those two Gaussian projections independent, and different links have independent errors by construction. Consequently the cumulative distribution function of either normalized maximum radius is
+\begin{equation}
+ B_{d,m}(q)=F_d(q^2)^m,\qquad q\geq0.
+ \label{supp:eq:blockcdf}
+\end{equation}
+The \(n=256\) calibration blocks are independent draws from this conditional Gaussian experiment, with error allocations \(\alpha_F=\alpha_P=1/40\). The selected rank is \(k=\lceil257(39/40)\rceil=251\). If \(Q_{(251)}\) is this order statistic, the probability integral transform gives
+\begin{equation}
+ T=B_{d,m}(Q_{(251)})\sim\operatorname{Beta}(251,6),\qquad
+ \epsilon=\nu\sqrt{F_d^{-1}(T^{1/m})}.
+ \label{supp:eq:betaradius}
+\end{equation}
+For any integrable radius function \(f\), its expectation is therefore
+\begin{equation}
+ J_{d,m}[f]=
+ \frac{1}{\mathrm B(251,6)}
+ \int_0^1
+ f\!\left(\nu\sqrt{F_d^{-1}(t^{1/m})}\right)
+ t^{250}(1-t)^5\,\mathrm dt.
+ \label{supp:eq:gaussintegral}
+\end{equation}
+This calculation needs only the marginal law of each radius. Linearity of expectation permits subtraction of the full-vector upper and projected lower expectations even when their calibration scores use the same blocks.
+
+\paragraph{Rate functions and quadrature.}
+The full-vector upper and fixed-direction lower functions, per tone in bit/s/Hz, are
+\begin{equation}
+ u_A(x)=2\log_2\!\left(1+(A_0+x)^2\right),\qquad
+ l_A(x)=2\log_2\!\left(1+\frac{[A_0-x]_+^2}{1+x^2}\right).
+ \label{supp:eq:gaussrates}
+\end{equation}
+The compared gaps have expectations \(J_{16,512}[u_A]-J_{16,512}[l_A]\) and
+\(J_{16,512}[u_A]-J_{1,64}[l_A]\). The common upper endpoint remains the full-vector one. We evaluated Eq.~\eqref{supp:eq:gaussintegral} through a uniform quantile of the beta distribution and independently integrated in \(q\), using density
+\begin{equation}
+ \frac{B_{d,m}(q)^{250}[1-B_{d,m}(q)]^5}{\mathrm B(251,6)}
+ \frac{2m q^{2d-1}e^{-q^2}F_d(q^2)^{m-1}}{(d-1)!}.
+\end{equation}
+The two deterministic quadratures agreed within \(2\times10^{-8}\). Their output is reported separately from the guaranteed intervals in Supplementary Table~\ref{supp:table1}.
+
+\paragraph{Integer outward calculation.}
+The independent enclosure represents each nonnegative interval by integer endpoints divided by \(D=2^{144}\). Products and quotients round down for the lower endpoint and up for the upper endpoint. Integer square roots enclose square roots. The grid \(q_j=j/128\), \(0\leq j\leq2048\), partitions \([0,16]\). To enclose \(e^{-q_j^2}\), set \(a=q_j^2/1024\in[0,1/4]\). Alternating-series bounds give
+\begin{equation}
+ \sum_{r=0}^{21}\frac{(-a)^r}{r!}
+ \ \leq e^{-a}\leq\
+ \sum_{r=0}^{22}\frac{(-a)^r}{r!}.
+\end{equation}
+Ten outward squarings produce an enclosure of \(e^{-q_j^2}\). Equation~\eqref{supp:eq:erlang}, integer powering and the order-statistic CDF
+\begin{equation}
+ C(q)=\sum_{r=0}^{5}\binom{256}{r}
+       [1-B_{d,m}(q)]^r B_{d,m}(q)^{256-r}
+ \label{supp:eq:ordercdf}
+\end{equation}
+then enclose each cumulative probability. If \(C_j\in[C_j^-,C_j^+]\), the mass of bin \(j\) lies in
+\[
+ \left[\max(0,C_j^--C_{j-1}^+),\
+       \max(0,C_j^+-C_{j-1}^-)\right].
+\]
+The radius and \(u_A\) increase with \(q\), whereas \(l_A\) decreases until it reaches zero. Their endpoint enclosures therefore bound each bin integral. Summing the nonnegative interval products gives outward bounds on the truncated expectations.
+
+The rational logarithm uses 18 positive terms of
+\[
+ \ln t=2\sum_{r=0}^{17}\frac{z^{2r+1}}{2r+1}+R_{18},
+ \qquad z=\frac{t-1}{t+1},\quad 1\leq t\leq2,
+ \qquad
+ 0\leq R_{18}\leq\frac{9}{4\cdot37\cdot3^{37}}.
+\]
+Binary range reduction supplies the required multiples of the similarly enclosed \(\ln2\). For the tail, the Erlang moment-generating function at \(1/2\) and a union bound over \(256m\) primitive vectors give
+\[
+ \Pr(Q_{(251)}>q)\leq256m\,2^d e^{-q^2/2}.
+\]
+All integrated outputs for both amplitudes are bounded above by \(32q^2\) when \(q\geq16\). Integration of the survival bound hence limits their omitted contribution by
+\begin{equation}
+ 32\cdot256m\,2^d(16^2+2)e^{-128}
+ \ \leq\ \frac{32\cdot256m\,2^d(16^2+2)}{2^{128}}.
+\end{equation}
+This positive amount is added to each upper expectation endpoint. Finally, subtracting lower-rate intervals from the common upper-rate interval and rounding decimal endpoints outward produces the table. The mesh width and monotone bin bounds determine its visible width, even though arithmetic uses 144 fractional bits.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Gaussian expectation calculations and guaranteed gap intervals. All rates and gaps are per tone in bit/s/Hz. Quadrature columns are numerical estimates; the final column contains outward enclosures. Both comparisons at each amplitude use the same full-vector upper endpoint.}
+\label{supp:table1}
+\begin{tabular}{rrrrr}
+\hline
+\(A_0^2\), lower bound & \(\mathbb E[U_F]\) & \(\mathbb E[L]\) & \(\mathbb E[G]\) & Enclosure of \(\mathbb E[G]\)\\
+\hline
+\(10,\ L_F\) & 8.483768339 & 3.205331864 & 5.278436475 & [5.274933, 5.281939]\\
+\(10,\ L_P\) & 8.483768339 & 5.477325259 & 3.006443079 & [3.002926, 3.009962]\\
+\(160,\ L_F\) & 15.128168313 & 11.974458499 & 3.153709814 & [3.151125, 3.156294]\\
+\(160,\ L_P\) & 15.128168313 & 13.792846701 & 1.335321612 & [1.333129, 1.337516]\\
+\hline
+\end{tabular}
+
+\smallskip
+\parbox{0.98\linewidth}{\small
+The vector radius has mean 1.071003515, enclosed by [1.070312, 1.071695]; the projected radius has mean 0.499457459, enclosed by [0.498766, 0.500148]. These radii have whitened channel-amplitude units and are common to both values of \(A_0\). The ratio of these mean radii is 2.144333809.}
+\end{table}

@@ -1,0 +1,9 @@
+check,count
+distinct_receipts,8192
+archived_timing_links,12288
+precommitted_units,58
+k16_integer_dp_matches,232
+small_bruteforce_tables,120
+small_labelled_schedules,78510
+two_user_global_intervals,512
+rejected_corruptions,7

@@ -1,0 +1,30 @@
+{
+  "Gate_1": {
+    "sha256": "4486edb88d6e9831c8899bac9a314a0441d584bef7c6575b41a854f6a5c3a58d",
+    "bytes": 555018,
+    "manifest_entries": 11,
+    "inner_manifest_sha256": "d0d295867443ca8c48457e351559eea0fff429091a9960f61291d983e81ef105",
+    "detached_sha256": false
+  },
+  "Gate_2": {
+    "sha256": "95ffd4700d90e0a7c7fc2b7751439826a25bbe918ae4905063b912458cbbc4ac",
+    "bytes": 97229307,
+    "manifest_entries": 227,
+    "inner_manifest_sha256": "e8431f67964a07de5dc762dfb866116c23bb3ef84dbab8b25eaaac9af9c1ef15",
+    "detached_sha256": false
+  },
+  "Gate_2B": {
+    "sha256": "ffb13a8848b093f5522102d2b752c601933c71a98bd730798017600327dda7bd",
+    "bytes": 71217522,
+    "manifest_entries": 224,
+    "inner_manifest_sha256": "ea9be4b33c4e93b515d1c1e1c3e13e9946aafd745f7b286ed7617ee700e242a3",
+    "detached_sha256": true
+  },
+  "Gate_3": {
+    "sha256": "9102640bd130ee36da315d49e72c93c35300d537db73b056f2fb07964a9d2306",
+    "bytes": 447608593,
+    "manifest_entries": 5329,
+    "inner_manifest_sha256": "35e38bf3ca93dd80ea9e1113279a0d39503d5874460622f16998ddd5d5625e98",
+    "detached_sha256": true
+  }
+}

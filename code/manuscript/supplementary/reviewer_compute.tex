@@ -1,0 +1,15 @@
+\begin{table}[htbp]\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{Exploratory paired control after the primary experiment. The deterministic control receives three extra price iterations (10 at 32 users, 9 at 64), matching the number of price iterations in learned warm start. Each method is rerun three times on every topology in rotating order; a block uses its largest gap and median time. Equal iteration count is not equal wall time. The original confirmatory results remain unchanged.}\label{supp:compute}
+\begin{tabular}{llllll}\toprule
+$K$ & Method & Iterations & Passes & Median $G$ & Median ms\\
+\midrule
+32 & Deterministic search & 7 & 506/512 & 0.06134 & 16.88\\
+32 & Equal-iteration deterministic & 10 & 507/512 & 0.05942 & 19.46\\
+32 & Learned warm start & 10 & 512/512 & 0.05495 & 39.66\\
+64 & Deterministic search & 6 & 504/512 & 0.06662 & 74.02\\
+64 & Equal-iteration deterministic & 9 & 505/512 & 0.06612 & 80.81\\
+64 & Learned warm start & 9 & 509/512 & 0.06447 & 169.51\\
+\bottomrule\end{tabular}
+\end{table}
+The count-matched control shares the deterministic power table, update rule and candidate-action construction. It changes only the iteration budget. No new neural training or seed selection is performed. Background source-data transfers were active on the shared workstation; paired rotation limits order bias but does not establish an isolated latency benchmark.

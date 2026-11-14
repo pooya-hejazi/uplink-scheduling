@@ -1,0 +1,31 @@
+Gate 1 | Python 3.13.5 | SciPy 1.16.3
+  tone1=12 tone2=34 product=91/25
+  tone1=13 tone2=24 product=91/25
+  tone1=14 tone2=23 product=1764/625
+  tone1=23 tone2=14 product=1764/625
+  tone1=24 tone2=13 product=91/25
+  tone1=34 tone2=12 product=91/25
+  exact gap=2*ln(100/91); interval in 1e-12 aggregate nats: [188621358942, 188621358943]
+  K=6 same-table check: relaxation-label=37/84, posterior=37/84, prior=52/7
+PASS T2 six labels, flat and separable K=2/4/6, posterior conflict inequality
+PASS T1 odd-set integer witness=2 versus fractional=3; signed ceil ticks=-1,-1,0,2
+PASS four-term same-candidate ledger: 1/7+1+1+9 = 78/7
+PASS log enclosure, signed exponents, root/child coverage, zero gain, rails and curvature neighbors
+PASS T3 vector/projected desired+interference, null crossing, oracle orthogonal escape
+PASS T4 conservative ties; n=256 ranks 251/245; n=16 rank 17 -> infinity
+Gaussian fixture: conditional proper complex Gaussian errors; N=16 K=32 S=16; nominal combined SNR=10 dB; p=1, noise=I, nu^2=1/32, n=256; alpha_F=alpha_P=1/40
+  nominal 10 dB combined, A^2=10
+    vector: shape=16, primitives=512, rank=251; E[radius]=1.071003515 in [1.070312, 1.071695], E[L]=3.205331864
+    projected: shape=1, primitives=64, rank=251; E[radius]=0.499457459 in [0.498766, 0.500148], E[L]=5.477325259
+    E[U]=8.483768339, ball and projected comparisons use identical U
+    E[G_vector]=5.278436475 bit/s/Hz in [5.274933, 5.281939]
+    E[G_projected]=3.006443079 bit/s/Hz in [3.002926, 3.009962]
+  nominal 10 dB per antenna, A^2=160
+    vector: shape=16, primitives=512, rank=251; E[radius]=1.071003515 in [1.070312, 1.071695], E[L]=11.974458499
+    projected: shape=1, primitives=64, rank=251; E[radius]=0.499457459 in [0.498766, 0.500148], E[L]=13.792846701
+    E[U]=15.128168313, ball and projected comparisons use identical U
+    E[G_vector]=3.153709814 bit/s/Hz in [3.151125, 3.156294]
+    E[G_projected]=1.335321612 bit/s/Hz in [1.333129, 1.337516]
+  radius ratio=2.144333809; nominal no-error gap=0
+PASS exact-law integrals: two deterministic quadratures and outward integer bounds
+ALL REFERENCE FIXTURES PASSED

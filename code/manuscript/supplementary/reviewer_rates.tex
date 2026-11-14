@@ -1,0 +1,30 @@
+\begin{table}[htbp]\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{Absolute native rates at 10 dB. Each row has 512 topologies. Entries are medians in bit/s/Hz. The best ceiling is selected within each topology across all seven methods, then summarized. Retention is the median of paired lower/best-upper ratios. Repeated learned calls use the smallest lower and upper values separately; each remains valid.}\label{supp:rates}
+\begin{tabular}{llllll}\toprule
+$K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
+\midrule
+16 & Zero-price baseline & 15.1362 & 15.6304 & 15.2188 & 99.451\\
+16 & Deterministic search & 15.1928 & 15.2290 & 15.2188 & 99.879\\
+16 & Matching + power refinement & 15.1362 & 17.2669 & 15.2188 & 99.451\\
+16 & Learned warm start & 15.1964 & 15.2255 & 15.2188 & 99.900\\
+16 & Subgradient baseline & 15.1362 & 15.2302 & 15.2188 & 99.451\\
+16 & Sequential equal-power & 14.3612 & 17.2669 & 15.2188 & 93.426\\
+16 & Network only & 15.1529 & 15.2529 & 15.2188 & 99.461\\
+32 & Zero-price baseline & 15.2885 & 15.7868 & 15.3808 & 99.322\\
+32 & Deterministic search & 15.3312 & 15.3881 & 15.3808 & 99.636\\
+32 & Matching + power refinement & 15.2885 & 17.4203 & 15.3808 & 99.322\\
+32 & Learned warm start & 15.3356 & 15.3857 & 15.3808 & 99.675\\
+32 & Subgradient baseline & 15.2885 & 15.3875 & 15.3808 & 99.322\\
+32 & Sequential equal-power & 14.3288 & 17.4203 & 15.3808 & 92.320\\
+32 & Network only & 15.2969 & 15.4171 & 15.3808 & 99.348\\
+64 & Zero-price baseline & 15.4007 & 15.8814 & 15.4897 & 99.392\\
+64 & Deterministic search & 15.4301 & 15.4897 & 15.4897 & 99.587\\
+64 & Matching + power refinement & 15.4007 & 17.5153 & 15.4897 & 99.392\\
+64 & Learned warm start & 15.4311 & 15.4897 & 15.4897 & 99.601\\
+64 & Subgradient baseline & 15.4007 & 15.5035 & 15.4897 & 99.392\\
+64 & Sequential equal-power & 14.3363 & 17.5153 & 15.4897 & 91.784\\
+64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
+\bottomrule\end{tabular}
+\end{table}
+The archived matching control starts from equal powers and then allows feasible power refinement. Its label is made explicit here: it is not a fixed-equal-power comparator. Sequential equal-power retains 0.10 W per user. Exact fixed-equal-power enumeration is reported separately for the six-user hardware inputs.

@@ -1,0 +1,58 @@
+{
+  "physical_products": [
+    "1764/625",
+    "1764/625",
+    "91/25",
+    "91/25",
+    "91/25",
+    "91/25"
+  ],
+  "physical_gap_nats": "0.1886213589424826537542854487204601615197006058309552943764402826682013785564510265695224963016711620",
+  "t2_relaxation_loss": "37/84",
+  "t2_posterior": "37/84",
+  "t2_prior": "52/7",
+  "ledger": [
+    "1/7",
+    "1",
+    "1",
+    "9"
+  ],
+  "gaussian": {
+    "10": {
+      "ball": {
+        "radius": 1.07100351453912,
+        "upper": 8.483768338693329,
+        "lower": 3.205331863750042
+      },
+      "projected": {
+        "radius": 0.4994574586544669,
+        "upper": 7.697626967477697,
+        "lower": 5.477325259406141
+      },
+      "ball_gap": 5.2784364749432875,
+      "projected_gap": 3.0064430792871883
+    },
+    "160": {
+      "ball": {
+        "radius": 1.07100351453912,
+        "upper": 15.128168313349931,
+        "lower": 11.974458499353844
+      },
+      "projected": {
+        "radius": 0.4994574586544669,
+        "upper": 14.883973864270262,
+        "lower": 13.792846700862277
+      },
+      "ball_gap": 3.1537098139960875,
+      "projected_gap": 1.335321612487654
+    }
+  },
+  "native_match_controls": 21,
+  "compiled_log_decimal_checks": 26,
+  "rational_power_box_grid_points": 9,
+  "complete_archived_control_suites": [
+    "verify_gate1",
+    "check_verifier64"
+  ],
+  "violations": 0
+}

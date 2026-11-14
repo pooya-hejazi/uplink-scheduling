@@ -1,0 +1,16 @@
+{
+  "compiler": "Zig 0.13.0 C++ frontend",
+  "compiler_archive_sha256": "d859994725ef9402381e557c60bb57497215682e355204d754ee3df75ee3c158",
+  "lemon_archive_sha256": "71b7c725f4c0b4a8ccb92eb87b208701586cf7a96156ebd821ca3ed855bad3c8",
+  "flags": [
+    "-std=c++14",
+    "-O3",
+    "-DNDEBUG",
+    "-DWIN32",
+    "-shared"
+  ],
+  "compiled_source_sha256": "689761248e9e29ef18a482f4f66e5096032cd7096c3ce52bff5090d96760ffeb",
+  "compiled_dll_sha256": "2674454310f64278435a3771534e22aa406046a5c4bcc6e6c5c100c37dcfc3e0",
+  "released_dll_sha256": "1875cc0a00f5df3be2de2666844e12630d7399d3a2a4f5ac75502510dc8034fc",
+  "fresh_local_and_global_build_cache": true
+}

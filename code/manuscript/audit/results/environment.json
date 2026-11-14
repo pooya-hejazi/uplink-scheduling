@@ -1,0 +1,59 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "cpu": "Intel64 Family 6 Model 165 Stepping 2, GenuineIntel",
+  "python": "3.13.5 | packaged by Anaconda, Inc. | (main, Jun 12 2025, 16:37:03) [MSC v.1929 64 bit (AMD64)]",
+  "python_executable_sha256": "388fe2cffda8a134e7d7dc4e978f7c478857ece6b69694daecbed25e51ec633a",
+  "dependencies": {
+    "numpy": {
+      "version": "2.3.4",
+      "files": 919,
+      "linked_content_sha256": "ff8292636b007cfbea6e10e745cf36ea422755562ceccea978188209762cba9f"
+    },
+    "scipy": {
+      "version": "1.16.3",
+      "files": 1530,
+      "linked_content_sha256": "bb33bdfb8efe3893d93f648460ded9f458e5c87a30643a837976712e4661b373"
+    },
+    "numba": {
+      "version": "0.62.1",
+      "files": 795,
+      "linked_content_sha256": "2b2766a43f577442043b4e88d814123a5e66ff0ebd6ec6ea98a56270376cb26a"
+    },
+    "llvmlite": {
+      "version": "0.45.1",
+      "files": 47,
+      "linked_content_sha256": "34a1b8a2f04978257d63fafcff0e95438ecc2415bde2ce458b3409bde043a28b"
+    },
+    "networkx": {
+      "version": "3.4.2",
+      "files": 585,
+      "linked_content_sha256": "823f0d80f35011749755fa96debeadd93eac325f689791e167528487322c1fb9"
+    },
+    "threadpoolctl": {
+      "version": "3.5.0",
+      "files": 8,
+      "linked_content_sha256": "3bd9942e454f940ab1e0b5b8c3e4960e3d1e20206c2a91fde83986bf694068b6"
+    },
+    "mpmath": {
+      "version": "1.3.0",
+      "files": 95,
+      "linked_content_sha256": "62062670aaec8c865e8e03c44d58970aad3cc8c8ad8de75c6e46cac834f8f334"
+    },
+    "sympy": {
+      "version": "1.13.3",
+      "files": 1556,
+      "linked_content_sha256": "d61b624d2c8290836ea357db06f1489b3539163d096804cc8778871db5c82892"
+    }
+  },
+  "venv_system_site_packages": false,
+  "source": "Local exact-version binary distributions; base CPython stdlib and native system/Conda math-runtime DLLs. No network, torch, GPU or model weights are used.",
+  "threads": 1,
+  "optional_hardware_io": {
+    "h5py": {
+      "version": "3.12.1",
+      "files": 92,
+      "linked_content_sha256": "9968ee99c0fb939e0f71a15424fb32a91ab52c805fe9aabb0eb11e3378bdde6d"
+    }
+  },
+  "optional_hardware_io_scope": "h5py is used only to locate narrowly bounded authenticated Rice source windows; the optional source check requires HTTPS."
+}

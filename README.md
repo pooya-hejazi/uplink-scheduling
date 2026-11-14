@@ -1,82 +1,98 @@
 # Bounding the rate loss of individual wireless uplink schedules
 
-Research code, numerical source data and reproduction materials for the manuscript by **Pooya Hejazi and Masoud Sabaei** (Amirkabir University of Technology).
+Research code and data for the manuscript by **Pooya Hejazi and Masoud Sabaei**, Amirkabir University of Technology. The repository remains **private during review**.
 
-This repository is private during review. Reviewers need access granted by the repository owner. The paper studies full-service paired uplinks: two single-antenna users per tone, one tone per pair, bounded powers and separate linear receivers without SIC.
+**Repository contact: [Pooya Hejazi](https://github.com/pooya-hejazi).** Questions about this code and reproduction package should be directed to Pooya Hejazi. Scientific authorship and correspondence are recorded in the Article.
 
-## Start here
+## Contents
 
-- `paper/main.pdf`: article; `paper/main.tex`: standalone editable source.
-- `supplementary_materials/Supplementary_Information.pdf`: proofs, algorithms and extended results.
-- `supplementary_materials/Source_Data.zip`: annotated numerical data for the numbered displays.
-- `software/`: directly browsable Python/C++ code, figure CSVs, exact fixtures and verification evidence.
-- `supplementary_materials/reproduction/`: complete research-workspace assembler and input manifests.
+| Directory | Contents |
+|---|---|
+| `paper/` | Article PDF, editable LaTeX, six figures and point-by-point response |
+| `supplementary_materials/` | Scientific supplement, eight supplementary figures and annotated Source Data |
+| `code/` | All executable research and document code; **start with `run.py`** |
+| `data/` | Input archive names, sizes and SHA-256 digests |
 
-## Quick reproduction (CPU)
+Within `code`, source modules are grouped by purpose: `mathematics`, `channel_models`, `schedulers`, `experiments`, `manuscript` and `document_tools`. All commands below run from **the same `code` directory**. You do not need to change between module directories.
 
-Use Python 3.11 or newer, with assertions enabled (do not use `python -O`). From the repository root:
+## Quick reproduction
+
+The CPU environment was tested with CPython 3.13.5 on Windows 11. Keep assertions enabled; do not run Python with `-O`.
 
 ```sh
+cd code
 python -m venv .venv
 # Activate .venv using the command appropriate to your shell.
-python -m pip install numpy scipy pandas matplotlib numba networkx
-python software/Gate_1/verify_gate1.py
-python software/Gate_4/audit/issue.py verify
-python software/Gate_4/make_figures.py
-python software/Gate_4/supplementary/make_physics_supp.py
+python -m pip install -r requirements.txt
+python run.py verify-math
+python run.py verify-records
+python run.py figures
 ```
 
-These commands check exact mathematical fixtures, verify the archived verification evidence, and regenerate the six article figures and propagation/pilot-cost supplementary figures from included scalar data. They do not retrain a network or decode a recording. Plotting rewrites generated figure files, so use a working copy if you want to preserve the supplied hashes.
+These commands check exact mathematical fixtures and archived verification evidence, then regenerate the six Article figures from the supplied scalar tables. Figure outputs are in `code/manuscript/figures/` and `results/figures/`. No GPU or source recordings are needed for these commands. Plotting rewrites generated figures; use a working copy to preserve the supplied file hashes.
 
-The recorded CPU verification environment is Windows 11, CPython 3.13.5, NumPy 2.3.4, SciPy 1.16.3, Numba 0.62.1 and NetworkX 3.4.2. Native matching targets 64-bit Windows with Zig 0.13.0 and LEMON 1.3.1. Training uses CUDA-enabled PyTorch; channel generation additionally requires Sionna 2.2.0. See the detailed [reproduction guide](supplementary_materials/reproduction/README.md) before running those stages.
+## Full experiment inputs
 
-## Full input data
+Download the five ZIP assets from the private [reviewer reproduction release](https://github.com/pooya-hejazi/uplink-scheduling/releases/tag/reviewer-materials-2026-11-14) into `data/inputs/`. They contain mathematical reference records, channel experiments, scheduler experiments, validation experiments and 8,960 simulated arrays. Restricted measurement recordings are excluded.
 
-Large immutable inputs are attached to the private [reviewer-materials-2026-11-14 release](../../releases/tag/reviewer-materials-2026-11-14). They contain four frozen experiment packages and `Gate_2_arrays.zip` (4,096 fit teachers and 4,864 additional simulated arrays). They are kept out of ordinary Git history.
-
-With the GitHub CLI authenticated to an account that can access this repository:
+With GitHub CLI authenticated to an account that can access this repository, run from `code`:
 
 ```sh
-gh release download reviewer-materials-2026-11-14 --repo pooya-hejazi/uplink-scheduling --pattern "Gate_*_Deliverable_Package.zip" --dir supplementary_materials/reproduction/output
-gh release download reviewer-materials-2026-11-14 --repo pooya-hejazi/uplink-scheduling --pattern "Gate_2_arrays.zip" --dir .
-python -m zipfile -e Gate_2_arrays.zip supplementary_materials/reproduction
-python supplementary_materials/reproduction/reproduce.py verify
-python supplementary_materials/reproduction/reproduce.py unpack research_workspace
+gh release download reviewer-materials-2026-11-14 --repo pooya-hejazi/uplink-scheduling --pattern "*.zip" --dir ../data/inputs
+python run.py verify-inputs
+python run.py prepare
 ```
 
-You may instead download these same assets through the authenticated release page. Put the four experiment ZIPs in `supplementary_materials/reproduction/output/` and extract `Gate_2_arrays.zip` into `supplementary_materials/reproduction/`. The SHA-256 manifest verifies every complete input before extraction. Allow about 1.5 GB for downloaded inputs and another 2 GB for the materialized research workspace, in addition to download archives.
+The same files can be downloaded through the authenticated release page. `data/inputs.json` and `data/INPUT_SHA256SUMS` identify their exact bytes. Preparation verifies the hashes, safely extracts the inputs and creates an ignored local execution workspace. Original identifiers inside immutable inputs are retained so historical verification evidence remains valid; they do not define this repository's directory structure. Allow about 4 GB for downloaded archives and the extracted workspace.
 
-## Reviewer analyses
+## Reproduce the reviewer analyses
 
-Run these from the materialized `research_workspace`, after installing the documented scientific/native environment:
+After preparing the inputs, run from `code`:
 
 ```sh
-python Gate_4/revision/reviewer_analysis.py rates
-python Gate_4/revision/reviewer_analysis.py decomposition
-python Gate_4/revision/reviewer_analysis.py sweep
-python Gate_4/revision/reviewer_analysis.py compute
-python Gate_4/revision/reviewer_tables.py
+python run.py reviewer-rates
+python run.py reviewer-decomposition
+python run.py reviewer-refinement
+python run.py reviewer-compute
+python run.py supplementary-figures
 ```
 
-The scripts write scalar outputs to `Gate_4/revision/reviewer_data/` and preserve the earlier confirmatory experiment. The extra-iteration control matches the number of price iterations; measured wall times are reported separately. Exact assignment of an upper-score table is not an exact continuous-power optimum. Small-instance physical optima are reported as enclosing intervals.
+Scalar analysis outputs are copied to `results/`; supplementary plots are copied to `results/supplementary_figures/`. The first refinement and compute calls perform fresh calculations. Interrupted runs resume per-topology checkpoints in the ignored execution workspace. Existing completed checkpoints are reused on subsequent calls; to measure fresh timings again, move `.work` to a backup location and run `prepare` again.
+
+The compute comparison uses the frozen CUDA/PyTorch proposal worker. Set `GATE_GPU_PY` to that environment's Python executable before running it. Native matching uses 64-bit Windows, Zig 0.13.0 and LEMON 1.3.1. Training and channel generation additionally require CUDA-enabled PyTorch and Sionna 2.2.0. The supplied input records include checkpoints and environment information.
+
+The new control matches the **number of price iterations**, not measured wall time. The exact optimum of an upper-score table is not the continuous-power optimum. Small-instance physical references are reported as enclosing brackets, including their wide tails.
 
 ## Rebuild the documents
 
-Install Tectonic and run from the repository root, replacing `PATH_TO_TECTONIC` with its executable:
+Install Tectonic, then run from `code`:
 
 ```sh
-python supplementary_materials/tools/build_paper.py --tectonic PATH_TO_TECTONIC
-python supplementary_materials/tools/build_supplementary.py --tectonic PATH_TO_TECTONIC
+python run.py build-paper --tectonic PATH_TO_TECTONIC
+python run.py build-supplement --tectonic PATH_TO_TECTONIC
 ```
 
-Add `--only-cached` only if all required TeX resources are already cached. Builders read the editable sources in `supplementary_materials/reproduction/Gate_4/`. Regenerating full simulation or hardware figures from original records requires the materialized workspace; the shipped CSVs and PDFs can be inspected without that step.
+Add `--only-cached` for an offline build after the required TeX resources have been cached. The builders read `code/manuscript/` and update `paper/` and `supplementary_materials/`. The scientific supplement has seven notes, sixteen tables, eight figures and the same 51 references as the Article. The response gives exact line locations in the delivered standalone LaTeX sources.
 
-## Measurement data and interpretation
+## Hardware replay
 
-Restricted Rice IQ/HDF5 recordings and reconstructed complex measurement channels are not redistributed. Obtain them under the provider's research-use terms from [Rice RENEW](https://renew.rice.edu/dataset-distributed.html) and [Argos](https://renew.rice.edu/dataset-argos.html). Original ray scenes are available from [DeepMIMO](https://www.deepmimo.net/). Derived scalar summaries, source identifiers and integrity records are included.
+Obtain original recordings under the provider's terms from [Rice RENEW](https://renew.rice.edu/dataset-distributed.html) and [Argos](https://renew.rice.edu/dataset-argos.html). Original ray scenes are supplied by [DeepMIMO](https://www.deepmimo.net/). Capture identifiers, decoding conventions and scalar summaries are included.
 
-`reviewer_hardware.py decode HUB` / `decode LO` re-fetch the specified RENEW windows and keep decoded channels in a separate local `output/reviewer_revision_20261114/private/` directory; `evaluate HUB` / `evaluate LO` produce scalar summaries. Do not redistribute that private directory. Chronological calibration is evaluated against an observable second LTS, not a noiseless payload channel. One recording per clock mode does not establish exchangeability or population coverage. No paired-payload experiment is claimed.
+```sh
+python run.py hardware-decode --mode HUB
+python run.py hardware-evaluate --mode HUB
+python run.py hardware-decode --mode LO
+python run.py hardware-evaluate --mode LO
+```
 
-## Attribution
+The RENEW decoder checks HTTPS byte ranges, ETags and early-input hashes. Reconstructed channels remain in the ignored local execution workspace; only scalar results are copied to `results`. If an institutional TLS proxy is used, configure `REQUESTS_CA_BUNDLE` with its trusted CA bundle. TLS verification remains enabled.
 
-Correspondence: **Masoud Sabaei**, sabaei@aut.ac.ir. Third-party components and their notices are retained in the experiment packages. This review deposit does not add a new license to third-party data or software.
+The first 256 eligible post-prefix frames calibrate the residual radii; the remaining 1,614 HUB and 1,513 LO frames test the frozen rule. Coverage concerns the **observable second LTS**, not a noiseless payload channel. One temporally dependent recording per clock mode does not establish exchangeability or population coverage. No paired-payload experiment is claimed.
+
+## Other research stages
+
+`python run.py --help` lists every entry point. The following commands also run from `code`: `build-native`, `verify-scheduler`, `generate-training`, `train`, `confirmatory-test` and `summarize`. These stages write to the local execution workspace and may require the full native/GPU environment. Re-training and rerunning the original confirmatory campaign are separate from reproducing the supplied reviewer results.
+
+## Integrity and attribution
+
+`REPOSITORY_SHA256SUMS` covers the supplied repository files. `code/SOURCE_MAP.csv` maps the descriptive source layout to archived identifiers and original hashes. Third-party notices are retained. This review deposit does not grant a new license to third-party software or data.

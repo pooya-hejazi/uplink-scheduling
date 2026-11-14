@@ -1,0 +1,13 @@
+\begin{table}[htbp]\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{Refinement-budget sensitivity on the same 64 O1 tiles at 32 users and 10 dB. Each selected pair--tone rectangle is partitioned into 16 children. The original 32 choices are retained, and further entries are added in descending parent-score order with index tie-breaking. Every output is replayed against the full interval checker. Medians of components need not add.}\label{supp:refinement}
+\begin{tabular}{lllll}\toprule
+Refined entries & Tiles & Median $G$ & Median $T_4$ & Median time (ms)\\
+\midrule
+32 & 64 & 1.119582 & 1.113253 & 15.88\\
+128 & 64 & 1.119582 & 1.113253 & 16.59\\
+512 & 64 & 1.119582 & 1.113253 & 18.21\\
+7936 & 64 & 1.119582 & 1.113253 & 49.51\\
+\bottomrule\end{tabular}
+\end{table}
+All 7,936 pair--tone entries are refined in the last row. Expanding which entries receive this fixed 16-child partition does not reduce the median gap. This result does not establish an irreducible continuous-power gap: deeper partitions, other power prices or stronger local bounds were not tested in this sweep. Timings are exploratory single calls collected alongside other analysis jobs, and are not replacement primary deadline measurements.

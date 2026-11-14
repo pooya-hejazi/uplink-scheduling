@@ -1,0 +1,20 @@
+{
+  "positive_control_id": [
+    "A",
+    0,
+    64,
+    10,
+    "det",
+    0
+  ],
+  "rejected": [
+    "sum-preserving transfer between two ledger terms",
+    "altered covered table digest",
+    "invalid odd set",
+    "duplicated primal user",
+    "negative lower-rate tick",
+    "mismatched denominator",
+    "non-upward displayed gap"
+  ],
+  "unexpected_acceptances": 0
+}

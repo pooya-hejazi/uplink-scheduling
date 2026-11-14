@@ -1,0 +1,19 @@
+\section{Comparison with closely related work}
+\label{suppnote:literature}
+The comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below.
+\begin{table}[htbp]\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Ten closely related studies and their relation to the paired scheduling interval.}\label{supp:comparison}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.14\linewidth}>{\raggedright\arraybackslash}p{.20\linewidth}>{\raggedright\arraybackslash}p{.21\linewidth}>{\raggedright\arraybackslash}p{.19\linewidth}>{\raggedright\arraybackslash}p{.20\linewidth}@{}}\toprule
+Study & System and receiver & Optimization / learning & Guarantee & Relation to this work\\\midrule
+Viterbo and Hottinen~\cite{viterbo} & Equal-energy paired uplink; MMSE/ML detection & Optimal pairing & Optimum in its pairing model & Tone-dependent conflicts and continuous powers\\\addlinespace[3pt]
+Fan et al.~\cite{fan} & LTE uplink; linear MMSE & Pairing and contiguous allocation & Discrete search with prescribed powers & Full power-domain ceiling for a delivered action\\\addlinespace[3pt]
+Ruder et al. (2013)~\cite{ruder2013} & SC-FDMA; receiver-specific metrics & Blossom pairing and joint grouping & Small full-enumeration benchmark & Scalable checked relaxation across labelled tones\\\addlinespace[3pt]
+Ruder et al. (2014)~\cite{ruder2014} & SC-FDMA; imperfect scheduling CSI & MMSE prediction and grouping & Small perfect-CSI search benchmark & Calibrated errors along stored receive directions\\\addlinespace[3pt]
+Prasad et al.~\cite{prasad} & LTE-A; matroid/knapsack constraints & Submodular scheduling & Approximation and restricted-model upper bounds & Additive action-specific interval in the paired model\\\addlinespace[3pt]
+Shen and Yu~\cite{shenfptwo} & Interfering uplinks; powers/beamformers & Fractional programming and matching & Iterative objective improvement & Upper endpoint covers alternative feasible decisions\\\addlinespace[3pt]
+Matthiesen et al.~\cite{matthiesen} & Continuous interference optimization & Mixed-monotonic branch and bound & Global enclosures at the search tolerance & Pairwise boxes combined with a matching relaxation\\\addlinespace[3pt]
+Dinitz et al.~\cite{dinitz} & Weighted bipartite matching & Predicted duals and feasibility repair & Exact matching after repair & General-graph pairing with continuous rate scores\\\addlinespace[3pt]
+Lei et al.~\cite{lei} & Regression with exchangeable examples & Split-conformal prediction & Finite-sample marginal coverage & Policy-specific vector and directional block maxima\\\addlinespace[3pt]
+Johnstone and Cox~\cite{johnstone} & Robust optimization & Conformal ellipsoidal uncertainty & Coverage-calibrated uncertainty sets & Distinct uncertainty needs of action and oracle\\\addlinespace[3pt]
+\bottomrule\end{tabular}\end{table}

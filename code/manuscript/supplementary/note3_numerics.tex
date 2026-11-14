@@ -1,0 +1,136 @@
+\section{Outward channel bounds and integer matching verification}
+\label{supp:note3}
+
+\paragraph{Channel grid and exact Gram products.}
+Let \(h\in\mathbb C^{K\times N\times S}\) be the supplied channel array. The integrated implementation accepts \(2\leq K\leq64\), \(K=2S\), \(1\leq N\leq256\), nonnegative finite radii, and a largest absolute real or imaginary component between \(2^{-100}\) and \(2^{100}\). Choose a common power-of-two spacing \(\delta\) so that nearest-integer rounding of each component divided by \(\delta\) has magnitude at most \(2^{22}\). For integer vectors \(a_i,b_i\) representing real and imaginary parts, the centre Gram entries are
+\begin{equation}
+ \widetilde h_i^H\widetilde h_j
+ =\delta^2\left[
+    a_i^\mathsf T a_j+b_i^\mathsf T b_j
+    +\mathrm i(a_i^\mathsf T b_j-b_i^\mathsf T a_j)\right].
+\end{equation}
+Each bracketed real component sums at most \(2N\) products of magnitude \(2^{44}\). Thus its absolute value and the sum of absolute intermediate products are at most
+\(2N2^{44}\leq2^{53}\). Integer accumulation and power-of-two rescaling preserve these sums exactly within the supported range. If the input channel has radius \(\epsilon_i\), the rounded centre receives the outward radius
+\begin{equation}
+ \widetilde\epsilon_i\geq\epsilon_i+\frac{\delta\sqrt{2N}}{2}.
+\end{equation}
+This covers the worst-case displacement of all \(2N\) real coordinates.
+
+For centres \(a,b\) and padded radii \(u,v\), expanding the inner product and applying Cauchy--Schwarz gives
+\begin{equation}
+ |h_i^Hh_j|\geq
+ \left[|a^Hb|-\|a\|v-\|b\|u-uv\right]_+ .
+\end{equation}
+Squaring this lower bound and dividing by upper squared channel norms produces a lower squared normalized overlap. Norm bounds also give lower and upper received gains. For
+\(\gamma(x,y,r)=x(1-r y/(1+y))\), with \(x,y\geq0\) and \(0\leq r\leq1\), monotonicity is increasing in \(x\) and decreasing in \(y,r\). Evaluating each user's desired term at its upper gain and power, and interference at the lower partner gain, power and overlap, therefore bounds the rate over an entire two-dimensional power box. Subtraction of a lower power charge preserves the upper bound.
+
+\paragraph{Binary64 elementary and logarithmic operations.}
+The arithmetic contract uses nearest-even IEEE binary64 operations, gradual underflow and disabled fast-math reassociation. Applying \(\operatorname{nextafter}\) toward \(-\infty\) or \(+\infty\) to a rounded elementary result encloses the corresponding real result. Exceptional values cause rejection or retention of an available valid upper bound. The compiled reference logarithm writes \(x=2^k t\), \(1\leq t<2\), and uses \(z=(t-1)/(t+1)\leq1/3\):
+\begin{equation}
+ \ln t=2\sum_{j=0}^{19}\frac{z^{2j+1}}{2j+1}+R_{20},
+ \qquad
+ 0\leq R_{20}\leq\frac{2z^{41}}{41(1-z^2)}.
+ \label{supp:eq:binarylog}
+\end{equation}
+Every term and the remainder are enclosed outward. The result is combined with an enclosure of \(k\ln2\), reversing interval endpoints when \(k<0\).
+
+The integrated scheduler reuses this 20-term routine to tabulate 257 outward values of \(\ln(1+j/256)\). For a mantissa \(t\), choose \(a=1+\lfloor256(t-1)\rfloor/256\). Then \(z=(t-a)/(t+a)<1/512\) and
+\[
+ \ln t=\ln a+2\left(z+\frac{z^3}{3}+\frac{z^5}{5}\right)+R,
+ \qquad 0\leq R\leq\frac{2z^7}{7(1-z^2)}.
+\]
+The runtime implementation bounds the tail conservatively using \(z^7/3\) and outward coefficient allowances. This three-term local evaluation and the 20-term table construction both preserve a complete logarithmic enclosure. The rational Gaussian integration of Supplementary Note~\ref{supp:note2} separately uses its 18-term integer series.
+
+\paragraph{Complete roots and lazy subdivision.}
+Each pair--tone entry initially covers the full power square \([p_-,p_+]^2\). A cached unpriced root can be used at several nonnegative power prices by subtracting a lower bound on the charge. Priorities choose entries for optional refinement. Splitting each power interval at four shared subinterval boundaries produces 16 children whose union covers the parent, including boundaries. If \(H_{\mathrm{old}}\) and \(H_c\) are valid upper bounds for the parent and children, respectively, then
+\begin{equation}
+ H_{\mathrm{new}}=\min\!\left(H_{\mathrm{old}},\max_{c=1,\ldots,16}H_c\right)
+ \label{supp:eq:lazyroot}
+\end{equation}
+remains valid. The parent is retained until every child is covered. This argument also covers incorrect priorities, ties, unselected entries and interrupted optional work. The scheduler additionally uses tangents to the individual concave log terms with a separately enclosed correlation penalty. Every such bound must cover its complete domain before it can tighten an entry.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Rate-box evaluation counts in the compiled-kernel fixture. Four candidate power prices use the same cached roots. The optional-leaf and total-call reductions have different denominators. Counts quantify arithmetic work for this fixture; runtime includes additional matching, proposal and verification work.}
+\label{supp:table2}
+\begin{tabular}{lrr}
+\hline
+Quantity & \(K=32,\ S=16\) & \(K=64,\ S=32\)\\
+\hline
+Cached unpriced roots \(M=S\binom K2\) & 7,936 & 64,512\\
+Cheap priced-root updates \(4M\) & 31,744 & 258,048\\
+Refined entries per price \(b\) & 32 & 128\\
+Lazy refinement leaves \(4\cdot16b\) & 2,048 & 8,192\\
+Total lazy rate-box calls \(M+64b\) & 9,984 & 72,704\\
+Eager leaf calls \(4\cdot16M\) & 507,904 & 4,128,768\\
+Eager/lazy optional leaves \(M/b\) & \(248\) & \(504\)\\
+Eager/total lazy rate-box calls & \(50.872\) & \(56.789\)\\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Signed integer weights and quarter-tick witness.}
+Table entries are rounded upward to the grid \(1/\Gamma\), \(\Gamma=2^{40}\) nats. For any real score, including a negative score,
+\(0\leq\lceil\Gamma H\rceil/\Gamma-H<1/\Gamma\). A schedule has \(S\) entries, so its rounding excess is below \(S/\Gamma\). All matching calculations use the same rounded table and integer tone prices.
+
+The C++14 interface requests a maximum-weight \emph{perfect} matching from LEMON 1.3.1. It checks the library's dual scale at compilation and exports the matching, vertex potentials \(Y_i\) and positive odd-set potentials \(Z_B\) in quarter-tick units. The independent checker verifies the exact integer relations
+\begin{equation}
+ \begin{aligned}
+ Y_i+Y_j+\sum_{B:\{i,j\}\subseteq B}Z_B&\geq4w_{ij}
+                   &&\text{for every edge},\\
+ \sum_iY_i+\sum_B\left\lfloor\frac{|B|}{2}\right\rfloor Z_B
+                &=4\sum_{e\in m}w_e,\qquad Z_B\geq0 .
+ \end{aligned}
+ \label{supp:eq:quartertick}
+\end{equation}
+It also checks that each user occurs once, each reported set has distinct valid vertices and odd cardinality at least three, and the integer ranges satisfy the implementation limits. The signs of the edge and vertex weights are unrestricted. Summing the first inequalities over any perfect matching and using the odd-set cardinality bound proves the upper bound; equality proves the proposed matching is optimal. A failed witness triggers the checked vertex-price repair. Pair-to-tone assignments are separately verified using feasible row and column potentials with exact objective equality.
+
+The recorded kernel tests include 26 logarithm inputs spanning subnormal and maximum finite values and both sides of one, rational rate-box comparisons, preservation of unrefined roots, and invalid-input and overflow controls. The supplied software includes these numerical checks.
+
+\clearpage
+\subsection*{Separate CPU verification and the meaning of its counts}
+The separate CPU verification rebuilt verification code in a fresh local environment
+and operated on immutable release packages. Independence concerns verification
+implementation and execution on the original workstation. Its numerical
+specifications share the released enclosure primitives and base mathematical
+libraries. The archived results permit independent computational replay of the recorded inputs. Table~\ref{supp:table10} separates the
+units of evidence so repeated timings, samples and optimization instances
+are counted consistently.
+
+
+
+The sample protocol ranks units by SHA-256 of the fixed ASCII audit tag,
+a zero separator, the binary frozen-input archive digest, another zero separator and
+the ASCII source/family/block identity. The 58 smallest hashes are selected
+without replacement or outcome filtering. The sample CSV SHA-256 is
+\texttt{435d79143ad78221acffb37cea4ed4b7d}\allowbreak\texttt{35144df4476f19f3331ad1c6b40d706}.
+The 21/30/7 composition is a result of this hash selection.
+
+For two-user power optimization, with Gram gains $g_1,g_2$ and
+$C=g_1g_2-|h_1^Hh_2|^2\geq0$, total power $s=1/5$ and first-user power
+$p\in[1/20,3/20]$, the recomputed sum rate is
+\begin{equation}
+ R(p)=\log\frac{D(p)^2}{E(p)},\quad
+ D(p)=1+sg_2+(g_1-g_2+sC)p-Cp^2,\quad
+ E(p)=(1+g_1p)(1+g_2(s-p)).
+\end{equation}
+The derivative has the sign of the rational cubic
+$2D'(p)E(p)-D(p)E'(p)$. The audit represents it in the Bernstein basis,
+discards intervals whose coefficients certify a common sign, and bisects
+ambiguous intervals to depth 90. Boundary points and surviving stationary
+candidate boxes are enclosed with exact rational arithmetic and outward
+80-digit decimal logarithms. Each of the 512 independent intervals lies
+inside its archived global enclosure. The number 512 counts instances,
+each of which may have several stationary or boundary candidates.
+
+The seven corruption controls alter, respectively, a sum-preserving transfer
+between decomposition terms, the covered-table digest, an odd set, a primal user
+assignment by duplication, the sign of a lower-rate tick, the denominator,
+and the upward rounding of the displayed gap. Their rejection tests the
+specified verifier checks. Hardware-source checks have the distinct scopes
+given above. Files \texttt{certificate\_checks.csv}, \texttt{sample\_dp.csv},
+\texttt{nested\_small\_dp.csv}, \texttt{exact\_two\_replay.csv} and
+\texttt{negative\_controls.json} preserve the corresponding audit evidence.
+
+\input{reviewer_audit}

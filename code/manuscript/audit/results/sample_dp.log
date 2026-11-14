@@ -1,0 +1,9 @@
+CPU isolated job: sample_dp
+C:\Users\p.hejazi\AppData\Local\Temp\g4_independent_cpu_v1\venv\Lib\site-packages\numpy\__init__.py:109: UserWarning: mkl-service package failed to import, therefore Intel(R) MKL initialization ensuring its correct out-of-the box operation under condition when Gnu OpenMP had already been loaded by Python process is not assured. Please install mkl-service package, see http://github.com/IntelPython/mkl-service
+  from . import _distributor_init
+sample 10 /58
+sample 20 /58
+sample 30 /58
+sample 40 /58
+sample 50 /58
+PASS sample_dp; elapsed 5.770 seconds

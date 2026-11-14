@@ -1,0 +1,18 @@
+{
+  "mode": "LO",
+  "n_calibration": 256,
+  "n_test": 1513,
+  "rank": 251,
+  "alpha_per_event": 0.025,
+  "qF": 189.28143363830188,
+  "qP": 165.25631656808724,
+  "floor_coverage": 1.0,
+  "interval_coverage": 1.0,
+  "joint_score_coverage": 0.7025776602775942,
+  "median_LP": 1.2919441573266002,
+  "median_UF": 28.117755217367502,
+  "median_width": 26.82989731354854,
+  "positive_floors": 1513,
+  "median_equal_power_gap": 6.858067020942826e-05,
+  "scope": "Chronological within-capture observable-LTS2 evaluation. No exchangeability/population or latent-channel coverage claim."
+}

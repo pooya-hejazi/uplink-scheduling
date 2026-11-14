@@ -1,0 +1,1 @@
+Download the five private release archives to inputs/. Validate them with python run.py verify-inputs from ../code. The manifest records exact sizes and SHA-256 digests. Original source identifiers inside immutable archives are retained for verification; they are not the repository directory layout.
