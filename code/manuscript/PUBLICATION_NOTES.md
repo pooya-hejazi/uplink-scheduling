@@ -8,4 +8,6 @@ Exact assignment of a rounded upper table is not an exact continuous-power optim
 
 The standalone scalar phase-shape experiment is absent from the current article and supplement. Confidential editorial overlap disclosures remain in paper_submission/paper/editorial_only, outside the code/data repository. Both related manuscripts remain under review; no public preprint links have been invented.
 
-P.H. developed the software and wrote the manuscript. M.S. supervised the project and reviewed the manuscript. Funding is declared in Acknowledgements. The repository is pooya-hejazi/uplink-scheduling and is to remain private during review. This preparation does not submit anything to the journal or invite external reviewers.
+P.H. conceived the study, formulated the mathematical bounds, developed the scheduling and verification software, analysed the simulation and measurement data, and wrote the manuscript. M.S. supervised the research, contributed to the problem formulation and analytical design, and reviewed and edited the manuscript. Funding is declared in Acknowledgements. The repository is pooya-hejazi/uplink-scheduling and is to remain private during review. This preparation does not submit anything to the journal or invite external reviewers.
+
+Final prose and layout polish corrects the verification-table label, restores the full supplementary timing label, widens the signed-score columns and simplifies the Article wording. All numerical data files remain unchanged.

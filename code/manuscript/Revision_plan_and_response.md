@@ -5,3 +5,5 @@ The formal point-by-point response is supplied as paper/Response_to_Referees.md 
 Current figures and tables use 51 references, seven supplementary notes, sixteen supplementary tables and eight supplementary figures. The scalar phase-shape experiment has been removed from the scientific presentation. Original frozen experiment packages preserve historical records.
 
 The new analyses are separately identified as exploratory. They retain the prior confirmatory endpoints and explicitly distinguish continuous physical brackets, integer-table optima, iteration counts, wall time, simulated independent-topology uncertainty and temporally dependent recording-level coverage.
+
+The final prose/layout revision adds one response section covering the five technical corrections and seven wording requests. Author roles include the subsequently confirmed contribution to problem formulation and analytical design. Statements about observed pilot-floor coverage, residual-event coverage and untested deeper power partitions retain their distinct meanings.

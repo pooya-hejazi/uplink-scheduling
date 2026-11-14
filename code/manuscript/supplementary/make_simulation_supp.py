@@ -232,6 +232,7 @@ def main():
     ax.set(yscale="log",xticks=range(4),xticklabels=["Subgradient baseline","Deterministic search","Network only","Learned warm start"],ylabel="Shuffled / primary time",
            title="52 paired blocks")
     ax.tick_params(axis="x", labelsize=6.5, rotation=30)
+    plt.setp(ax.get_xticklabels(), rotation=35, ha="right", rotation_mode="anchor")
     axes[0].legend(fontsize=5.7,loc="upper left")
     save(fig, "sfig2")
     fig = plt.figure(figsize=(7,5.2),layout="constrained")
