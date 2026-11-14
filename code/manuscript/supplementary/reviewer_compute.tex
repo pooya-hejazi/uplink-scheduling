@@ -1,15 +1,29 @@
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Exploratory paired control after the primary experiment. The deterministic control receives three extra price iterations (10 at 32 users, 9 at 64), matching the number of price iterations in learned warm start. Each method is rerun three times on every topology in rotating order; a block uses its largest gap and median time. Equal iteration count is not equal wall time. The original confirmatory results remain unchanged.}\label{supp:compute}
+\caption{Paired iteration- and time-budget controls. Passes require the original gap and deadline criteria. The original confirmatory campaign is unchanged.}\label{supp:compute}
 \begin{tabular}{llllll}\toprule
 $K$ & Method & Iterations & Passes & Median $G$ & Median ms\\
 \midrule
+\multicolumn{6}{l}{\textit{Iteration run}}\\
 32 & Deterministic search & 7 & 506/512 & 0.06134 & 16.88\\
 32 & Equal-iteration deterministic & 10 & 507/512 & 0.05942 & 19.46\\
 32 & Learned warm start & 10 & 512/512 & 0.05495 & 39.66\\
 64 & Deterministic search & 6 & 504/512 & 0.06662 & 74.02\\
 64 & Equal-iteration deterministic & 9 & 505/512 & 0.06612 & 80.81\\
 64 & Learned warm start & 9 & 509/512 & 0.06447 & 169.51\\
+\multicolumn{6}{l}{\textit{Time-budget run}}\\
+32 & Learned warm start & 10 & 512/512 & 0.05495 & 35.59\\
+32 & Time-budget deterministic & 38 & 507/512 & 0.05783 & 38.39\\
+64 & Learned warm start & 9 & 509/512 & 0.06447 & 164.01\\
+64 & Time-budget deterministic & 63 & 505/512 & 0.06318 & 176.35\\
 \bottomrule\end{tabular}
+\par\medskip\begin{minipage}{\linewidth}\small
+\par\smallskip\noindent\begin{tabular}{llrrrrr}\toprule Control & $K$ & Both & Control only & Learned only & Neither & Exact $P$\\\midrule
+Iteration & 32 & 507 & 0 & 5 & 0 & 0.0625\\
+Iteration & 64 & 505 & 0 & 4 & 3 & 0.125\\
+Time budget & 32 & 507 & 0 & 5 & 0 & 0.0625\\
+Time budget & 64 & 505 & 0 & 4 & 3 & 0.125\\
+\bottomrule\end{tabular}\par\smallskip
+Each campaign uses the same 512 topologies, three repeats and rotating method order. A topology uses its largest gap and median time. The iteration control adds three deterministic price updates. For the time-budget control, 16 hash-selected topologies calibrate only timing; the resulting 38/63 deterministic iterations are frozen before the full comparison. The control shares the original power table, update rule and candidate construction. No network is retrained. Absolute times differ between campaigns; matching their medians does not impose equal time on each topology. Exact two-sided McNemar tests condition on discordant topology pairs. All rates are bit/s/Hz.
+\end{minipage}
 \end{table}
-The count-matched control shares the deterministic power table, update rule and candidate-action construction. It changes only the iteration budget. No new neural training or seed selection is performed. Background source-data transfers were active on the shared workstation; paired rotation limits order bias but does not establish an isolated latency benchmark.

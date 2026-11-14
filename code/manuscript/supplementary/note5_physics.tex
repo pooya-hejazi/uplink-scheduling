@@ -57,10 +57,27 @@ ASU &64&0.0950&0.0137&0.0564&\(6.8793\times10^{-7}\)&0.0053\\
 
 \input{reviewer_refinement}
 
+\subsection*{Validated small O1 references}
+The two-user reference uses rational Gram coefficients and polynomial-root isolation. For four users we enumerate all six labelled pairings and enclose continuous powers by branch-and-bound. With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
+
+The reference consequently intersects each box with the full-power hyperplane. Outward direct inner products give tight Gram intervals. For one pair, with \(x=g_i p_i\), \(y=g_j p_j\), \(c=1-\rho\) and \(D=1+x+y+cxy\), its rate is \(f=2\log D-\log(1+x)-\log(1+y)\) and
+\[
+\frac{\partial f}{\partial p_i}
+=g_i\left(\frac{2(1+cy)}{D}-\frac{1}{1+x}\right).
+\]
+Outward interval evaluation on a box gives derivative intervals \([\underline q_i,\overline q_i]\). At box centre \(a\), the mean-value bound is
+\[
+f(p)\leq \overline f(a)+
+\sum_i\max\{\underline q_i(p_i-a_i),\,\overline q_i(p_i-a_i)\}.
+\]
+The sum is convex and piecewise linear, so its maximum on the box/hyperplane intersection is attained at a vertex. We enumerate those vertices and take the smaller of this Taylor bound and the original power-box bound. Feasible rounded powers and stored filters supply checked lower endpoints; local optimization only proposes those feasible incumbents. All 64 four-user references close to \(10^{-6}\) bit/s/Hz, with maximum width \(9.99911\times10^{-7}\) and at most 23,642 splits; none is an unresolved interval relabelled as exact. Controls compare the same routine with independently isolated two-user optima and verify enclosure of feasible four-user samples.
+
+
+
 \subsection*{Reading the decomposition alongside the geometry}
 The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. The sum is checked against the stored gap for all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
 
-O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Figure~\ref{supp:fig5} displays the distributions underlying the summaries.
+O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Supplementary Fig.~\ref{supp:fig5} displays the distributions underlying the summaries.
 
 \begin{figure}[htbp]
 \centering

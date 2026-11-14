@@ -59,17 +59,23 @@ def run(script,args=(),cwd=None):
     subprocess.run([sys.executable,'-X','utf8',str(script),*map(str,args)],cwd=cwd or ROOT,env=env,check=True)
 
 def main():
-    tasks=['verify-math','verify-records','verify-inputs','prepare','figures','supplementary-figures','reviewer-rates','reviewer-decomposition','reviewer-refinement','reviewer-compute','hardware-decode','hardware-evaluate','build-paper','build-supplement','build-native','verify-scheduler','generate-training','train','confirmatory-test','summarize']
+    tasks=['verify-math','verify-records','verify-inputs','prepare','figures','supplementary-figures','reviewer-rates','reviewer-decomposition','reviewer-refinement','reviewer-compute','hardware-decode','hardware-evaluate','round2-summary','round2-time-pilot','round2-time-control','round2-refinement','round2-small-reference','round2-hardware','build-paper','build-supplement','build-response','build-diffs','build-native','verify-scheduler','generate-training','train','confirmatory-test','summarize']
+    tasks.append('round2-check')
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('task',choices=tasks)
     parser.add_argument('--mode',choices=['HUB','LO'])
     parser.add_argument('--tectonic')
+    parser.add_argument('--perl',default='perl')
+    parser.add_argument('--latexdiff')
     parser.add_argument('--only-cached',action='store_true')
     a=parser.parse_args()
     manuscript=CODE/'manuscript'
     if a.task=='verify-math':run(CODE/'mathematics/verify_gate1.py');return
     if a.task=='verify-records':run(manuscript/'audit/issue.py',['verify']);return
     if a.task=='verify-inputs':verify_inputs();return
+    if a.task=='round2-summary':
+        run(manuscript/'revision/round2_tables.py')
+        return
     if a.task=='figures':
         run(manuscript/'make_figures.py')
         shutil.copytree(manuscript/'figures',ROOT/'results/figures',dirs_exist_ok=True)
@@ -80,19 +86,38 @@ def main():
         if a.tectonic:arguments+=['--tectonic',a.tectonic]
         if a.only_cached:arguments+=['--only-cached']
         run(CODE/'document_tools'/tool,arguments);return
-    if a.task.startswith('hardware-') and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
+    if a.task in ('build-response','build-diffs'):
+        arguments=['--submission',ROOT]
+        if a.tectonic:arguments+=['--tectonic',a.tectonic]
+        if a.only_cached:arguments+=['--only-cached']
+        if a.task=='build-diffs':
+            if not a.tectonic or not a.latexdiff:parser.error('build-diffs requires --tectonic and --latexdiff')
+            arguments+=['--perl',a.perl,'--latexdiff',a.latexdiff]
+        run(CODE/'document_tools'/('build_response.py' if a.task=='build-response' else 'build_diffs.py'),arguments);return
+    if (a.task.startswith('hardware-') or a.task=='round2-hardware') and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
     prepare()
     if a.task=='prepare':return
+    if a.task=='round2-check':run(WORK/'Gate_4/revision/round2_oracle.py',cwd=WORK);return
     research={'build-native':('Gate_2B/build_native.py',[]),'verify-scheduler':('Gate_2B/verify.py',[]),'generate-training':('Gate_2/generate_native.py',['fit','val','cal64']),'train':('Gate_2B/learn.py',['train']),'confirmatory-test':('Gate_2B/campaign.py',['final','test'])}
     if a.task in research:
         script,arguments=research[a.task];run(WORK/script,arguments,WORK);return
     if a.task=='summarize':
         for script in ['analyze.py','supplement.py']:run(WORK/'Gate_3'/script,cwd=WORK)
         return
-    if a.task.startswith('reviewer-'):
+    if a.task.startswith('round2-'):
+        calls={'round2-time-pilot':('round2_compute.py',['tune']),
+               'round2-time-control':('round2_compute.py',['run']),
+               'round2-refinement':('round2_refinement.py',['refinement']),
+               'round2-small-reference':('round2_refinement.py',['small','--limit','32768']),
+               'round2-hardware':('round2_hardware.py',[a.mode])}
+        script,arguments=calls[a.task]
+        run(WORK/'Gate_4/revision'/script,arguments,WORK)
+        run(WORK/'Gate_4/revision/round2_tables.py',cwd=WORK)
+    elif a.task.startswith('reviewer-'):
         task=a.task.split('-',1)[1];task='sweep' if task=='refinement' else task
         run(WORK/'Gate_4/revision/reviewer_analysis.py',[task],WORK)
         run(WORK/'Gate_4/revision/reviewer_tables.py',cwd=WORK)
+        run(WORK/'Gate_4/revision/round2_tables.py',cwd=WORK)
     elif a.task.startswith('hardware-'):
         run(WORK/'Gate_4/revision/reviewer_hardware.py',[a.task.split('-',1)[1],a.mode],WORK)
     elif a.task=='supplementary-figures':
@@ -107,6 +132,11 @@ def main():
         for path in (WORK/'Gate_4/revision/reviewer_data').glob('*'):
             if path.is_file() and path.suffix in {'.csv','.json'} and not re.fullmatch(r'(compute_(A|B|C|UMa)_\d+|refinement_\d+)\.csv',path.name):
                 shutil.copy2(path,result/path.name)
+        if a.task.startswith('round2-'):
+            dest=result/'round2';dest.mkdir(exist_ok=True)
+            for path in (WORK/'Gate_4/revision/round2_data').glob('*'):
+                if path.suffix in {'.csv','.json'} and not re.fullmatch(r'(time_control_(A|B|C|UMa)_\d+|o1_(budget|depth|small)_\d+)\.csv',path.name):
+                    shutil.copy2(path,dest/path.name)
     print('Scalar results / figures:',result)
 
 if __name__=='__main__':main()

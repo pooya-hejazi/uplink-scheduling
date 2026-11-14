@@ -1,0 +1,13 @@
+{
+  "record_created": "2026-11-14",
+  "description": "Inventory of existing pre-test records, not retrospective registration.",
+  "source_freeze_utc": "2026-11-13T14:38:50.213465+00:00",
+  "pilot_lock_utc": "2026-11-13T14:44:37.961553+00:00",
+  "records": {
+    "Gate_2B/results/freeze.json": "c2bde317df64fa32036dde3359f767f32913ae0349cc4f2e4b1e8e42a077629e",
+    "Gate_2B/results/gate2b_lock.json": "13d7de55caa914ef705081eb1511fa3fddd72d70df9f2da10bf3a24ad608e048",
+    "Gate_2B/protocol.md": "0c16f7b7795eb42d3aebd472b060b15e8616a69a3879ea281ced32dd7e4d41ac",
+    "Gate_3/PROTOCOL.md": "9b34e27bd8c191c15b4a3bf4eeb2a61f236c3c9718e27a7c0e09d0fd22d95c5e"
+  },
+  "public_archive_registration": false
+}

@@ -8,3 +8,9 @@ networkx==3.4.2
 requests==2.32.3
 h5py==3.12.1
 threadpoolctl==3.5.0
+
+# Document verification and printed-line response indexing.
+pypdf==6.21.4
+pypdfium2==5.13.0
+pdfplumber==0.11.9
+Pillow==11.1.0

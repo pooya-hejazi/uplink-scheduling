@@ -1,0 +1,88 @@
+{
+  "utc": "2026-11-14T11:27:32.963719+00:00",
+  "target": "Approximately 1.09 times contemporaneous learned median; timing-only selection",
+  "pilot_blocks": [
+    [
+      "A",
+      90
+    ],
+    [
+      "A",
+      72
+    ],
+    [
+      "A",
+      6
+    ],
+    [
+      "A",
+      122
+    ],
+    [
+      "B",
+      20
+    ],
+    [
+      "B",
+      50
+    ],
+    [
+      "B",
+      47
+    ],
+    [
+      "B",
+      65
+    ],
+    [
+      "C",
+      113
+    ],
+    [
+      "C",
+      8
+    ],
+    [
+      "C",
+      107
+    ],
+    [
+      "C",
+      18
+    ],
+    [
+      "UMa",
+      58
+    ],
+    [
+      "UMa",
+      87
+    ],
+    [
+      "UMa",
+      119
+    ],
+    [
+      "UMa",
+      2
+    ]
+  ],
+  "repeats": 3,
+  "outcome_selection": false,
+  "budgets": {
+    "32": {
+      "extra_iterations": 31,
+      "total_iterations": 38,
+      "pilot_deterministic_ms": 39.897800000000004,
+      "pilot_learned_ms": 36.366600000000005,
+      "pilot_ratio": 1.097100086342963
+    },
+    "64": {
+      "extra_iterations": 57,
+      "total_iterations": 63,
+      "pilot_deterministic_ms": 172.0327,
+      "pilot_learned_ms": 165.84395,
+      "pilot_ratio": 1.037316706458089
+    }
+  }
+}

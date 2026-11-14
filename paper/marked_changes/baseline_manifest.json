@@ -1,0 +1,30 @@
+{
+  "commit": "f7adc44d04b660d07ab3c7faadb4f432e26f5b66",
+  "files": [
+    {
+      "file": "previous_main.tex",
+      "repository_path": "paper/main.tex",
+      "sha256": "2d28a8484c24941a2ef063a815fa412c842b2a11e7d3fc4542d55305dfbb9666"
+    },
+    {
+      "file": "previous_Supplementary_Information.tex",
+      "repository_path": "supplementary_materials/Supplementary_Information.tex",
+      "sha256": "6d977e7cf93fe1a127eaa955fa099ab35f7885b4bc75e2970358fe02f8289375"
+    },
+    {
+      "file": "previous_figures/fig4_scaling.pdf",
+      "repository_path": "paper/figures/fig4_scaling.pdf",
+      "sha256": "ecdc31912f726f2957441741e574929ddbefc1b17ac07c130e57caae27f94468"
+    },
+    {
+      "file": "previous_figures/fig5_phase.pdf",
+      "repository_path": "paper/figures/fig5_phase.pdf",
+      "sha256": "c125c9c104e9df6242517a159cd028928ac05fc2ca75515a0272e872dec69a98"
+    },
+    {
+      "file": "previous_figures/fig6_hardware.pdf",
+      "repository_path": "paper/figures/fig6_hardware.pdf",
+      "sha256": "a40355059699bf9b5bdd6ce5c42fae3615cc27352f959918ac7ee0dc055a1b06"
+    }
+  ]
+}

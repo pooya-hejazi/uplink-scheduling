@@ -169,13 +169,13 @@ The recorded GPU was an NVIDIA Quadro RTX 4000 with Max-Q Design.
 Seed selection uses 256 separate validation blocks and the mean empirical
 coverage of gap cutoffs \(0.02\), \(0.05\), \(0.10\) and \(0.15\) bit/s/Hz. Ties are broken
 by median gap, median latency, then seed. Seed 1729 was locked before
-the primary test. Table~\ref{supp:table4} also gives component swaps on a
+the primary test. Supplementary Table~\ref{supp:table4} also gives component swaps on a
 separate post-freeze benchmark of all 512 native 32-user blocks.
 Those swaps retain the deterministic power price and replace the named
 field. Their baseline is rerun within that benchmark.
 
 \subsection{Timing cohorts, sensitivity records and the selectivity diagnostic}
-Table~\ref{supp:table3} and Fig.~\ref{supp:fig1} use the 12,288 timed
+Supplementary Table~\ref{supp:table3} and Supplementary Fig.~\ref{supp:fig1} use the 12,288 timed
 primary calls. For each topology and method, the primary gap is the
 largest of three returned gaps and latency is the median of three
 complete calls. A pass requires \(G\le0.15\) bit/s/Hz and median time
@@ -192,7 +192,7 @@ Medians of separate stages need not add to the median complete time.
 
 The separate shuffled-order experiment draws 52 blocks by a fixed hash
 ranking and makes one additional call per size and method in permuted
-method order (416 calls). Figure~\ref{supp:fig2} compares each such time
+method order (416 calls). Supplementary Fig.~\ref{supp:fig2} compares each such time
 with the same block's original median. These data describe load/order
 sensitivity and do not replace the primary deadline decisions.
 
@@ -206,7 +206,7 @@ the shared proposal's time and cannot be substituted for complete primary
 timings. The remaining 1,024 native 10-dB cells use the three-repeat
 primary records for those methods. The full 96,768 method-cell records
 and all family/size/SNR/method summaries accompany
-Table~\ref{supp:table5}. Classical control runs use the same native
+Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
 matching implementation as the deterministic solver, whereas the primary
 subgradient baseline retains its original matching implementation.
 No timing cohorts are pooled for a new pass/fail claim.
@@ -220,12 +220,12 @@ The ratio of the \emph{price-selected matching's} conflict bound to this
 fixed action's interval never exceeds 0.377035.
 However, the actual fixed-action decomposition \(T_2\) exceeds half the interval
 in 980 of 1,152 cases. The two numerators belong to different pairings,
-as shown in Fig.~\ref{supp:fig3}.
+as shown in Supplementary Fig.~\ref{supp:fig3}.
 For the separate optimized native primary cohort, mean \(T_2\) is
 0.041201 of a 0.065232-bit/s/Hz mean interval at 32 users and
 0.058741 of 0.072248 at 64 users. These observations do not identify a
 universal transition of optimized schedules from the frozen-action
-crossing test. Figure~\ref{supp:fig4} tests the posterior bound against
+crossing test. Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
 the exact optimum of the same rounded table at 16 users, separately
 within each native profile.
 
@@ -298,7 +298,7 @@ within each native profile.
 64 & UMa & Network only & 55.6 & 5.1 & 1.1 & 78.9 & 63.2 & 144.5\\
 64 & UMa & Learned warm start & 50.1 & 30.4 & 19.8 & 78.8 & 63.1 & 184.0\\\end{longtable}\endgroup
 \begin{table}[htbp]\centering\small
-\caption{Frozen seed selection and post-freeze component swaps. Validation scores average four prespecified gap cutoffs. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}
+\caption{Frozen seed selection and post-freeze component swaps. Validation scores average four gap cutoffs fixed before test evaluation. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}
 \begin{tabular}{rrrrrr}\toprule Seed & Score & Median gap & Median ms & Final loss & Train s\\\midrule
 1729* & 0.774414 & 0.026817 & 26.14 & 0.5283 & 321.8\\
 2718 & 0.769531 & 0.029212 & 27.15 & 0.5261 & 358.9\\

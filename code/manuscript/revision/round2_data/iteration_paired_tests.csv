@@ -1,0 +1,3 @@
+cohort,k,control,treatment,n,both_pass,control_only,treatment_only,neither,exact_two_sided_p
+first reviewer rerun,32,extra,hybrid,512,507,0,5,0,0.0625
+first reviewer rerun,64,extra,hybrid,512,505,0,4,3,0.125

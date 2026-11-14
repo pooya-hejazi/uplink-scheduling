@@ -1,18 +1,18 @@
 {
-  "article_pages": 30,
+  "article_pages": 32,
   "certificate_pages": 3,
-  "abstract_whitespace_words": 139,
-  "introduction_paragraphs": 5,
+  "abstract_whitespace_words": 136,
+  "introduction_paragraphs": 4,
   "results_subsections": 6,
   "figures": {
-    "fig1_architecture": "b9568e2118447790f31e5c8a91a6067911907b0934a6bd0f4ab303584e3bd861",
-    "fig2_conflict": "16ecd546279d3597f31dbf49a5523c2a7f590ce5bcd30586369a65f7404c34a6",
-    "fig3_uncertainty": "60cae67b0aae2c80dae29ecc59396437ac3436e3bd5cf794edc5dfca89c1c2ad",
-    "fig4_scaling": "ecdc31912f726f2957441741e574929ddbefc1b17ac07c130e57caae27f94468",
-    "fig5_phase": "c125c9c104e9df6242517a159cd028928ac05fc2ca75515a0272e872dec69a98",
-    "fig6_hardware": "a40355059699bf9b5bdd6ce5c42fae3615cc27352f959918ac7ee0dc055a1b06"
+    "fig1_architecture": "2a3d2e29e10f62affeb4975e19a7f16e6db2676e7d2f066da5d2ec5e2a8eff9a",
+    "fig2_conflict": "20a6e653bbc0e2781e53626231f67492602ee2eb9028ff0c19ed654c7e8a1ca9",
+    "fig3_uncertainty": "5b38bfbb04a63bba93e63d82286a1a75b4b64cdf77afd99581c9d875580ee6c9",
+    "fig4_scaling": "ef3c49202415a8952214714f46a2270526d0f9bf85b0bcfdffc60c57303d4f81",
+    "fig5_phase": "1707b6c7e03f89f11b487164b5b7f2d6661fb59335654023fd52063d96fe50bb",
+    "fig6_hardware": "c24dff41410753820d3fd69411c6484f14d844c233b3b8d2aa701676c6b9dde4"
   },
-  "article_sha256": "36f42c75ad38a2b4e982f2a80dba5d0c088593f00d5ffe01f13d7474bd578349",
+  "article_sha256": "1c2b7750b328bedfdb3a2838d8e63526d4b548a4d1816441f014929217cb49b6",
   "audit_certificate_json_sha256": "62b6fca787188fe6dd571fdc33734b9b781bd8faa3de57da8ee3e08b0a0a5aeb",
   "primary_counts": {
     "32": {
@@ -35,8 +35,8 @@
   },
   "compared_to_independent_audit": true,
   "package_includes_raw_rice": false,
-  "supplement_pages": 31,
-  "supplement_sha256": "18dbd255e94e74a4c6c6ad8a93d1a5edde749b7b9756d8d73fd9a045977b01a6",
+  "supplement_pages": 34,
+  "supplement_sha256": "ace348f883666c6df4117e942465bd7332657c7dd6589f3652c412da4db48f39",
   "supplementary_notes": 7,
   "supplementary_figures": 8,
   "supplementary_tables": 16,
@@ -45,7 +45,7 @@
     "Scientific Reports": 1,
     "Nature Communications": 6
   },
-  "discussion_paragraphs": 5,
+  "discussion_paragraphs": 4,
   "ray_geometry_rows": 1280,
   "exact_paired_two_sided_p": {
     "32": "0.03125",
@@ -87,6 +87,14 @@
       "positive_floors": 1513,
       "median_equal_power_gap": 6.858067020942826e-05,
       "scope": "Chronological within-capture observable-LTS2 evaluation. No exchangeability/population or latent-channel coverage claim."
+    }
+  },
+  "round2": {
+    "time_control_calls": 6144,
+    "resolved_small_O1_references": 128,
+    "phase_joint_coverage": {
+      "HUB": 0.9807930607187113,
+      "LO": 0.7574355584930601
     }
   }
 }

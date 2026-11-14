@@ -38,6 +38,9 @@ def collect():
     for filename,original in [('fig4_compute','compute_summary'),('fig4_exact_intervals','exact_binomial_intervals'),('fig5_absolute_rates','absolute_rate_summary'),('fig5_decomposition','gap_decomposition_summary'),('fig5_horizon_intervals','horizon_intervals'),('fig6_calibration_HUB','hardware_calibration_HUB'),('fig6_calibration_LO','hardware_calibration_LO')]:
         path=dst/'revision/reviewer_data'/(original+'.csv')
         put(filename,pd.read_csv(path));files.append(path.relative_to(dst.parent).as_posix())
+    for filename,original in [('fig4_time_control','time_control_summary'),('fig4_paired_tests','time_control_paired_tests'),('fig5_decomposition_distribution','decomposition_distribution'),('fig5_integer_table_reference','integer_table_reference'),('fig6_phase_HUB','hardware_phase_HUB'),('fig6_phase_LO','hardware_phase_LO'),('fig6_comparison_HUB','hardware_comparison_HUB'),('fig6_comparison_LO','hardware_comparison_LO')]:
+        path=dst/'revision/round2_data'/(original+'.csv')
+        put(filename,pd.read_csv(path));files.append(path.relative_to(dst.parent).as_posix())
     (src/'input_sha256.txt').write_text(''.join(hashlib.sha256((dst.parent/p).read_bytes()).hexdigest()+'  '+p+'\n' for p in files))
 if '--collect' in sys.argv:collect()
 def data(n):return pd.read_csv(src/(n+'.csv'))
@@ -157,11 +160,16 @@ def scaling():
             y=3-i+.12*(-1 if j else 1);c.plot([r.median_ms,r.p95_ms],[y,y],color=col,lw=1.5);c.plot(r.median_ms,y,'o',color=col,ms=4);c.plot(r.p95_ms,y,'|',color=col,ms=7)
     c.set_yticks(range(4),['Subgradient baseline','Network only','Learned warm start','Deterministic search']);c.set_xscale('log');c.set_xlabel('Median to 95th percentile (ms)');bars_legend(c,[navy,amber],['32','64 users'],loc='upper right',ncol=2,fontsize=6.4);c.set_ylim(-.45,3.6);tidy(c,'x')
     title(d,'d','');comparison=data('fig4_compute')
-    for method,col,label in [('det',navy,'Deterministic search'),('extra',purple,'Three extra iterations'),('hybrid',cyan,'Learned warm start')]:
+    for method,col,label in [('det',navy,'Deterministic'),('extra',purple,'Three extra iterations'),('hybrid',cyan,'Learned: iteration run')]:
         z=comparison[comparison.method==method]
         for k,marker in [(32,'o'),(64,'s')]:
             r=z[z.k==k].iloc[0];d.scatter(r.median_ms,r.median_G,color=col,marker=marker,s=30,label=label if k==32 else None)
-    d.set_xlabel('Median complete time (ms)');d.set_ylabel('Median gap (bit/s/Hz)');d.legend(frameon=False,fontsize=6.0,loc='lower right');tidy(d)
+    current=data('fig4_time_control')
+    for method,col,label in [('time',amber,'Time-budget deterministic'),('hybrid',cyan,'Learned: time run')]:
+        for k,marker in [(32,'o'),(64,'s')]:
+            r=current.query('k==@k and method==@method').iloc[0]
+            d.scatter(r.median_ms,r.median_G,edgecolor=col,facecolor='white',marker=marker,s=35,label=label if k==32 else None,zorder=4)
+    d.set_xlabel('Median complete time (ms)');d.set_ylabel('Median gap (bit/s/Hz)');d.legend(frameon=False,fontsize=5.5,loc='lower right');tidy(d)
     save(f,'fig4_scaling')
 def phase():
     f,ax=two();a,b,c,d=ax.flat
@@ -178,12 +186,22 @@ def phase():
         a.axvline(z.U_best_median.iloc[0],color=col,ls=':',lw=.8)
     a.set_yticks(range(7),labels,fontsize=6.2);a.invert_yaxis();a.set_xlabel('Rate (bit/s/Hz)')
     bars_legend(a,[navy,amber],['32 users','64 users'],loc='lower right',fontsize=6.1);tidy(a,'x')
-    title(b,'b','');z=data('fig5_decomposition')
+    title(b,'b','');z=data('fig5_decomposition_distribution')
     for off,col,lo,hi,lab in [(-.12,navy,'slack_lo','slack_hi','Upper-bound slack'),(.12,cyan,'suboptimality_lo','suboptimality_hi','Action suboptimality')]:
-        for j,r in enumerate(z.to_dict('records')):
-            b.plot([r[lo],r[hi]],[j+off]*2,color=col,lw=2,label=lab if j==0 else None)
-            b.plot([r[lo],r[hi]],[j+off]*2,'|',color=col,ms=6)
-    b.set_yticks(range(5),['2','4','6','8','16']);b.invert_yaxis();b.set_ylabel('Users');b.set_xlabel('Mean contribution (bit/s/Hz)');b.legend(frameon=False,fontsize=6.1);tidy(b,'x')
+        for j,k in enumerate((2,4,6,8)):
+            q=z.query('k==@k').set_index('statistic')
+            b.plot([q.loc['q25',lo],q.loc['q75',hi]],[j+off]*2,color=col,lw=7,alpha=.18)
+            for stat,dy,mark,face in [('mean',-.035,'o','white'),('median',.035,'s',col)]:
+                r=q.loc[stat]
+                b.plot([r[lo],r[hi]],[j+off+dy]*2,color=col,lw=1.2)
+                b.scatter([r[lo],r[hi]],[j+off+dy]*2,marker=mark,s=12,facecolor=face,edgecolor=col,zorder=4)
+        values=data('fig5_integer_table_reference')['slack_above_table_reference' if lo=='slack_lo' else 'shortfall_below_table_reference']
+        b.plot(values.quantile([.25,.75]),[4+off]*2,color=col,lw=7,alpha=.18)
+        b.scatter(values.mean(),4+off-.035,marker='o',facecolor='white',edgecolor=col,s=16)
+        b.scatter(values.median(),4+off+.035,marker='s',color=col,s=16)
+    b.axhline(3.5,color=grey,ls=':',lw=.7)
+    b.set_yticks(range(5),['2 analytic','4 analytic','6 analytic','8 analytic','16 table']);b.set_ylim(4.5,-1.1);b.set_xlabel('Contribution (bit/s/Hz)');tidy(b,'x')
+    b.legend(handles=[lines.Line2D([],[],color=navy,label='Ceiling / above table'),lines.Line2D([],[],color=cyan,label='Action / below table'),lines.Line2D([],[],color=grey,marker='o',mfc='white',ls='',label='Mean'),lines.Line2D([],[],color=grey,marker='s',ls='',label='Median'),lines.Line2D([],[],color=grey,alpha=.4,lw=5,label='Endpoint IQR')],frameon=False,ncol=2,fontsize=5.5,loc='upper right')
     h=data('fig5_horizon_intervals');Hs=[1,4,16,64,256,1024];title(c,'c','')
     for (fam,arm),col,lab,sty in zip([('C','fixed'),('C','scaled'),('UMa','fixed'),('UMa','scaled')],cs,['CDL-C fixed','CDL-C scaled','UMa fixed','UMa scaled'],['-','--','-.',':']):
         z=h.query('family==@fam and arm==@arm and M==0').sort_values('H')
@@ -208,19 +226,23 @@ def hardware():
         ec(a,z.equal_power_reference_gap,col,name+' fixed-power reference',total=1873,ls='--')
         dif=(valid.later_LTS_fixed_action_rate-valid.L_proxy).dropna().sort_values().to_numpy()
         b.step(dif,np.arange(1,len(dif)+1)/len(dif),where='post',color=col,label=name)
-        for offset,field in zip([-.22,0,.22],['covered_floor','covered_interval','joint']):
-            c.bar(j+offset,test[field].mean(),.20,color=col,alpha={-.22:1,0:.65,.22:.30}[offset])
-        lo=test.LP.median();hi=test.U_F.median();later=test.later_rate.median()
-        d.plot([lo,hi],[j,j],color=col,lw=3)
-        d.plot([lo,hi],[j,j],'|',color=col,ms=12)
-        d.scatter(later,j,marker='D',color=ink,s=28,zorder=3)
-        d.text((lo+hi)/2,j+.17,f'{lo:.2f} to {hi:.2f}',ha='center',fontsize=7)
+        comparison=data('fig6_comparison_'+name)
+        for m,row in enumerate(comparison.itertuples()):
+            y=2*j+m
+            for offset,field,alpha in [(-.22,'floor_coverage',1),(0,'interval_coverage',.65),(.22,'joint_score_coverage',.3)]:
+                c.bar(y+offset,getattr(row,field),.20,color=col,alpha=alpha)
+            lo,hi,later=row.median_LP,row.median_UF,row.median_later_rate
+            d.plot([lo,hi],[y,y],color=col,lw=2.3,ls='-' if m else '--')
+            d.plot([lo,hi],[y,y],'|',color=col,ms=8)
+            d.scatter(later,y,marker='D',color=ink,s=17,zorder=3)
+            d.scatter(row.median_LF,y,marker='^',color=grey,s=18,zorder=3)
+            d.text((lo+hi)/2,y-.17,f'{lo:.2f} to {hi:.2f}',ha='center',fontsize=6.3)
     a.axvline(.1,color=grey,ls=':',lw=1);a.set_xlim(0,.30);a.set_xlabel('Early-input gap (bit/s/Hz)');a.set_ylabel('Fraction of 1,873 frames');pct(a);tidy(a);a.legend(frameon=False,loc='lower right',fontsize=5.9)
     b.axvline(0,color=grey,ls=':',lw=1);b.set_xlabel('Later rate − early floor (bit/s/Hz)');b.set_ylabel('Fraction of eligible frames');pct(b);tidy(b);b.legend(frameon=False)
-    c.set_xticks([0,1],['HUB (1,614)','LO (1,513)']);c.set_ylabel('Observed test-frame fraction');pct(c);tidy(c)
+    c.set_xticks(range(4),['HUB\nraw','HUB\nphase','LO\nraw','LO\nphase']);c.set_ylabel('Observed test-frame fraction');pct(c);tidy(c);c.axhline(.95,color=grey,ls=':',lw=.7)
     c.legend(handles=[patches.Patch(color=grey,alpha=v,label=l) for v,l in [(1,'Projected floor'),(.65,'Combined interval'),(.3,'Both residual events')]],frameon=False,fontsize=6,loc='lower center')
-    d.set_yticks([0,1],['HUB','LO']);d.set_ylim(-.4,1.5);d.set_xlim(left=0);d.set_xlabel('Median rate endpoint (bit/s/Hz)');tidy(d,'x')
-    d.scatter([],[],marker='D',color=ink,label='Median later-LTS rate');d.legend(frameon=False,fontsize=6.5,loc='upper right')
+    d.set_yticks(range(4),['HUB raw','HUB phase','LO raw','LO phase']);d.set_ylim(3.65,-.6);d.set_xlim(left=0);d.set_xlabel('Median rate endpoint (bit/s/Hz)');tidy(d,'x')
+    d.scatter([],[],marker='D',color=ink,label='Later rate');d.scatter([],[],marker='^',color=grey,label='Vector floor');d.legend(frameon=False,fontsize=5.8,loc='lower center',ncol=2)
     save(f,'fig6_hardware')
 if __name__=='__main__':
     for fn in (pipes,conflict,uncertainty,scaling,phase,hardware):fn()

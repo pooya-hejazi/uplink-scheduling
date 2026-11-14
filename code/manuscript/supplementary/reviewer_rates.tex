@@ -26,5 +26,8 @@ $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 64 & Sequential equal-power & 14.3363 & 17.5153 & 15.4897 & 91.784\\
 64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
 \bottomrule\end{tabular}
-\end{table}
+\par\medskip\begin{minipage}{\linewidth}\small
 The archived matching control starts from equal powers and then allows feasible power refinement. Its label is made explicit here: it is not a fixed-equal-power comparator. Sequential equal-power retains 0.10 W per user. Exact fixed-equal-power enumeration is reported separately for the six-user hardware inputs.
+
+The zero-price, matching-plus-power-refinement and subgradient controls use the same initial equal-power matching, tone assignment and four feasible power-refinement steps. Their pairing, powers and stored filters therefore coincide; their upper calculations differ. The identical lower endpoints hold topology by topology, not just at the median.
+\end{minipage}\end{table}

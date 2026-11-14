@@ -154,6 +154,61 @@ def render(name):
         assert ImageChops.difference(img,Image.new('RGB',img.size,'white')).getbbox() is not None,(p,i)
         im.paste(img,((i%4)*256+7,(i//4)*340+4));dr.text(((i%4)*256+10,(i//4)*340+319),str(i+1),fill='black')
     im.save(out/(name+'_pages.png'));return n,'\n'.join(text)
+
+
+def check_round2_data():
+    data = root/'revision/round2_data'
+    calls = rows(data/'time_control_calls.csv')
+    assert len(calls) == len({tuple(r[k] for k in ('family','block','k','rep','method')) for r in calls}) == 6144
+    blocks = rows(data/'time_control_blocks.csv')
+    assert len(blocks) == 2048
+    for filename in ('iteration_paired_tests.csv', 'time_control_paired_tests.csv'):
+        tests = rows(data/filename)
+        assert len(tests) == 2
+        for r in tests:
+            a, b = int(r['control_only']), int(r['treatment_only'])
+            n = a+b
+            p = min(1., 2*sum(math.comb(n,j) for j in range(min(a,b)+1))/2**n) if n else 1.
+            close(r['exact_two_sided_p'],p)
+            assert sum(int(r[k]) for k in ('both_pass','control_only','treatment_only','neither')) == 512
+    budget = rows(data/'o1_budget_entries.csv')
+    assert len(budget) == 256 and all(int(r['changed_from_parent']) == 0 for r in budget)
+    depth = rows(data/'o1_depth.csv')
+    assert len(depth) == 192
+    by_block = defaultdict(list)
+    for r in depth:
+        close(float(r['U'])-float(r['L']), r['G'])
+        by_block[r['block']].append(r)
+    for group in by_block.values():
+        group.sort(key=lambda r:int(r['children']))
+        assert [int(r['children']) for r in group] == [16,64,256]
+        assert float(group[2]['G']) <= float(group[1]['G'])+1e-12 <= float(group[0]['G'])+2e-12
+    small = rows(data/'o1_small_references.csv')
+    assert Counter(int(r['k']) for r in small) == {2:64,4:64}
+    for r in small:
+        L,lo,hi,U = (float(r[key]) for key in ('L','V_lo','V_hi','U'))
+        assert L <= lo <= hi <= U and hi-lo <= 1e-6 and int(r['resolved']) == 1
+        close(r['slack_lo'], U-hi); close(r['slack_hi'], U-lo)
+        close(r['suboptimality_lo'],lo-L); close(r['suboptimality_hi'],hi-L)
+    coverage = {}
+    for mode,n in [('HUB',1870),('LO',1769)]:
+        data_rows = rows(data/f'hardware_phase_{mode}.csv')
+        assert len(data_rows) == n and len({r['frame'] for r in data_rows}) == n
+        assert all(r['split']==('calibration' if i<256 else 'test') for i,r in enumerate(data_rows))
+        qf = math.nextafter(sorted(float(r['F_score']) for r in data_rows[:256])[250], math.inf)
+        qp = math.nextafter(sorted(float(r['P_score']) for r in data_rows[:256])[250], math.inf)
+        for r in data_rows:
+            close(r['qF'],qf);close(r['qP'],qp)
+            if r['split'] == 'test':
+                later,lp,lf,uf = (float(r[k]) for k in ('later_rate','LP','LF','U_F'))
+                close(r['projected_width'],uf-lp)
+                assert int(float(r['joint'])) == int(float(r['F_score'])<=qf and float(r['P_score'])<=qp)
+                assert int(float(r['covered_floor'])) == int(later>=lp-1e-10)
+                assert int(float(r['covered_interval'])) == int(max(lp,lf)-1e-10<=later<=uf+1e-10)
+                if float(r['P_score']) <= qp: assert later >= lp-1e-10
+                if float(r['F_score']) <= qf: assert lf-1e-10<=later<=uf+1e-10
+        coverage[mode] = sum(float(r['joint']) for r in data_rows[256:])/(n-256)
+    return dict(time_control_calls=len(calls), resolved_small_O1_references=len(small), phase_joint_coverage=coverage)
 def main():
     tex=article_source(root/'main_nature.tex')
     calls=re.findall(r'\\fig\{(fig\d_[^}]+)\}',tex);assert len(calls)==len(set(calls))==6
@@ -176,6 +231,7 @@ def main():
     decisions=rd('fig4_decisions');methods=rd('fig4_methods');primary=rows(audit/'results/primary_table.csv');assert len(decisions)==4096
     geometry_rows = check_ray_geometry(decisions)
     reviewer_hardware = check_reviewer_data(decisions)
+    round2 = check_round2_data()
     paired = rows(audit/'results/paired_transitions.csv')
     assert [(int(r['k']),float(r['exact_mcnemar_two_sided'])) for r in paired] == [(32,.03125),(64,.0625)]
     for row,ar in [(r,next(x for x in primary if (x['k'],x['method'])==(r['k'],r['method']))) for r in methods]:
@@ -246,6 +302,7 @@ def main():
                 references=len(references),nature_2026_by_venue=nature_venues,discussion_paragraphs=len(paragraphs(tex,'Discussion')),
                 ray_geometry_rows=geometry_rows,exact_paired_two_sided_p={r['k']:r['exact_mcnemar_two_sided'] for r in paired})
     info['reviewer_hardware']=reviewer_hardware
+    info['round2']=round2
     (root/'article_claims.json').write_text(json.dumps(info,indent=2)+'\n');print(json.dumps(info,indent=2))
 if __name__=='__main__':main()
 

@@ -1,191 +1,252 @@
-# Point-by-Point Response to Referees
+# Response to the second-round referee report
 
-Bounding the rate loss of individual wireless uplink schedules
+**Bounding the rate loss of individual paired wireless uplink schedules**
 
-Pooya Hejazi and Masoud Sabaei · 14 November 2026
+The Article is now framed for Nature Computational Science, with a 3,410-word main text (conservative whitespace count, excluding Abstract, Methods, references and legends), a 136-word Abstract and six main figures. Secondary detail was retained in Online Methods; all 51 references were retained. Original confirmatory numerical records were not altered. New reviewer analyses are exploratory. The authors have deferred DOI registration until acceptance, as stated under Minor 7.
 
-The responses follow the supplied revision requests, using their section and item numbers. New calculations are exploratory extensions of the frozen confirmatory experiment. Locations below are exact line numbers in the delivered standalone UTF-8 LaTeX sources (main.tex and Supplementary_Information.tex), not the PDF margin line numbers. Figure and table numbers refer to the compiled revised documents.
+Locations below use the printed Article PDF margin ruler, not LaTeX source lines. Supplementary locations refer to its printed page numbers.
 
-## 1.1. Calibrated RENEW bounds and exhaustive scheduling
+## R1
 
-**Request.** Calibrate vector and directional errors from the two LTS windows, evaluate held-out floors, and enumerate the 90 labelled equal-power schedules.
+> The authors' own control removes most of the evidence for the learning claim
+>
+> Supplementary Table 7 shows that three extra deterministic price iterations cost 2.6 ms at 32 users and 6.8 ms at 64, and recover one topology each (507/512 and 505/512). The learned warm start costs an extra 22.8 ms and 95.5 ms and reaches 512/512 and 509/512.
+>
+> Three things follow that the manuscript does not yet say.
+>
+> 1. **The relevant paired test is against the iteration-matched control, and it is not reported.** The Article still quotes P = 0.03125 and P = 0.0625 against the *original* baseline (lines 247–248, 410–411). Against the control the margins are 5 and 4 topologies. If the control's passes are a subset of the learned passes, the exact two-sided McNemar values are 0.0625 and 0.125; if not, they are larger. Neither reaches 0.05. Report the discordant counts and these tests.
+> 2. **Iteration-matched is not time-matched.** The control uses about half the wall time of the learned route. The fair comparison gives the deterministic search the same time budget (roughly 40 ms and 170 ms). The authors acknowledge this (lines 722–724) but did not run it. Either run it or state plainly that no advantage of learning over extra deterministic search at equal time has been shown.
+> 3. **Achieved rate barely changes.** Supplementary Table 6: learned warm start raises the median lower rate by 0.0044 bit/s/Hz at 32 users and 0.0010 at 64, and at 64 users the median ceiling is identical to the deterministic one (15.4897).
+>
+> The title of Fig. 4 ("A learned price initialization recovers additional decisions within the deadline") and the abstract sentence should be reduced to match. The sentence at lines 258–261 juxtaposes the two results without drawing the conclusion; draw it.
 
-**Response.** We retained the original 128-frame preprocessing prefix and used the first 256 eligible post-prefix frames for calibration. Each residual event receives error budget 0.025, giving rank 251. The action map is fixed before examining residuals. HUB: 1,614 test frames; observed projected-floor coverage 100.00%; median projected floor 3.754, upper endpoint 26.831 and interval width 23.075 bit/s/Hz. LO: 1,513 test frames; observed projected-floor coverage 100.00%; median projected floor 1.292, upper endpoint 28.118 and interval width 26.830 bit/s/Hz. Both residual events held jointly on 97.40% of HUB and 70.26% of LO test frames. The LO result does not support nominal 95% joint coverage, despite the conservative floors covering every observed later rate. Every calibrated output passes the separate numerical checker. Figure 6c,d and Supplementary Table 13 give coverage and endpoint summaries. All 90 schedules were evaluated at fixed equal powers on all 1,870 HUB and 1,769 LO early inputs. Figure 6a distinguishes the achieved-action gap from the early ceiling minus this exhaustive reference. The latter is an exact enumeration of a discrete feasible set, with numerical rate evaluation; it is not the continuous-power optimum. The temporal split prevents reuse of calibration residuals, but does not establish exchangeability or latent-payload coverage. The resulting wide intervals are reported as a limitation.
+**Response.** The learning claim now rests on the paired compute controls. At 32 users, the iteration-control table is both pass 507, control only 0, learned only 5, neither 0. At 64 users the corresponding counts are 505, 0, 4 and 3. Exact two-sided McNemar probabilities are 0.0625 and 0.125. The original-baseline probabilities are retained as a secondary comparison.
 
-**Location.** Article source, line 225; SI source, line 1080.
+We also completed 6,144 timed calls: 512 paired topologies per size, two methods and three repeats in rotating order. A timing-only pilot fixed 38 and 63 deterministic iterations before the full comparison. Deterministic median times were 38.39 and 176.35 ms, versus contemporaneous learned medians of 35.59 and 164.01 ms. Pass counts and discordant tables were unchanged from the iteration control. Deterministic median gaps were 0.05783 and 0.06318 bit/s/Hz. This matches median computational budgets approximately; it is not an identical per-instance time cutoff. Neither paired control establishes a learning advantage at the 0.05 level, and the 64-user deterministic time-budget control gives the smaller median gap.
 
-## 1.2. Absolute rates and a shared certified ceiling
+Added median times in the iteration campaign are 2.5850/6.7841 ms for extra deterministic iterations and 22.7841/95.4903 ms for learning, calculated before rounding. Learned increases in median lower rate are 0.00440/0.00110 bit/s/Hz; the 64-user median ceiling is identical at 15.4897. The Abstract, Discussion and neutral Fig. 4 title reflect these findings. Every new certificate was replayed. GPU reruns changed some gaps below reported precision (maximum absolute difference 5.912e-8 bit/s/Hz), with all 1,024 learned pass/fail outcomes unchanged.
 
-**Request.** Report L, U and the smallest available certified ceiling per topology for all seven methods at 16, 32 and 64 users.
+**Locations.** Article pp. 1, lines 021–034; Article pp. 5, lines 198–209; Article pp. 5, lines 217–227; Article pp. 5–6, lines 228–237; Article pp. 8, lines 338–362; Article pp. 30, lines 1365–1372; Supplementary Table 7, p. 16. Source Data: Fig. 4 and Supplementary Table 7; round2_data/time_control_validation.json.
 
-**Response.** Supplementary Table 6 reports 21 rows, each based on 512 topologies. Figure 5a compares the 32- and 64-user endpoints. Deterministic median lower rates are 15.331 and 15.430 bit/s/Hz, with median paired retention 99.636% and 99.587%. Learned warm start gives 15.336 and 15.431 bit/s/Hz and 99.675% and 99.601% retention. We compute each ratio against its own topology ceiling, not a ratio of marginal medians. Code inspection showed that the archived equal-power-initialized matching control subsequently refines its powers; it is therefore labelled Matching + power refinement, rather than incorrectly described as fixed equal power.
+## R2
 
-**Location.** Article source, line 63; SI source, line 774.
+> The calibrated hardware floors are close to vacuous, and the radii point to a nuisance effect
+>
+> The new RENEW analysis is honest about its limits, but the abstract's closing sentence ("calibrated directional error radii produce conservative floors covering every observed later-pilot rate") reads as a success. The numbers say otherwise.
+>
+> 1. **Interval width.** Median floors are 3.754 and 1.292 bit/s/Hz against median ceilings of 26.831 and 28.118. From the authors' own figures the realised later-pilot rate is roughly 19–22 bit/s/Hz (early rate about 24, minus 2.5 or 4.9). A floor at 7–17 % of the delivered rate covers everything because it promises almost nothing. The widths must appear in the abstract or the sentence must go.
+> 2. **The radii are far too large to be pilot noise.** Supplementary Table 13 gives projected radii of 87.4 (HUB) and 165.3 (LO) in whitened units, where noise has unit variance. Thermal noise in the difference of two pilots would give a projected block maximum of a few units, not 87–165. The residual is therefore dominated by something systematic. With clients on their own oscillators and windows 16 µs apart, a per-user common phase rotation (residual carrier-frequency offset of order 1 kHz) is the obvious candidate. The rate of a fixed combiner is invariant to a per-user common phase, so the score |dᴴ(h₂ − h₁)| would be charging for an error that does not affect the quantity being bounded. I have not verified this; the authors can test it in an afternoon. Please (a) report the distribution of the per-user phase of h₁ᴴh₂, and (b) repeat the calibration with a phase-invariant score, for example on | |dᴴh₂| − |dᴴh₁| | for the desired and interfering terms separately, or after removing one estimated common phase per user and frame. If the floors rise substantially, that becomes the hardware result.
+> 3. **The projection brings almost no benefit on hardware.** The central theoretical claim is that projected radii are much smaller than vector radii (ratio 2.14 in the Gaussian benchmark, 1.82 bit/s/Hz tightening). On RENEW the ratio is 100.7/87.4 = 1.15 and 189.3/165.3 = 1.15. Supplementary Table 13 does not report the median full-vector floor L_F. Report it beside L_P so the reader can see what the projection buys on measured data. This also fits the phase hypothesis: a common phase rotation lies along the channel direction, exactly where the deployed combiner points.
+> 4. **LO joint residual coverage is 70.26 % against a nominal 95 %.** The text states this (lines 370–373). It means the calibration rule failed on that recording and the floors held only through slack. Say so in those words, and do not let the abstract imply calibrated coverage.
 
-## 1.3. Bound slack versus action suboptimality
+**Response.** We added vector floors, later-pilot rates, paired floor fractions, interval widths, phase diagnostics and a phase-invariant chronological replay. With raw scores, median full-vector floors are 3.050/0.978 bit/s/Hz (HUB/LO), compared with projected floors 3.754/1.292. Median later rates are 21.937/18.927. The median paired projected-floor fractions are 17.15%/6.76%; these are medians of framewise ratios, not ratios of marginal medians. Raw vector/projected radius ratios are 1.153/1.145, against 2.144 in the Gaussian benchmark, and median widths are 23.075/26.830 bit/s/Hz.
 
-**Request.** Separate U−V and V−L through 16 users using the continuous reference brackets and integer assignment results.
+Across test user-frame observations, median absolute phase rotations over 16 microseconds are 0.0419/0.2599 rad, with IQRs 0.0200–0.0712/0.2331–0.2863. Attribution of the entire rotation to frequency offset would imply 0.417/2.586 kHz; we do not identify oscillator drift causally. A fixed-filter independent-noise benchmark gives an expected projected maximum near 2.45 whitened units and a 97.5% union threshold 3.51, far below the raw radii 87.36/165.26. Filter dependence on the noisy first pilot and other recording effects are not explained away by that benchmark.
 
-**Response.** Figure 5b and Supplementary Table 8 report enclosing ranges rather than treating a bracketed optimum as a known point. For two users, mean upper slack is 0.23467 and mean action suboptimality is 0.00340 bit/s/Hz. At four, six and eight users, median reference widths are 5.85e−5, 7.34e−5 and 1.50e−4 bit/s/Hz; their maxima are 0.5141, 0.8544 and 0.9291, so tight medians do not characterize every instance. At 16 users, exact assignment optimizes the rounded upper-score table. Combined with feasible schedules, it brackets mean upper slack at 0.01756–0.01874 and mean action suboptimality at 0.01400–0.01517 bit/s/Hz. Equating the integer-table optimum with the continuous physical optimum would be incorrect.
+The new projected score is the maximum absolute change in desired/interfering projection magnitude. The vector score minimizes error over each user/tone phase. Triangle inequalities bound desired and interfering magnitudes; substitution into the stored-filter SINR proves the floor. Independent user/tone phase rotations leave every competing pair rate invariant, so aligned vector balls also preserve the oracle bound. We retained the same 256 calibration frames, rank 251 and 1,614/1,513 test frames.
 
-**Location.** Article source, line 71; SI source, line 821.
+Phase-invariant projected radii are 59.52/70.30 and vector radii 81.10/111.72. Median projected floors rise to 6.028/4.564 bit/s/Hz (27.51%/24.46% of paired later rates), against vector floors 4.155/2.514. Widths narrow to 20.421/22.246. Floor and interval coverage remain 100%, but joint residual coverage is 98.08%/75.74%. The LO calibration therefore still misses nominal 95% coverage; its universal observed rate coverage comes from slack. The Abstract states useful floor fractions and the residual-coverage limitation. Table 13 and Fig. 6 now compare raw and phase-invariant results, without a causal clock claim.
 
-## 1.4. Additional deterministic iterations
+**Locations.** Article pp. 1, lines 021–034; Article pp. 7, lines 303–313; Article pp. 7–8, lines 313–330; Article pp. 8, lines 338–362; Article pp. 32, lines 1456–1465; Supplementary Note 6, pp. 23–25; Supplementary Table 13, p. 25. Source Data: Fig. 6 and Supplementary Table 13.
 
-**Request.** Give deterministic search three more price iterations and compare its success, gap and time with learned warm start.
+## R3
 
-**Response.** We ran three calls per method on all 512 topologies at each size, rotating method order. The ten-iteration 32-user control passed on 507/512 topologies, with median gap 0.05942 bit/s/Hz and time 19.46 ms. The nine-iteration 64-user control passed on 505/512, with gap 0.06612 and time 80.81 ms. In the same rerun, learned warm start passed on 512/512 and 509/512, with gaps 0.05495 and 0.06447 and times 39.66 and 169.51 ms. The baseline reproduced all 1,024 archived deterministic gaps. Figure 4d and Supplementary Table 7 describe this as iteration-matched, exploratory evidence: equal iteration counts do not establish equal wall time or eliminate neural and action-pool costs. The primary confirmatory results remain unchanged.
+> Supplementary Table 6 changes what the paper's contribution is, and the Article does not say so
+>
+> Three rows of Supplementary Table 6 (zero-price baseline, matching + power refinement, subgradient baseline) have *identical* median lower rates at every size (15.1362, 15.2885, 15.4007). So these three "methods" deliver the same schedule and differ only in the ceiling they compute.
+>
+> Against that common baseline, deterministic search improves the delivered median rate by 0.057, 0.043 and 0.029 bit/s/Hz at 16, 32 and 64 users, about 0.2–0.4 %. Even sequential equal-power pairing retains 92–93 % of the ceiling.
+>
+> The Article reports only the deterministic and learned rows (lines 233–238). It should state plainly that (a) a zero-price matching already delivers 99.3–99.4 % of the best certified ceiling, (b) the scheduler's rate gain over it is 0.2–0.4 %, and (c) the contribution is therefore the certificate, not the rate. That is a legitimate contribution, but readers should not have to find it in a supplementary table. Also explain in the table note why three rows coincide.
 
-**Location.** Article source, line 67; SI source, line 805.
+**Response.** Code-path inspection and all 10,752 stored rate records confirm the identical lower endpoints. The three methods use the same initial matching and feasible power-refinement trajectory; their ceiling calculations differ. Their median lower rates at 16/32/64 users are 15.1362/15.2885/15.4007 bit/s/Hz, with retention 99.45%/99.32%/99.39% of the best per-topology ceiling. Sequential equal-power retention is 93.43%/92.32%/91.78%. Deterministic search adds only 0.0566/0.0427/0.0294 bit/s/Hz to the marginal median lower rate (0.37%/0.28%/0.19%). Results, the Discussion opening, Fig. 5a and the Table 6 note now identify the per-decision certificate as the main contribution.
 
-## 1.5. O1 refinement-budget sweep
+**Locations.** Article pp. 5, lines 198–209; Article pp. 8, lines 338–362; Article pp. 31, lines 1411–1419; Supplementary Table 6, p. 14. Source Data: Fig. 5 and Supplementary Table 6.
 
-**Request.** Increase the number of refined pair–tone boxes from 32 to 128, 512 and all 7,936 on the 64 O1 tiles.
+## R4
 
-**Response.** All four budgets were evaluated and each certificate was replayed. The median gap remained 1.1195818 bit/s/Hz and median T4 remained 1.1132530 bit/s/Hz. The sweep preserves the same 16-child partition depth and adds entries in descending parent-score order, retaining the original shortlist. Thus broader fixed-depth refinement did not close the median O1 gap. It does not establish an intrinsic or irreducible physical loss: deeper partitions, alternative prices and stronger bounds were not tested. Supplementary Table 10 reports the full sweep and explicitly separates its exploratory timing from primary deadline results.
+> The slack-versus-suboptimality split is unresolved at 4–8 users and unfavourable at 2
+>
+> Supplementary Table 8 is the right analysis but the Article summarises it too gently (lines 270–281).
+>
+> - At two users, where the reference is exact, the mean gap is 0.238 bit/s/Hz, of which 0.235 is slack in the ceiling and 0.003 is real loss. The certificate's own slack exceeds the 0.15 criterion used for the headline result. State this.
+> - At four, six and eight users the brackets are [0.127, 0.214], [0.055, 0.203] and [0.034, 0.200] for slack and [0.001, 0.088], [0.001, 0.150], [0.005, 0.171] for suboptimality. They overlap almost entirely; the split is not determined. The lower ends still show at least 0.03–0.13 bit/s/Hz of pure bound slack. Report medians as well as means, since a few wide reference brackets (maxima 0.51–0.93) dominate the means.
+> - At 16 users "upper slack" is measured against the integer-table optimum, which is itself an upper bound, so it is not comparable with the rows above. The table should label it differently.
+> - The channel family differs between rows (analytic blocks through eight users; the 16-user row is not identified). State the family in each row, and do not draw a trend across rows from different families.
+>
+> The fair summary is: where the true optimum is known, most of the certified gap is slack in the ceiling, not rate that a better schedule could recover. That bears on the title phrase "rate loss" and belongs in the Discussion.
 
-**Location.** Article source, line 75; SI source, line 911.
+**Response.** The two-user exact physical reference splits the mean gap 0.23808 into ceiling slack 0.23467 and action loss 0.00340 bit/s/Hz; the slack itself exceeds the 0.15 criterion. Its median slack is 0.00221, with IQR 0.00006–0.13947, demonstrating why the mean alone was insufficient.
 
-## 2.1. Model scope in the abstract and Results
+For analytic four-/six-/eight-user problems, mean slack brackets are [0.12743, 0.21416], [0.05487, 0.20326] and [0.03387, 0.20021]; mean action-loss brackets are [0.00110, 0.08783], [0.00134, 0.14973] and [0.00477, 0.17110]. The remaining continuous-reference uncertainty prevents a sharp split. Table 8 gives means, medians and separate first/third quartiles of each bracket endpoint, explicitly naming the channel family. Small nonzero values are displayed scientifically instead of rounded to zero.
 
-**Request.** State the paired full-service model early, including receiver and power restrictions.
+The native 16-user integer-table reference is now visually separated and labelled “slack above table” and “shortfall below table”. It is an algebraic decomposition relative to an upper-table optimum, not physical action suboptimality. Fig. 5b uses the same distinction. The Discussion explains that certificate slack can dominate an upper bound on rate loss.
 
-**Response.** The first abstract sentence and opening Results paragraph now specify two single-antenna users per tone, one tone per pair, bounded powers and separate linear receivers without SIC. Results also state K=2S. The scope is attached to the bound, rather than presented as a universal uplink optimum.
+**Locations.** Article pp. 6, lines 242–253; Article pp. 8, lines 338–362; Article pp. 31, lines 1411–1419; Supplementary Table 8, p. 17. Source Data: Fig. 5 and Supplementary Table 8.
 
-**Location.** Article source, line 15; Article source, line 30.
+## R5
 
-## 2.2. Abstract
+> The O1 refinement sweep was uninformative by construction
+>
+> Refining 32, 128, 512 or all 7,936 entries gives a median gap identical to seven significant figures (1.119582) and an identical median T4. A bound that does not move at all when every box is subdivided needs an explanation, not just the statement that broader refinement "did not close" the gap. Presumably the pair–tone entries of the delivered schedule were already in the original shortlist of 32, so adding other entries cannot change T4. If so, say so, and report how many table entries changed value at each budget.
+>
+> The first-round question was whether the 1.1 bit/s/Hz gap on O1 is loose bound or real loss. That is still open. Two inexpensive tests would answer it: (a) vary the partition *depth* on the selected entries only; (b) run the existing small-instance continuous reference (K = 2, 4) on O1 channels. Given R4, I expect the answer is "loose bound on nearly collinear channels", which the paper should then state.
 
-**Request.** Use a flowing abstract of fewer than 150 words, with quantitative scale and an accurate hardware conclusion.
+**Response.** The suggested shortlist explanation was not borne out. In the 32-entry shortlist, only a median of two of the 16 scheduled entries were present (minimum 0, maximum 5). At budgets 32, 128, 512 and 7,936, zero upper-table entries changed on every tile: the 16-child mixed signal/interference bounds never improved the existing parent tangent/box bound. Table 10 reports changed-entry counts and shortlist coverage at every budget.
 
-**Response.** The revised abstract contains 139 whitespace-separated words. It reports the two median gaps and decision times and median retention above 99.5%. Its closing sentence describes the optimism of uncalibrated pilot floors and the conservative calibrated floors observed across successive training sequences in the six-user recordings. The conclusion is limited to those observed later-pilot rates.
+We then refined the scheduled entries only, holding the action, powers and prices fixed and rebuilding/replaying the matching witness. With 16/64/256 children, median G is 1.119582/1.118334/1.117494, and median T4 is 1.113253/1.080005/0.867040 bit/s/Hz. Local enclosure tightening does not substantially reduce the global ceiling because alternative edges remain loose.
 
-**Location.** Article source, line 15.
+All 64 nested two-user and all 64 nested four-user O1 problems now have continuous references. Two-user polynomial-root enclosures resolve to numerical precision. Complete six-schedule four-user enumeration uses outward interval Gram bounds and Taylor/box upper bounds on the full-power slice; every reference resolves within 1e-6 bit/s/Hz (largest width 9.999108e-7). Feasible local optimization supplies lower bounds only. The implementation is checked against independent two-user roots and feasible four-user samples, and the full-power reduction is proved in Supplementary Note 5.
 
-## 2.3. Practical degrees of freedom and latency
+Mean ceiling slack is 1.03877/0.90425 bit/s/Hz at two/four users, versus action loss 0.13522/0.15193. Thus slack dominates these small O1 problems, with measurable genuine action loss. This is not an exact 32-user decomposition or an isolated carrier-frequency effect.
 
-**Request.** Explain what is outside the oracle model and how the measured times relate to deployment.
+**Locations.** Article pp. 6, lines 254–274; Article pp. 8, lines 338–362; Supplementary Table 10 and validated-reference derivation, p. 19. Source Data: Supplementary Table 10; round2_oracle.py and round2_refinement.py.
 
-**Response.** Discussion explicitly excludes variable multiplexing orders, multiple tones per user, nonlinear SIC, and queue/fairness weights. The 18–80 ms median times are related to slowly changing or nomadic blocks and upper-layer allocation. Millisecond slot scheduling would require a smaller budget or acceleration, with new end-to-end measurements. Methods clarify that the recorded timer begins after channel cropping and normalization.
+## R6
 
-**Location.** Article source, line 97; Article source, line 230.
+> Companion manuscripts
+>
+> The Article no longer cites them and Supplementary Note 2 is now self-contained; I checked the proofs of Theorems 1–4, the four-user example and the six-user fixture and found no error. Two points remain.
+>
+> - If Theorem 1 or the matching certificate is the main result of another manuscript under review, the referees need to see that manuscript to judge overlap and novelty. Please make both available to the referees through the editor.
+> - Supplementary Note 2.2 contains the sentence "The contribution comparison and overlap disclosure are retained in the accompanying editorial documents." Readers cannot see those documents. Remove the sentence from the published Supplementary Information.
+>
+> ---
 
-## 2.4. Unpublished companion manuscripts
+**Response.** Both related manuscripts and the equal-power manuscript’s supplement are included in the confidential editorial_only package for upload to the editor and access by referees; they have not been sent to a journal by this preparation workflow. The equal-power manuscript develops continuous-power certificates through exact labelled assignment, remaining-gain bounds and an equal-power loss theorem. The present work combines a scalable odd-set matching relaxation with tone-conflict analysis, the four-term identity and decision-specific uncertainty calibration. The phase-error manuscript treats widely-linear channel-estimation error distributions; its standalone scalar phase experiment is absent here. The present recorded-pilot phase diagnostic concerns the validity and usefulness of scheduling bounds.
 
-**Request.** Remove reliance on unpublished manuscripts and make the mathematical presentation self-contained.
+We removed the sentence pointing readers to inaccessible editorial documents. Supplementary Note 2 remains self-contained, and neither companion manuscript is cited or mentioned in the main Article.
 
-**Response.** The Article contains no reference to the two under-review manuscripts. No public preprint citation was invented. Methods and Supplementary Note 2 contain the required continuous-power, vertex-repair and rounding arguments. Established ingredients are distinguished from their present combination. Confidential editorial overlap disclosure is retained separately; it is not part of the reviewer code/data repository.
+**Locations.** Supplementary Note 2.2, p. 2; confidential Cover_Letter and three related-manuscript PDFs in paper/editorial_only.
 
-**Location.** Article source, line 24; SI source, line 55.
+## Minor 1
 
-## 2.5. Figure 5 and pilot-cost uncertainty
+> **Title.** Still unqualified. Adding "paired" (e.g. "…of individual paired uplink schedules") would match the abstract.
 
-**Request.** Remove the scalar phase-shape experiment and replace it with scheduling validation, keeping the horizon analysis.
+**Response.** The title is now “Bounding the rate loss of individual paired wireless uplink schedules” throughout the Article, supplement and accompanying documentation.
 
-**Response.** The standalone phase-shape simulation has been removed from current Article and SI displays and prose. Figure 5a shows absolute rates and ceilings; Figure 5b shows physical optimality brackets. Panels c,d retain the stationary pilot-cost calculation. The comparator is explicitly the zero-price, equal-power-initialized matching action with its feasible power refinement on the same LS estimate. Exact two-sided 95% binomial intervals quantify fractions over the 128 independent simulated topologies in each arm; they are not coverage guarantees for a future temporal sequence.
+**Locations.** Article pp. 1, lines 021–034; Article title page; Supplementary Information title page.
 
-**Location.** Article source, line 80; SI source, line 952.
+## Minor 2
 
-## 2.6. Figure 6 and Argos
+> **Fig. 4 legend** says "the new paired three-repeat comparison". Remove revision language ("new").
 
-**Request.** Move Argos panels to the supplement and dedicate Figure 6 to RENEW.
+**Response.** Removed “new” and revision-specific language from the Fig. 4 caption. The title now describes certified gaps and decision times across price-search strategies.
 
-**Response.** Figure 6 now contains early-input certificates and the exhaustive fixed-power reference, the uncalibrated later-pilot shift, chronological test coverage and calibrated endpoint summaries. Its caption distinguishes each denominator and explains that median endpoints are marginal summaries. The Argos first/second-pilot spatial-overlap panels are in Supplementary Figure 8, with recording summaries in Supplementary Table 14. No paired-payload transmission is inferred.
+**Locations.** Article pp. 30, lines 1365–1372
 
-**Location.** Article source, line 327; SI source, line 1232.
+## Minor 3
 
-## 2.7. Gaussian benchmark arithmetic
+> **Two sets of timings for the same method.** Learned warm start is 42.6/177.2 ms in the primary run (line 245) and 39.66/169.51 ms in the rerun (line 256); deterministic search is 17.9/79.6 and 16.88/74.02. Say once, where the rerun is introduced, that absolute times differ between campaigns.
 
-**Request.** Show explicitly how radius 0.50 produces interference power 0.25 and a rate-floor reduction of about 0.87.
+**Response.** The rerun introduction explicitly states that absolute times differ between the primary campaign and exploratory reruns. Fig. 4a–c use primary timings; panel d and Supplementary Table 7 identify the iteration and time-budget campaigns separately.
 
-**Response.** The text now states 0.50 squared equals 0.25 above unit noise. Together with the reduction in desired amplitude, the floor decreases by 0.87 bit/s/Hz at squared nominal amplitude 160. The previous ambiguous comparison with 0.20 has been removed. Figure 3a starts at 11.5 bit/s/Hz, so the 11.974 lower endpoint is visible.
+**Locations.** Article pp. 5, lines 217–227; Article pp. 30, lines 1365–1372; Supplementary Table 7, p. 16.
 
-**Location.** Article source, line 53.
+## Minor 4
 
-## 2.8. Exact confidence limits, nesting and threshold scale
+> **Supplementary cross-references.** In Supplementary Notes 4–7 many references drop the word "Supplementary" ("Table 3 and Fig. 3", "Figure 4", "as shown in Fig. 2", "Table 4", "Figure 5 displays", "Table 14", "Figure 8", "Table 16"). They read as Article figures.
 
-**Request.** Add exact binomial intervals, identify nested user subsets and express absolute thresholds relative to rate.
+**Response.** References to supplementary figures, tables and notes in Supplementary Notes 4–7 now carry “Supplementary”. The compiled order and cross-references were checked.
 
-**Response.** The exact one-sided 97.5% lower limits for 506/512 and 504/512 are 97.47% and 96.94%, reported alongside the prespecified bootstrap limits. The two-sided 95% intervals for 120/128 and 127/128 are 88.06–97.26% and 95.72–99.98%; direct beta-quantile evaluation gives 95.72%, correcting the suggested 95.71%. The 16-, 32- and 64-user sets are nested within the same 512 realizations. Relative to the reported rate scales, 0.15 is about 1%, 0.50 is about 2.6–3.3%, and the hardware threshold 0.10 is about 0.41–0.42%. The requested 1–3.5% range does not apply to the hardware data and was not imposed.
+**Locations.** Supplementary Notes 4–7, pp. 11–31.
 
-**Location.** Article source, line 61; Article source, line 55; Article source, line 215.
+## Minor 5
 
-## 2.9. Decoder knowledge and pilot overhead
+> **Channel-model version.** "Sionna's 3GPP TR 38.901 v19.2 models" (line 733). Please check which TR 38.901 version the Sionna release used actually implements, cite that, and give the Sionna version number. I could not verify this.
 
-**Request.** State the effective scalar gain and gross-rate assumptions.
+**Response.** Verified against the frozen generator and the official Sionna 2.2.0 documentation: CDL and UMa explicitly set spec_version=19.2. Methods now names Sionna 2.2.0 and 3GPP TR 38.901 version 19.2.0. The official ETSI report is dated February 2026; no model version was inferred from the year alone.
 
-**Response.** Methods define the fixed-filter rate as Gaussian-input mutual information assuming knowledge of the effective scalar complex gain after combining. Gross occupied-band rates exclude pilot overhead except in the explicitly defined stationary net-rate calculation.
+**Locations.** Article pp. 15, lines 675–677; Reference verification record and protocol_provenance.json in the supplied code.
 
-**Location.** Article source, line 119.
+## Minor 6
 
-## 2.10. Computing environment and verification terminology
+> **"Prespecified".** Thresholds, the ten-point learning target and the bootstrap are still called prespecified with no dated protocol cited. Deposit the protocol (with a timestamp or commit hash) or say "fixed before the test data were examined" and where that is recorded.
 
-**Request.** Give full hardware/software details and describe the scope of separate verification.
+**Response.** The wording distinguishes a configuration fixed before held-out evaluation from external registration. The dated source/checkpoint manifest (13 November 2026, 14:38:50 UTC) and linked pilot lock (14:44:37 UTC) are supplied with hashes in protocol_provenance.json. Subsequent reviewer controls are labelled exploratory, including their separate timing-only pilot.
 
-**Response.** Methods identify the Intel Core i9-10885H at 2.40 GHz, eight physical and sixteen logical cores, 32 GB RAM, Windows 11 build 26200, Python 3.13.5, NumPy 2.3.4, SciPy 1.16.3, Numba 0.62.1, NetworkX 3.4.2, Zig 0.13.0 and LEMON 1.3.1. BLAS and OpenMP are restricted to one thread for verification. The text describes a separate CPU verification implementation on the original workstation, not an outside laboratory. Hardware fetching and new exploratory analyses are separated from original confirmatory timing.
+**Locations.** Article pp. 18, lines 814–824; Supplementary Software 1: revision/protocol_provenance.json and linked frozen records.
 
-**Location.** Article source, line 232; SI source, line 1337.
+## Minor 7
 
-## 2.11. The small unused-power charge
+> **Data and code.** A GitHub URL alone is not a persistent archive. Deposit the release and the Source Data in a DOI-issuing repository and cite the DOIs.
 
-**Request.** Explain the approximately 6.88e−7 bit/s/Hz T3 term.
+**Response.** At the authors’ request, DOI registration is deferred until acceptance. The complete code/data deposit and metadata are prepared locally and remain private; no archival record has been created, uploaded or registered. GitHub also remains private. This reviewer request is therefore not yet fulfilled by a persistent identifier. The availability statements cite the supplied software and Source Data without inventing a DOI or implying a completed deposit.
 
-**Response.** The note following Supplementary Table 9 explains the integer grid PT=20 times 2^20 and downward rounding by at most one tick per user. A few unused ticks leave the small deterministic power-price charge when the total budget is active.
+**Locations.** Article pp. 22, lines 967–990; paper_submission/archival_deposit: prepared files, metadata and checksums; status explicitly deferred until acceptance.
 
-**Location.** SI source, line 925.
+## Minor 8
 
-## 2.12. Consistent terminology and symbols
+> **AI-use statement** (lines 888–890). Name the tool and version.
 
-**Request.** Unify algorithm labels and remove internal workflow terms from scientific prose.
+**Response.** The manuscript names the tools and versions supplied by the authors: GPT Astra 6 (OpenAI, through ChatGPT/Codex), Gemini 4 Argon (Google) and Claude Fable 5.2 (Anthropic), and describes their uses. Responsibility remains with the authors.
 
-**Response.** The current displays use Deterministic search, Learned warm start, Network only, Subgradient baseline and Zero-price baseline. The added control is called Equal-iteration deterministic because its measured compute time differs. Internal workflow names and code/log filenames have been removed from Article and SI prose. Assigned score, Gaussian amplitude, orthogonal-pair rate, channel set, upper-score table and horizon use distinct symbols A_beta, A_0, c_orth, mathcal H, H and N_blk. Original identifiers remain in software/data for reproducibility.
+**Locations.** Article pp. 21, lines 962–966
 
-**Location.** Article source, line 142; Article source, line 221; SI source, line 188.
+## Minor 9
 
-## 2.13. Contributions and funding
+> **Discussion, line 418.** "Argos quantifies how strongly the observed users overlap in space" is a leftover; Argos is now supplementary only.
 
-**Request.** Use author initials, record supervision and move funding to Acknowledgements.
+**Response.** Removed the leftover Argos sentence from the Discussion. The ancillary spatial-overlap result remains in Supplementary Table 14 and Supplementary Fig. 8, with no paired-payload claim.
 
-**Response.** The updated author statement records the confirmed roles. P.H. conceived the study, formulated the mathematical bounds, developed the scheduling and verification software, analysed simulation and measurement data, and wrote the manuscript. M.S. supervised the research, contributed to problem formulation and analytical design, and reviewed and edited the manuscript. The no-funding statement remains in Acknowledgements.
+**Locations.** Article pp. 8, lines 338–362; Supplementary Table 14 and Supplementary Fig. 8, p. 28.
 
-**Location.** Article source, line 300; Article source, line 298.
+## Minor 10
 
-## 2.14. Figure and heading polish
+> **Supplementary Table 13** has a stray word "optimum" in the first row, and the last row label is truncated ("Median early ceiling minus equal-power").
 
-**Request.** Keep bold panel letters, move explanations to captions, show the full Gaussian endpoint and shorten the Methods heading.
+**Response.** Rebuilt Supplementary Table 13 with four clearly labelled columns for HUB/LO and raw/phase-invariant scores. The stray word is absent. The early-ceiling-minus-equal-power comparison is written in a complete table note, separately from continuous-power claims.
 
-**Response.** Panel titles have been replaced by bold letters, with channel profiles and user-count mappings in the captions. The lower limit of Figure 3a is 11.5. The Methods heading is now Small-instance continuous and discrete references. Supplementary table alignment and long-table numbering have been checked in the compiled PDF.
+**Locations.** Supplementary Table 13, p. 25; rendered PDF inspected.
 
-**Location.** Article source, line 202; SI source, line 647.
+## Minor 11
 
-## 3.1. Supplementary order
+> **Supplementary Tables 3 and 7.** In the text layer the Pass and Iterations columns do not line up with their rows. I could not render the pages to confirm whether this is only an extraction artefact; please check the PDF.
 
-**Request.** Order supplementary notes, tables and figures by their first Article citation.
+**Response.** Rendered and visually inspected the compiled Tables 3 and 7. Passes and iteration counts align with their method rows; Table 7 includes separate campaign headings, a complete 2×2 paired-count table and its note within one float.
 
-**Response.** The seven notes are now prior work, proofs, Gaussian calculation, solver/simulations, propagation/pilot cost, hardware and numerical verification. Sixteen tables and eight figures follow their first-citation order in the Article. All Article references and the numbered Source Data files were updated together.
+**Locations.** Supplementary Table 3, pp. 11–12; Supplementary Table 7, p. 16.
 
-**Location.** Article source, line 28; SI source, line 33.
+## Minor 12
 
-## 3.2. Concise literature comparison
+> **Response letter.** Locations are given as LaTeX source line numbers, which referees do not have. Give PDF line numbers and supply a marked-changes PDF. The letter's numbering (1.1–4) also does not follow the referee report, and the referee's comments are paraphrased, not quoted.
 
-**Request.** Replace the long annotated bibliography with a one-page, five-column comparison of ten closest studies and standard references.
+**Response.** This response reproduces R1–R6 and Minor 1–13 from the supplied report and uses inclusive line numbers printed in the revised Article PDF, with page locations for supplementary material. The current PDF hash and text anchors accompany the location map. main_diff.pdf and Supplementary_Information_diff.pdf show changes against the archived preceding submission; structurally changed supplementary tables show complete previous and revised versions so columns remain legible. The editorial retargeting to Nature Computational Science is also included in these comparisons.
 
-**Response.** Supplementary Table 1 compares the model, optimization mechanism, guarantee and relation to this study for ten selected works. It fits on one page. A standard numbered Supplementary References section follows the scientific notes; its 51 entries match the Article bibliography. Sources used only for the removed scalar phase experiment are no longer cited.
+**Locations.** Response_to_Referees.tex/.md/.pdf; response_locations.json; main_diff.pdf; Supplementary_Information_diff.pdf.
 
-**Location.** SI source, line 39; SI source, line 1405.
+## Minor 13
 
-## 3.3. Table alignment
+> **Lines 258–259.** "with a smaller increase in measured latency" — give the numbers (2.6 and 6.8 ms against 22.8 and 95.5 ms).
 
-**Request.** Repair Panel A of the primary table and the four-user counterexample table.
+**Response.** The Results give the unrounded-difference increments, 2.5850/6.7841 ms for extra deterministic iterations versus 22.7841/95.4903 ms for learning. Rounded to one decimal these are 2.6/6.8 and 22.8/95.5 ms.
 
-**Response.** The primary results use a seven-column Panel A and a nine-column timing Panel B under one table number, with distinct hyperlink anchors. The four-user table has an explicit column specification matching every row. Both are included in the compiled layout review.
+**Locations.** Article pp. 5, lines 217–227; Supplementary Table 7, p. 16.
 
-**Location.** SI source, line 647; SI source, line 173.
+## Additional verification (report Part D)
 
-## 4. Final prose and layout polish
+All nine listed 2026 journal references were checked against publisher-deposited DOI records; reference 28 was checked against the official ETSI report. Titles, volumes, pages/article numbers and years agree. The machine-readable records are supplied. The phase explanation was tested as described in R2; it remains a diagnostic, not an identified causal mechanism.
 
-**Request.** Complete the five technical corrections and seven prose edits without changing numerical results.
+| Article reference | DOI or primary source |
 
-**Response.** Supplementary Table 16 now reads Distinct decision certificates. The full Learned warm start tick label in Supplementary Figure 4c is right-aligned with a 35-degree rotation, and the signed-score fixture uses 8-point column padding. The contributions paragraph records the newly confirmed analytical-design role, and Code availability identifies the repository and the complete code archive in Supplementary Software 1. The abstract, retained-rate comparison, iteration control, refinement sweep, RENEW results, threshold explanation and Figure 5–6 captions now use direct analytical prose. The rate fractions remain paired by topology, and the timing comparison still matches iteration counts. Broader fixed-depth refinement left the median O1 gap unchanged; deeper partitions are proposed for testing. The RENEW text reports the 70.26% LO joint residual coverage alongside complete observed rate-floor coverage without attributing that difference to an untested drift mechanism. Captions identify deterministic contribution ranges and marginal endpoint medians. All numerical data files are unchanged.
+|---|---|
 
-**Location.** Article source, line 15; Article source, line 75; Article source, line 89; Article source, line 242; SI source, line 1391; SI source, line 201; SI source, line 848.
+| 20 | https://doi.org/10.23919/jcn.2025.000085 |
+
+| 21 | https://doi.org/10.1038/s41598-026-38685-3 |
+
+| 22 | https://doi.org/10.1038/s41467-026-73725-6 |
+
+| 23 | https://doi.org/10.1038/s41467-026-76069-3 |
+
+| 41 | https://doi.org/10.23919/jcn.2025.000112 |
+
+| 44 | https://doi.org/10.1038/s41467-026-71793-2 |
+
+| 45 | https://doi.org/10.1038/s41467-026-69493-y |
+
+| 49 | https://doi.org/10.1038/s41467-026-76739-2 |
+
+| 50 | https://doi.org/10.1038/s41467-026-74485-z |
+
+| 28 | [ETSI TR 138 901 V19.2.0, February 2026](https://www.etsi.org/deliver/etsi_tr/138900_138999/138901/19.02.00_60/tr_138901v190200p.pdf) |

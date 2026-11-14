@@ -74,6 +74,7 @@ def main():
     abstract = source.split(r"\begin{abstract}", 1)[1].split(r"\end{abstract}", 1)[0].strip()
     body = source.split(r"\end{abstract}", 1)[1].split(r"\end{document}", 1)[0]
     body, items = figures(body)
+    body = body.replace(r"\section*{Introduction}", "").replace(r"\section*{Methods}", r"\section*{Online Methods}")
     header = r"""% Generated from the editable Gate_4 sources by build_paper.py.
 \documentclass[lineno,pdflatex,sn-nature]{sn-jnl}
 \usepackage{graphicx,amsmath,amssymb,booktabs,xcolor}

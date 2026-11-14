@@ -21,12 +21,12 @@
 \renewcommand{\@seccntformat}[1]{\@ifundefined{#1@cntformat}{\csname the#1\endcsname\quad}{\csname #1@cntformat\endcsname}}
 \makeatother
 \raggedbottom
-\hypersetup{pdftitle={Supplementary Information for Bounding the rate loss of individual wireless uplink schedules},pdfauthor={Pooya Hejazi and Masoud Sabaei}}
+\hypersetup{pdftitle={Supplementary Information for Bounding the rate loss of individual paired wireless uplink schedules},pdfauthor={Pooya Hejazi and Masoud Sabaei}}
 \begin{document}
 \begin{center}
 {\Large\bfseries Supplementary Information\par}
 \medskip
-{\large Bounding the rate loss of individual wireless uplink schedules\par}
+{\large Bounding the rate loss of individual paired wireless uplink schedules\par}
 \medskip
 Pooya Hejazi and Masoud Sabaei
 \end{center}
@@ -88,7 +88,7 @@ $r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
 If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
 
 \subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
-The following derivation establishes the continuous-power bound, vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. The contribution comparison and overlap disclosure are retained in the accompanying editorial documents.
+The following derivation establishes the continuous-power bound, vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. 
 
 Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
 \begin{equation}
@@ -582,13 +582,13 @@ The recorded GPU was an NVIDIA Quadro RTX 4000 with Max-Q Design.
 Seed selection uses 256 separate validation blocks and the mean empirical
 coverage of gap cutoffs \(0.02\), \(0.05\), \(0.10\) and \(0.15\) bit/s/Hz. Ties are broken
 by median gap, median latency, then seed. Seed 1729 was locked before
-the primary test. Table~\ref{supp:table4} also gives component swaps on a
+the primary test. Supplementary Table~\ref{supp:table4} also gives component swaps on a
 separate post-freeze benchmark of all 512 native 32-user blocks.
 Those swaps retain the deterministic power price and replace the named
 field. Their baseline is rerun within that benchmark.
 
 \subsection{Timing cohorts, sensitivity records and the selectivity diagnostic}
-Table~\ref{supp:table3} and Fig.~\ref{supp:fig1} use the 12,288 timed
+Supplementary Table~\ref{supp:table3} and Supplementary Fig.~\ref{supp:fig1} use the 12,288 timed
 primary calls. For each topology and method, the primary gap is the
 largest of three returned gaps and latency is the median of three
 complete calls. A pass requires \(G\le0.15\) bit/s/Hz and median time
@@ -605,7 +605,7 @@ Medians of separate stages need not add to the median complete time.
 
 The separate shuffled-order experiment draws 52 blocks by a fixed hash
 ranking and makes one additional call per size and method in permuted
-method order (416 calls). Figure~\ref{supp:fig2} compares each such time
+method order (416 calls). Supplementary Fig.~\ref{supp:fig2} compares each such time
 with the same block's original median. These data describe load/order
 sensitivity and do not replace the primary deadline decisions.
 
@@ -619,7 +619,7 @@ the shared proposal's time and cannot be substituted for complete primary
 timings. The remaining 1,024 native 10-dB cells use the three-repeat
 primary records for those methods. The full 96,768 method-cell records
 and all family/size/SNR/method summaries accompany
-Table~\ref{supp:table5}. Classical control runs use the same native
+Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
 matching implementation as the deterministic solver, whereas the primary
 subgradient baseline retains its original matching implementation.
 No timing cohorts are pooled for a new pass/fail claim.
@@ -633,12 +633,12 @@ The ratio of the \emph{price-selected matching's} conflict bound to this
 fixed action's interval never exceeds 0.377035.
 However, the actual fixed-action decomposition \(T_2\) exceeds half the interval
 in 980 of 1,152 cases. The two numerators belong to different pairings,
-as shown in Fig.~\ref{supp:fig3}.
+as shown in Supplementary Fig.~\ref{supp:fig3}.
 For the separate optimized native primary cohort, mean \(T_2\) is
 0.041201 of a 0.065232-bit/s/Hz mean interval at 32 users and
 0.058741 of 0.072248 at 64 users. These observations do not identify a
 universal transition of optimized schedules from the frozen-action
-crossing test. Figure~\ref{supp:fig4} tests the posterior bound against
+crossing test. Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
 the exact optimum of the same rounded table at 16 users, separately
 within each native profile.
 
@@ -711,7 +711,7 @@ within each native profile.
 64 & UMa & Network only & 55.6 & 5.1 & 1.1 & 78.9 & 63.2 & 144.5\\
 64 & UMa & Learned warm start & 50.1 & 30.4 & 19.8 & 78.8 & 63.1 & 184.0\\\end{longtable}\endgroup
 \begin{table}[htbp]\centering\small
-\caption{Frozen seed selection and post-freeze component swaps. Validation scores average four prespecified gap cutoffs. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}
+\caption{Frozen seed selection and post-freeze component swaps. Validation scores average four gap cutoffs fixed before test evaluation. Swap values are median gaps in bit/s/Hz at 32 users and 10 dB, with 128 blocks per profile.}\label{supp:table4}
 \begin{tabular}{rrrrrr}\toprule Seed & Score & Median gap & Median ms & Final loss & Train s\\\midrule
 1729* & 0.774414 & 0.026817 & 26.14 & 0.5283 & 321.8\\
 2718 & 0.769531 & 0.029212 & 27.15 & 0.5261 & 358.9\\
@@ -797,39 +797,76 @@ $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 64 & Sequential equal-power & 14.3363 & 17.5153 & 15.4897 & 91.784\\
 64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
 \bottomrule\end{tabular}
-\end{table}
+\par\medskip\begin{minipage}{\linewidth}\small
 The archived matching control starts from equal powers and then allows feasible power refinement. Its label is made explicit here: it is not a fixed-equal-power comparator. Sequential equal-power retains 0.10 W per user. Exact fixed-equal-power enumeration is reported separately for the six-user hardware inputs.
+
+The zero-price, matching-plus-power-refinement and subgradient controls use the same initial equal-power matching, tone assignment and four feasible power-refinement steps. Their pairing, powers and stored filters therefore coincide; their upper calculations differ. The identical lower endpoints hold topology by topology, not just at the median.
+\end{minipage}\end{table}
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Exploratory paired control after the primary experiment. The deterministic control receives three extra price iterations (10 at 32 users, 9 at 64), matching the number of price iterations in learned warm start. Each method is rerun three times on every topology in rotating order; a block uses its largest gap and median time. Equal iteration count is not equal wall time. The original confirmatory results remain unchanged.}\label{supp:compute}
+\caption{Paired iteration- and time-budget controls. Passes require the original gap and deadline criteria. The original confirmatory campaign is unchanged.}\label{supp:compute}
 \begin{tabular}{llllll}\toprule
 $K$ & Method & Iterations & Passes & Median $G$ & Median ms\\
 \midrule
+\multicolumn{6}{l}{\textit{Iteration run}}\\
 32 & Deterministic search & 7 & 506/512 & 0.06134 & 16.88\\
 32 & Equal-iteration deterministic & 10 & 507/512 & 0.05942 & 19.46\\
 32 & Learned warm start & 10 & 512/512 & 0.05495 & 39.66\\
 64 & Deterministic search & 6 & 504/512 & 0.06662 & 74.02\\
 64 & Equal-iteration deterministic & 9 & 505/512 & 0.06612 & 80.81\\
 64 & Learned warm start & 9 & 509/512 & 0.06447 & 169.51\\
+\multicolumn{6}{l}{\textit{Time-budget run}}\\
+32 & Learned warm start & 10 & 512/512 & 0.05495 & 35.59\\
+32 & Time-budget deterministic & 38 & 507/512 & 0.05783 & 38.39\\
+64 & Learned warm start & 9 & 509/512 & 0.06447 & 164.01\\
+64 & Time-budget deterministic & 63 & 505/512 & 0.06318 & 176.35\\
 \bottomrule\end{tabular}
+\par\medskip\begin{minipage}{\linewidth}\small
+\par\smallskip\noindent\begin{tabular}{llrrrrr}\toprule Control & $K$ & Both & Control only & Learned only & Neither & Exact $P$\\\midrule
+Iteration & 32 & 507 & 0 & 5 & 0 & 0.0625\\
+Iteration & 64 & 505 & 0 & 4 & 3 & 0.125\\
+Time budget & 32 & 507 & 0 & 5 & 0 & 0.0625\\
+Time budget & 64 & 505 & 0 & 4 & 3 & 0.125\\
+\bottomrule\end{tabular}\par\smallskip
+Each campaign uses the same 512 topologies, three repeats and rotating method order. A topology uses its largest gap and median time. The iteration control adds three deterministic price updates. For the time-budget control, 16 hash-selected topologies calibrate only timing; the resulting 38/63 deterministic iterations are frozen before the full comparison. The control shares the original power table, update rule and candidate construction. No network is retrained. Absolute times differ between campaigns; matching their medians does not impose equal time on each topology. Exact two-sided McNemar tests condition on discordant topology pairs. All rates are bit/s/Hz.
+\end{minipage}
 \end{table}
-The count-matched control shares the deterministic power table, update rule and candidate-action construction. It changes only the iteration budget. No new neural training or seed selection is performed. Background source-data transfers were active on the shared workstation; paired rotation limits order bias but does not establish an isolated latency benchmark.
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Physical optimality brackets on 512 channels per size. For $V\in[V_-,V_+]$, upper slack lies in $[U-V_+,U-V_-]$ and action suboptimality in $[V_--L,V_+-L]$. Reported contribution endpoints are means; reference widths are median and maximum, all in bit/s/Hz. The 16-user reference is a physical bracket based on exact assignment of the upper-score table and feasible schedules, not an exact continuous optimum.}\label{supp:decomposition}
+\caption{Ceiling slack and action suboptimality. For a physical reference $V^*\in[V_-,V_+]$, contributions lie in $[U-V_+,U-V_-]$ and $[V_--L,V_+-L]$. Means, medians and endpoint quartiles are reported separately.}\label{supp:decomposition}
 \begin{tabular}{lllll}\toprule
-$K$ & Mean upper slack & Mean action suboptimality & Median width & Maximum width\\
+$K$ & Channel / reference & Statistic & Ceiling slack & Action suboptimality\\
 \midrule
-2 & [0.23467, 0.23467] & [0.00340, 0.00340] & 5.33e-15 & 8.88e-15\\
-4 & [0.12743, 0.21416] & [0.00110, 0.08783] & 5.85e-05 & 0.514\\
-6 & [0.05487, 0.20326] & [0.00134, 0.14973] & 7.34e-05 & 0.854\\
-8 & [0.03387, 0.20021] & [0.00477, 0.17110] & 0.00015 & 0.929\\
-16 & [0.01756, 0.01874] & [0.01400, 0.01517] & 0.00104 & 0.00732\\
+2 & Analytic / roots & Mean & [0.23467, 0.23467] & [0.00340, 0.00340]\\
+ &  & 25th percentile & [0.00006, 0.00006] & [1.3e-11, 1.3e-11]\\
+ &  & Median & [0.00221, 0.00221] & [1.1e-06, 1.1e-06]\\
+ &  & 75th percentile & [0.13947, 0.13947] & [1.1e-05, 1.1e-05]\\
+4 & Analytic / 192 splits & Mean & [0.12743, 0.21416] & [0.00110, 0.08783]\\
+ &  & 25th percentile & [0.00007, 0.00011] & [0.00000, 5e-05]\\
+ &  & Median & [0.00118, 0.00123] & [0.00000, 0.00006]\\
+ &  & 75th percentile & [0.10351, 0.13480] & [1.8e-15, 0.03136]\\
+6 & Analytic / 192 splits & Mean & [0.05487, 0.20326] & [0.00134, 0.14973]\\
+ &  & 25th percentile & [0.00005, 0.00012] & [0.00000, 0.00006]\\
+ &  & Median & [0.00081, 0.00090] & [0.00000, 0.00007]\\
+ &  & 75th percentile & [0.08775, 0.16254] & [0.00000, 0.12917]\\
+8 & Analytic / 192 splits & Mean & [0.03387, 0.20021] & [0.00477, 0.17110]\\
+ &  & 25th percentile & [1.5e-09, 0.00016] & [0.00000, 0.00006]\\
+ &  & Median & [0.00010, 0.00078] & [0.00000, 0.00037]\\
+ &  & 75th percentile & [0.05753, 0.13957] & [0.00000, 0.12273]\\
 \bottomrule\end{tabular}
-\end{table}
+\par\medskip\begin{minipage}{\linewidth}\small
+\par\smallskip\noindent\begin{tabular}{llrr}\toprule Family / reference & Statistic & Slack above table & Shortfall below table\\\midrule
+Native 3GPP / exact DP & Mean & 0.01756 & 0.01517\\
+ & 25th percentile & 0.00482 & 0.00109\\
+ & Median & 0.01481 & 0.00389\\
+ & 75th percentile & 0.02518 & 0.02214\\
+\bottomrule\end{tabular}\par\smallskip
+For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz. Reference widths (median; maximum) for $K=2$: 5.32907e-15; 8.88178e-15, $K=4$: 5.85335e-05; 0.514074, $K=6$: 7.33722e-05; 0.854413, $K=8$: 0.000150431; 0.929094.
 
+\end{minipage}
+\end{table}
 
 \begin{figure}[htbp]\centering
 \includegraphics[width=\linewidth]{Supplementary_Figures/sfig1.pdf}
@@ -908,23 +945,53 @@ ASU &64&0.0950&0.0137&0.0564&\(6.8793\times10^{-7}\)&0.0053\\
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Refinement-budget sensitivity on the same 64 O1 tiles at 32 users and 10 dB. Each selected pair--tone rectangle is partitioned into 16 children. The original 32 choices are retained, and further entries are added in descending parent-score order with index tie-breaking. Every output is replayed against the full interval checker. Medians of components need not add.}\label{supp:refinement}
+\caption{O1 enclosure width, partition depth and small continuous references at 10 dB. Each experiment uses the same 64 guarded tiles.}\label{supp:refinement}
 \begin{tabular}{lllll}\toprule
-Refined entries & Tiles & Median $G$ & Median $T_4$ & Median time (ms)\\
+Entries refined & Entries changed & Scheduled in shortlist & Median $G$ & Median $T_4$\\
 \midrule
-32 & 64 & 1.119582 & 1.113253 & 15.88\\
-128 & 64 & 1.119582 & 1.113253 & 16.59\\
-512 & 64 & 1.119582 & 1.113253 & 18.21\\
-7936 & 64 & 1.119582 & 1.113253 & 49.51\\
+32 & 0 & 0/2/5 & 1.119582 & 1.113253\\
+128 & 0 & 0/3/8 & 1.119582 & 1.113253\\
+512 & 0 & 2/7/14 & 1.119582 & 1.113253\\
+7936 & 0 & 16/16/16 & 1.119582 & 1.113253\\
 \bottomrule\end{tabular}
+\par\medskip\begin{minipage}{\linewidth}\small
+\par\smallskip\noindent\begin{tabular}{rrrr}\toprule Children per selected entry & Median changed entries & Median $G$ & Median $T_4$\\\midrule
+16 & 0 & 1.119582 & 1.113253\\
+64 & 0 & 1.118334 & 1.080005\\
+256 & 16 & 1.117494 & 0.867040\\
+\bottomrule\end{tabular}\par\smallskip
+\noindent\begin{tabular}{rlrrrr}\toprule $K$ & Statistic & Gap & Ceiling slack & Action loss & Reference width\\\midrule
+2 & Mean & 1.173983 & [1.03877, 1.03877] & [0.13522, 0.13522] & 1.37e-15\\
+2 & Median & 1.340835 & [1.18529, 1.18529] & [0.09974, 0.09974] & 1.33e-15\\
+4 & Mean & 1.056186 & [0.90425, 0.90425] & [0.15193, 0.15193] & 9.55e-07\\
+4 & Median & 1.118458 & [0.94817, 0.94817] & [0.16614, 0.16614] & 9.9e-07\\
+\bottomrule\end{tabular}\par\smallskip
+The width sweep partitions every chosen rectangle into 16 children. No upper-table tick changes on any tile at any budget: the child mixed signal/interference bounds remain above the parent tangent/box bound. The action has 16 scheduled entries; the shortlist column gives their minimum/median/maximum counts in the refined set. The depth sweep instead refines these 16 entries into 16, 64 or 256 children while keeping the original action, powers and tone/power prices fixed. Matching upper witnesses and the four-term identity are rebuilt and checked. Small references use the nested first two/four users of all 64 O1 tiles with the original channel normalization. Two-user roots are exact to their reported outward numerical enclosures; four-user complete labelled enumeration uses validated continuous Taylor/box bounds to $10^{-6}$ bit/s/Hz. All rates are bit/s/Hz; different $K$ have different feasible problems.
+\end{minipage}
 \end{table}
-All 7,936 pair--tone entries are refined in the last row. Expanding which entries receive this fixed 16-child partition does not reduce the median gap. This result does not establish an irreducible continuous-power gap: deeper partitions, other power prices or stronger local bounds were not tested in this sweep. Timings are exploratory single calls collected alongside other analysis jobs, and are not replacement primary deadline measurements.
+
+
+\subsection*{Validated small O1 references}
+The two-user reference uses rational Gram coefficients and polynomial-root isolation. For four users we enumerate all six labelled pairings and enclose continuous powers by branch-and-bound. With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
+
+The reference consequently intersects each box with the full-power hyperplane. Outward direct inner products give tight Gram intervals. For one pair, with \(x=g_i p_i\), \(y=g_j p_j\), \(c=1-\rho\) and \(D=1+x+y+cxy\), its rate is \(f=2\log D-\log(1+x)-\log(1+y)\) and
+\[
+\frac{\partial f}{\partial p_i}
+=g_i\left(\frac{2(1+cy)}{D}-\frac{1}{1+x}\right).
+\]
+Outward interval evaluation on a box gives derivative intervals \([\underline q_i,\overline q_i]\). At box centre \(a\), the mean-value bound is
+\[
+f(p)\leq \overline f(a)+
+\sum_i\max\{\underline q_i(p_i-a_i),\,\overline q_i(p_i-a_i)\}.
+\]
+The sum is convex and piecewise linear, so its maximum on the box/hyperplane intersection is attained at a vertex. We enumerate those vertices and take the smaller of this Taylor bound and the original power-box bound. Feasible rounded powers and stored filters supply checked lower endpoints; local optimization only proposes those feasible incumbents. All 64 four-user references close to \(10^{-6}\) bit/s/Hz, with maximum width \(9.99911\times10^{-7}\) and at most 23,642 splits; none is an unresolved interval relabelled as exact. Controls compare the same routine with independently isolated two-user optima and verify enclosure of feasible four-user samples.
+
 
 
 \subsection*{Reading the decomposition alongside the geometry}
 The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. The sum is checked against the stored gap for all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
 
-O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Figure~\ref{supp:fig5} displays the distributions underlying the summaries.
+O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Supplementary Fig.~\ref{supp:fig5} displays the distributions underlying the summaries.
 
 \begin{figure}[htbp]
 \centering
@@ -1090,27 +1157,45 @@ These residuals include pilot noise, synchronization differences and channel evo
 
 At six users and three labelled tones, sorting the two user indices within each pair leaves $6!/2^3=90$ schedules. We enumerate all 90 with fixed powers of 0.10 and the MMSE pair rate on the early input. This is exhaustive over the stated discrete set; the rates are floating-point numerical evaluations. Its optimum is a feasible reference for the continuous-power model, not that model's exact optimum.
 
+
+\subsection*{Phase-invariant scores and the thermal-noise benchmark}
+For each user and frame we calculate the phase of the inner product of the early and later channel vectors concatenated over all retained streams and three tones. Over test user--frame pairs, median absolute rotations are 0.041899 rad on HUB (IQR 0.019987--0.071188) and 0.259930 rad on LO (0.233082--0.286302). Dividing by \(2\pi(16~\mu{\rm s})\) gives equivalent absolute frequency offsets of 0.416773 kHz (0.198816--0.708123) and 2.585568 kHz (2.318505--2.847896). These conversions attribute the entire phase change to frequency offset for scale; the replay does not identify a causal oscillator model.
+
+For the projected magnitude score and phase-aligned vector score, respectively, we use
+\[
+s^{\rm mag}_{P,f}=\max_{(i,j,s),\,k\in\{i,j\}}
+\left||\bar v_{fis}^Hh^{(1)}_{fks}|-|\bar v_{fis}^Hh^{(0)}_{fks}|\right|,
+\qquad
+s^{\rm ph}_{F,f}=\max_{u,s}\min_\theta
+\|e^{-{\rm i}\theta}h^{(1)}_{fus}-h^{(0)}_{fus}\|_2 .
+\]
+The vector alignment minimizes separately for each user/tone; the diagnostic phase above is instead one concatenated phase per user/frame. Both scores retain the original 256 calibration frames, rank 251 and test frames. If a magnitude residual is at most \(b_{ik}\), the desired amplitude is bounded below by \((|\bar v_i^Hh_i^{(0)}|-b_{ii})_+\), and the interfering amplitude above by \(|\bar v_i^Hh_j^{(0)}|+b_{ij}\). The SINR is increasing in the first squared amplitude and decreasing in the second, proving the projected floor conditionally on those bounds; the vector oracle is unchanged by user/tone phase rotations. The implementation checks rate/score phase invariance and replays every numerical certificate.
+
+As a thermal-noise-only benchmark, independently drawn proper complex pilot errors of unit variance give difference variance two. A unit-filter projection then has tail probability \(\exp(-x^2/2)\); a union bound over 12 projections gives the 97.5\% threshold \(\sqrt{2\log(12/0.025)}=3.51391\). The expected maximum for 12 independent projections is 2.44453. Holding the observed early filters fixed and retaining correlations between projections, 16,384 Monte Carlo blocks per capture give expected maxima 2.44987 (HUB) and 2.44705 (LO), with Monte Carlo standard errors 0.00377 and 0.00378. This benchmark isolates noise and does not model the dependence of estimated filters on their noisy pilots, cross-stream noise correlation, or drift. The observed raw radii of 87.36 and 165.26 greatly exceed it. Removing phase sensitivity raises the floors, yet LO joint-event coverage remains 75.74\%, below nominal 95\%; its universal floor coverage is sustained by slack.
+
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Chronological RENEW calibration against the observable second LTS. The first 256 eligible post-prefix frames calibrate the radii; all remaining eligible frames test the frozen rule. Rates and widths are bit/s/Hz; radii are in whitened digital channel units. Coverage fractions describe these temporally dependent recordings, without binomial population confidence intervals. The equal-power reference exhausts all 90 labelled pairings at 0.10 per user, with optimal linear combining, on every eligible early input. It is not the continuous-power optimum.}\label{supp:hardware_calibration}
-\begin{tabular}{lll}\toprule
-Quantity & HUB & LO\\
+\caption{Chronological RENEW calibration: raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are bit/s/Hz; radii use whitened digital channel units. Percentages describe these recordings.}\label{supp:hardware_calibration}
+\begin{tabular}{lllll}\toprule
+Quantity & HUB raw & HUB phase & LO raw & LO phase\\
 \midrule
-Calibration frames & 256 & 256\\
-Test frames & 1614 & 1513\\
-Vector radius & 100.7147 & 189.2814\\
-Projected radius & 87.3634 & 165.2563\\
-Later rate above projected floor (\%) & 100.00 & 100.00\\
-Later rate in combined interval (\%) & 100.00 & 100.00\\
-Both residual events hold (\%) & 97.40 & 70.26\\
-Median projected lower rate & 3.754 & 1.292\\
-Median vector upper rate & 26.831 & 28.118\\
-Median projected interval width & 23.075 & 26.830\\
-Positive projected floors & 1614 & 1513\\
-Median early ceiling minus equal-power optimum & 3.3257e-05 & 6.8581e-05\\
+Vector radius & 100.715 & 81.104 & 189.281 & 111.723\\
+Projected radius & 87.363 & 59.521 & 165.256 & 70.303\\
+Radius ratio & 1.153 & 1.363 & 1.145 & 1.589\\
+Median vector floor $L_F$ & 3.050 & 4.155 & 0.978 & 2.514\\
+Median projected floor $L_P$ & 3.754 & 6.028 & 1.292 & 4.564\\
+Median later-LTS rate & 21.937 & 21.937 & 18.927 & 18.927\\
+Median vector ceiling $U_F$ & 26.831 & 26.452 & 28.118 & 26.822\\
+Median width $U_F-L_P$ & 23.075 & 20.421 & 26.830 & 22.246\\
+Median paired floor / later rate (\%) & 17.15 & 27.51 & 6.76 & 24.46\\
+Projected floor coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
+Combined interval coverage (\%) & 100.00 & 100.00 & 100.00 & 100.00\\
+Joint residual-event coverage (\%) & 97.40 & 98.08 & 70.26 & 75.74\\
 \bottomrule\end{tabular}
+\par\medskip\begin{minipage}{\linewidth}\small
+The phase score uses projection-magnitude differences for $L_P$ and optimally phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$. The floor percentage is the median of paired $100L_P/R_{\rm later}$ ratios, not the ratio of marginal medians. Exhaustive fixed-equal-power enumeration on all eligible early frames gives median early-ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz; this is a discrete reference, not a continuous-power optimum. LO fails nominal 95\% joint coverage under both scores. Its rate floors hold through slack, even where the residual events fail.
+\end{minipage}
 \end{table}
-The projected interval is $[L_P,U_F]$; the combined lower endpoint for the interval-coverage diagnostic is $\max(L_P,L_F)$. The early ceiling minus the enumerated equal-power optimum is reported separately from the achieved-action gap. The exhaustive comparison includes both calibration and test frames; calibrated coverage uses test frames only. The 70.26\% joint residual-event coverage on LO does not support a nominal 95\% calibration claim, even though the conservative rate floors cover all observed test rates.
 
 
 
@@ -1197,9 +1282,9 @@ For unordered pair $(u,v)$, define
  c^{(r)}_{fuv}=\frac1{52}\sum_q\rho^{(r)}_{fuv}(q),\quad
  \bar c^{(r)}_f=\frac1{15}\sum_{u<v}c^{(r)}_{fuv}.
 \end{equation}
-Table~\ref{supp:table9} gives medians and quartiles of $\bar c^{(r)}_f$ over
+Supplementary Table~\ref{supp:table9} gives medians and quartiles of $\bar c^{(r)}_f$ over
 qualified frames, with paired changes calculated before taking the median.
-Figure~\ref{supp:fig8} instead gives the median of each pair's
+Supplementary Fig.~\ref{supp:fig8} instead gives the median of each pair's
 $c^{(r)}_{fuv}$ over those same frames. Their different aggregation orders
 are explicit. The heatmaps are recomputed from locally retained IQ windows,
 with all 99 source-range digests and three frame-zero digests checked. Every
@@ -1339,7 +1424,7 @@ The separate CPU verification rebuilt verification code in a fresh local environ
 and operated on immutable release packages. Independence concerns verification
 implementation and execution on the original workstation. Its numerical
 specifications share the released enclosure primitives and base mathematical
-libraries. The archived results permit independent computational replay of the recorded inputs. Table~\ref{supp:table10} separates the
+libraries. The archived results permit independent computational replay of the recorded inputs. Supplementary Table~\ref{supp:table10} separates the
 units of evidence so repeated timings, samples and optimization instances
 are counted consistently.
 
