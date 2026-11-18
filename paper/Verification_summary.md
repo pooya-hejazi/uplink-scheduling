@@ -2,7 +2,7 @@
 
 | Item | Verification |
 |---|---|
-| Article and supplement | 3,414 main-text words, 144 abstract words and 4,948 separate Methods words. Six main figures, seven supplementary notes, sixteen tables, eight supplementary figures and 51 references. The Article has 29 pages and the supplement 36. |
+| Article and supplement | 3,414 main-text words, 144 abstract words and 4,950 separate Methods words. Six main figures, seven supplementary notes, sixteen tables, eight supplementary figures and 51 references. The Article has 29 pages and the supplement 36. |
 | Fixed-filter evaluations | All 2,176 replayed nominal decisions enclose the rate of their implemented complex filters. The maximum upper bound on the rate above its floor is 1.4001644 × 10⁻¹² bit/s/Hz. The portable run reproduced both result CSVs byte for byte. |
 | Cross-method comparison | Seven methods share each of 1,536 known-channel cases. At 16, 32 and 64 users the common ceiling certifies 408, 395 and 426 zero-price schedules within 0.15 bit/s/Hz, out of 512 per size. The three own-ceiling counts are zero. No post hoc timing is attached to the combined certificate. |
 | Other numerical references | All 591 first-round scalar records match their earlier SHA-256 values. The primary counts, 507,904 O1 bound comparisons, hardware denominators, exact signed fixtures, split-conformal examples and quadrature records pass the edition or portable mathematical checks. |

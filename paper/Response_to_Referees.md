@@ -48,9 +48,9 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 > - Code is still cited only by a GitHub URL. Deposit the release and the Source Data in a DOI-issuing archive and cite the DOIs. The journal will require this before acceptance.
 > - The protocol manifest is "timestamped 13 November" with no year, one day before the previous revision. Give the year, and say explicitly that it records the exploratory revision controls; the original thresholds are described, correctly, as "fixed before evaluating the held-out test cohort, rather than externally registered".
 
-**Response.** The Methods give the source-freeze and pilot-lock times on 13 November 2026. The archived records document which thresholds preceded held-out evaluation. The compute controls, partition-depth tests, phase-invariant scores and noise-scale checks are exploratory. The Source Data and Supplementary Software accompany the Article. The private repository provides reproduction instructions and a contact for access. The authors have prepared a private archival package and plan to register a DOI after acceptance.
+**Response.** The Methods give the source-freeze and pilot-lock times on 13 November 2026. The archived records document which thresholds preceded held-out evaluation. The compute controls, partition-depth tests, phase-invariant scores and noise-scale checks are exploratory. The public GitHub repository provides the code, the Source Data and instructions for reproducing the results. The authors have prepared a private archival package and plan to register a DOI after acceptance.
 
-**Locations.** Article pp. 18, lines 805–816; Article pp. 19–20, lines 849–876; Supplementary Software 1; private offline archival-deposit status.
+**Locations.** Article pp. 18, lines 805–816; Article pp. 19, lines 848–872; Public GitHub code and Source Data; private archival-deposit status.
 
 ## T4
 
@@ -74,15 +74,15 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 
 **Response.** 1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.
 
-2. Online Methods contains 4,948 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
+2. Online Methods contains 4,950 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
 
 3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.
 
 4. On all 507,904 checked O1 entries, the parent tangent was strictly tighter than the box and the maximum child bound. Table 10 gives the binding term and the effect of deeper partitions.
 
-The manuscript-preparation statement identifies the three providers, describes assistance with text, derivations, scripts and figure code, and states the authors' responsibility.
+The Acknowledgements identify GPT-6.2 Astra, Kimi K3.1 Pro and Claude Fable 5.2, describe their use for technical revision and code review, and state the authors’ responsibility for verifying the text and approving the final manuscript.
 
-**Locations.** Article pp. 15, lines 665–667; Article pp. 12–13, lines 542–581; Article pp. 19, lines 843–848; Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25.
+**Locations.** Article pp. 15, lines 665–667; Article pp. 12–13, lines 542–581; Article pp. 23, lines 1029–1031; Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25.
 
 ## Additional verification (report Part C)
 

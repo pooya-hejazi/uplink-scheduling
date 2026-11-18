@@ -4,6 +4,7 @@ import hashlib
 import re
 import shutil
 import subprocess
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -66,10 +67,21 @@ def source_data(source, destination):
         entries["mathematical_fixtures.txt"] = annotated("Mathematical_fixtures", "Exact rational counterexamples accompanying Supplementary Note 2. Fractions retain their integer numerator and denominator.", fixtures)
     entries["README.txt"] = "Source Data for Bounding the rate loss of individual paired wireless uplink schedules.\nSix main figures, eight supplementary figures and sixteen supplementary tables each have one annotated UTF-8 text file containing labelled CSV blocks. Source filenames, denominators and timing cohorts are retained. Scientific explanations and aggregation rules are in the corresponding legends and Supplementary Notes. Raw and reconstructed measurement channels are excluded.\n"
     entries["input_sha256.txt"] = (source / "source_data" / "input_sha256.txt").read_text()
-    with zipfile.ZipFile(destination / "Source_Data.zip", "w", compression=zipfile.ZIP_DEFLATED) as archive:
-        for name, text in entries.items():
-            archive.writestr(name, text.encode("utf-8"))
+    destination.mkdir(parents=True, exist_ok=True)
     path = destination / "Source_Data.zip"
+    matches = False
+    if path.exists():
+        with zipfile.ZipFile(path) as archive:
+            matches = archive.namelist() == list(entries) and all(
+                archive.read(name) == text.encode("utf-8") for name, text in entries.items()
+            )
+    if not matches:
+        with tempfile.TemporaryDirectory(dir=destination) as scratch:
+            replacement = Path(scratch) / path.name
+            with zipfile.ZipFile(replacement, "w") as archive:
+                for name, text in entries.items():
+                    archive.writestr(zipfile.ZipInfo(name), text.encode("utf-8"), compress_type=zipfile.ZIP_DEFLATED)
+            replacement.replace(path)
     path.with_suffix(".sha256").write_text(hashlib.sha256(path.read_bytes()).hexdigest() + "  " + path.name + "\n", encoding="ascii")
 
 
@@ -96,7 +108,7 @@ def main():
     for number in range(1, 9):
         filename = f"sfig{number}.pdf"
         shutil.copy2(args.source / "supplementary" / "figures" / filename, figures / filename)
-    source_data(args.source, destination)
+    source_data(args.source, destination.parent / "data")
     if args.tectonic:
         subprocess.run([args.tectonic, *(["--only-cached"] if args.only_cached else []), "--keep-logs", "Supplementary_Information.tex"], cwd=destination, check=True)
     print("Assembled seven supplementary notes, eight figure assets and 30 source-data files.")

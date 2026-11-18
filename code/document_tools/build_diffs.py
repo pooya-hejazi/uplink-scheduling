@@ -80,6 +80,9 @@ def main():
         graphics = 'both' if directory == 'paper' else 'none'
         command = [args.perl, args.latexdiff, '--encoding=utf8', '--math-markup=whole', '--append-textcmd=abstract',
                    '--graphics-markup='+graphics, str(old_path), str(current_path)]
+        if directory == 'paper':
+            # Keep short matches so reordered subsections retain their closing braces.
+            command.insert(3, '--config=MINWORDSBLOCK=1')
         result = subprocess.run(command, capture_output=True, check=True)
         assert b'DIFadd' in result.stdout and b'DIFdel' in result.stdout
         marked = result.stdout.decode('utf-8').replace('\r\n', '\n')

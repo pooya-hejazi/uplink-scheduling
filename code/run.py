@@ -15,7 +15,7 @@ def verify_inputs():
     records=json.loads((ROOT/'data/inputs.json').read_text())
     for row in records:
         path=INPUTS/row['name']
-        if not path.exists():raise FileNotFoundError(f'Download the private release asset to {path}; see README.md.')
+        if not path.exists():raise FileNotFoundError(f'Download the public release asset to {path}; see README.md.')
         if digest(path)!=row['sha256']:raise ValueError('Input SHA-256 mismatch: '+row['name'])
     print('Verified all five input archives.',flush=True)
     return records

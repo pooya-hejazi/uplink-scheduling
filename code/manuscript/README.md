@@ -1,1 +1,1 @@
-Editable manuscript, supplement, figure scripts and scalar source data. Run the commands in the repository README through code/run.py. Scientific authorship and correspondence are recorded in the Article; the repository contact is Pooya Hejazi.
+Editable manuscript, supplement, figure scripts and scalar source data. Run the commands in the repository README through code/run.py. Scientific authorship and correspondence are recorded in the Article; Pooya Hejazi is the repository author and maintainer.

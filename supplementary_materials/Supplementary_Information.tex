@@ -30,7 +30,7 @@
 \medskip
 Pooya Hejazi and Masoud Sabaei
 \end{center}
-\noindent The seven notes give the mathematical derivations, numerical enclosures, solver specification, extended simulations and measurement processing underlying the Article. Rates are normalized per occupied tone in bit/s/Hz unless stated as aggregate nats. Supplementary Tables 1--16 and Supplementary Figures 1--8 retain the observation units and computational scope of their source experiments.
+\noindent These seven notes give the derivations, numerical checks, solver specification, simulations and measurement methods. Rates are in bit/s/Hz per occupied tone unless reported as aggregate nats. The code and Source Data for Supplementary Tables 1--16 and Supplementary Figures 1--8 are available at \url{https://github.com/pooya-hejazi/uplink-scheduling}.
 \section{Comparison with closely related work}
 \label{suppnote:literature}
 The closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here.
@@ -630,7 +630,7 @@ proposal in 12,800 non-primary cells. Their recorded component times include
 the shared proposal's time and cannot be substituted for complete primary
 timings. The remaining 1,024 native 10-dB cells use the three-repeat
 primary records for those methods. The full 96,768 method-cell records
-and all family/size/SNR/method summaries accompany
+and all family/size/SNR/method summaries are archived in the repository for
 Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
 matching implementation as the deterministic solver, whereas the primary
 subgradient baseline retains its original matching implementation.
@@ -740,7 +740,7 @@ One-hidden-layer MLP & 0.869022 & 0.753858 & 0.489869 & 1.895399\\
 \bottomrule\end{tabular}\par\smallskip\footnotesize *Selected before testing. The MLP has 32 hidden units and five fitting passes. Its inputs are matched to the pair features used by the message-passing model.\end{table}
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
-\caption{Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are supplied in the accompanying CSV files.}\label{supp:table5}
+\caption{Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are available in the repository CSV files.}\label{supp:table5}
 \begin{tabular}{lllllll}\toprule
 Campaign & $K$ & SNR (dB) & Deterministic search & Zero & Match & Seq.\\\midrule
 native & 16 & -5 & 0.047 & 0.325 & 1.897 & 2.609\\

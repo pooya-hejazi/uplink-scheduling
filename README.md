@@ -1,8 +1,8 @@
 # Bounding the rate loss of individual paired wireless uplink schedules
 
-Code, numerical records and source data for the Article by **Pooya Hejazi and Masoud Sabaei**, prepared for *Nature Computational Science*. This repository remains **private**.
+**[Pooya Hejazi](https://github.com/pooya-hejazi) is the repository author and maintainer.** Please direct questions about the code, datasets and reproduction to him.
 
-**Repository contact: [Pooya Hejazi](https://github.com/pooya-hejazi).** Direct code and reproduction questions to Pooya Hejazi. Scientific correspondence is specified in the Article.
+This public repository contains the code and Source Data for the Article by **Pooya Hejazi and Masoud Sabaei**, prepared for *Nature Computational Science*. Scientific correspondence is specified in the Article.
 
 ## Contents
 
@@ -10,8 +10,8 @@ Code, numerical records and source data for the Article by **Pooya Hejazi and Ma
 |---|---|
 | `code/` | All executable research/document code; one entry point, `run.py` |
 | `paper/` | Article, source, six figures, exact referee response, marked changes and numerical-change ledger |
-| `supplementary_materials/` | Scientific supplement, marked changes, eight figures and annotated Source Data |
-| `data/` | Input archive names, sizes and SHA-256 digests |
+| `supplementary_materials/` | Scientific supplement, marked changes and eight supplementary figures |
+| `data/` | Annotated [Source Data](data/Source_Data.zip), input archive names, sizes and SHA-256 digests |
 
 Source modules under `code/` are grouped as `mathematics`, `channel_models`, `schedulers`, `experiments`, `manuscript` and `document_tools`. **Run every command below from the same `code` directory.** Original identifiers within immutable inputs preserve their provenance; they are not repository folders.
 
@@ -32,13 +32,13 @@ python run.py figures
 
 These commands verify exact mathematical fixtures and archived audit records, recalculate scalar summaries/tables and regenerate all six main figures. No GPU or source recordings are needed. Figure outputs are in `code/manuscript/figures/` and `results/figures/`. Generated-file bytes may differ across plotting/TeX versions; numerical CSVs and hashes identify the supplied edition. Use a working copy when regenerating files covered by the manifest.
 
-The main text has 3,414 words and the abstract has 144. The separate Online Methods section has 4,948 words. Counts include TeX notation. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
+The main text has 3,414 words and the abstract has 144. The separate Online Methods section has 4,950 words. Counts include TeX notation. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
 
 ## Complete experiment inputs
 
-Download the five ZIP assets from the private [reproduction-input release](https://github.com/pooya-hejazi/uplink-scheduling/releases/tag/reviewer-materials-2026-11-14) into `data/inputs/`. The release is pinned to the original inputs; its tag is not moved when the manuscript changes. The assets contain mathematical records, channel/scheduler/validation experiments and 8,960 simulated arrays. Restricted radio recordings and reconstructed measurement channels are excluded.
+Download the five ZIP assets from the public [reproduction-input release](https://github.com/pooya-hejazi/uplink-scheduling/releases/tag/reviewer-materials-2026-11-14) into `data/inputs/`. The release is pinned to the original inputs; its tag is not moved when the manuscript changes. The assets contain mathematical records, channel/scheduler/validation experiments and 8,960 simulated arrays. Restricted radio recordings and reconstructed measurement channels are excluded.
 
-With an authenticated GitHub CLI, from `code`:
+With the GitHub CLI, from `code`:
 
 ```sh
 gh release download reviewer-materials-2026-11-14 --repo pooya-hejazi/uplink-scheduling --pattern "*.zip" --dir ../data/inputs
@@ -46,7 +46,7 @@ python run.py verify-inputs
 python run.py prepare
 ```
 
-Authenticated browser downloads are also supported. Preparation verifies SHA-256 hashes and safely extracts an ignored `.work/` execution workspace. Allow about 4 GB for inputs and extraction. **After updating this repository, move an existing `.work/` to a backup location before preparing the new edition**, so old code overlays are not reused. Moving the workspace also gives a clean rerun; completed per-block checkpoints otherwise resume an interrupted calculation.
+The release page also provides direct browser downloads. Preparation verifies SHA-256 hashes and safely extracts an ignored `.work/` execution workspace. Allow about 4 GB for inputs and extraction. **After updating this repository, move an existing `.work/` to a backup location before preparing the new edition**, so old code overlays are not reused. Moving the workspace also gives a clean rerun; completed per-block checkpoints otherwise resume an interrupted calculation.
 
 ## Recompute the reviewer analyses
 
@@ -86,7 +86,7 @@ python run.py build-response --tectonic PATH_TO_TECTONIC
 python run.py build-diffs --tectonic PATH_TO_TECTONIC --perl PATH_TO_PERL --latexdiff PATH_TO_LATEXDIFF
 ```
 
-Add `--only-cached` for offline TeX builds after its resources have been cached. The builders update `paper/` and `supplementary_materials/`. `Source_Data.zip` has one annotated file for each of the six main figures, eight supplementary figures and sixteen supplementary tables, plus exact fixtures, README and checksums.
+Add `--only-cached` for offline TeX builds after its resources have been cached. The builders update `paper/` and `supplementary_materials/`. The Source Data archive at `data/Source_Data.zip` has one annotated file for each of the six main figures, eight supplementary figures and sixteen supplementary tables, plus exact fixtures, README and checksums.
 
 The response quotes T1–T5 verbatim. Locations refer to **printed PDF margin lines**, and supplementary locations to printed pages. Its location map is recalculated if the Article PDF changes. Marked PDFs compare against the archived preceding submission, identified in `paper/marked_changes/README.md`; changed supplementary tables show full previous and revised versions to preserve alignment.
 
@@ -113,7 +113,7 @@ The third-round check pools per-entry raw and phase-aligned pilot difference pow
 
 The illustrations in Figures 1–3 are vector drawings generated by `python run.py figures`. Figure 2 uses the exact rational channel vectors in `code/manuscript/source_data/fig2_channels.csv`. Figure 3 shows a real slice through the complex channel space. Its first two panels are illustrative. The data panels use the archived calibration and test records.
 
-`python run.py round2-summary` also reproduces the zero-price schedule's threshold counts using the smallest verified ceiling on each known topology (Table 6). After preparing the five private inputs, `python run.py verify-action-rates` regenerates the per-action rational evaluations for Table 8 under `results/action_rates/`. The frozen scores and archived timings are used in their original cohorts.
+`python run.py round2-summary` also reproduces the zero-price schedule's threshold counts using the smallest verified ceiling on each known topology (Table 6). After preparing the five input archives, `python run.py verify-action-rates` regenerates the per-action rational evaluations for Table 8 under `results/action_rates/`. The frozen scores and archived timings are used in their original cohorts.
 
 ## Other stages and integrity
 

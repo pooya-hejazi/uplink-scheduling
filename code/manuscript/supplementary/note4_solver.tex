@@ -207,7 +207,7 @@ proposal in 12,800 non-primary cells. Their recorded component times include
 the shared proposal's time and cannot be substituted for complete primary
 timings. The remaining 1,024 native 10-dB cells use the three-repeat
 primary records for those methods. The full 96,768 method-cell records
-and all family/size/SNR/method summaries accompany
+and all family/size/SNR/method summaries are archived in the repository for
 Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
 matching implementation as the deterministic solver, whereas the primary
 subgradient baseline retains its original matching implementation.
@@ -317,7 +317,7 @@ One-hidden-layer MLP & 0.869022 & 0.753858 & 0.489869 & 1.895399\\
 \bottomrule\end{tabular}\par\smallskip\footnotesize *Selected before testing. The MLP has 32 hidden units and five fitting passes. Its inputs are matched to the pair features used by the message-passing model.\end{table}
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
-\caption{Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are supplied in the accompanying CSV files.}\label{supp:table5}
+\caption{Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are available in the repository CSV files.}\label{supp:table5}
 \begin{tabular}{lllllll}\toprule
 Campaign & $K$ & SNR (dB) & Deterministic search & Zero & Match & Seq.\\\midrule
 native & 16 & -5 & 0.047 & 0.325 & 1.897 & 2.609\\

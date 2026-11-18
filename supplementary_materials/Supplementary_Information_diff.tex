@@ -1,7 +1,7 @@
 % Scientific supplement. Regenerate the literature note with revision/build_references.py.
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL C:\Users\p.hejazi\Documents\Nature\paper_submission\paper\marked_changes\diff_input_previous_Supplementary_Information.tex   Wed Nov 18 13:05:19 2026
-%DIF ADD C:\Users\p.hejazi\Documents\Nature\paper_submission\paper\marked_changes\diff_input_current_Supplementary_Information.tex    Wed Nov 18 13:05:19 2026
+%DIF DEL C:\Users\p.hejazi\Documents\Nature\output\journal_authoring\paper\marked_changes\diff_input_previous_Supplementary_Information.tex   Wed Nov 18 14:07:44 2026
+%DIF ADD C:\Users\p.hejazi\Documents\Nature\output\journal_authoring\paper\marked_changes\diff_input_current_Supplementary_Information.tex    Wed Nov 18 14:07:44 2026
 \documentclass[10pt,letterpaper]{article}
 \usepackage[margin=0.80in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,longtable,array}
@@ -63,7 +63,7 @@
 \medskip
 Pooya Hejazi and Masoud Sabaei
 \end{center}
-\noindent The seven notes give the mathematical derivations, numerical enclosures, solver specification, extended simulations and measurement processing underlying the Article. Rates are normalized per occupied tone in bit/s/Hz unless stated as aggregate nats. Supplementary Tables 1--16 and Supplementary Figures 1--8 retain the observation units and computational scope of their source experiments.
+\noindent The\DIFaddbegin \DIFadd{se}\DIFaddend  seven notes give the \DIFdelbegin \DIFdel{mathematical }\DIFdelend derivations, numerical \DIFdelbegin \DIFdel{enclosures}\DIFdelend \DIFaddbegin \DIFadd{checks}\DIFaddend , solver specification, \DIFdelbegin \DIFdel{extended }\DIFdelend simulations and measurement \DIFdelbegin \DIFdel{processing underlying the Article}\DIFdelend \DIFaddbegin \DIFadd{methods}\DIFaddend . Rates are \DIFdelbegin \DIFdel{normalized per occupied tone }\DIFdelend in bit/s/Hz \DIFdelbegin \DIFdel{unless stated }\DIFdelend \DIFaddbegin \DIFadd{per occupied tone unless reported }\DIFaddend as aggregate nats. \DIFaddbegin \DIFadd{The code and Source Data for }\DIFaddend Supplementary Tables 1--16 and Supplementary Figures 1--8 \DIFdelbegin \DIFdel{retain the observation units and computational scope of their source experiments}\DIFdelend \DIFaddbegin \DIFadd{are available at }\url{https://github.com/pooya-hejazi/uplink-scheduling}\DIFaddend .
 \section{Comparison with closely related work}
 \label{suppnote:literature}
 The \DIFdelbegin \DIFdel{comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below}\DIFdelend \DIFaddbegin \DIFadd{closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here}\DIFaddend .
@@ -668,8 +668,9 @@ proposal in 12,800 non-primary cells. Their recorded component times include
 the shared proposal's time and cannot be substituted for complete primary
 timings. The remaining 1,024 native 10-dB cells use the three-repeat
 primary records for those methods. The full 96,768 method-cell records
-and all family/size/SNR/method summaries accompany
-Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
+and all family/size/SNR/method summaries \DIFdelbegin \DIFdel{accompany
+}\DIFdelend \DIFaddbegin \DIFadd{are archived in the repository for
+}\DIFaddend Supplementary Table~\ref{supp:table5}. Classical control runs use the same native
 matching implementation as the deterministic solver, whereas the primary
 subgradient baseline retains its original matching implementation.
 No timing cohorts are pooled for a new pass/fail claim.
@@ -843,9 +844,51 @@ Learned refinement priority & 0.076966 & 0.055182 & 0.049558 & 0.073800\\
 Vertex-price repair & 0.205371 & 0.145467 & 0.164225 & 0.742815\\
 One-hidden-layer MLP & 0.869022 & 0.753858 & 0.489869 & 1.895399\\
 \bottomrule\end{tabular}\par\smallskip\footnotesize *Selected before testing. The MLP has 32 hidden units and five fitting passes. Its inputs are matched to the pair features used by the message-passing model.\end{table}
-\begin{table}[htbp]\centering\small
+\begin{table}[p]\color{red}\centering\small
 \setlength{\tabcolsep}{3pt}
-\caption{Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are supplied in the accompanying CSV files.}\label{supp:table5}
+\caption*{Previous version. Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are supplied in the accompanying CSV files.}
+\begin{tabular}{lllllll}\toprule
+Campaign & $K$ & SNR (dB) & Deterministic search & Zero & Match & Seq.\\\midrule
+native & 16 & -5 & 0.047 & 0.325 & 1.897 & 2.609\\
+native & 16 & 0 & 0.035 & 0.396 & 2.059 & 2.899\\
+native & 16 & 10 & 0.024 & 0.503 & 2.138 & 3.050\\
+native & 16 & 20 & 0.025 & 0.499 & 2.146 & 3.067\\
+native & 32 & -5 & 0.073 & 0.318 & 1.924 & 2.757\\
+native & 32 & 0 & 0.066 & 0.401 & 2.075 & 3.059\\
+native & 32 & 10 & 0.061 & 0.513 & 2.146 & 3.219\\
+native & 32 & 20 & 0.061 & 0.510 & 2.153 & 3.236\\
+native & 64 & -5 & 0.077 & 0.291 & 1.912 & 2.813\\
+native & 64 & 0 & 0.073 & 0.373 & 2.055 & 3.117\\
+native & 64 & 10 & 0.067 & 0.488 & 2.122 & 3.284\\
+native & 64 & 20 & 0.067 & 0.485 & 2.129 & 3.303\\
+analytic & 16 & -5 & 0.014 & 0.234 & 1.797 & 2.094\\
+analytic & 16 & 0 & 0.007 & 0.276 & 1.938 & 2.301\\
+analytic & 16 & 10 & 0.001 & 0.370 & 2.002 & 2.402\\
+analytic & 16 & 20 & 0.000 & 0.365 & 2.000 & 2.413\\
+analytic & 32 & -5 & 0.014 & 0.222 & 1.799 & 2.068\\
+analytic & 32 & 0 & 0.010 & 0.280 & 1.945 & 2.358\\
+analytic & 32 & 10 & 0.002 & 0.382 & 2.013 & 2.479\\
+analytic & 32 & 20 & 0.002 & 0.377 & 2.020 & 2.491\\
+analytic & 64 & -5 & 0.014 & 0.214 & 1.790 & 2.061\\
+analytic & 64 & 0 & 0.010 & 0.267 & 1.934 & 2.356\\
+analytic & 64 & 10 & 0.003 & 0.370 & 2.002 & 2.535\\
+analytic & 64 & 20 & 0.003 & 0.369 & 2.013 & 2.547\\
+ray & 16 & -5 & 0.374 & 0.677 & 1.852 & 2.551\\
+ray & 16 & 0 & 0.384 & 0.853 & 2.055 & 3.300\\
+ray & 16 & 10 & 0.246 & 0.831 & 2.250 & 4.082\\
+ray & 16 & 20 & 0.120 & 0.700 & 2.222 & 4.304\\
+ray & 32 & -5 & 0.360 & 0.568 & 1.826 & 2.716\\
+ray & 32 & 0 & 0.355 & 0.757 & 2.022 & 3.597\\
+ray & 32 & 10 & 0.221 & 0.754 & 2.215 & 4.389\\
+ray & 32 & 20 & 0.111 & 0.660 & 2.203 & 4.778\\
+ray & 64 & -5 & 0.387 & 0.552 & 1.836 & 2.752\\
+ray & 64 & 0 & 0.392 & 0.752 & 2.029 & 3.673\\
+ray & 64 & 10 & 0.208 & 0.747 & 2.203 & 4.599\\
+ray & 64 & 20 & 0.134 & 0.648 & 2.180 & 4.790\\
+\bottomrule\end{tabular}\end{table}
+\begin{table}[p]\color{blue}\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Revised version. Sensitivity-grid summary. Each entry is a median certified gap in bit/s/Hz over 512 native, 512 analytic or 128 ray-traced topologies at the indicated size and SNR. Zero denotes the zero-price baseline, Match the equal-power-initialized matching with power refinement control and Seq. sequential pairing. Full per-family quantiles and seven-method comparisons are available in the repository CSV files.}\label{supp:table5}
 \begin{tabular}{lllllll}\toprule
 Campaign & $K$ & SNR (dB) & Deterministic search & Zero & Match & Seq.\\\midrule
 native & 16 & -5 & 0.047 & 0.325 & 1.897 & 2.609\\
