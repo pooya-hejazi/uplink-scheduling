@@ -24,7 +24,7 @@ Define the implemented price quantizer
 \]
 At a price iterate \(\beta\), exact general matching uses
 \(w_e=\max_s(H_{es}-\Gamma\beta_s)\).
-Bipartite assignment of the resulting matching uses the unpriced \(H\).
+Once the pairs are chosen, we assign distinct tones by bipartite matching on the unpriced table \(H\).
 Its tone dual potentials, divided by \(\Gamma\) and centred, form \(a\).
 The update uses the lowest-bound iterate found within the current branch,
 denoted \((\beta_*,M_*)\). For this iterate let
@@ -187,10 +187,7 @@ cropping and normalization, with kernels and the GPU worker already warmed.
 Stage summaries first take
 the median of the three stage times within each block, then the indicated
 quantile over blocks. Host neural time includes the prediction request
-and response. GPU time is the worker's synchronized forward measurement
-and overlaps host neural time. It is not an additional stage to sum.
-Serialization and other orchestration are included in complete time.
-Medians of separate stages need not add to the median complete time.
+and response. The worker measures the synchronized GPU forward pass within the host request time. Adding the two would count this work twice. Total time includes serialization and coordination. We compute its median directly from complete calls.
 
 The separate shuffled-order experiment draws 52 blocks by a fixed hash
 ranking and makes one additional call per size and method in permuted
@@ -225,9 +222,7 @@ in 980 of 1,152 cases. The two numerators belong to different pairings,
 as shown in Supplementary Fig.~\ref{supp:fig3}.
 For the separate optimized native primary cohort, mean \(T_2\) is
 0.041201 of a 0.065232-bit/s/Hz mean interval at 32 users and
-0.058741 of 0.072248 at 64 users. These observations do not identify a
-universal transition of optimized schedules from the frozen-action
-crossing test. Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
+0.058741 of 0.072248 at 64 users. The crossing test holds one schedule fixed, so its result cannot establish a transition for optimized schedules in general. Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
 the exact optimum of the same rounded table at 16 users, separately
 within each native profile.
 

@@ -34,7 +34,7 @@ python run.py figures
 
 These commands verify exact mathematical fixtures and archived audit records, recalculate scalar summaries/tables and regenerate all six main figures. No GPU or source recordings are needed. Figure outputs are in `code/manuscript/figures/` and `results/figures/`. Generated-file bytes may differ across plotting/TeX versions; numerical CSVs and hashes identify the supplied edition. Use a working copy when regenerating files covered by the manifest.
 
-The main text has 3,414 words and the abstract has 144. The separate Online Methods section has 4,950 words. Counts include TeX notation. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
+The main text has 3,444 words and the abstract has 141. The separate Online Methods section has 4,895 words. Counts include TeX notation. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
 
 ## Complete experiment inputs
 

@@ -31,10 +31,10 @@ $r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
  q_{e,s}=\ln(1+\gamma_i)+\ln(1+\gamma_j).
  \label{supp:mmse-rate}
 \end{equation}
-If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
+If either channel norm is zero, we set $r=0$. The user with a zero channel contributes neither a desired signal nor interference at the array. For each feasible decision, the oracle recomputes the MMSE filters. Its rate $V(h)$ is the largest sum of pair rates. This maximum exists because the power set is compact, the rates are continuous and there are finitely many labelled assignments. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
 
 \subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
-We first bound the power choice on every pair and tone, then show how to verify the resulting discrete ceiling. 
+We first bound the best rate two users can achieve on a given tone over all admissible powers. We then use those bounds to verify the ceiling for the full schedule. 
 
 Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
 \begin{equation}
@@ -62,7 +62,7 @@ Summing over a perfect matching charges each vertex once. Inside an odd set $B$,
  :=\sum_i\alpha_i+\sum_{B\in\mathcal B}\frac{|B|-1}{2}z_B.
  \label{supp:odd-objective}
 \end{equation}
-Equality between a feasible matching's weight and $W_{\mathrm{dual}}$ proves that both attain $M(w)$. This verification uses the edge inequalities, odd cardinalities, nonnegative set prices and equality of objectives. For example, give weight one to edges inside either of two disjoint triangles and zero to cross edges. Any perfect matching has at most two unit edges, and this value is attained. The two triangle prices $z_B=1$ with zero vertex prices certify the value two. Assigning one half to every triangle edge satisfies the degree equations and has value three, demonstrating the role of the odd-set constraints.
+Equality between a feasible matching's weight and $W_{\mathrm{dual}}$ proves that both attain $M(w)$. This verification uses the edge inequalities, odd cardinalities, nonnegative set prices and equality of objectives. Two disjoint triangles illustrate why the odd-set inequalities matter. Give weight one to edges within each triangle and zero to edges between them. Any perfect matching has at most two unit edges, and this value is attained. The two triangle prices $z_B=1$ with zero vertex prices certify the value two. Assigning one half to every triangle edge satisfies the degree equations and has value three, demonstrating the role of the odd-set constraints.
 
 If an odd-set witness is unavailable, choose arbitrary vertex prices and repair the tone prices by
 \begin{equation}
@@ -84,7 +84,7 @@ Let $m_*$ maximize the real weights and $\widehat m$ maximize the quantized weig
  0\le M(\widehat w)/\Gamma-M(w)<S/\Gamma.
  \label{supp:quantization-optimum}
 \end{equation}
-Ceiling rounds toward positive infinity also for negative values. In units of one tick, the signed inputs $(-3/2,-1,0,5/3)$ become $(-1,-1,0,2)$. A matching routine must enforce a perfect matching even when some edges are negative.
+Upward rounding moves towards positive infinity for either sign. In units of one tick, the signed inputs $(-3/2,-1,0,5/3)$ become $(-1,-1,0,2)$. A matching routine must enforce a perfect matching even when some edges are negative.
 
 The implementation first encloses each continuous entry by a finite binary64 upper endpoint $\overline H_{e,s}$, then stores $\widehat H_{e,s}=\lceil\Gamma\overline H_{e,s}\rceil$. Its tone prices are integer ticks $b_s$, representing $\beta_s=b_s/\Gamma$. It computes
 \begin{equation}
@@ -155,13 +155,13 @@ Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pai
 The price gap persists under channel perturbations. If \(\|H'-H\|_\infty\le\eta\) entrywise, the score of every \(S\)-edge configuration changes by at most \(S\eta\). This bounds the change in \(D\) and in every \(R_\beta\), uniformly in \(\beta\), so the optimally priced gap changes by at most \(2S\eta\). Here \(S=2\), and it remains positive whenever \(\eta<\tfrac12\ln(100/91)\) nats per pair. At fixed unit powers and positive noise the pair rates are continuous in the channel vectors, giving an open neighbourhood of physical channels with a positive gap.
 
 \subsection{Exact six-user signed-score fixture}
-The second fixture tests how loose the all-edge range can be. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
+Our six-user example shows how a pair outside the chosen matching can inflate the all-edge range. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
 \begin{equation}
  H_{e_t,s}=\frac{((7t+5s+2ts)\bmod17)-8}{7},
  \qquad (\beta_0,\beta_1,\beta_2)=(-1/3,0,1/4).
  \label{supp:six-user-table}
 \end{equation}
-The entries below give $7H$, making the fixture reproducible with integers. This is an abstract signed-score table with no imposed physical-channel realization.
+We tabulate $7H$ so the calculation can be repeated with integers. We specify the signed scores directly and assume no physical channel realization for this example.
 \begin{center}
 \setlength{\tabcolsep}{8pt}
 \begin{tabular}{c|rrr@{\qquad}c|rrr@{\qquad}c|rrr}
@@ -183,7 +183,7 @@ Exact enumeration of the $5\cdot3\cdot1=15$ perfect matchings and their $3!=6$ a
 Pair 25 has adjusted entries $(4/3,-8/7,-31/28)$, giving the largest range $d(\beta)=52/21$. Hence $S\,d(\beta)=52/7$. The posterior bound is exact in this fixture, while the largest range comes from a pair outside the selected matching. Both fixture enumerations were recomputed with rational arithmetic from the archived reference implementation.
 
 \subsection{Exact four-term identity for the delivered action}
-Use a single compatible table, price vector and upper witness. Let $m$ be the \emph{delivered} perfect matching, $s(e)$ its bijection, and $p_e=p_i+p_j$. For each pair let $l_e$ be a downward bound on the rate of its stored filters at these powers, on the stated channel event. Set $L=\sum_{e\in m}l_e$. Require
+To trace the width of the delivered schedule's interval, we use the table, prices and upper witness from the same calculation. Let $m$ be the \emph{delivered} perfect matching, $s(e)$ its bijection, and $p_e=p_i+p_j$. For each pair let $l_e$ be a downward bound on the rate of its stored filters at these powers, on the stated channel event. Set $L=\sum_{e\in m}l_e$. Require
 \begin{equation}
  U\ge\lambda P+\sum_s\beta_s+\sum_{e\in m}w_e.
  \label{supp:decomposition-witness}
@@ -220,7 +220,7 @@ On the full-vector event $E_F=\{\|h_{ks}-\hat h_{ks}\|\le\epsilon_{ks}\text{ for
  \max(L_F,L_P)\le R_{\mathrm{fix}}(h)\le V(h)\le U_F.
  \label{supp:theorem3}
 \end{equation}
-Both lower calculations use identical powers, partners, tones and filters. The channel set for the upper calculation must protect every competing decision. For example, take two users whose queried receive directions are both the first coordinate vector in three dimensions. Channels $h_1=(a,t,0)$ and $h_2=(b,0,t)$ have fixed projections $(a,b)$ onto that direction for every $t$. An oracle can receive user 1 on the second coordinate and user 2 on the third, achieving $\ln(1+p_1t^2)+\ln(1+p_2t^2)$, which grows without bound. Thus a direction-only score leaves the oracle uncontrolled whenever the queried directions leave such an unobserved subspace.
+Both floors evaluate the same powers, partners, tones and filters. The ceiling also covers a competing receiver that can choose different filters. To see why its channel set must include the unobserved directions, take two users whose queried receive directions are both the first coordinate vector in three dimensions. Channels $h_1=(a,t,0)$ and $h_2=(b,0,t)$ have fixed projections $(a,b)$ onto that direction for every $t$. An oracle can receive user 1 on the second coordinate and user 2 on the third, achieving $\ln(1+p_1t^2)+\ln(1+p_2t^2)$, which grows without bound. Thus a direction-only score leaves the oracle uncontrolled whenever the queried directions leave such an unobserved subspace.
 
 \subsection{Theorem 4. Split-conformal calibration of the two channel events}
 Condition on the data used to fit estimators and select policies. Assume the $n$ calibration blocks and one target block $Z_t=(Y_t,h_t)$ are exchangeable under this conditioning. Freeze the complete measurable pilot-to-action map, including feasibility repairs, tie-breaking and the handling of zero filters. Fix positive scale functions $\sigma_{ks}(Y)$ and $s_{ik}(Y)$ on the same fitting split. For each block, evaluate the two maxima

@@ -1,7 +1,7 @@
 % Scientific supplement. Regenerate the literature note with revision/build_references.py.
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL C:\Users\p.hejazi\Documents\Nature\output\journal_authoring\paper\marked_changes\diff_input_previous_Supplementary_Information.tex   Wed Nov 18 14:07:44 2026
-%DIF ADD C:\Users\p.hejazi\Documents\Nature\output\journal_authoring\paper\marked_changes\diff_input_current_Supplementary_Information.tex    Wed Nov 18 14:07:44 2026
+%DIF DEL diff_input_previous_Supplementary_Information.tex   Wed Nov 18 15:07:10 2026
+%DIF ADD diff_input_current_Supplementary_Information.tex    Wed Nov 18 15:07:10 2026
 \documentclass[10pt,letterpaper]{article}
 \usepackage[margin=0.80in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,longtable,array}
@@ -66,7 +66,7 @@ Pooya Hejazi and Masoud Sabaei
 \noindent The\DIFaddbegin \DIFadd{se}\DIFaddend  seven notes give the \DIFdelbegin \DIFdel{mathematical }\DIFdelend derivations, numerical \DIFdelbegin \DIFdel{enclosures}\DIFdelend \DIFaddbegin \DIFadd{checks}\DIFaddend , solver specification, \DIFdelbegin \DIFdel{extended }\DIFdelend simulations and measurement \DIFdelbegin \DIFdel{processing underlying the Article}\DIFdelend \DIFaddbegin \DIFadd{methods}\DIFaddend . Rates are \DIFdelbegin \DIFdel{normalized per occupied tone }\DIFdelend in bit/s/Hz \DIFdelbegin \DIFdel{unless stated }\DIFdelend \DIFaddbegin \DIFadd{per occupied tone unless reported }\DIFaddend as aggregate nats. \DIFaddbegin \DIFadd{The code and Source Data for }\DIFaddend Supplementary Tables 1--16 and Supplementary Figures 1--8 \DIFdelbegin \DIFdel{retain the observation units and computational scope of their source experiments}\DIFdelend \DIFaddbegin \DIFadd{are available at }\url{https://github.com/pooya-hejazi/uplink-scheduling}\DIFaddend .
 \section{Comparison with closely related work}
 \label{suppnote:literature}
-The \DIFdelbegin \DIFdel{comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below}\DIFdelend \DIFaddbegin \DIFadd{closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here}\DIFaddend .
+\DIFdelbegin \DIFdel{The comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below}\DIFdelend \DIFaddbegin \DIFadd{Table~\ref{supp:comparison} compares prior work with the three parts of our calculation. For wireless scheduling, the relevant distinction is which partners, tones and powers a competitor may change. For optimization and inference, we identify which results justify the matching bound, the continuous-power enclosure or the calibration step}\DIFaddend .
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
 \caption{Ten closely related studies and their relation to the paired scheduling interval.}\label{supp:comparison}
@@ -117,12 +117,10 @@ $r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
  q_{e,s}=\ln(1+\gamma_i)+\ln(1+\gamma_j).
  \label{supp:mmse-rate}
 \end{equation}
-If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
+If either \DIFdelbegin \DIFdel{norm vanishes, define }\DIFdelend \DIFaddbegin \DIFadd{channel norm is zero, we set }\DIFaddend $r=0$\DIFdelbegin \DIFdel{; its coefficient in both SINR expressions then vanishes. The oracle }\DIFdelend \DIFaddbegin \DIFadd{. The user with a zero channel contributes neither a desired signal nor interference at the array. For each feasible decision, the oracle recomputes the MMSE filters. Its rate }\DIFaddend $V(h)$ \DIFdelbegin \DIFdel{maximizes the sum of these recomputed-MMSE pair ratesover all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment}\DIFdelend \DIFaddbegin \DIFadd{is the largest sum of pair rates}\DIFaddend . \DIFaddbegin \DIFadd{This maximum exists because the power set is compact, the rates are continuous and there are finitely many labelled assignments. }\DIFaddend The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
 
 \subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
-\DIFdelbegin \DIFdel{The following derivation establishes the continuous-power bound , vertex-price repair and upward quantization used by the matching relaxation. 
-All arguments are stated here without reliance on an unpublished result. 
-}\DIFdelend \DIFaddbegin \DIFadd{We first bound the power choice on every pair and tone, then show how to verify the resulting discrete ceiling. 
+\DIFdelbegin \DIFdel{The following derivation establishes the continuous-power bound , vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. }\DIFdelend \DIFaddbegin \DIFadd{We first bound the best rate two users can achieve on a given tone over all admissible powers. We then use those bounds to verify the ceiling for the full schedule. 
 }\DIFaddend 
 
 Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
@@ -151,7 +149,7 @@ Summing over a perfect matching charges each vertex once. Inside an odd set $B$,
  :=\sum_i\alpha_i+\sum_{B\in\mathcal B}\frac{|B|-1}{2}z_B.
  \label{supp:odd-objective}
 \end{equation}
-Equality between a feasible matching's weight and $W_{\mathrm{dual}}$ proves that both attain $M(w)$. This verification uses the edge inequalities, odd cardinalities, nonnegative set prices and equality of objectives. For example, give weight one to edges inside either of two disjoint triangles and zero to cross edges. Any perfect matching has at most two unit edges, and this value is attained. The two triangle prices $z_B=1$ with zero vertex prices certify the value two. Assigning one half to every triangle edge satisfies the degree equations and has value three, demonstrating the role of the odd-set constraints.
+Equality between a feasible matching's weight and $W_{\mathrm{dual}}$ proves that both attain $M(w)$. This verification uses the edge inequalities, odd cardinalities, nonnegative set prices and equality of objectives. \DIFdelbegin \DIFdel{For example, give }\DIFdelend \DIFaddbegin \DIFadd{Two disjoint triangles illustrate why the odd-set inequalities matter. Give }\DIFaddend weight one to edges \DIFdelbegin \DIFdel{inside either of two disjoint triangles }\DIFdelend \DIFaddbegin \DIFadd{within each triangle }\DIFaddend and zero to \DIFdelbegin \DIFdel{cross edges }\DIFdelend \DIFaddbegin \DIFadd{edges between them}\DIFaddend . Any perfect matching has at most two unit edges, and this value is attained. The two triangle prices $z_B=1$ with zero vertex prices certify the value two. Assigning one half to every triangle edge satisfies the degree equations and has value three, demonstrating the role of the odd-set constraints.
 
 If an odd-set witness is unavailable, choose arbitrary vertex prices and repair the tone prices by
 \begin{equation}
@@ -173,7 +171,7 @@ Let $m_*$ maximize the real weights and $\widehat m$ maximize the quantized weig
  0\le M(\widehat w)/\Gamma-M(w)<S/\Gamma.
  \label{supp:quantization-optimum}
 \end{equation}
-Ceiling rounds toward positive infinity also for negative values. In units of one tick, the signed inputs $(-3/2,-1,0,5/3)$ become $(-1,-1,0,2)$. A matching routine must enforce a perfect matching even when some edges are negative.
+\DIFdelbegin \DIFdel{Ceiling rounds toward positive infinity also for negative values}\DIFdelend \DIFaddbegin \DIFadd{Upward rounding moves towards positive infinity for either sign}\DIFaddend . In units of one tick, the signed inputs $(-3/2,-1,0,5/3)$ become $(-1,-1,0,2)$. A matching routine must enforce a perfect matching even when some edges are negative.
 
 The implementation first encloses each continuous entry by a finite binary64 upper endpoint $\overline H_{e,s}$, then stores $\widehat H_{e,s}=\lceil\Gamma\overline H_{e,s}\rceil$. Its tone prices are integer ticks $b_s$, representing $\beta_s=b_s/\Gamma$. It computes
 \begin{equation}
@@ -247,13 +245,13 @@ Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pai
 }\DIFaddend 
 
 \subsection{Exact six-user signed-score fixture}
-The second fixture tests how loose the all-edge range can be. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
+\DIFdelbegin \DIFdel{The second fixture tests how loose the }\DIFdelend \DIFaddbegin \DIFadd{Our six-user example shows how a pair outside the chosen matching can inflate the }\DIFaddend all-edge range\DIFdelbegin \DIFdel{can be}\DIFdelend . Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
 \begin{equation}
  H_{e_t,s}=\frac{((7t+5s+2ts)\bmod17)-8}{7},
  \qquad (\beta_0,\beta_1,\beta_2)=(-1/3,0,1/4).
  \label{supp:six-user-table}
 \end{equation}
-The entries below give $7H$, making the fixture reproducible with integers. This is an abstract signed-score table with no imposed physical-channel realization.
+\DIFdelbegin \DIFdel{The entries below give }\DIFdelend \DIFaddbegin \DIFadd{We tabulate }\DIFaddend $7H$ \DIFdelbegin \DIFdel{, making the fixture reproducible }\DIFdelend \DIFaddbegin \DIFadd{so the calculation can be repeated }\DIFaddend with integers. \DIFdelbegin \DIFdel{This is an abstract signed-score table with no imposed physical-channel realization }\DIFdelend \DIFaddbegin \DIFadd{We specify the signed scores directly and assume no physical channel realization for this example}\DIFaddend .
 \begin{center}
 \setlength{\tabcolsep}{8pt}
 \begin{tabular}{c|rrr@{\qquad}c|rrr@{\qquad}c|rrr}
@@ -275,7 +273,7 @@ Exact enumeration of the $5\cdot3\cdot1=15$ perfect matchings and their $3!=6$ a
 Pair 25 has adjusted entries $(4/3,-8/7,-31/28)$, giving the largest range $d(\beta)=52/21$. Hence $S\,d(\beta)=52/7$. The posterior bound is exact in this fixture, while the largest range comes from a pair outside the selected matching. Both fixture enumerations were recomputed with rational arithmetic from the archived reference implementation.
 
 \subsection{Exact four-term identity for the delivered action}
-Use a single compatible table, price vector and upper witness. Let $m$ be the \emph{delivered} perfect matching, $s(e)$ its bijection, and $p_e=p_i+p_j$. For each pair let $l_e$ be a downward bound on the rate of its stored filters at these powers, on the stated channel event. Set $L=\sum_{e\in m}l_e$. Require
+\DIFdelbegin \DIFdel{Use a single compatible table, price vector }\DIFdelend \DIFaddbegin \DIFadd{To trace the width of the delivered schedule's interval, we use the table, prices }\DIFaddend and upper witness \DIFaddbegin \DIFadd{from the same calculation}\DIFaddend . Let $m$ be the \emph{delivered} perfect matching, $s(e)$ its bijection, and $p_e=p_i+p_j$. For each pair let $l_e$ be a downward bound on the rate of its stored filters at these powers, on the stated channel event. Set $L=\sum_{e\in m}l_e$. Require
 \begin{equation}
  U\ge\lambda P+\sum_s\beta_s+\sum_{e\in m}w_e.
  \label{supp:decomposition-witness}
@@ -311,7 +309,7 @@ On the full-vector event $E_F=\{\|h_{ks}-\hat h_{ks}\|\le\epsilon_{ks}\text{ for
  \max(L_F,L_P)\le R_{\mathrm{fix}}(h)\le V(h)\le U_F.
  \label{supp:theorem3}
 \end{equation}
-Both lower calculations use identical powers, partners, tones and filters. The channel set for the upper calculation must protect every competing decision. For example, take two users whose queried receive directions are both the first coordinate vector in three dimensions. Channels $h_1=(a,t,0)$ and $h_2=(b,0,t)$ have fixed projections $(a,b)$ onto that direction for every $t$. An oracle can receive user 1 on the second coordinate and user 2 on the third, achieving $\ln(1+p_1t^2)+\ln(1+p_2t^2)$, which grows without bound. Thus a direction-only score leaves the oracle uncontrolled whenever the queried directions leave such an unobserved subspace.
+Both \DIFdelbegin \DIFdel{lower calculations use identical }\DIFdelend \DIFaddbegin \DIFadd{floors evaluate the same }\DIFaddend powers, partners, tones and filters. The \DIFdelbegin \DIFdel{channel set for the upper calculation must protect every competing decision. For example}\DIFdelend \DIFaddbegin \DIFadd{ceiling also covers a competing receiver that can choose different filters. To see why its channel set must include the unobserved directions}\DIFaddend , take two users whose queried receive directions are both the first coordinate vector in three dimensions. Channels $h_1=(a,t,0)$ and $h_2=(b,0,t)$ have fixed projections $(a,b)$ onto that direction for every $t$. An oracle can receive user 1 on the second coordinate and user 2 on the third, achieving $\ln(1+p_1t^2)+\ln(1+p_2t^2)$, which grows without bound. Thus a direction-only score leaves the oracle uncontrolled whenever the queried directions leave such an unobserved subspace.
 
 \subsection{Theorem 4. Split-conformal calibration of the two channel events}
 Condition on the data used to fit estimators and select policies. Assume the $n$ calibration blocks and one target block $Z_t=(Y_t,h_t)$ are exchangeable under this conditioning. Freeze the complete measurable pilot-to-action map, including feasibility repairs, tie-breaking and the handling of zero filters. Fix positive scale functions $\sigma_{ks}(Y)$ and $s_{ik}(Y)$ on the same fitting split. For each block, evaluate the two maxima
@@ -352,7 +350,7 @@ The probability in equation~(\ref{supp:joint-coverage}) averages over calibratio
 \label{supp:note2}
 
 \paragraph{Specified receiver and error law.}
-The analytic experiment has \(N=16\) receive dimensions, \(K=32\) users and \(S=16\) tones. Powers are fixed at one and the whitened noise covariance is \(I_{16}\). Let \(u,v\) be orthonormal constant-modulus vectors, with entries of magnitude \(1/4\). On each tone the odd and even users have nominal channels \(Au\) and \(Av\), respectively. The fixed schedule pairs users \(2s-1,2s\) on tone \(s\), using \(u,v\) as their receive directions. Conditional on these centres, errors on all user--tone links are independent proper complex Gaussian vectors with covariance \(\nu^2I_{16}\), where \(\nu^2=1/32\). Thus each real coordinate has variance \(\nu^2/2\). This conditional construction specifies the residual law directly. The two amplitude conventions below distinguish 10-dB combined nominal SNR, \(A_0^2=10\), from 10-dB nominal SNR per antenna, \(A_0^2/16=10\).
+The analytic experiment has \(N=16\) receive dimensions, \(K=32\) users and \(S=16\) tones. \DIFdelbegin \DIFdel{Powers are fixed at one and the whitened noise covariance is }\DIFdelend \DIFaddbegin \DIFadd{We set each transmit power to one and use whitened noise with covariance }\DIFaddend \(I_{16}\). Let \(u,v\) be orthonormal constant-modulus vectors, with entries of magnitude \(1/4\). On each tone the odd and even users have nominal channels \(Au\) and \(Av\), respectively. The fixed schedule pairs users \(2s-1,2s\) on tone \(s\), using \(u,v\) as their receive directions. Conditional on these centres, errors on all user--tone links are independent proper complex Gaussian vectors with covariance \(\nu^2I_{16}\), where \(\nu^2=1/32\). Thus each real coordinate has variance \(\nu^2/2\). \DIFdelbegin \DIFdel{This conditional construction specifies the residual law directly. The }\DIFdelend \DIFaddbegin \DIFadd{We specify the error law conditional on the nominal channels. We consider }\DIFaddend two amplitude conventions \DIFdelbegin \DIFdel{below }\DIFdelend \DIFaddbegin \DIFadd{to }\DIFaddend distinguish 10-dB combined nominal SNR, \(A_0^2=10\), from 10-dB nominal SNR per antenna, \(A_0^2/16=10\).
 
 \paragraph{Block maxima and calibration order statistics.}
 For a scalar \(z\sim\mathcal{CN}(0,1)\), polar integration gives
@@ -381,7 +379,9 @@ For any integrable radius function \(f\), its expectation is therefore
  t^{250}(1-t)^5\,\mathrm dt.
  \label{supp:eq:gaussintegral}
 \end{equation}
-This calculation needs only the marginal law of each radius. Linearity of expectation permits subtraction of the full-vector upper and projected lower expectations even when their calibration scores use the same blocks.
+\DIFdelbegin \DIFdel{This calculation needs only the marginal law of each radius. Linearity of expectation permits subtraction of the full-vector upper and projected lower expectations even when their calibration }\DIFdelend \DIFaddbegin \DIFadd{The upper and lower }\DIFaddend scores use the same \DIFdelbegin \DIFdel{blocks.
+}\DIFdelend \DIFaddbegin \DIFadd{calibration blocks, so their radii can be dependent. To obtain the mean gap we subtract the separate endpoint expectations. Linearity of expectation makes the marginal distribution of each radius sufficient.
+}\DIFaddend 
 
 \paragraph{Rate functions and quadrature.}
 The full-vector upper and fixed-direction lower functions, per tone in bit/s/Hz, are
@@ -396,7 +396,7 @@ The compared gaps have expectations \(J_{16,512}[u_A]-J_{16,512}[l_A]\) and
  \frac{B_{d,m}(q)^{250}[1-B_{d,m}(q)]^5}{\mathrm B(251,6)}
  \frac{2m q^{2d-1}e^{-q^2}F_d(q^2)^{m-1}}{(d-1)!}.
 \end{equation}
-The two deterministic quadratures agreed within \(2\times10^{-8}\). Their output is reported separately from the guaranteed intervals in Supplementary Table~\ref{supp:table1}.
+The two \DIFdelbegin \DIFdel{deterministic }\DIFdelend quadratures agreed within \(2\times10^{-8}\). \DIFdelbegin \DIFdel{Their output is reported separately from the guaranteed intervals in }\DIFdelend Supplementary Table~\ref{supp:table1} \DIFaddbegin \DIFadd{gives their estimates alongside intervals verified by the integer calculation below}\DIFaddend .
 
 \paragraph{Integer outward calculation.}
 The independent enclosure represents each nonnegative interval by integer endpoints divided by \(D=2^{144}\). Products and quotients round down for the lower endpoint and up for the upper endpoint. Integer square roots enclose square roots. The grid \(q_j=j/128\), \(0\leq j\leq2048\), partitions \([0,16]\). To enclose \(e^{-q_j^2}\), set \(a=q_j^2/1024\in[0,1/4]\). Alternating-series bounds give
@@ -434,7 +434,7 @@ All integrated outputs for both amplitudes are bounded above by \(32q^2\) when \
  32\cdot256m\,2^d(16^2+2)e^{-128}
  \ \leq\ \frac{32\cdot256m\,2^d(16^2+2)}{2^{128}}.
 \end{equation}
-This positive amount is added to each upper expectation endpoint. Finally, subtracting lower-rate intervals from the common upper-rate interval and rounding decimal endpoints outward produces the table. The mesh width and monotone bin bounds determine its visible width, even though arithmetic uses 144 fractional bits.
+This positive amount is added to each upper expectation endpoint. Finally, subtracting lower-rate intervals from the common upper-rate interval and rounding decimal endpoints outward produces the table. The \DIFdelbegin \DIFdel{mesh width and monotone bin bounds determine its visible width, even though arithmetic }\DIFdelend \DIFaddbegin \DIFadd{displayed interval widths come from the mesh and the monotone bounds within each bin. The arithmetic itself }\DIFaddend uses 144 fractional bits.
 
 \begin{table}[htbp]
 \centering
@@ -484,7 +484,7 @@ Define the implemented price quantizer
 \]
 At a price iterate \(\beta\), exact general matching uses
 \(w_e=\max_s(H_{es}-\Gamma\beta_s)\).
-Bipartite assignment of the resulting matching uses the unpriced \(H\).
+\DIFdelbegin \DIFdel{Bipartite assignment of the resulting matching uses the unpriced }\DIFdelend \DIFaddbegin \DIFadd{Once the pairs are chosen, we assign distinct tones by bipartite matching on the unpriced table }\DIFaddend \(H\).
 Its tone dual potentials, divided by \(\Gamma\) and centred, form \(a\).
 The update uses the lowest-bound iterate found within the current branch,
 denoted \((\beta_*,M_*)\). For this iterate let
@@ -648,10 +648,10 @@ cropping and normalization, with kernels and the GPU worker already warmed.
 Stage summaries first take
 the median of the three stage times within each block, then the indicated
 quantile over blocks. Host neural time includes the prediction request
-and response. GPU time is the worker's synchronized forward measurement
-and overlaps host neural time. It is not an additional stage to sum.
-Serialization and other orchestration are included in complete time.
-Medians of separate stages need not add to the median complete time.
+and response. \DIFdelbegin \DIFdel{GPU time is the worker 's synchronized forward measurement
+and overlaps host neural time. It is not an additional stage to sum. Serialization and other orchestration are included in complete time }\DIFdelend \DIFaddbegin \DIFadd{The worker measures the synchronized GPU forward pass within the host request time. Adding the two would count this work twice. Total time includes serialization and coordination. We compute its median directly from complete calls}\DIFaddend .
+\DIFdelbegin \DIFdel{Medians of separate stages need not add to the median complete time.
+}\DIFdelend 
 
 The separate shuffled-order experiment draws 52 blocks by a fixed hash
 ranking and makes one additional call per size and method in permuted
@@ -687,9 +687,8 @@ in 980 of 1,152 cases. The two numerators belong to different pairings,
 as shown in Supplementary Fig.~\ref{supp:fig3}.
 For the separate optimized native primary cohort, mean \(T_2\) is
 0.041201 of a 0.065232-bit/s/Hz mean interval at 32 users and
-0.058741 of 0.072248 at 64 users. These observations do not identify a
-universal transition of optimized schedules from the frozen-action
-crossing test. Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
+0.058741 of 0.072248 at 64 users. \DIFdelbegin \DIFdel{These observations do not identify a universal transition of optimized schedules from the frozen-action
+crossing test}\DIFdelend \DIFaddbegin \DIFadd{The crossing test holds one schedule fixed, so its result cannot establish a transition for optimized schedules in general}\DIFaddend . Supplementary Fig.~\ref{supp:fig4} tests the posterior bound against
 the exact optimum of the same rounded table at 16 users, separately
 within each native profile.
 
@@ -1116,7 +1115,7 @@ For $K=2$, rational polynomial-root isolation encloses the physical optimum. At 
 \label{supp:note5}
 
 \subsection*{Ray-traced channels and the unit of comparison}
-The O1\_60 street and ASU Campus 1 scenes provide two propagation geometries from the DeepMIMO collection~\cite{deepmimo}. Each uses base station 1 and 64 disjoint guarded test tiles. The source carrier frequencies are 60 and 3.5 GHz. The tile widths are approximately 1.20 and 12 m, respectively. Thus the comparison combines carrier, propagation geometry and spatial sampling. The same frozen tile supplies nested sets of \(K=16,32,64\) users. Its \(S=K/2\) tones are evenly spaced crops of the original 64-tone, 20-MHz channel. The block scaling used in the archived 10-dB run is applied before computing rates, so the diagnostic follows exactly the normalization of the reported schedule.
+The O1\_60 street and ASU Campus 1 scenes provide two propagation geometries from the DeepMIMO collection~\cite{deepmimo}. Each uses base station 1 and 64 disjoint guarded test tiles. The source carrier frequencies are 60 and 3.5 GHz. The tile widths are approximately 1.20 and 12 m, respectively. \DIFdelbegin \DIFdel{Thus the comparison combines carrier }\DIFdelend \DIFaddbegin \DIFadd{The two scenes therefore differ in carrier frequency}\DIFaddend , propagation geometry and \DIFdelbegin \DIFdel{spatial sampling}\DIFdelend \DIFaddbegin \DIFadd{the spatial extent sampled by each tile}\DIFaddend . The same frozen tile supplies nested sets of \(K=16,32,64\) users. Its \(S=K/2\) tones are evenly spaced crops of the original 64-tone, 20-MHz channel. The block scaling used in the archived 10-dB run is applied before computing rates, so the diagnostic follows exactly the normalization of the reported schedule.
 
 Let \(h_{is}\) denote the resulting whitened channel and \(u_{is}=h_{is}/\|h_{is}\|\). On each tone we form the Gram matrix \(Q_s\), whose entries are \(u_{is}^{H}u_{js}\). The two spatial summaries are
 \begin{align}
@@ -1124,7 +1123,7 @@ r_{\rm tile}&=\frac{1}{S{K\choose2}}\sum_s\sum_{i<j}|u_{is}^{H}u_{js}|^2,\\
 d_{\rm tile}&=\frac{1}{S}\sum_s\exp\left(-\sum_\ell t_{\ell s}\ln t_{\ell s}\right),
 \qquad t_{\ell s}=\frac{\lambda_\ell(Q_s)}{\operatorname{tr}Q_s},
 \end{align}
-with \(0\ln0=0\). The effective rank is one for perfectly parallel channels. Its upper bound is the smaller of \(K\) and the 16 receive dimensions. The implementation computes the equal nonzero eigenvalues of the antenna Gram matrix to avoid an unnecessarily large eigendecomposition.
+with \(0\ln0=0\). The effective rank is one for perfectly parallel channels. Its upper bound is the smaller of \(K\) and the 16 receive dimensions. The \DIFdelbegin \DIFdel{implementation computes the equal nonzero eigenvaluesof }\DIFdelend \DIFaddbegin \DIFadd{antenna and user Gram matrices have the same nonzero eigenvalues. We therefore use }\DIFaddend the antenna Gram matrix to \DIFdelbegin \DIFdel{avoid an unnecessarily large eigendecomposition}\DIFdelend \DIFaddbegin \DIFadd{compute the effective rank}\DIFaddend .
 
 To separate partner choice from power adaptation, fix every user's power at \(p=0.10\) W. For a candidate partner \(j\), the recomputed linear-MMSE rate is
 \begin{equation}
@@ -1223,7 +1222,7 @@ The width sweep partitions every chosen rectangle into 16 children. No upper-tab
 
 
 \subsection*{Validated small O1 references}
-The two-user reference uses rational Gram coefficients and polynomial-root isolation. For four users we enumerate all six labelled pairings and enclose continuous powers by branch-and-bound. With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
+\DIFdelbegin \DIFdel{The two-user reference uses }\DIFdelend \DIFaddbegin \DIFadd{For two users we compute a reference from }\DIFaddend rational Gram coefficients and \DIFdelbegin \DIFdel{polynomial-root isolation}\DIFdelend \DIFaddbegin \DIFadd{isolate the roots of the stationarity polynomial}\DIFaddend . For four users we enumerate all six labelled pairings and \DIFdelbegin \DIFdel{enclose continuous powers by }\DIFdelend \DIFaddbegin \DIFadd{use }\DIFaddend branch-and-bound \DIFaddbegin \DIFadd{over their continuous transmit powers}\DIFaddend . With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
 
 The reference consequently intersects each box with the full-power hyperplane. Outward direct inner products give tight Gram intervals. For one pair, with \(x=g_i p_i\), \(y=g_j p_j\), \(c=1-\rho\) and \(D=1+x+y+cxy\), its rate is \(f=2\log D-\log(1+x)-\log(1+y)\) and
 \[
@@ -1240,7 +1239,7 @@ The sum is convex and piecewise linear, so its maximum on the box/hyperplane int
 
 
 \subsection*{Reading the decomposition alongside the geometry}
-The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. The sum is checked against the stored gap for all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
+The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. \DIFdelbegin \DIFdel{The sum is checked }\DIFdelend \DIFaddbegin \DIFadd{We checked the sum }\DIFaddend against the stored gap \DIFdelbegin \DIFdel{for }\DIFdelend \DIFaddbegin \DIFadd{in }\DIFaddend all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
 
 O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Supplementary Fig.~\ref{supp:fig5} displays the distributions underlying the summaries.
 
@@ -1252,7 +1251,7 @@ O1's nearly unit overlap and effective rank close to one indicate little spatial
 \end{figure}
 
 \subsection*{Charging for pilots over a stationary horizon}
-The net-gain experiment evaluates two fixed feasible actions on the same least-squares channel estimate, the zero-price, equal-power-initialized matching control with feasible power refinement \(c\) and a learned-initialized action \(w\). The rate intervals \([l_c,u_c]\) and \([l_w,u_w]\) use the stored powers, pairs and receive filters. Four calibration events, two per policy, share a total error probability of 0.05. Each uses rank \(\lceil257(1-0.0125)\rceil=254\) among 256 independent calibration blocks.
+\DIFdelbegin \DIFdel{The net-gain experiment evaluates two fixed }\DIFdelend \DIFaddbegin \DIFadd{To account for pilot cost, we compare two }\DIFaddend feasible actions on the same least-squares channel estimate\DIFdelbegin \DIFdel{, the zero-price, equal-power-initialized matching control with feasible power refinement }\DIFdelend \DIFaddbegin \DIFadd{. The control }\DIFaddend \(c\) \DIFdelbegin \DIFdel{and a learned-initialized }\DIFdelend \DIFaddbegin \DIFadd{starts from zero-price matching and equal powers, then refines its transmit powers. The second }\DIFaddend action \(w\) \DIFaddbegin \DIFadd{starts from the learned proposal}\DIFaddend . The rate intervals \([l_c,u_c]\) and \([l_w,u_w]\) use the stored powers, pairs and receive filters. Four calibration events, two per policy, share a total error probability of 0.05. Each uses rank \(\lceil257(1-0.0125)\rceil=254\) among 256 independent calibration blocks.
 
 A block contains 256 symbols with 32 routine pilot symbols. Charging the warm action for \(M\) additional 32-symbol reference blocks over \(N_{\rm blk}\) stationary blocks gives
 \begin{equation}
@@ -1299,14 +1298,13 @@ UMa scaled & 16 & 1024 & 74/128 & [48.8, 66.5]\\
 \label{supp:note6}
 
 \subsection*{Rice RENEW acquisition, frequency conventions and calibration}
-The RENEW analysis uses the registered Rice distributed multi-user MIMO collection.
+\DIFdelbegin \DIFdel{The RENEW analysis uses the registered Rice }\DIFdelend \DIFaddbegin \DIFadd{We use the }\DIFaddend distributed multi-user MIMO \DIFaddbegin \DIFadd{recordings from the Rice RENEW }\DIFaddend collection.
 Each listed file contains 2,001 frame slots, six time-orthogonal client pilot slots,
 64 stored receive-stream slots and a noise slot. The selected distributed chain-A
-recordings are \texttt{trace-uplink-2022-11-14-2-42-48\_1\_64x6\_0\_63\_chA.hdf5}
-(HUB) and \texttt{trace-uplink-2022-11-14-7-10-53\_1\_64x6\_0\_63\_chA.hdf5}
+recordings are \nolinkurl{trace-uplink-2022-11-14-2-42-48_1_64x6_0_63_chA.hdf5}
+(HUB) and \nolinkurl{trace-uplink-2022-11-14-7-10-53_1_64x6_0_63_chA.hdf5}
 (LO). The carrier is 3.6 GHz and the sample rate is 5 MHz, giving 78.125 kHz
-spacing for a 64-point FFT. We retain the recorded ADC scale. Diagonal noise
-normalization supplies the receiver's noise metric in these units.
+spacing for a 64-point FFT. We retain the recorded ADC scale \DIFdelbegin \DIFdel{. Diagonal noise normalization supplies }\DIFdelend \DIFaddbegin \DIFadd{and normalize each stream by its estimated noise level to obtain }\DIFaddend the receiver's \DIFdelbegin \DIFdel{noise metric in these units}\DIFdelend \DIFaddbegin \DIFadd{diagonal noise metric}\DIFaddend .
 
 Let $x_{fuan}$ denote the complex ADC sample at time $n$, frame $f$, user $u$
 and receive stream $a$. Interleaved signed integers are converted by
@@ -1396,7 +1394,7 @@ Distributed LO LoS A &63&0.0015542&0.00016973&0.00012370&32/32 each\\
 \end{tabular}
 \end{table}
 \subsection*{Chronological directional calibration and exhaustive pairing}
-The first 128 frames continue to determine timing, RF selection and noise variance only. Among the eligible post-prefix frames, the first 256 form a new chronological calibration set and the remainder form a disjoint test set. The scheduling map takes only the early pilot. For frame $f$, let $\Delta h_{fus}=h^{(1)}_{fus}-h^{(0)}_{fus}$ and let $\bar v_{fis}$ be the unit-normalized early-input filter. We use scalar whole-frame scores
+\DIFdelbegin \DIFdel{The }\DIFdelend \DIFaddbegin \DIFadd{We reserve the }\DIFaddend first 128 frames \DIFdelbegin \DIFdel{continue to determine }\DIFdelend \DIFaddbegin \DIFadd{for }\DIFaddend timing, RF selection and noise variance\DIFdelbegin \DIFdel{only. Among the eligible post-prefix frames , }\DIFdelend \DIFaddbegin \DIFadd{. Of the eligible frames that follow, we use }\DIFaddend the first 256 \DIFdelbegin \DIFdel{form a new chronological calibration set }\DIFdelend \DIFaddbegin \DIFadd{for calibration }\DIFaddend and the remainder \DIFdelbegin \DIFdel{form a disjoint test set. The scheduling map takes only }\DIFdelend \DIFaddbegin \DIFadd{for testing. Only }\DIFaddend the early pilot \DIFaddbegin \DIFadd{enters the scheduling decision}\DIFaddend . For frame $f$, let $\Delta h_{fus}=h^{(1)}_{fus}-h^{(0)}_{fus}$ and let $\bar v_{fis}$ be the unit-normalized early-input filter. We use scalar whole-frame scores
 \[
  s_{F,f}=\max_{u,s}\|\Delta h_{fus}\|_2,\qquad
  s_{P,f}=\max_{(i,j,s)\text{ scheduled}}\max_{k\in\{i,j\}}
@@ -1404,9 +1402,9 @@ The first 128 frames continue to determine timing, RF selection and noise varian
 \]
 Both receiver directions in each pair are included. The 251st sorted score of 256 calibration frames, rounded outward, supplies each radius. The same projected radius is used for every desired/interference projection within a frame. Vector and projected events each receive error budget 0.025. The test has 1,614 HUB and 1,513 LO frames. Every lower and upper certificate is replayed by the separate numerical checker. Empirical floor coverage counts $R_{\rm later}\geq L_P$; interval coverage uses $\max(L_P,L_F)\leq R_{\rm later}\leq U_F$. The reported projected width is $U_F-L_P$.
 
-These residuals include pilot noise, synchronization differences and channel evolution. No component is identified separately. The temporal split avoids reusing calibration residuals for testing, but successive frames are not independent replicates. We therefore do not use the conformal rank formula as evidence of population coverage, or attach an independent-binomial confidence interval to these recording-level fractions. All coverage statements concern the second observable LTS and the stored early-input action.
+\DIFdelbegin \DIFdel{These residuals include pilot }\DIFdelend \DIFaddbegin \DIFadd{Pilot }\DIFaddend noise, synchronization differences and channel evolution \DIFdelbegin \DIFdel{. No component is identified separately. The temporal split }\DIFdelend \DIFaddbegin \DIFadd{can all contribute to the residuals, and the recording cannot separate their effects. Testing on later frames }\DIFaddend avoids reusing calibration residuals\DIFdelbegin \DIFdel{for testing, but successive frames are not independent replicates. We therefore do not use }\DIFdelend \DIFaddbegin \DIFadd{. Successive frames can still be dependent, so the observed fractions describe coverage within this recording. Extending }\DIFaddend the conformal rank \DIFdelbegin \DIFdel{formula as evidence of population coverage, or attach }\DIFdelend \DIFaddbegin \DIFadd{or }\DIFaddend an independent-binomial confidence interval to \DIFdelbegin \DIFdel{these recording-level fractions. All coverage statements concern the second observable LTS and the }\DIFdelend \DIFaddbegin \DIFadd{a population would require additional assumptions. We evaluate the }\DIFaddend stored early-input action \DIFaddbegin \DIFadd{against the second observed LTS}\DIFaddend .
 
-At six users and three labelled tones, sorting the two user indices within each pair leaves $6!/2^3=90$ schedules. We enumerate all 90 with fixed powers of 0.10 and the MMSE pair rate on the early input. This is exhaustive over the stated discrete set; the rates are floating-point numerical evaluations. Its optimum is a feasible reference for the continuous-power model, not that model's exact optimum.
+At six users and three labelled tones, sorting the two user indices within each pair leaves $6!/2^3=90$ schedules. We enumerate all 90 with fixed powers of 0.10 and the MMSE pair rate on the early input. \DIFdelbegin \DIFdel{This is exhaustive over the stated discrete set; the rates are floating-point numerical evaluations}\DIFdelend \DIFaddbegin \DIFadd{We evaluate the rates in floating point for every schedule in this discrete set}\DIFaddend . Its optimum \DIFdelbegin \DIFdel{is }\DIFdelend \DIFaddbegin \DIFadd{gives }\DIFaddend a feasible reference \DIFdelbegin \DIFdel{for the continuous-power model, not that model's exact optimum}\DIFdelend \DIFaddbegin \DIFadd{when transmit powers are allowed to vary}\DIFaddend .
 
 
 \subsection*{Phase-invariant scores and the thermal-noise benchmark}
@@ -1547,12 +1545,9 @@ replication. Full-capture SHA-256 digests are
 HUB\quad\nolinkurl{aec556198de39208757fddc294af77d4f701d7a24b9f1feb3f1fdc09d36bc0d2}\\
 LO\quad\nolinkurl{e5fabc009dce96e527b6919ce744f0b41408f337e0d5334b8dadfa0f13699844}.
 \end{quote}
-Each distributed clock mode supplies one acquisition. Frames, user subsets,
-RF chains and tones are repeated observations within this evidence base.
-The six-user offline scheduling counterfactual has no measured counterfactual
-payload throughput. The two disjoint LTS windows provide a temporal proxy
-comparison with an empirically substantial discrepancy. Hardware population
-coverage and a causal clock-mode comparison require additional acquisitions.
+\DIFdelbegin \DIFdel{Each }\DIFdelend \DIFaddbegin \DIFadd{We have one acquisition per }\DIFaddend distributed clock mode\DIFdelbegin \DIFdel{supplies one acquisition. Frames}\DIFdelend \DIFaddbegin \DIFadd{. Its frames}\DIFaddend , user subsets, RF chains and tones \DIFdelbegin \DIFdel{are repeated observations within this evidence base. The six-user offline scheduling counterfactual has no measured counterfactual
+payload throughput. The }\DIFdelend \DIFaddbegin \DIFadd{all belong to that acquisition. The recorded payload used all six users. For a schedule that transmits only the selected pair on each tone, the }\DIFaddend two disjoint LTS windows \DIFdelbegin \DIFdel{provide a temporal proxy
+comparison with an empirically substantial discrepancy. Hardware population coverage and a causal clock-mode comparison require additional acquisitions}\DIFdelend \DIFaddbegin \DIFadd{let us compare pilot-based rates, but provide no decoded payload measurement. Additional acquisitions would be needed to estimate population coverage or attribute the difference to the clock mode}\DIFaddend .
 
 The separate CPU implementation reconstructed the full RENEW distributions from archived accepted-frame
 and abstention records. Its authenticated source spot check fetched frame 128
@@ -1632,9 +1627,8 @@ Mobile &22/32&0.2250&0.2430&0.0108&0.2288\\
 \caption{Argos spatial overlap on two recorded pilots. \textbf{a}, First-LTS mean squared correlation on each qualified frame, with horizontal segments marking medians. \textbf{b}, Thin lines join the first and second LTS from the same frame; thick lines join the medians. Counts give qualified frames out of 32 planned frames. Both repetitions use identical RF masks. These panels describe spatial separation, not paired-payload throughput.}
 \label{supp:fig8}
 \end{figure}
-The three recordings describe one array setup with one recording per
-condition. Their spatial correlations support a small-load hardware
-description. Supplementary data contain derived scalar summaries and hashes.
+The three recordings \DIFdelbegin \DIFdel{describe one arraysetup with one recording }\DIFdelend \DIFaddbegin \DIFadd{use the same array, with one acquisition }\DIFaddend per condition. \DIFdelbegin \DIFdel{Their spatial correlations support a small-load hardware
+description}\DIFdelend \DIFaddbegin \DIFadd{The correlations describe the spatial separation of the six recorded users}\DIFaddend . Supplementary data contain derived scalar summaries and hashes.
 Access to the original IQ and reconstructed complex channels follows Rice's research-use terms.
 
 
@@ -1671,7 +1665,7 @@ Squaring this lower bound and dividing by upper squared channel norms produces a
 \(\gamma(x,y,r)=x(1-r y/(1+y))\), with \(x,y\geq0\) and \(0\leq r\leq1\), monotonicity is increasing in \(x\) and decreasing in \(y,r\). Evaluating each user's desired term at its upper gain and power, and interference at the lower partner gain, power and overlap, therefore bounds the rate over an entire two-dimensional power box. Subtraction of a lower power charge preserves the upper bound.
 
 \paragraph{Binary64 elementary and logarithmic operations.}
-The arithmetic contract uses nearest-even IEEE binary64 operations, gradual underflow and disabled fast-math reassociation. Applying \(\operatorname{nextafter}\) toward \(-\infty\) or \(+\infty\) to a rounded elementary result encloses the corresponding real result. Exceptional values cause rejection or retention of an available valid upper bound. The compiled reference logarithm writes \(x=2^k t\), \(1\leq t<2\), and uses \(z=(t-1)/(t+1)\leq1/3\):
+\DIFdelbegin \DIFdel{The arithmetic contract uses nearest-even }\DIFdelend \DIFaddbegin \DIFadd{We use }\DIFaddend IEEE binary64 \DIFdelbegin \DIFdel{operations, gradual underflowand disabled }\DIFdelend \DIFaddbegin \DIFadd{arithmetic with nearest-even rounding and gradual underflow, and disable }\DIFaddend fast-math reassociation. Applying \(\operatorname{nextafter}\) toward \(-\infty\) or \(+\infty\) to a rounded elementary result encloses the corresponding real result. Exceptional values cause rejection or retention of an available valid upper bound. The compiled reference logarithm writes \(x=2^k t\), \(1\leq t<2\), and uses \(z=(t-1)/(t+1)\leq1/3\):
 \begin{equation}
  \ln t=2\sum_{j=0}^{19}\frac{z^{2j+1}}{2j+1}+R_{20},
  \qquad
@@ -1736,13 +1730,11 @@ The recorded kernel tests include 26 logarithm inputs spanning subnormal and max
 
 \clearpage
 \subsection*{Separate CPU verification and the meaning of its counts}
-The separate CPU verification rebuilt verification code in a fresh local environment
-and operated on immutable release packages. Independence concerns verification
-implementation and execution on the original workstation. Its numerical
-specifications share the released enclosure primitives and base mathematical
-libraries. The archived results permit independent computational replay of the recorded inputs. Supplementary Table~\ref{supp:table10} separates the
+\DIFdelbegin \DIFdel{The separate CPU verification rebuilt verification code }\DIFdelend \DIFaddbegin \DIFadd{We rebuilt the CPU checker }\DIFaddend in a fresh local environment and \DIFdelbegin \DIFdel{operated on immutable release packages. Independence concerns verification
+implementation and execution }\DIFdelend \DIFaddbegin \DIFadd{applied it to the frozen release files }\DIFaddend on the original workstation. \DIFdelbegin \DIFdel{Its numerical
+specifications share }\DIFdelend \DIFaddbegin \DIFadd{The checker uses }\DIFaddend the released enclosure primitives and \DIFdelbegin \DIFdel{base }\DIFdelend \DIFaddbegin \DIFadd{the same underlying }\DIFaddend mathematical libraries. The \DIFdelbegin \DIFdel{archived results permit independent computational replay of the recorded inputs }\DIFdelend \DIFaddbegin \DIFadd{archive contains the inputs needed to repeat the checks}\DIFaddend . Supplementary Table~\ref{supp:table10} \DIFdelbegin \DIFdel{separates the
 units of evidence so repeated timings, samples and optimization instances
-are counted consistently.
+are counted consistently}\DIFdelend \DIFaddbegin \DIFadd{counts timing calls, sampled records and distinct optimization problems separately}\DIFaddend .
 
 
 
@@ -1780,9 +1772,8 @@ each of which may have several stationary or boundary candidates.
 \DIFaddend The seven corruption controls alter, respectively, a sum-preserving transfer
 between decomposition terms, the covered-table digest, an odd set, a primal user
 assignment by duplication, the sign of a lower-rate tick, the denominator,
-and the upward rounding of the displayed gap. Their rejection tests the
-specified verifier checks. Hardware-source checks have the distinct scopes
-given above. Files \texttt{certificate\_checks.csv}, \texttt{sample\_dp.csv},
+and the upward rounding of the displayed gap. \DIFdelbegin \DIFdel{Their rejection tests the specified verifier checks. Hardware-source checks have the distinct scopes
+given }\DIFdelend \DIFaddbegin \DIFadd{We checked that the verifier rejected each altered record. For the hardware data we checked the sources to the extent described }\DIFaddend above. Files \texttt{certificate\_checks.csv}, \texttt{sample\_dp.csv},
 \texttt{nested\_small\_dp.csv}, \texttt{exact\_two\_replay.csv} and
 \texttt{negative\_controls.json} preserve the corresponding audit evidence.
 

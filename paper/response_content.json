@@ -1,7 +1,7 @@
 {
   "title": "Response to the third-round pre-submission review",
   "manuscript": "Bounding the rate loss of individual paired wireless uplink schedules",
-  "introduction": "This response addresses the supplied technical review. The current Article contains 3,414 main-text words and a 144-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.",
+  "introduction": "This response addresses the supplied technical review. The current Article contains 3,444 main-text words and a 141-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.",
   "records": [
     {
       "id": "T1",
@@ -11,17 +11,17 @@
         "noise",
         "limitation"
       ],
-      "supplement": "Supplementary Table 13 and Note 6, pp. 25–26."
+      "supplement": "Supplementary Table 13 and Note 6, pp. 26–27."
     },
     {
       "id": "T2",
       "comment": "Abstract and Results prose\n\n- The abstract no longer says what \"paired\" restricts. Add a half clause: two single-antenna users per tone, linear receivers, no successive cancellation. The round-one concern about scope was closed by that sentence and it should not disappear again.\n- The abstract's second sentence stacks five technical terms (\"integer-verified odd-set matching dual\", \"decision-projected split-conformal calibration\"). Nature Communications abstracts must be readable by non-specialists; simplify.\n- \"No significant benefit\" is accurate, but with only four or five discordant topologies the test could hardly reach 0.05. \"Was not established\" is the more careful wording, and the Discussion already uses it.\n- Results now compress pairs of values with slashes (\"0.0549/0.0645 bit/s/Hz\", \"32/64-user\", \"HUB/LO\", \"1.080005/0.867040\"). Write these out (\"… and …, respectively\"). In the O1 sentence, three partition depths are followed by two values; make clear that 16 children is the baseline.",
-      "response": "The 144-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.",
+      "response": "The 141-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.",
       "location_keys": [
         "abstract",
         "o1"
       ],
-      "supplement": "Supplementary Table 10, p. 19."
+      "supplement": "Supplementary Table 10, p. 20."
     },
     {
       "id": "T3",
@@ -43,87 +43,87 @@
     {
       "id": "T5",
       "comment": "Small items\n\n1. Check that \"Sionna 2.2.0 with spec_version='19.2'\" is the exact release and option used; I could not verify it.\n2. Methods now runs to about 6,700 words. Consider moving the solver constants and the RENEW decoding details to the Supplementary Information, where they are already repeated.\n3. The compiled layout of Supplementary Tables 3, 7, 9 and 13 should be checked by eye; I could only read the text layer.\n4. Supplementary Table 10 note: \"the child mixed signal/interference bounds remain above the parent tangent/box bound\" — add one sentence saying this means the tangent bound, not the box bound, is the binding one on these channels.",
-      "response": "1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.\n\n2. Online Methods contains 4,950 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.\n\n3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.\n\n4. On all 507,904 checked O1 entries, the parent tangent was strictly tighter than the box and the maximum child bound. Table 10 gives the binding term and the effect of deeper partitions.\n\nThe Acknowledgements identify GPT-6.2 Astra, Kimi K3.1 Pro and Claude Fable 5.2, describe their use for technical revision and code review, and state the authors’ responsibility for verifying the text and approving the final manuscript.",
+      "response": "1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.\n\n2. Online Methods contains 4,895 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.\n\n3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.\n\n4. On all 507,904 checked O1 entries, the parent tangent was strictly tighter than the box and the maximum child bound. Table 10 gives the binding term and the effect of deeper partitions.\n\nThe Acknowledgements identify GPT-6.2 Astra, Kimi K3.1 Pro and Claude Fable 5.2, describe their use for technical revision and code review, and state the authors’ responsibility for verifying the text and approving the final manuscript.",
       "location_keys": [
         "sionna",
         "methods",
         "disclosure"
       ],
-      "supplement": "Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25."
+      "supplement": "Supplementary Table 3 on pp. 11–12, Table 7 on p. 17, Table 8 on p. 18, Table 9 on p. 19, Table 10 on p. 20 and Table 13 on p. 26."
     }
   ],
   "locations": {
-    "pdf_sha256": "f95f0a1401e1614fb54bdb26790d4a7f0988cadaccca8a5cc1cd1b38515b1978",
+    "pdf_sha256": "a745dea8999b26df65a7a2ea354b36da530fdd928ee34218599363b31b5fb1cc",
     "locations": {
       "abstract": {
         "page_start": 1,
         "page_end": 1,
         "line_start": 21,
-        "line_end": 33,
-        "anchor_start": "A scheduler can find a high",
+        "line_end": 32,
+        "anchor_start": "We derive a per-channel bound",
         "anchor_end": "in the local-clock recording"
       },
       "noise": {
         "page_start": 7,
         "page_end": 7,
-        "line_start": 313,
-        "line_end": 318,
+        "line_start": 315,
+        "line_end": 320,
         "anchor_start": "Mean per-entry difference powers",
         "anchor_end": "these stored pairs cannot distinguish them"
       },
       "limitation": {
         "page_start": 8,
         "page_end": 8,
-        "line_start": 349,
-        "line_end": 351,
+        "line_start": 353,
+        "line_end": 355,
         "anchor_start": "If quiet-slot variance understates",
         "anchor_end": "appropriate noise model"
       },
       "o1": {
         "page_start": 6,
         "page_end": 6,
-        "line_start": 246,
-        "line_end": 257,
+        "line_start": 245,
+        "line_end": 256,
         "anchor_start": "Refining all 16 scheduled entries",
         "anchor_end": "the 32-user physical optimum remains unresolved"
       },
       "protocol": {
         "page_start": 18,
         "page_end": 18,
-        "line_start": 805,
-        "line_end": 816,
-        "anchor_start": "The configuration was fixed before",
-        "anchor_end": "not capped identically on each topology"
+        "line_start": 812,
+        "line_end": 824,
+        "anchor_start": "We fixed the configuration before",
+        "anchor_end": "Individual topologies could take different times"
       },
       "sionna": {
         "page_start": 15,
         "page_end": 15,
-        "line_start": 665,
-        "line_end": 667,
+        "line_start": 673,
+        "line_end": 675,
         "anchor_start": "The native experiments used Sionna",
         "anchor_end": "parameter tables"
       },
       "methods": {
-        "page_start": 12,
+        "page_start": 13,
         "page_end": 13,
-        "line_start": 542,
-        "line_end": 581,
+        "line_start": 553,
+        "line_end": 593,
         "anchor_start": "Building and checking the interval",
-        "anchor_end": "integer decomposition numerators"
+        "anchor_end": "identify precisely what was checked"
       },
       "availability": {
         "page_start": 19,
-        "page_end": 19,
-        "line_start": 848,
-        "line_end": 872,
+        "page_end": 20,
+        "line_start": 854,
+        "line_end": 878,
         "anchor_start": "Data availability",
         "anchor_end": "decoding conventions from RENEWLab"
       },
       "disclosure": {
         "page_start": 23,
         "page_end": 23,
-        "line_start": 1029,
-        "line_end": 1031,
+        "line_start": 1039,
+        "line_end": 1041,
         "anchor_start": "GPT-6.2 Astra",
         "anchor_end": "approving the final manuscript"
       }

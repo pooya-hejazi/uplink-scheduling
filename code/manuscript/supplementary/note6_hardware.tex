@@ -3,14 +3,13 @@
 \label{supp:note6}
 
 \subsection*{Rice RENEW acquisition, frequency conventions and calibration}
-The RENEW analysis uses the registered Rice distributed multi-user MIMO collection.
+We use the distributed multi-user MIMO recordings from the Rice RENEW collection.
 Each listed file contains 2,001 frame slots, six time-orthogonal client pilot slots,
 64 stored receive-stream slots and a noise slot. The selected distributed chain-A
 recordings are \texttt{trace-uplink-2022-11-14-2-42-48\_1\_64x6\_0\_63\_chA.hdf5}
 (HUB) and \texttt{trace-uplink-2022-11-14-7-10-53\_1\_64x6\_0\_63\_chA.hdf5}
 (LO). The carrier is 3.6 GHz and the sample rate is 5 MHz, giving 78.125 kHz
-spacing for a 64-point FFT. We retain the recorded ADC scale. Diagonal noise
-normalization supplies the receiver's noise metric in these units.
+spacing for a 64-point FFT. We retain the recorded ADC scale and normalize each stream by its estimated noise level to obtain the receiver's diagonal noise metric.
 
 Let $x_{fuan}$ denote the complex ADC sample at time $n$, frame $f$, user $u$
 and receive stream $a$. Interleaved signed integers are converted by
@@ -100,7 +99,7 @@ Distributed LO LoS A &63&0.0015542&0.00016973&0.00012370&32/32 each\\
 \end{tabular}
 \end{table}
 \subsection*{Chronological directional calibration and exhaustive pairing}
-The first 128 frames continue to determine timing, RF selection and noise variance only. Among the eligible post-prefix frames, the first 256 form a new chronological calibration set and the remainder form a disjoint test set. The scheduling map takes only the early pilot. For frame $f$, let $\Delta h_{fus}=h^{(1)}_{fus}-h^{(0)}_{fus}$ and let $\bar v_{fis}$ be the unit-normalized early-input filter. We use scalar whole-frame scores
+We reserve the first 128 frames for timing, RF selection and noise variance. Of the eligible frames that follow, we use the first 256 for calibration and the remainder for testing. Only the early pilot enters the scheduling decision. For frame $f$, let $\Delta h_{fus}=h^{(1)}_{fus}-h^{(0)}_{fus}$ and let $\bar v_{fis}$ be the unit-normalized early-input filter. We use scalar whole-frame scores
 \[
  s_{F,f}=\max_{u,s}\|\Delta h_{fus}\|_2,\qquad
  s_{P,f}=\max_{(i,j,s)\text{ scheduled}}\max_{k\in\{i,j\}}
@@ -108,9 +107,9 @@ The first 128 frames continue to determine timing, RF selection and noise varian
 \]
 Both receiver directions in each pair are included. The 251st sorted score of 256 calibration frames, rounded outward, supplies each radius. The same projected radius is used for every desired/interference projection within a frame. Vector and projected events each receive error budget 0.025. The test has 1,614 HUB and 1,513 LO frames. Every lower and upper certificate is replayed by the separate numerical checker. Empirical floor coverage counts $R_{\rm later}\geq L_P$; interval coverage uses $\max(L_P,L_F)\leq R_{\rm later}\leq U_F$. The reported projected width is $U_F-L_P$.
 
-These residuals include pilot noise, synchronization differences and channel evolution. No component is identified separately. The temporal split avoids reusing calibration residuals for testing, but successive frames are not independent replicates. We therefore do not use the conformal rank formula as evidence of population coverage, or attach an independent-binomial confidence interval to these recording-level fractions. All coverage statements concern the second observable LTS and the stored early-input action.
+Pilot noise, synchronization differences and channel evolution can all contribute to the residuals, and the recording cannot separate their effects. Testing on later frames avoids reusing calibration residuals. Successive frames can still be dependent, so the observed fractions describe coverage within this recording. Extending the conformal rank or an independent-binomial confidence interval to a population would require additional assumptions. We evaluate the stored early-input action against the second observed LTS.
 
-At six users and three labelled tones, sorting the two user indices within each pair leaves $6!/2^3=90$ schedules. We enumerate all 90 with fixed powers of 0.10 and the MMSE pair rate on the early input. This is exhaustive over the stated discrete set; the rates are floating-point numerical evaluations. Its optimum is a feasible reference for the continuous-power model, not that model's exact optimum.
+At six users and three labelled tones, sorting the two user indices within each pair leaves $6!/2^3=90$ schedules. We enumerate all 90 with fixed powers of 0.10 and the MMSE pair rate on the early input. We evaluate the rates in floating point for every schedule in this discrete set. Its optimum gives a feasible reference when transmit powers are allowed to vary.
 
 
 \subsection*{Phase-invariant scores and the thermal-noise benchmark}
@@ -163,12 +162,7 @@ replication. Full-capture SHA-256 digests are
 HUB\quad\nolinkurl{aec556198de39208757fddc294af77d4f701d7a24b9f1feb3f1fdc09d36bc0d2}\\
 LO\quad\nolinkurl{e5fabc009dce96e527b6919ce744f0b41408f337e0d5334b8dadfa0f13699844}.
 \end{quote}
-Each distributed clock mode supplies one acquisition. Frames, user subsets,
-RF chains and tones are repeated observations within this evidence base.
-The six-user offline scheduling counterfactual has no measured counterfactual
-payload throughput. The two disjoint LTS windows provide a temporal proxy
-comparison with an empirically substantial discrepancy. Hardware population
-coverage and a causal clock-mode comparison require additional acquisitions.
+We have one acquisition per distributed clock mode. Its frames, user subsets, RF chains and tones all belong to that acquisition. The recorded payload used all six users. For a schedule that transmits only the selected pair on each tone, the two disjoint LTS windows let us compare pilot-based rates, but provide no decoded payload measurement. Additional acquisitions would be needed to estimate population coverage or attribute the difference to the clock mode.
 
 The separate CPU implementation reconstructed the full RENEW distributions from archived accepted-frame
 and abstention records. Its authenticated source spot check fetched frame 128
@@ -249,9 +243,7 @@ Mobile &22/32&0.2250&0.2430&0.0108&0.2288\\
 \caption{Argos spatial overlap on two recorded pilots. \textbf{a}, First-LTS mean squared correlation on each qualified frame, with horizontal segments marking medians. \textbf{b}, Thin lines join the first and second LTS from the same frame; thick lines join the medians. Counts give qualified frames out of 32 planned frames. Both repetitions use identical RF masks. These panels describe spatial separation, not paired-payload throughput.}
 \label{supp:fig8}
 \end{figure}
-The three recordings describe one array setup with one recording per
-condition. Their spatial correlations support a small-load hardware
-description. Supplementary data contain derived scalar summaries and hashes.
+The three recordings use the same array, with one acquisition per condition. The correlations describe the spatial separation of the six recorded users. Supplementary data contain derived scalar summaries and hashes.
 Access to the original IQ and reconstructed complex channels follows Rice's research-use terms.
 
 

@@ -2,7 +2,7 @@
 \label{supp:note5}
 
 \subsection*{Ray-traced channels and the unit of comparison}
-The O1\_60 street and ASU Campus 1 scenes provide two propagation geometries from the DeepMIMO collection~\cite{deepmimo}. Each uses base station 1 and 64 disjoint guarded test tiles. The source carrier frequencies are 60 and 3.5 GHz. The tile widths are approximately 1.20 and 12 m, respectively. Thus the comparison combines carrier, propagation geometry and spatial sampling. The same frozen tile supplies nested sets of \(K=16,32,64\) users. Its \(S=K/2\) tones are evenly spaced crops of the original 64-tone, 20-MHz channel. The block scaling used in the archived 10-dB run is applied before computing rates, so the diagnostic follows exactly the normalization of the reported schedule.
+The O1\_60 street and ASU Campus 1 scenes provide two propagation geometries from the DeepMIMO collection~\cite{deepmimo}. Each uses base station 1 and 64 disjoint guarded test tiles. The source carrier frequencies are 60 and 3.5 GHz. The tile widths are approximately 1.20 and 12 m, respectively. The two scenes therefore differ in carrier frequency, propagation geometry and the spatial extent sampled by each tile. The same frozen tile supplies nested sets of \(K=16,32,64\) users. Its \(S=K/2\) tones are evenly spaced crops of the original 64-tone, 20-MHz channel. The block scaling used in the archived 10-dB run is applied before computing rates, so the diagnostic follows exactly the normalization of the reported schedule.
 
 Let \(h_{is}\) denote the resulting whitened channel and \(u_{is}=h_{is}/\|h_{is}\|\). On each tone we form the Gram matrix \(Q_s\), whose entries are \(u_{is}^{H}u_{js}\). The two spatial summaries are
 \begin{align}
@@ -10,7 +10,7 @@ r_{\rm tile}&=\frac{1}{S{K\choose2}}\sum_s\sum_{i<j}|u_{is}^{H}u_{js}|^2,\\
 d_{\rm tile}&=\frac1S\sum_s\exp\left(-\sum_\ell t_{\ell s}\ln t_{\ell s}\right),
 \qquad t_{\ell s}=\frac{\lambda_\ell(Q_s)}{\operatorname{tr}Q_s},
 \end{align}
-with \(0\ln0=0\). The effective rank is one for perfectly parallel channels. Its upper bound is the smaller of \(K\) and the 16 receive dimensions. The implementation computes the equal nonzero eigenvalues of the antenna Gram matrix to avoid an unnecessarily large eigendecomposition.
+with \(0\ln0=0\). The effective rank is one for perfectly parallel channels. Its upper bound is the smaller of \(K\) and the 16 receive dimensions. The antenna and user Gram matrices have the same nonzero eigenvalues. We therefore use the antenna Gram matrix to compute the effective rank.
 
 To separate partner choice from power adaptation, fix every user's power at \(p=0.10\) W. For a candidate partner \(j\), the recomputed linear-MMSE rate is
 \begin{equation}
@@ -58,7 +58,7 @@ ASU &64&0.0950&0.0137&0.0564&\(6.8793\times10^{-7}\)&0.0053\\
 \input{reviewer_refinement}
 
 \subsection*{Validated small O1 references}
-The two-user reference uses rational Gram coefficients and polynomial-root isolation. For four users we enumerate all six labelled pairings and enclose continuous powers by branch-and-bound. With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
+For two users we compute a reference from rational Gram coefficients and isolate the roots of the stationarity polynomial. For four users we enumerate all six labelled pairings and use branch-and-bound over their continuous transmit powers. With \(S=K/2\), sum budget \(0.1K\), upper power 0.2 and strictly positive lower powers, an optimum uses the entire budget: otherwise at least one pair has neither user at its upper limit, since one upper-limit user per pair already consumes the budget. Scaling both powers of that pair increases both SINRs, contradicting optimality.
 
 The reference consequently intersects each box with the full-power hyperplane. Outward direct inner products give tight Gram intervals. For one pair, with \(x=g_i p_i\), \(y=g_j p_j\), \(c=1-\rho\) and \(D=1+x+y+cxy\), its rate is \(f=2\log D-\log(1+x)-\log(1+y)\) and
 \[
@@ -75,7 +75,7 @@ The sum is convex and piecewise linear, so its maximum on the box/hyperplane int
 
 
 \subsection*{Reading the decomposition alongside the geometry}
-The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. The sum is checked against the stored gap for all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
+The integer power scale is \(P_T=20\cdot2^{20}\). Projection rounds each scaled excess power down by less than one tick, leaving a small deterministic unused-power charge when the sum budget is active; the repeated median \(T_3=6.8793\times10^{-7}\) bit/s/Hz reflects these power ticks. The four normalized terms retain the definitions of Supplementary Note~2. \(T_1\) measures slack between the certified matching upper and the chosen partners' priced scores, \(T_2\) measures the cost of assigning distinct tones to those partners, \(T_3\) prices unused power, and \(T_4\) compares local continuous-power upper scores with the achieved-action lower rate. We checked the sum against the stored gap in all 384 tile--size records. At each size \(T_4\) has the largest component median on O1, while \(T_2\) has the largest component median on ASU. In particular, at 32 users ASU's \(T_2=0.0479\) exceeds its \(T_1=0.0199\), \(T_4=0.0074\) and \(T_3=6.8793\times10^{-7}\).
 
 O1's nearly unit overlap and effective rank close to one indicate little spatial discrimination between users. Direct and reflected rays can reinforce nearly aligned array responses even when several physical paths are present. This helps interpret the large local rate interval on O1. The fixed-power partner span is nevertheless smaller there than on ASU at all three sizes. A large \(T_4\) therefore quantifies looseness between a local upper calculation and a particular achieved lower rate, rather than measuring sensitivity of user rate to partner choice. Supplementary Fig.~\ref{supp:fig5} displays the distributions underlying the summaries.
 
@@ -87,7 +87,7 @@ O1's nearly unit overlap and effective rank close to one indicate little spatial
 \end{figure}
 
 \subsection*{Charging for pilots over a stationary horizon}
-The net-gain experiment evaluates two fixed feasible actions on the same least-squares channel estimate, the zero-price, equal-power-initialized matching control with feasible power refinement \(c\) and a learned-initialized action \(w\). The rate intervals \([l_c,u_c]\) and \([l_w,u_w]\) use the stored powers, pairs and receive filters. Four calibration events, two per policy, share a total error probability of 0.05. Each uses rank \(\lceil257(1-0.0125)\rceil=254\) among 256 independent calibration blocks.
+To account for pilot cost, we compare two feasible actions on the same least-squares channel estimate. The control \(c\) starts from zero-price matching and equal powers, then refines its transmit powers. The second action \(w\) starts from the learned proposal. The rate intervals \([l_c,u_c]\) and \([l_w,u_w]\) use the stored powers, pairs and receive filters. Four calibration events, two per policy, share a total error probability of 0.05. Each uses rank \(\lceil257(1-0.0125)\rceil=254\) among 256 independent calibration blocks.
 
 A block contains 256 symbols with 32 routine pilot symbols. Charging the warm action for \(M\) additional 32-symbol reference blocks over \(N_{\rm blk}\) stationary blocks gives
 \begin{equation}

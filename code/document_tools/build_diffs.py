@@ -96,6 +96,15 @@ def main():
             assert marked.count(token) == 1, token
             marked = marked.replace(token, versions)
         assert r'\DIFtableplaceholder' not in marked
+        # Keep the distributed source portable and reserve space for the revision frame.
+        marked = marked.replace(str(old_path), old_path.name, 1).replace(str(current_path), current_path.name, 1)
+        if directory == 'paper':
+            marked = marked.replace(r'\DIFaddFL{\includegraphics[width=\linewidth]',
+                                    r'\DIFaddFL{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]')
+        else:
+            # Long recording names can otherwise run off the page between revision marks.
+            marked = re.sub(r'\\texttt\{(trace-uplink-[^{}]+\.hdf5)\}',
+                            lambda m: r'\nolinkurl{' + m[1].replace(r'\_', '_') + '}', marked)
         (target/(name+'.tex')).write_text(marked, encoding='utf-8')
         (target/(name+'_latexdiff.log')).write_bytes(result.stderr)
         subprocess.run([args.tectonic, *(['--only-cached'] if args.only_cached else []),

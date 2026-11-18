@@ -25,7 +25,7 @@ Squaring this lower bound and dividing by upper squared channel norms produces a
 \(\gamma(x,y,r)=x(1-r y/(1+y))\), with \(x,y\geq0\) and \(0\leq r\leq1\), monotonicity is increasing in \(x\) and decreasing in \(y,r\). Evaluating each user's desired term at its upper gain and power, and interference at the lower partner gain, power and overlap, therefore bounds the rate over an entire two-dimensional power box. Subtraction of a lower power charge preserves the upper bound.
 
 \paragraph{Binary64 elementary and logarithmic operations.}
-The arithmetic contract uses nearest-even IEEE binary64 operations, gradual underflow and disabled fast-math reassociation. Applying \(\operatorname{nextafter}\) toward \(-\infty\) or \(+\infty\) to a rounded elementary result encloses the corresponding real result. Exceptional values cause rejection or retention of an available valid upper bound. The compiled reference logarithm writes \(x=2^k t\), \(1\leq t<2\), and uses \(z=(t-1)/(t+1)\leq1/3\):
+We use IEEE binary64 arithmetic with nearest-even rounding and gradual underflow, and disable fast-math reassociation. Applying \(\operatorname{nextafter}\) toward \(-\infty\) or \(+\infty\) to a rounded elementary result encloses the corresponding real result. Exceptional values cause rejection or retention of an available valid upper bound. The compiled reference logarithm writes \(x=2^k t\), \(1\leq t<2\), and uses \(z=(t-1)/(t+1)\leq1/3\):
 \begin{equation}
  \ln t=2\sum_{j=0}^{19}\frac{z^{2j+1}}{2j+1}+R_{20},
  \qquad
@@ -90,13 +90,7 @@ The recorded kernel tests include 26 logarithm inputs spanning subnormal and max
 
 \clearpage
 \subsection*{Separate CPU verification and the meaning of its counts}
-The separate CPU verification rebuilt verification code in a fresh local environment
-and operated on immutable release packages. Independence concerns verification
-implementation and execution on the original workstation. Its numerical
-specifications share the released enclosure primitives and base mathematical
-libraries. The archived results permit independent computational replay of the recorded inputs. Supplementary Table~\ref{supp:table10} separates the
-units of evidence so repeated timings, samples and optimization instances
-are counted consistently.
+We rebuilt the CPU checker in a fresh local environment and applied it to the frozen release files on the original workstation. The checker uses the released enclosure primitives and the same underlying mathematical libraries. The archive contains the inputs needed to repeat the checks. Supplementary Table~\ref{supp:table10} counts timing calls, sampled records and distinct optimization problems separately.
 
 
 
@@ -133,9 +127,7 @@ uses only rational operations. We multiplied these ratios, enclosed their logari
 The seven corruption controls alter, respectively, a sum-preserving transfer
 between decomposition terms, the covered-table digest, an odd set, a primal user
 assignment by duplication, the sign of a lower-rate tick, the denominator,
-and the upward rounding of the displayed gap. Their rejection tests the
-specified verifier checks. Hardware-source checks have the distinct scopes
-given above. Files \texttt{certificate\_checks.csv}, \texttt{sample\_dp.csv},
+and the upward rounding of the displayed gap. We checked that the verifier rejected each altered record. For the hardware data we checked the sources to the extent described above. Files \texttt{certificate\_checks.csv}, \texttt{sample\_dp.csv},
 \texttt{nested\_small\_dp.csv}, \texttt{exact\_two\_replay.csv} and
 \texttt{negative\_controls.json} preserve the corresponding audit evidence.
 

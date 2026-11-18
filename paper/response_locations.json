@@ -1,75 +1,75 @@
 {
-  "pdf_sha256": "f95f0a1401e1614fb54bdb26790d4a7f0988cadaccca8a5cc1cd1b38515b1978",
+  "pdf_sha256": "a745dea8999b26df65a7a2ea354b36da530fdd928ee34218599363b31b5fb1cc",
   "locations": {
     "abstract": {
       "page_start": 1,
       "page_end": 1,
       "line_start": 21,
-      "line_end": 33,
-      "anchor_start": "A scheduler can find a high",
+      "line_end": 32,
+      "anchor_start": "We derive a per-channel bound",
       "anchor_end": "in the local-clock recording"
     },
     "noise": {
       "page_start": 7,
       "page_end": 7,
-      "line_start": 313,
-      "line_end": 318,
+      "line_start": 315,
+      "line_end": 320,
       "anchor_start": "Mean per-entry difference powers",
       "anchor_end": "these stored pairs cannot distinguish them"
     },
     "limitation": {
       "page_start": 8,
       "page_end": 8,
-      "line_start": 349,
-      "line_end": 351,
+      "line_start": 353,
+      "line_end": 355,
       "anchor_start": "If quiet-slot variance understates",
       "anchor_end": "appropriate noise model"
     },
     "o1": {
       "page_start": 6,
       "page_end": 6,
-      "line_start": 246,
-      "line_end": 257,
+      "line_start": 245,
+      "line_end": 256,
       "anchor_start": "Refining all 16 scheduled entries",
       "anchor_end": "the 32-user physical optimum remains unresolved"
     },
     "protocol": {
       "page_start": 18,
       "page_end": 18,
-      "line_start": 805,
-      "line_end": 816,
-      "anchor_start": "The configuration was fixed before",
-      "anchor_end": "not capped identically on each topology"
+      "line_start": 812,
+      "line_end": 824,
+      "anchor_start": "We fixed the configuration before",
+      "anchor_end": "Individual topologies could take different times"
     },
     "sionna": {
       "page_start": 15,
       "page_end": 15,
-      "line_start": 665,
-      "line_end": 667,
+      "line_start": 673,
+      "line_end": 675,
       "anchor_start": "The native experiments used Sionna",
       "anchor_end": "parameter tables"
     },
     "methods": {
-      "page_start": 12,
+      "page_start": 13,
       "page_end": 13,
-      "line_start": 542,
-      "line_end": 581,
+      "line_start": 553,
+      "line_end": 593,
       "anchor_start": "Building and checking the interval",
-      "anchor_end": "integer decomposition numerators"
+      "anchor_end": "identify precisely what was checked"
     },
     "availability": {
       "page_start": 19,
-      "page_end": 19,
-      "line_start": 848,
-      "line_end": 872,
+      "page_end": 20,
+      "line_start": 854,
+      "line_end": 878,
       "anchor_start": "Data availability",
       "anchor_end": "decoding conventions from RENEWLab"
     },
     "disclosure": {
       "page_start": 23,
       "page_end": 23,
-      "line_start": 1029,
-      "line_end": 1031,
+      "line_start": 1039,
+      "line_end": 1041,
       "anchor_start": "GPT-6.2 Astra",
       "anchor_end": "approving the final manuscript"
     }

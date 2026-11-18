@@ -100,7 +100,7 @@ def supplement(rows):
                    for key,author,*rest in comparisons)
     return r'''\section{Comparison with closely related work}
 \label{suppnote:literature}
-The closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here.
+Table~\ref{supp:comparison} compares prior work with the three parts of our calculation. For wireless scheduling, the relevant distinction is which partners, tones and powers a competitor may change. For optimization and inference, we identify which results justify the matching bound, the continuous-power enclosure or the calibration step.
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
 \caption{Ten closely related studies and their relation to the paired scheduling interval.}\label{supp:comparison}

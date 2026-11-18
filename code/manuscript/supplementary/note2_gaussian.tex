@@ -2,7 +2,7 @@
 \label{supp:note2}
 
 \paragraph{Specified receiver and error law.}
-The analytic experiment has \(N=16\) receive dimensions, \(K=32\) users and \(S=16\) tones. Powers are fixed at one and the whitened noise covariance is \(I_{16}\). Let \(u,v\) be orthonormal constant-modulus vectors, with entries of magnitude \(1/4\). On each tone the odd and even users have nominal channels \(Au\) and \(Av\), respectively. The fixed schedule pairs users \(2s-1,2s\) on tone \(s\), using \(u,v\) as their receive directions. Conditional on these centres, errors on all user--tone links are independent proper complex Gaussian vectors with covariance \(\nu^2I_{16}\), where \(\nu^2=1/32\). Thus each real coordinate has variance \(\nu^2/2\). This conditional construction specifies the residual law directly. The two amplitude conventions below distinguish 10-dB combined nominal SNR, \(A_0^2=10\), from 10-dB nominal SNR per antenna, \(A_0^2/16=10\).
+The analytic experiment has \(N=16\) receive dimensions, \(K=32\) users and \(S=16\) tones. We set each transmit power to one and use whitened noise with covariance \(I_{16}\). Let \(u,v\) be orthonormal constant-modulus vectors, with entries of magnitude \(1/4\). On each tone the odd and even users have nominal channels \(Au\) and \(Av\), respectively. The fixed schedule pairs users \(2s-1,2s\) on tone \(s\), using \(u,v\) as their receive directions. Conditional on these centres, errors on all user--tone links are independent proper complex Gaussian vectors with covariance \(\nu^2I_{16}\), where \(\nu^2=1/32\). Thus each real coordinate has variance \(\nu^2/2\). We specify the error law conditional on the nominal channels. We consider two amplitude conventions to distinguish 10-dB combined nominal SNR, \(A_0^2=10\), from 10-dB nominal SNR per antenna, \(A_0^2/16=10\).
 
 \paragraph{Block maxima and calibration order statistics.}
 For a scalar \(z\sim\mathcal{CN}(0,1)\), polar integration gives
@@ -31,7 +31,7 @@ For any integrable radius function \(f\), its expectation is therefore
  t^{250}(1-t)^5\,\mathrm dt.
  \label{supp:eq:gaussintegral}
 \end{equation}
-This calculation needs only the marginal law of each radius. Linearity of expectation permits subtraction of the full-vector upper and projected lower expectations even when their calibration scores use the same blocks.
+The upper and lower scores use the same calibration blocks, so their radii can be dependent. To obtain the mean gap we subtract the separate endpoint expectations. Linearity of expectation makes the marginal distribution of each radius sufficient.
 
 \paragraph{Rate functions and quadrature.}
 The full-vector upper and fixed-direction lower functions, per tone in bit/s/Hz, are
@@ -46,7 +46,7 @@ The compared gaps have expectations \(J_{16,512}[u_A]-J_{16,512}[l_A]\) and
  \frac{B_{d,m}(q)^{250}[1-B_{d,m}(q)]^5}{\mathrm B(251,6)}
  \frac{2m q^{2d-1}e^{-q^2}F_d(q^2)^{m-1}}{(d-1)!}.
 \end{equation}
-The two deterministic quadratures agreed within \(2\times10^{-8}\). Their output is reported separately from the guaranteed intervals in Supplementary Table~\ref{supp:table1}.
+The two quadratures agreed within \(2\times10^{-8}\). Supplementary Table~\ref{supp:table1} gives their estimates alongside intervals verified by the integer calculation below.
 
 \paragraph{Integer outward calculation.}
 The independent enclosure represents each nonnegative interval by integer endpoints divided by \(D=2^{144}\). Products and quotients round down for the lower endpoint and up for the upper endpoint. Integer square roots enclose square roots. The grid \(q_j=j/128\), \(0\leq j\leq2048\), partitions \([0,16]\). To enclose \(e^{-q_j^2}\), set \(a=q_j^2/1024\in[0,1/4]\). Alternating-series bounds give
@@ -84,7 +84,7 @@ All integrated outputs for both amplitudes are bounded above by \(32q^2\) when \
  32\cdot256m\,2^d(16^2+2)e^{-128}
  \ \leq\ \frac{32\cdot256m\,2^d(16^2+2)}{2^{128}}.
 \end{equation}
-This positive amount is added to each upper expectation endpoint. Finally, subtracting lower-rate intervals from the common upper-rate interval and rounding decimal endpoints outward produces the table. The mesh width and monotone bin bounds determine its visible width, even though arithmetic uses 144 fractional bits.
+This positive amount is added to each upper expectation endpoint. Finally, subtracting lower-rate intervals from the common upper-rate interval and rounding decimal endpoints outward produces the table. The displayed interval widths come from the mesh and the monotone bounds within each bin. The arithmetic itself uses 144 fractional bits.
 
 \begin{table}[htbp]
 \centering

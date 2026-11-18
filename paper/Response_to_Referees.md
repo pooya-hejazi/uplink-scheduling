@@ -2,7 +2,7 @@
 
 **Bounding the rate loss of individual paired wireless uplink schedules**
 
-This response addresses the supplied technical review. The current Article contains 3,414 main-text words and a 144-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.
+This response addresses the supplied technical review. The current Article contains 3,444 main-text words and a 141-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.
 
 Locations below use the printed Article PDF margin ruler, not LaTeX source lines. Supplementary locations refer to its printed page numbers.
 
@@ -26,7 +26,7 @@ The single-projection magnitude residual, before frame maximization, has median 
 
 The raw mean powers exceed the independent unit-variance pilot-noise prediction of two; phase alignment does not reduce them to that scale. Modest relative errors on large quiet-slot-normalized channel powers can therefore coexist with large absolute residuals. The pairs do not identify whether the excess comes from signal-dependent distortion, synchronization/window leakage, correlated errors or underestimation of pilot-period noise. We state that hardware rates depend on the frozen quiet-slot noise metric. If it understates active-period noise and distortion, rates are optimistic and gaps, pass fractions and floor ratios require recalculation. We do not call all rates unconditional upper bounds: these data do not estimate the active-period variance or establish a correction factor. The limitation is stated in Results, Discussion and Supplementary Note 6.
 
-**Locations.** Article pp. 7, lines 313–318; Article pp. 8, lines 349–351; Supplementary Table 13 and Note 6, pp. 25–26.
+**Locations.** Article pp. 7, lines 315–320; Article pp. 8, lines 353–355; Supplementary Table 13 and Note 6, pp. 26–27.
 
 ## T2
 
@@ -37,9 +37,9 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 > - "No significant benefit" is accurate, but with only four or five discordant topologies the test could hardly reach 0.05. "Was not established" is the more careful wording, and the Discussion already uses it.
 > - Results now compress pairs of values with slashes ("0.0549/0.0645 bit/s/Hz", "32/64-user", "HUB/LO", "1.080005/0.867040"). Write these out ("… and …, respectively"). In the O1 sentence, three partition depths are followed by two values; make clear that 16 children is the baseline.
 
-**Response.** The 144-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.
+**Response.** The 141-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.
 
-**Locations.** Article pp. 1, lines 021–033; Article pp. 6, lines 246–257; Supplementary Table 10, p. 19.
+**Locations.** Article pp. 1, lines 021–032; Article pp. 6, lines 245–256; Supplementary Table 10, p. 20.
 
 ## T3
 
@@ -50,7 +50,7 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 
 **Response.** The Methods give the source-freeze and pilot-lock times on 13 November 2026. The archived records document which thresholds preceded held-out evaluation. The compute controls, partition-depth tests, phase-invariant scores and noise-scale checks are exploratory. The public GitHub repository provides the code, the Source Data and instructions for reproducing the results. The authors have prepared a private archival package and plan to register a DOI after acceptance.
 
-**Locations.** Article pp. 18, lines 805–816; Article pp. 19, lines 848–872; Public GitHub code and Source Data; private archival-deposit status.
+**Locations.** Article pp. 18, lines 812–824; Article pp. 19–20, lines 854–878; Public GitHub code and Source Data; private archival-deposit status.
 
 ## T4
 
@@ -74,7 +74,7 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 
 **Response.** 1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.
 
-2. Online Methods contains 4,950 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
+2. Online Methods contains 4,895 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
 
 3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.
 
@@ -82,7 +82,7 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 
 The Acknowledgements identify GPT-6.2 Astra, Kimi K3.1 Pro and Claude Fable 5.2, describe their use for technical revision and code review, and state the authors’ responsibility for verifying the text and approving the final manuscript.
 
-**Locations.** Article pp. 15, lines 665–667; Article pp. 12–13, lines 542–581; Article pp. 23, lines 1029–1031; Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25.
+**Locations.** Article pp. 15, lines 673–675; Article pp. 13, lines 553–593; Article pp. 23, lines 1039–1041; Supplementary Table 3 on pp. 11–12, Table 7 on p. 17, Table 8 on p. 18, Table 9 on p. 19, Table 10 on p. 20 and Table 13 on p. 26.
 
 ## Additional verification (report Part C)
 
