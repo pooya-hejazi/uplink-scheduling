@@ -14,14 +14,14 @@ SUPPLEMENTARY_DATA = {'Supplementary_Figure_1': ('Exact upper-table assignment o
 
 
 SUPPLEMENTARY_DATA.update({
-    'Supplementary_Table_6': ('Absolute rates and paired comparisons with the common feasible-action baseline.',
-        ['reviewer_absolute_rates', 'reviewer_absolute_rate_summary', 'round2_achieved_rate_comparison']),
+    'Supplementary_Table_6': ('Absolute rates, own and common verified ceilings, and paired threshold counts by channel profile.',
+        ['reviewer_absolute_rates', 'reviewer_absolute_rate_summary', 'round2_achieved_rate_comparison', 'action_common_ceiling_counts']),
     'Supplementary_Table_7': ('Three-repeat paired iteration and median-time-budget controls, exact discordant counts and timing-only pilot.',
         ['reviewer_compute_calls', 'reviewer_compute_blocks', 'reviewer_compute_summary',
          'round2_iteration_paired_tests', 'round2_latency_increments', 'round2_time_budget_pilot',
          'round2_time_control_calls', 'round2_time_control_blocks', 'round2_time_control_summary', 'round2_time_control_paired_tests']),
     'Supplementary_Table_8': ('Means, medians and endpoint quartiles of physical brackets; separate exact integer-table reference.',
-        ['reviewer_gap_decomposition', 'round2_decomposition_distribution', 'round2_integer_table_reference']),
+        ['reviewer_gap_decomposition', 'round2_decomposition_distribution', 'round2_integer_table_reference', 'action_fixed_filter_checks', 'action_two_user_root_widths']),
     'Supplementary_Table_10': ('O1 table-entry diagnostics, selected-entry partition depths, and resolved two/four-user continuous references.',
         ['reviewer_refinement_sweep', 'reviewer_refinement_summary', 'round2_o1_budget_entries',
          'round2_o1_depth', 'round2_o1_depth_summary', 'round2_o1_small_references']),
@@ -52,14 +52,18 @@ def source_data(source, destination):
     for number in range(1, 7):
         files = sorted((source / "source_data").glob(f"fig{number}_*.csv"))
         assert files
-        entries[f"Figure_{number}.txt"] = annotated(f"Figure_{number}", "Main-article figure panels, identified by each source-table name.", files)
+        descriptions = {
+            1: "Panel a is a model diagram with users 1 and 2 on tone 1 and users 3 and 4 on tone 2. Panels b and c use the gap ledger.",
+            2: "Panels a and b show exact rational channel coordinates, c their pairwise overlaps, d the price relaxation and e and f the 512-instance table comparison.",
+            3: "Panels a and b are geometric illustrations in arbitrary units. Panel c gives Gaussian expectations. Panels d to f use the simulated gap, retention and coverage data."}
+        entries[f"Figure_{number}.txt"] = annotated(f"Figure_{number}", descriptions.get(number, "Main-article figure panels, identified by each source-table name."), files)
     for name, (description, stems) in SUPPLEMENTARY_DATA.items():
         files = [source / "supplementary" / "data" / (stem + ".csv") for stem in stems]
         entries[name + ".txt"] = annotated(name, description, files)
     assert len(entries) == 30
     fixtures = sorted((source / "supplementary" / "data").glob("proof_*.csv"))
     if fixtures:
-        entries["mathematical_fixtures.txt"] = annotated("Mathematical_fixtures", "Exact rational counterexamples accompanying Supplementary Note 1. Fractions retain their integer numerator and denominator.", fixtures)
+        entries["mathematical_fixtures.txt"] = annotated("Mathematical_fixtures", "Exact rational counterexamples accompanying Supplementary Note 2. Fractions retain their integer numerator and denominator.", fixtures)
     entries["README.txt"] = "Source Data for Bounding the rate loss of individual paired wireless uplink schedules.\nSix main figures, eight supplementary figures and sixteen supplementary tables each have one annotated UTF-8 text file containing labelled CSV blocks. Source filenames, denominators and timing cohorts are retained. Scientific explanations and aggregation rules are in the corresponding legends and Supplementary Notes. Raw and reconstructed measurement channels are excluded.\n"
     entries["input_sha256.txt"] = (source / "source_data" / "input_sha256.txt").read_text()
     with zipfile.ZipFile(destination / "Source_Data.zip", "w", compression=zipfile.ZIP_DEFLATED) as archive:

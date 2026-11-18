@@ -60,7 +60,7 @@ def run(script,args=(),cwd=None):
 
 def main():
     tasks=['verify-math','verify-records','verify-inputs','prepare','figures','supplementary-figures','reviewer-rates','reviewer-decomposition','reviewer-refinement','reviewer-compute','hardware-decode','hardware-evaluate','round2-summary','round2-time-pilot','round2-time-control','round2-refinement','round2-small-reference','round2-hardware','build-paper','build-supplement','build-response','build-diffs','build-native','verify-scheduler','generate-training','train','confirmatory-test','summarize']
-    tasks.extend(['round2-check', 'round3-hardware', 'round3-bounds'])
+    tasks.extend(['round2-check', 'round3-hardware', 'round3-bounds', 'verify-action-rates'])
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('task',choices=tasks)
     parser.add_argument('--mode',choices=['HUB','LO'])
@@ -97,6 +97,13 @@ def main():
     if (a.task.startswith('hardware-') or a.task in ('round2-hardware','round3-hardware')) and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
     prepare()
     if a.task=='prepare':return
+    if a.task=='verify-action-rates':
+        target = WORK/'Gate_4/revision'
+        target.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(manuscript/'revision/action_bounds.py', target/'action_bounds.py')
+        run(WORK/'Gate_4/revision/action_bounds.py', cwd=WORK)
+        shutil.copytree(WORK/'Gate_4/revision/action_data', ROOT/'results/action_rates', dirs_exist_ok=True)
+        return
     if a.task.startswith('round3-'):
         run(WORK/'Gate_4/revision/round3_diagnostics.py',[a.mode if a.task=='round3-hardware' else 'bounds'],WORK)
         run(WORK/'Gate_4/revision/round2_tables.py',cwd=WORK)

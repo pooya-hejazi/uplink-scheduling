@@ -77,23 +77,6 @@ def bibliography(rows):
                       r"\end{thebibliography}", ""])
 
 
-DISCUSSION_HEADER = r"""\section{Structured comparison with prior literature}
-\label{suppnote:literature}
-The annotated bibliography preserves the Article's reference numbers. Each entry describes the cited work's contribution, a strength of its approach, the scope of its conclusions and its relation to the present scheduling interval.
-"""
-
-COMPANION_COMPARISONS = r"""
-\subsection*{Related manuscripts under review}
-\noindent\textbf{Equal-power loss bounds and adaptive pair scheduling for uplink MMSE reception.}
-P. Hejazi and M. Sabaei, manuscript under review.
-This manuscript develops continuous-power upper bounds, configuration-dual price repair and exact labelled subset assignment for paired MMSE uplinks. Its Proposition 4 establishes the integral bound \(\lambda P+D(H)\), and its numerical certificates compare that upper endpoint with each method's own saved feasible allocation. Its supplement also uses signed upward rounding at scale \(\Gamma=2^{40}\) and bounds the resulting additive overhead by \(S/\Gamma\). A separate channel-dependent bound quantifies the loss of the best equal-power assignment and its high-SNR decay. The present study builds on those continuous bounds and repair inequalities, replacing exact labelled assignment in the scalable upper calculation with an odd-set matching witness. It quantifies the resulting tone conflict, derives a four-term identity for the delivered action and combines full-vector oracle bounds with calibrated errors along the stored receive directions.
-
-\par\medskip\noindent\textbf{Phase-error shape in widely-linear channel estimation for cell-free massive MIMO.}
-P. Hejazi and M. Sabaei, manuscript under review.
-This manuscript relates phase-error shape to widely linear estimation risk through the complementary moment of residual line-of-sight phase. It distinguishes phase laws sharing a first circular moment and quantifies the effect of estimating moments from reference frames. Its ordering of affine estimation risks applies to mean-square errors under the specified phase model. The present scheduling interval calibrates projected channel errors and propagates them through fixed receive filters to an achieved-rate lower bound.
-"""
-
-
 def supplement(rows):
     comparisons = [
         ('viterbo','Viterbo and Hottinen','Equal-energy paired uplink; MMSE/ML detection','Optimal pairing','Optimum in its pairing model','Tone-dependent conflicts and continuous powers'),
@@ -117,7 +100,7 @@ def supplement(rows):
                    for key,author,*rest in comparisons)
     return r'''\section{Comparison with closely related work}
 \label{suppnote:literature}
-The comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below.
+The closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here.
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
 \caption{Ten closely related studies and their relation to the paired scheduling interval.}\label{supp:comparison}
@@ -142,7 +125,7 @@ def main():
         writer.writeheader()
         for number, row in enumerate(selected, 1):
             writer.writerow({"number": number, **row})
-    print(f"Generated bibliography and Supplementary Note 7 for {len(selected)} citations.")
+    print(f"Generated bibliography and Supplementary Note 1 for {len(selected)} citations.")
 
 
 if __name__ == "__main__":

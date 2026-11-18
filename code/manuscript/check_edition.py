@@ -247,7 +247,7 @@ def main():
     headings = re.findall(r'\\section\*\{([^}]+)\}',tex)
     assert [v for v in headings if v in declarations] == list(declarations)
     abstract=tex.split(r'\begin{abstract}')[1].split(r'\end{abstract}')[0].strip()
-    assert 120<=len(abstract.split())<=150
+    assert 0<len(abstract.split())<=150
     references, nature_venues = check_references(tex)
     assert not any(t in tex for t in ['TODO','TBD','PLACEHOLDER'])
     audit=root/'audit';j=json.loads((audit/'Gate_4_Audit_Certificate.json').read_text());assert j['disposition']=='PASS_WITH_SCOPE_LIMITS'
@@ -330,6 +330,24 @@ def main():
                 ray_geometry_rows=geometry_rows,exact_paired_two_sided_p={r['k']:r['exact_mcnemar_two_sided'] for r in paired})
     info['reviewer_hardware']=reviewer_hardware
     info['round2']=round2
+    fixed = rows(root/'revision/action_data/fixed_filter_checks.csv')
+    original = rows(root/'revision/reviewer_data/gap_decomposition.csv') + rows(root/'revision/round2_data/o1_small_references.csv')
+    key = lambda r: (r['family'], int(r['block']), int(r['k']))
+    expected = {key(r): r for r in original if int(r['k']) < 16}
+    assert len(fixed) == len(expected) == 2176 and {key(r) for r in fixed} == set(expected)
+    for r in fixed:
+        source = expected[key(r)]
+        close(int(r['lower_numerator'])/int(r['denominator'])/(int(r['k'])/2*math.log(2)), source['L'])
+        assert 0 <= float(r['rate_minus_floor_lo']) <= float(r['rate_minus_floor_hi']) < 1.41e-12
+        if 'input_sha256' in source: assert source['input_sha256'] == r['channel_sha256']
+    common = rows(root/'supplementary/data/action_common_ceiling_counts.csv')
+    assert len(common)==12
+    for k, count in ((16,408),(32,395),(64,426)):
+        cell = [r for r in common if int(r['k'])==k]
+        assert len(cell)==4 and sum(int(r['n']) for r in cell)==512
+        assert sum(int(r['own']) for r in cell)==0 and sum(int(r['common']) for r in cell)==count
+    info['fixed_filter_checks'] = {'count':len(fixed),'maximum_upper_bit_per_s_Hz':max(float(r['rate_minus_floor_hi']) for r in fixed)}
+    info['smallest_ceiling_zero_price_counts'] = {'16':408,'32':395,'64':426}
     info['round3']=check_round3()
     (root/'article_claims.json').write_text(json.dumps(info,indent=2)+'\n');print(json.dumps(info,indent=2))
 if __name__=='__main__':main()

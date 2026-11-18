@@ -5,6 +5,17 @@ import re
 import subprocess
 
 
+def figure_appearance(path):
+    """Identify a printed, single-page figure independently of its PDF creation date."""
+    import pypdfium2 as pdfium
+    with pdfium.PdfDocument(str(path)) as doc:
+        assert len(doc) == 1
+        page = doc[0]
+        text = page.get_textpage().get_text_bounded().split()
+        pixels = page.render(scale=3).to_pil().convert('RGB')
+        return page.get_size(), text, pixels.tobytes()
+
+
 def table_versions(old, current):
     """Show structurally changed tables in full instead of merging their column layouts."""
     pattern = r'\\begin\{table\}(?:\[[^]]*\])?.*?\\end\{table\}|\\begingroup\\small\\setlength\{\\tabcolsep\}\{4pt\}.*?\\endgroup'
@@ -53,9 +64,11 @@ def main():
         current_text = (target/current).read_text(encoding='utf-8')
         replacements = {}
         if directory == 'paper':
-            for stem in ('fig4_scaling', 'fig5_phase', 'fig6_hardware'):
-                previous_figure = baseline/'previous_figures'/(stem+'.pdf')
-                if previous_figure.read_bytes() != (target/'figures'/(stem+'.pdf')).read_bytes():
+            for previous_figure in sorted((baseline/'previous_figures').glob('*.pdf')):
+                stem = previous_figure.stem
+                current_figure = target/'figures'/previous_figure.name
+                if (previous_figure.read_bytes() != current_figure.read_bytes()
+                        and figure_appearance(previous_figure) != figure_appearance(current_figure)):
                     old = old.replace('figures/'+stem+'.pdf', 'marked_changes/previous_figures/'+stem+'.pdf')
         else:
             old, current_text, replacements = table_versions(old, current_text)

@@ -49,16 +49,35 @@ def build():
         assert path.exists(), path
         shutil.copy2(path, SUP/'data'/('round2_'+name+'.csv'))
 
-    path = SUP/'reviewer_rates.tex'
-    text = path.read_text(encoding='utf-8')
-    note = r'The zero-price, matching-plus-power-refinement and subgradient controls use the same initial equal-power matching, tone assignment and four feasible power-refinement steps. Their pairing, powers and stored filters therefore coincide; their upper calculations differ. The identical lower endpoints hold topology by topology, not just at the median.'
-    if note not in text:
-        path.write_text(text+'\n'+note+'\n', encoding='utf-8')
-    text = path.read_text(encoding='utf-8')
-    if text.split('\\end{table}', 1)[1].strip():
-        before, after = text.split('\\end{table}', 1)
-        path.write_text(before+'\\par\\medskip\\begin{minipage}{\\linewidth}\\small\n'+after.strip()+
-                        '\n\\end{minipage}\\end{table}\n', encoding='utf-8')
+    rates = pd.read_csv(HERE/'reviewer_data/absolute_rates.csv')
+    groups = rates.groupby(['k', 'family', 'block'])
+    assert groups.size().eq(7).all() and not rates.duplicated(['k','family','block','method']).any()
+    best = groups.U.transform('min')
+    assert np.allclose(best, rates.U_best, rtol=0, atol=2e-12) and (rates.L <= best + 2e-12).all()
+    cold = rates.loc[rates.method == 'cold'].copy()
+    cold['own'] = cold.U - cold.L <= .15
+    cold['common'] = cold.U_best - cold.L <= .15
+    assert not (cold.own & ~cold.common).any()
+    by_profile = cold.groupby(['k', 'family']).agg(n=('block', 'size'), own=('own', 'sum'), common=('common', 'sum'))
+    by_profile.to_csv(SUP/'data/action_common_ceiling_counts.csv')
+    pooled = by_profile.groupby(level='k').sum()
+    assert pooled.n.eq(512).all()
+    summary = pd.read_csv(HERE/'reviewer_data/absolute_rate_summary.csv')
+    rows = [[r.k, LABELS[r.method], f'{r.L_median:.4f}', f'{r.U_median:.4f}',
+             f'{r.U_best_median:.4f}', f'{r.retention_median_pct:.3f}'] for r in summary.itertuples()]
+    counts = ', '.join(str(int(pooled.loc[k, 'common'])) for k in (16,32)) + ' and ' + str(int(pooled.loc[64, 'common']))
+    own = ', '.join(str(int(pooled.loc[k, 'own'])) for k in (16,32)) + ' and ' + str(int(pooled.loc[64, 'own']))
+    after = ('The three matching controls share the same starting pairs and four power-refinement steps. '
+             'They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. '
+             'At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on '
+             f'{own} of 512 topologies using its own ceiling, and on {counts} using the common ceiling. '
+             'These paired comparisons use rate alone. Supplementary Table 6 Source Data gives the counts by profile.')
+    table('reviewer_rates.tex',r'Native rates at 10 dB on 512 topologies per size. Rates are medians in bit/s/Hz. '
+          r'$U_{\rm best}$ is the smallest verified ceiling across all seven methods on the same topology. '
+          r'Retention is the median of $100 L/U_{\rm best}$. Across repeated calls each endpoint minimum is taken separately.',
+          'supp:rates',['$K$', 'Method', '$L$', '$U$', r'$U_{\rm best}$', r'Retained (\%)'],rows,after)
+    for name in ('fixed_filter_checks', 'two_user_root_widths'):
+        shutil.copy2(HERE/'action_data'/(name+'.csv'), SUP/'data'/('action_'+name+'.csv'))
 
     prior = pd.read_csv(HERE/'reviewer_data/compute_summary.csv')
     current = pd.read_csv(OUT/'time_control_summary.csv')
@@ -93,9 +112,11 @@ def build():
     after += r'\bottomrule\end{tabular}\par\smallskip'+'\n'
     after += r'For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz.'
     widths = dist[dist.statistic == 'median']
-    after += ' Reference widths (median; maximum) for '+', '.join(f'$K={int(r.k)}$: {r.reference_width:.6g}; {r.maximum_reference_width:.6g}' for r in widths.query('k < 16').itertuples())+'.\n'
-    table('reviewer_decomposition.tex', r'Ceiling slack and action suboptimality. For a physical reference $V^*\in[V_-,V_+]$, contributions lie in $[U-V_+,U-V_-]$ and $[V_--L,V_+-L]$. Means, medians and endpoint quartiles are reported separately.', 'supp:decomposition',
-          ['$K$', 'Channel / reference', 'Statistic', 'Ceiling slack', 'Action suboptimality'], rows, after)
+    roots = pd.read_csv(HERE/'action_data/two_user_root_widths.csv')
+    assert len(roots) == 512
+    after += f' The two-user median and maximum root widths are {roots.G_oracle.median():.6g} and {roots.G_oracle.max():.6g} bit/s/Hz. These use outward conversion of the difference in nats. For the box references the median and maximum widths are '+', '.join(f'$K={int(r.k)}$: {r.reference_width:.6g}; {r.maximum_reference_width:.6g}' for r in widths.query('2 < k < 16').itertuples())+'.\n'
+    table('reviewer_decomposition.tex', r'Ceiling slack and shortfall to the rate floor. A reference $V^*\in[V_-,V_+]$ puts $U-V^*$ in $[U-V_+,U-V_-]$ and $V^*-L$ in $[V_--L,V_+-L]$. The latter includes $R_{\rm fix}-L$.', 'supp:decomposition',
+          ['$K$', 'Channel / reference', 'Statistic', 'Ceiling slack', 'Optimum to floor'], rows, after)
 
     budgets = pd.read_csv(OUT/'o1_budget_entries.csv')
     depth = pd.read_csv(OUT/'o1_depth_summary.csv')
@@ -110,7 +131,7 @@ def build():
     after += r'\bottomrule\end{tabular}\par\smallskip'+'\n'
     small = pd.read_csv(OUT/'o1_small_references.csv')
     assert len(small) == 128 and small.resolved.all()
-    after += r'\noindent\begin{tabular}{rlrrrr}\toprule $K$ & Statistic & Gap & Ceiling slack & Action loss & Reference width\\\midrule'+'\n'
+    after += r'\noindent\begin{tabular}{rlrrrr}\toprule $K$ & Statistic & Gap & Ceiling slack & Optimum to floor & Reference width\\\midrule'+'\n'
     for k, group in small.groupby('k'):
         for stat, fn in [('Mean', np.mean), ('Median', np.median)]:
             after += f'{k} & {stat} & {fn(group.U-group.L):.6f} & '+bracket(fn(group.slack_lo), fn(group.slack_hi))+' & '+bracket(fn(group.suboptimality_lo), fn(group.suboptimality_hi))+f' & {fn(group.reference_width):.3g}'+r'\\'+'\n'

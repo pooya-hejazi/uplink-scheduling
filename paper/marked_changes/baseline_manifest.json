@@ -25,6 +25,21 @@
       "file": "previous_figures/fig6_hardware.pdf",
       "repository_path": "paper/figures/fig6_hardware.pdf",
       "sha256": "c24dff41410753820d3fd69411c6484f14d844c233b3b8d2aa701676c6b9dde4"
+    },
+    {
+      "file": "previous_figures/fig1_architecture.pdf",
+      "repository_path": "paper/figures/fig1_architecture.pdf",
+      "sha256": "2a3d2e29e10f62affeb4975e19a7f16e6db2676e7d2f066da5d2ec5e2a8eff9a"
+    },
+    {
+      "file": "previous_figures/fig2_conflict.pdf",
+      "repository_path": "paper/figures/fig2_conflict.pdf",
+      "sha256": "20a6e653bbc0e2781e53626231f67492602ee2eb9028ff0c19ed654c7e8a1ca9"
+    },
+    {
+      "file": "previous_figures/fig3_uncertainty.pdf",
+      "repository_path": "paper/figures/fig3_uncertainty.pdf",
+      "sha256": "5b38bfbb04a63bba93e63d82286a1a75b4b64cdf77afd99581c9d875580ee6c9"
     }
   ]
 }

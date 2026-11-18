@@ -1,75 +1,75 @@
 {
-  "pdf_sha256": "9de9bf0e55567bec40aba314ff1cbb827c23d40a3ed6fa4cd118e6c62018a35d",
+  "pdf_sha256": "f63b242a445e3ee93defb8567ee905e8345ee14860547c6e250e4df1ee45defa",
   "locations": {
     "abstract": {
       "page_start": 1,
       "page_end": 1,
       "line_start": 21,
       "line_end": 33,
-      "anchor_start": "Certifying coupled discrete",
-      "anchor_end": "coverage remains below nominal"
+      "anchor_start": "A scheduler can find a high",
+      "anchor_end": "in the local-clock recording"
     },
     "noise": {
       "page_start": 7,
-      "page_end": 8,
-      "line_start": 321,
-      "line_end": 327,
+      "page_end": 7,
+      "line_start": 313,
+      "line_end": 318,
       "anchor_start": "Mean per-entry difference powers",
       "anchor_end": "these stored pairs cannot distinguish them"
     },
     "limitation": {
       "page_start": 8,
       "page_end": 8,
-      "line_start": 355,
-      "line_end": 357,
+      "line_start": 349,
+      "line_end": 351,
       "anchor_start": "If quiet-slot variance understates",
       "anchor_end": "appropriate noise model"
     },
     "o1": {
       "page_start": 6,
       "page_end": 6,
-      "line_start": 256,
-      "line_end": 265,
+      "line_start": 246,
+      "line_end": 257,
       "anchor_start": "Refining all 16 scheduled entries",
-      "anchor_end": "They do not establish the exact 32-user decomposition"
+      "anchor_end": "the 32-user physical optimum remains unresolved"
     },
     "protocol": {
       "page_start": 18,
       "page_end": 18,
-      "line_start": 814,
-      "line_end": 826,
+      "line_start": 805,
+      "line_end": 816,
       "anchor_start": "The configuration was fixed before",
       "anchor_end": "not capped identically on each topology"
     },
     "sionna": {
       "page_start": 15,
       "page_end": 15,
-      "line_start": 675,
-      "line_end": 677,
+      "line_start": 665,
+      "line_end": 667,
       "anchor_start": "The native experiments used Sionna",
       "anchor_end": "parameter tables"
     },
     "methods": {
-      "page_start": 13,
+      "page_start": 12,
       "page_end": 13,
-      "line_start": 553,
-      "line_end": 592,
+      "line_start": 542,
+      "line_end": 581,
       "anchor_start": "Building and checking the interval",
       "anchor_end": "integer decomposition numerators"
     },
     "availability": {
       "page_start": 19,
       "page_end": 20,
-      "line_start": 857,
-      "line_end": 882,
+      "line_start": 849,
+      "line_end": 876,
       "anchor_start": "Data availability",
-      "anchor_end": "Matching uses the LEMON graph library"
+      "anchor_end": "decoding conventions from RENEWLab"
     },
     "disclosure": {
       "page_start": 19,
       "page_end": 19,
-      "line_start": 852,
-      "line_end": 856,
+      "line_start": 843,
+      "line_end": 848,
       "anchor_start": "Large language models",
       "anchor_end": "responsibility for the final content"
     }

@@ -4,9 +4,9 @@ CSV tables retain unrounded values. Rates are bit/s/Hz, normalized by occupied b
 
 | Figure | Included observations |
 |---|---|
-| 1 | Four nonnegative contributions for each deterministic topology; panel b uses CDL-A, block 0, 32 users. |
-| 2 | Exact four-user pair/tone correlations and price sweep; 512 native 16-user upper-table comparisons. |
-| 3 | Gaussian expected endpoints, noisy-channel utility and simulated joint-event coverage. |
+| 1 | The schematic shows users 1 and 2 on tone 1 and users 3 and 4 on tone 2. Four nonnegative contributions for each deterministic topology; panel b uses CDL-A, block 0, 32 users. |
+| 2 | Exact rational four-user channel vectors, pair/tone correlations and price sweep; 512 native 16-user upper-table comparisons. |
+| 3 | The first two panels illustrate a real two-dimensional slice of the model. The remaining panels give Gaussian expected endpoints, noisy-channel utility and simulated joint-event coverage. |
 | 4 | Original 4,096 method/topology decisions and timing summaries; new iteration-matched three-repeat control, kept separate from primary timings. |
 | 5 | Absolute rates for seven methods, physical optimality brackets, and stationary pilot-cost fractions with exact binomial intervals over independent simulated topologies. |
 | 6 | Original early/later RENEW summaries and capture denominators; chronological residual calibration, held-out later-pilot rates, and exhaustive enumeration of 90 equal-power schedules per eligible frame. |

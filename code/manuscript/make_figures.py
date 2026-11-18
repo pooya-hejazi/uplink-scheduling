@@ -58,40 +58,67 @@ def ec(a,values,color,label=None,total=None,**kw):
     v=np.sort(np.asarray(values));a.step(np.r_[min(0.,v[0]),v],np.r_[0,np.arange(1,len(v)+1)]/(len(v) if total is None else total),where='post',color=color,label=label,**kw)
 def pct(a):a.yaxis.set_major_formatter(PercentFormatter(1,decimals=0));a.set_ylim(-.015,1.03)
 def bars_legend(a,colors,labels,**kw):return a.legend(handles=[patches.Patch(color=c,label=s) for c,s in zip(colors,labels)],frameon=False,**kw)
+def panel_heading(ax, letter, text):
+    ax.set_title(rf'$\mathbf{{{letter}}}$   {text}', loc='left', pad=8,
+                 fontsize=9, fontweight='semibold', color=ink)
+
+
+def uplink_model(ax):
+    ax.set(xlim=(0, 170), ylim=(0, 49), aspect='equal')
+    ax.axis('off')
+    panel_heading(ax, 'a', 'Two users share each tone at the receive array')
+    ax.text(1, 45, 'Transmitting users', color=ink, fontsize=8, weight='bold')
+    ax.text(65, 45, 'Receive array', color=ink, fontsize=8, weight='bold')
+    ax.text(115, 45, 'Per-tone linear reception', color=ink, fontsize=8, weight='bold')
+    ax.text(65, 5, '16 elements shown', fontsize=7, color=ink)
+    for tone, ys, color, shade, style in [(1, (36, 29), navy, '#eef3f7', '-'),
+                                          (2, (18, 11), cyan, '#e8f4f1', '--')]:
+        cy = sum(ys) / 2
+        ax.add_patch(patches.FancyBboxPatch((.5, cy-6.8), 29, 13.6, boxstyle='round,pad=.2,rounding_size=1.5',
+                                            facecolor=shade, edgecolor='none'))
+        ax.text(1.7, cy, f'Tone {tone}', va='center', fontsize=7.3, weight='bold', color=color)
+        for row, y in enumerate(ys):
+            user = (tone-1)*2+row+1
+            ax.text(15.5, y, rf'$u_{user}$', fontsize=8.4, ha='center', va='center', color=color)
+            ax.add_patch(patches.FancyBboxPatch((22, y-1.6), 4, 3.2, boxstyle='round,pad=.13,rounding_size=.45',
+                                                facecolor='white', edgecolor=color, linewidth=1))
+            ax.plot([24.6,24.6],[y+1.65,y+3.25],color=color,lw=1,solid_capstyle='round')
+            ax.annotate('', xy=(63.3,25.6), xytext=(27.2,y),
+                        arrowprops=dict(arrowstyle='-|>', lw=1.05, linestyle=style,
+                                        color=color, mutation_scale=6, shrinkA=0, shrinkB=0))
+        ax.plot([87,94,94,104], [25.5,25.5,cy,cy], linestyle=style, color=color, lw=1.2)
+        ax.text(106, cy, rf'$\mathbf{{y}}_{tone}$', fontsize=9.4, color=color, ha='left', va='center')
+        for row, y in enumerate(ys):
+            user = (tone-1)*2+row+1
+            ax.plot([113,116,119], [cy,cy,y], color=color, lw=.9)
+            ax.add_patch(patches.FancyBboxPatch((119, y-2.5), 16.5, 5, boxstyle='round,pad=.1,rounding_size=.8',
+                                                facecolor=shade, edgecolor=color, linewidth=.8))
+            ax.text(127.1, y, rf'$\mathbf{{v}}_{user}^{{\mathrm{{H}}}}$', ha='center', va='center', fontsize=8.2, color=color)
+            ax.annotate('', xy=(141,y), xytext=(135.6,y), arrowprops=dict(arrowstyle='-|>', lw=.8, color=color, mutation_scale=6))
+            ax.text(142, y, rf'$z_{user}=\mathbf{{v}}_{user}^{{\mathrm{{H}}}}\mathbf{{y}}_{tone}$',
+                    va='center', fontsize=8.5, color=ink)
+    # A drawn array illustrates simultaneous reception across all elements.
+    origin = np.array([65., 14.])
+    across, upward = np.array([4.9,1.05]), np.array([0.,4.65])
+    corners = [origin, origin+4*across, origin+4*across+4*upward, origin+4*upward]
+    ax.add_patch(patches.Polygon(corners, closed=True, facecolor='#e4eced', edgecolor=ink, lw=1.2))
+    for i in range(4):
+        for j in range(4):
+            xy = origin+(i+.5)*across+(j+.5)*upward
+            ax.add_patch(patches.Ellipse(xy, 3.0, 2.7, angle=11, facecolor='white', edgecolor=ink, lw=.9))
+    ax.plot([74,74,77,77],[16,11,11,16.8],color=ink,lw=1,zorder=0)
+    ax.plot([71.5,79.4],[11,11],color=ink,lw=1.2)
+    ax.text(1, .3, r'$\mathbf{y}_s=\sqrt{p_i}\,\mathbf{h}_{is}x_i+\sqrt{p_j}\,\mathbf{h}_{js}x_j+\mathbf{n}_s$',
+            fontsize=9, color=ink)
+
+
 def pipes():
-    f=plt.figure(figsize=(7.05,4.28),layout='constrained')
-    gs=f.add_gridspec(2,2,height_ratios=[1.05,1])
-    a=f.add_subplot(gs[0,:]);a.set_xlim(0,1);a.set_ylim(0,1);a.axis('off')
-    title(a,'a','From paired uplink signals to a certified rate interval')
-    a.text(.013,.90,'Users',weight='bold')
-    a.text(.128,.90,'Labelled tones',weight='bold')
-    a.text(.357,.90,'Array',weight='bold')
-    for pair,y,tone,col in [(('1','2'),.69,1,purple),(('3','4'),.29,2,amber)]:
-        for user,dy in zip(pair,[.085,-.085]):
-            a.plot([.055,.130],[y+dy,y],color=col,lw=1.2)
-            a.plot(.046,y+dy,'o',ms=12,mfc='white',mec=col)
-            a.text(.046,y+dy,user,ha='center',va='center',fontsize=7.4)
-        a.text(.143,y,f'Tone {tone}',va='center',color=col,weight='bold')
-        x=np.linspace(.234,.351,90)
-        a.plot(x,y+.039*np.sin((x-x[0])/(x[-1]-x[0])*2*np.pi*(tone+1)),color=col,lw=1.25)
-    a.plot([.379,.379],[.22,.76],color=ink,lw=1)
-    for y in np.linspace(.22,.76,5):
-        a.plot(.379,y,'s',color=ink,ms=4.5)
-    a.plot([.379,.432],[.49,.49],color=ink,lw=1)
-    a.plot(.434,.49,'o',ms=14,mfc='white',mec=ink,ls='none')
-    a.plot(.434,.49,'.',color=ink,ms=4)
-    a.text(.439,.90,'Channel estimate and uncertainty ball',weight='bold')
-    a.plot([.434,.434],[.82,.56],ls=':',color=grey,lw=.8)
-    for y,col,heading,detail in [(.69,navy,r'Oracle ceiling  $U$','Continuous power boxes for every pair and tone\nChecked odd-set (blossom) dual'),
-                                 (.31,cyan,r'Achievable floor  $L$','Hungarian tone assignment for pairs from the pool\nChosen powers and fixed MMSE filters')]:
-        a.annotate('',(.488,y),(.449,.49),arrowprops=dict(arrowstyle='-|>',lw=1.25,color=col))
-        a.text(.498,y+.05,heading,color=col,weight='bold',va='center')
-        a.text(.498,y-.037,detail,va='top',fontsize=7.9)
-    a.text(.013,.045,'Example feasible assignment',fontsize=7.9)
-    a.text(.498,.045,r'Four-term gap  $G=(U-L)/(S\,\ln 2)$',weight='bold',fontsize=8.1)
+    f=plt.figure(figsize=(7.12,4.62),layout='constrained')
+    gs=f.add_gridspec(2,2,height_ratios=[1.25,1])
+    uplink_model(f.add_subplot(gs[0,:]))
     b=f.add_subplot(gs[1,0]);c=f.add_subplot(gs[1,1]);d=data('fig1_ledger');r=d.query("family=='A' and block==0 and k==32").iloc[0];v=r[['term1','term2','term3','term4']].astype(float).to_numpy()
     assert abs(v.sum()-r.G)<1e-10
-    title(b,'b','One 32-user interval');parts=['Matching','Tone conflict','Unused power','Rate enclosure']
+    panel_heading(b,'b','One 32-user decision');parts=['Matching','Tone conflict','Unused power','Rate enclosure']
     for i,(z,col) in enumerate(zip(v,cs)):
         label=f'{z:.3g}'
         if 'e' in label:
@@ -100,7 +127,7 @@ def pipes():
         b.barh(3-i,z,color=col,height=.47)
         b.text(max(.001,z)+.00055,3-i,label,va='center',fontsize=7.1)
     b.set_yticks(range(4),parts[::-1]);b.set_xlim(0,.042);b.set_xlabel('Contribution (bit/s/Hz)');tidy(b,'x');b.text(.99,.68,f'Sum = {r.G:.4f}',transform=b.transAxes,ha='right',fontsize=7.7)
-    title(c,'c','What remains on average');strong=d.groupby('k')[[f'term{j}' for j in range(1,5)]].mean()
+    panel_heading(c,'c','Mean gap over 512 topologies');strong=d.groupby('k')[[f'term{j}' for j in range(1,5)]].mean()
     for i,(k,row) in enumerate(strong.iterrows()):
         s=0
         for z,col in zip(row,cs):c.barh(i,z,left=s,color=col,height=.44);s+=z
@@ -110,40 +137,105 @@ def conflict_source_tables():
     import itertools
     uv=[(F(1),F(0)),(F(0),F(1)),(F(3,5),F(4,5)),(F(-4,5),F(3,5))]
     pairs=list(itertools.combinations(range(4),2))
-    exact=[[sum(x*y for x,y in zip(o[i],o[j]))**2 for o in (uv,[uv[t] for t in (0,2,1,3)])] for i,j in pairs]
+    channels = (uv, [uv[t] for t in (0,2,1,3)])
+    exact=[[sum(x*y for x,y in zip(o[i],o[j]))**2 for o in channels] for i,j in pairs]
+    pd.DataFrame([(s, u, str(x), str(y)) for s, vectors in enumerate(channels, 1)
+                  for u, (x,y) in enumerate(vectors, 1)],
+                 columns=['tone','user','first_coordinate','second_coordinate']).to_csv(src/'fig2_channels.csv', index=False)
     r=np.array([[float(value) for value in row] for row in exact])
     rows=[dict(user_i=i+1,user_j=j+1,tone=s+1,squared_correlation=float(exact[e][s]),exact_fraction=str(exact[e][s])) for e,(i,j) in enumerate(pairs) for s in range(2)]
     pd.DataFrame(rows).to_csv(src/'fig2_correlations.csv',index=False)
     t=np.linspace(-.36,.36,81);base=4*np.log(2);ref=2*np.log(91/25)
     pd.DataFrame(dict(tone_price_difference_nats=t,relaxed_upper_nats=base+abs(t),best_labelled_rate_nats=np.full_like(t,ref))).to_csv(src/'fig2_price_grid.csv',index=False)
     assert r.shape==(6,2) and len(t)==81 and np.isclose(min(base+abs(t))-ref,2*np.log(100/91))
-    return r,t,base,ref
+    return r,t,base,ref,channels
 
 def conflict():
-    f,ax=two();a,b,c,d=ax.flat;title(a,'a','Disjoint pairs can prefer the same tone')
-    # Entries visualized as orthogonal/nonorthogonal; labels are exact squared correlations derived from the channels.
-    r,t,base,ref=conflict_source_tables()
+    f,ax=plt.subplots(3,2,figsize=(7.12,7.07),layout='constrained',
+                      gridspec_kw={'height_ratios':[.74,.91,1],'wspace':.08,'hspace':.11})
+    r,t,base,ref,channels=conflict_source_tables()
+    for tone,(plot,vectors) in enumerate(zip(ax[0],channels),1):
+        panel_heading(plot,'ab'[tone-1],f'Channel directions on tone {tone}')
+        plot.set(xlim=(-1.32,1.35),ylim=(-.27,1.28),aspect='equal')
+        plot.axis('off')
+        angle=np.linspace(0,np.pi,160)
+        plot.plot(np.cos(angle),np.sin(angle),lw=.8,color='#bac7cc')
+        plot.plot([-1.18,1.18],[0,0],color='#bdc9cd',lw=.8)
+        plot.plot([0,0],[-.07,1.14],color='#bdc9cd',lw=.8)
+        for user,((x,y),col) in enumerate(zip(vectors,[navy,cyan,amber,purple]),1):
+            x,y=float(x),float(y)
+            plot.annotate('',xy=(x,y),xytext=(0,0),arrowprops=dict(
+                arrowstyle='-|>',color=col,lw=1.8,mutation_scale=8,shrinkA=0,shrinkB=0))
+            plot.text(1.14*x,1.13*y,rf'$u_{user}$',fontsize=8.5,color=col,ha='center',va='center')
+        match=[(i+1,j+1) for i in range(4) for j in range(i+1,4)
+               if sum(x*y for x,y in zip(vectors[i],vectors[j])) == 0]
+        assert len(match)==2 and len({u for edge in match for u in edge})==4
+        plot.text(0,-.20,'Orthogonal pairs   '+' and '.join(f'{i}–{j}' for i,j in match),
+                  ha='center',va='center',fontsize=7.7,color=ink)
+    a,b,c,d=ax[1:].flat
+    panel_heading(a,'c','Squared channel overlap')
     a.imshow(r.T,aspect='auto',vmin=0,vmax=1,cmap='Blues');a.set_xticks(range(6),['12','13','14','23','24','34']);a.set_yticks([0,1],['Tone 1','Tone 2']);a.set_xlabel('User pair')
     for i,j in np.ndindex(r.T.shape):a.text(j,i,f'{r[j,i]:.2f}',ha='center',va='center',color='white' if r[j,i]>.55 else ink,fontsize=8.5)
-    title(b,'b','Irreducible four-user loss');b.plot(t,base+abs(t),color=navy,label='Price relaxation');b.axhline(ref,color=cyan,label='Best labelled schedule');b.vlines(0,ref,base,color=amber,lw=2.5);b.set_xlabel(r'Tone-price difference $\beta_2-\beta_1$ (nats)');b.set_ylabel('Aggregate nats');b.legend(frameon=False,fontsize=6.9);tidy(b)
+    panel_heading(b,'d','Best schedule and priced ceiling');b.plot(t,base+abs(t),color=navy,label='Price relaxation');b.axhline(ref,color=cyan,label='Best labelled schedule');b.vlines(0,ref,base,color=amber,lw=2.5);b.set_xlabel(r'Tone-price difference $\beta_2-\beta_1$ (nats)');b.set_ylabel('Aggregate nats');b.legend(frameon=False,fontsize=6.9);tidy(b)
     tab=data('fig2_label_loss');assert len(tab)==512
-    for q,key,l,t in [(c,'posterior','c','Conflict on selected pairs'),(d,'prior','d','Range over all candidates')]:
-        title(q,l,t);q.scatter(tab[key],tab.loss,c=cyan if key=='posterior' else purple,alpha=.42,edgecolors='none',s=11,rasterized=False);q.text(.94,.91,r'$\rho$ = '+f'{spearmanr(tab[key],tab.loss).statistic:.3f}',ha='right',transform=q.transAxes);q.set_xlabel(('Posterior conflict' if key=='posterior' else 'Range bound')+' (bit/s/Hz)');q.set_ylabel('Exact table loss (bit/s/Hz)');tidy(q)
+    for q,key,l,t in [(c,'posterior','e','Conflict on selected pairs'),(d,'prior','f','Range over all candidate pairs')]:
+        panel_heading(q,l,t);q.scatter(tab[key],tab.loss,c=cyan if key=='posterior' else purple,alpha=.42,edgecolors='none',s=11,rasterized=False);q.text(.94,.91,r'$\rho$ = '+f'{spearmanr(tab[key],tab.loss).statistic:.3f}',ha='right',transform=q.transAxes);q.set_xlabel(('Posterior conflict' if key=='posterior' else 'Range bound')+' (bit/s/Hz)');q.set_ylabel('Exact table loss (bit/s/Hz)');tidy(q)
     save(f,'fig2_conflict')
+def projection_geometry(left, right):
+    panel_heading(left, 'a', 'One projection, two channels')
+    left.set(xlim=(-.23,2.45), ylim=(-.35,1.98), aspect='equal')
+    left.axis('off')
+    def arrow(ax, start, end, color, lw=1.25, style='-|>'):
+        ax.annotate('', xy=end, xytext=start, arrowprops=dict(arrowstyle=style, color=color,
+                    lw=lw, mutation_scale=8, shrinkA=0, shrinkB=0))
+    arrow(left, (0,0), (2.36,0), grey, .8)
+    arrow(left, (0,0), (0,1.86), grey, .8)
+    left.text(2.33,.075,r'$d$',fontsize=9,ha='right',va='bottom')
+    left.text(-.07,1.80,r'$d_\perp$',fontsize=9,ha='right',va='center')
+    x, y0, y1 = 1.65, .60, 1.55
+    left.plot([x,x],[0,y1],ls=':',color=grey,lw=1)
+    arrow(left,(0,0),(x,y0),navy,1.9)
+    arrow(left,(0,0),(x,y1),cyan,1.9)
+    left.plot(x,0,'o',ms=4.5,mfc='white',mec=ink,zorder=3)
+    left.text(x+.09,y0,r'$\hat h$',fontsize=10,va='center',color=navy)
+    left.text(x+.08,y1,r'$h$',fontsize=10,va='center',color=cyan)
+    left.text(x,-.12,'common projection',ha='center',va='top',fontsize=7.3)
+    panel_heading(right, 'b', 'Two bounds on channel error')
+    right.set(xlim=(-1.55,1.55),ylim=(-1.4,1.4),aspect='equal')
+    right.axis('off')
+    right.axvspan(-.35,.35,color='#d9efeb',zorder=0)
+    right.add_patch(patches.Circle((0,0),1,facecolor='#e7edf7',alpha=.67,edgecolor='none',zorder=1))
+    right.add_patch(patches.Circle((0,0),1,fill=False,edgecolor=navy,linewidth=1.35,zorder=2))
+    for x0 in (-.35,.35):right.axvline(x0,ls='--',lw=1,color=cyan,zorder=3)
+    arrow(right,(-1.28,0),(1.37,0),grey,.75)
+    arrow(right,(0,-1.23),(0,1.25),grey,.75)
+    right.plot(0,0,'o',ms=3,mfc=ink,mec=ink,zorder=4)
+    right.text(1.32,-.075,r'$d$',va='top',ha='right',fontsize=9)
+    right.text(.075,1.34,r'$d_\perp$',va='top',ha='left',fontsize=9)
+    arrow(right,(0,0),(-.83,.558),navy,1)
+    right.text(-.62,.17,r'$\epsilon$',fontsize=10,color=navy)
+    arrow(right,(-.35,-1.17),(.35,-1.17),cyan,.95,'<->')
+    right.text(.44,-1.17,r'$2b$',fontsize=8.6,va='center',color=cyan)
+
+
 def uncertainty():
-    f,ax=two();a,b,c,d=ax.flat;t=data('fig3_gaussian');v=t['mean'].values;title(a,'a','One oracle ceiling, two receiver floors')
+    f,ax=plt.subplots(3,2,figsize=(7.12,7.24),layout='constrained',
+                      gridspec_kw={'height_ratios':[.94,1,1],'wspace':.08,'hspace':.11})
+    projection_geometry(*ax[0])
+    a,b,c,d=ax[1:].flat
+    t=data('fig3_gaussian');v=t['mean'].values;panel_heading(a,'c','Expected rate bounds')
     for i,z in enumerate(v[1:]):
         a.plot([z,v[0]],[1-i]*2,color=cs[i],lw=3.5,solid_capstyle='round');a.scatter([z,v[0]],[1-i]*2,c=[cs[i],ink],s=28,zorder=3);a.text((z+v[0])/2,1-i+.2,f'Gap {v[0]-z:.3f}',ha='center',fontsize=8)
     a.set_yticks([0,1],['Projected','Full vector']);a.set_ylim(-.55,1.55);a.set_xlim(11.5,15.55);a.set_xlabel('Mean endpoint (bit/s/Hz)');tidy(a,'x')
     z=data('fig3_uncertainty')
-    for q,(field,l,tit,yl) in zip((b,c),[('median_G','b','Gap at the implemented receiver','Median gap (bit/s/Hz)'),('median_retention','c','How much of the ceiling is retained?','Median lower / upper')]):
-        title(q,l,tit)
+    for q,(field,l,tit,yl) in zip((b,c),[('median_G','d','Gap at the implemented receiver','Median gap (bit/s/Hz)'),('median_retention','e','Certified rate retention','Median lower / upper')]):
+        panel_heading(q,l,tit)
         for family,col in [('C',navy),('UMa',cyan)]:
             for arm,sty,mark in [('fixed','--','o'),('scaled','-','s')]:
                 w=z[(z.family==family)&(z.arm==arm)];q.plot(w.db,w[field],sty,marker=mark,ms=3.7,color=col,label=('CDL-C' if family=='C' else family)+' '+arm)
         q.set_xticks([0,10,20]);q.set_xlabel('SNR (dB)');q.set_ylabel(yl);q.axhline(.5 if field=='median_G' else .95,color=grey,lw=.85,ls=':');tidy(q)
     b.legend(frameon=False,ncol=2,fontsize=6.6)
-    w=z[z.db==10];title(d,'d','Utility and coverage are distinct');idx=np.arange(4);w=w.set_index(['family','arm']).loc[[('C','fixed'),('C','scaled'),('UMa','fixed'),('UMa','scaled')]].reset_index();d.bar(idx-.18,w.useful,.34,color=navy,label='Useful interval');d.bar(idx+.18,w.joint,.34,color=amber,label='Joint coverage')
+    w=z[z.db==10];panel_heading(d,'f','Usable intervals and joint coverage');idx=np.arange(4);w=w.set_index(['family','arm']).loc[[('C','fixed'),('C','scaled'),('UMa','fixed'),('UMa','scaled')]].reset_index();d.bar(idx-.18,w.useful,.34,color=navy,label='Useful interval');d.bar(idx+.18,w.joint,.34,color=amber,label='Joint coverage')
     d.set_xticks(idx,['CDL-C\nfixed','CDL-C\nscaled','UMa\nfixed','UMa\nscaled']);d.set_ylim(0,161);d.set_yticks([0,32,64,96,128]);d.set_ylabel('Topologies out of 128');tidy(d);d.legend(frameon=False,loc='upper center',ncol=2,fontsize=6.8);save(f,'fig3_uncertainty')
 def scaling():
     f,ax=two();a,b,c,d=ax.flat;v=data('fig4_decisions');assert len(v)==4096
@@ -187,7 +279,7 @@ def phase():
     a.set_yticks(range(7),labels,fontsize=6.2);a.invert_yaxis();a.set_xlabel('Rate (bit/s/Hz)')
     bars_legend(a,[navy,amber],['32 users','64 users'],loc='lower right',fontsize=6.1);tidy(a,'x')
     title(b,'b','');z=data('fig5_decomposition_distribution')
-    for off,col,lo,hi,lab in [(-.12,navy,'slack_lo','slack_hi','Upper-bound slack'),(.12,cyan,'suboptimality_lo','suboptimality_hi','Action suboptimality')]:
+    for off,col,lo,hi,lab in [(-.12,navy,'slack_lo','slack_hi','Upper-bound slack'),(.12,cyan,'suboptimality_lo','suboptimality_hi','Optimum to rate floor')]:
         for j,k in enumerate((2,4,6,8)):
             q=z.query('k==@k').set_index('statistic')
             b.plot([q.loc['q25',lo],q.loc['q75',hi]],[j+off]*2,color=col,lw=7,alpha=.18)

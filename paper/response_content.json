@@ -1,7 +1,7 @@
 {
-  "title": "Response to the third-round referee report",
+  "title": "Response to the third-round pre-submission review",
   "manuscript": "Bounding the rate loss of individual paired wireless uplink schedules",
-  "introduction": "This revision addresses the supplied third-round report and is prepared for Nature Computational Science. The main body contains 3,487 words, the Abstract 133 and Online Methods 4,767 by a conservative whitespace count including TeX notation. Original confirmatory records remain unchanged; the new diagnostics are exploratory. DOI registration remains deferred until acceptance at the authors' request.",
+  "introduction": "This response addresses the supplied technical review. The current Article contains 3,414 main-text words and a 144-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.",
   "records": [
     {
       "id": "T1",
@@ -16,7 +16,7 @@
     {
       "id": "T2",
       "comment": "Abstract and Results prose\n\n- The abstract no longer says what \"paired\" restricts. Add a half clause: two single-antenna users per tone, linear receivers, no successive cancellation. The round-one concern about scope was closed by that sentence and it should not disappear again.\n- The abstract's second sentence stacks five technical terms (\"integer-verified odd-set matching dual\", \"decision-projected split-conformal calibration\"). Nature Communications abstracts must be readable by non-specialists; simplify.\n- \"No significant benefit\" is accurate, but with only four or five discordant topologies the test could hardly reach 0.05. \"Was not established\" is the more careful wording, and the Discussion already uses it.\n- Results now compress pairs of values with slashes (\"0.0549/0.0645 bit/s/Hz\", \"32/64-user\", \"HUB/LO\", \"1.080005/0.867040\"). Write these out (\"… and …, respectively\"). In the O1 sentence, three partition depths are followed by two values; make clear that 16 children is the baseline.",
-      "response": "The 133-word Abstract explicitly defines two single-antenna users per tone, separate linear filters and no successive interference cancellation. It uses power-interval bounds, a checkable matching certificate and calibration along deployed filters, and says that learned proposals “did not establish a benefit over” the compute-matched controls. Its numerical claims are retained. Slash-compressed counts, paired values and labels in Results and Discussion are written out, including the Fig. 4d iteration budgets. The O1 paragraph now explicitly gives the 16-child baseline (median T4 1.113253 and G 1.119582), the 64-child results (1.080005 and 1.118334) and the 256-child results (0.867040 and 1.117494 bit/s/Hz). The main body remains 3,487 words under the author's selected Nature Computational Science limit of 3,500, rather than the longer limit assumed in the supplied revision prompt.",
+      "response": "The 144-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.",
       "location_keys": [
         "abstract",
         "o1"
@@ -26,7 +26,7 @@
     {
       "id": "T3",
       "comment": "Data, code and protocol\n\n- Code is still cited only by a GitHub URL. Deposit the release and the Source Data in a DOI-issuing archive and cite the DOIs. The journal will require this before acceptance.\n- The protocol manifest is \"timestamped 13 November\" with no year, one day before the previous revision. Give the year, and say explicitly that it records the exploratory revision controls; the original thresholds are described, correctly, as \"fixed before evaluating the held-out test cohort, rather than externally registered\".",
-      "response": "The full date, 13 November 2026, is given with the recorded source freeze and pilot-lock times. The accompanying provenance inventory records existing pre-test files, not an external preregistration. The original thresholds were fixed before held-out evaluation; the iteration-matched, time-budget, depth-sweep and phase-invariant controls are explicitly exploratory revision analyses. The new noise-scale check is likewise exploratory.\n\nThe complete Source Data and custom software accompany the Article as Source Data and Supplementary Software 1, with the private GitHub repository named in both availability statements. At the authors' explicit direction, DOI registration is deferred until acceptance. The complete offline archival package and metadata are prepared privately; no DOI is fabricated, no public archival record has been created and no unfilled DOI marker appears in the manuscript. This requested external deposit remains deferred, rather than represented as completed.",
+      "response": "The Methods give the source-freeze and pilot-lock times on 13 November 2026. The archived records document which thresholds preceded held-out evaluation. The compute controls, partition-depth tests, phase-invariant scores and noise-scale checks are exploratory. The Source Data and Supplementary Software accompany the Article. The private repository provides reproduction instructions and a contact for access. The authors have prepared a private archival package and plan to register a DOI after acceptance.",
       "location_keys": [
         "protocol",
         "availability"
@@ -36,14 +36,14 @@
     {
       "id": "T4",
       "comment": "Editorial\n\n- Supply a point-by-point response letter with PDF line numbers and a marked-changes PDF. I had neither this round.\n- If the matching certificate is also the subject of another manuscript under review, that manuscript should be made available to the referees through the editor. I cannot tell from these files whether this has been done.",
-      "response": "This response quotes the complete T1–T5 sections verbatim and supplies locations from the printed Article PDF margin ruler. Both marked-change PDFs compare with the preceding round-two submission at commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417; the exact baseline sources and their hashes accompany them.\n\nThe confidential editorial_only submission folder contains Related_manuscript_equal_power.pdf and Related_manuscript_phase_error.pdf, together with the equal-power supplement and an editorial note explaining the relation to the present Article. They are prepared for the editor to forward to referees. No journal submission has been made from this workspace, so we do not assert that the editor or referees have already received them. They are excluded from GitHub and are not cited or discussed in the main Article.",
+      "response": "The complete T1–T5 comments are reproduced with printed PDF line locations. Both marked documents compare the current edition with the previous review baseline. The two related manuscripts, one accompanying supplement and an overlap note are available in the confidential editorial package for the editor to assess.",
       "location_keys": [],
       "supplement": "Article/SI marked PDFs and confidential editorial_only folder."
     },
     {
       "id": "T5",
       "comment": "Small items\n\n1. Check that \"Sionna 2.2.0 with spec_version='19.2'\" is the exact release and option used; I could not verify it.\n2. Methods now runs to about 6,700 words. Consider moving the solver constants and the RENEW decoding details to the Supplementary Information, where they are already repeated.\n3. The compiled layout of Supplementary Tables 3, 7, 9 and 13 should be checked by eye; I could only read the text layer.\n4. Supplementary Table 10 note: \"the child mixed signal/interference bounds remain above the parent tangent/box bound\" — add one sentence saying this means the tangent bound, not the box bound, is the binding one on these channels.",
-      "response": "1. The archived native generator explicitly sets spec_version='19.2' for both CDL and UMa. Its documented environment specifies Sionna 2.2.0, consistent with the official v2.2.0 release and versioned API. The retained generation log records successful channel-generation counts but has no package-version banner, so it is not independent runtime attestation of that patch version. We retain the documented release and explicit generator option and supply this distinction in the verification record.\n\n2. We removed the three duplicated tail subsections from Online Methods. Methods now contains 4,767 whitespace-delimited words, conservatively counting TeX notation and headings. Numerical constants and decoding details needed for reproduction remain in Methods and Supplementary Notes 4–7. The original learned-versus-baseline bootstrap intervals and subgradient summary from the deleted tail were retained in Supplementary Note 4.\n\n3. We inspected the compiled tables. Table 3 now uses Method, K, Profile consistently in both panels, repeated headers and the table generator. Tables 7, 8, 9, 10 and 13 were checked visually for alignment and legibility. Table 13 includes the new diagnostics with explicit pooling and units.\n\n4. We did not infer the active bound from unchanged ticks alone. Reusing the production enclosure arithmetic, we compared both parent candidates and the maximum of all 16 child bounds for all 7,936 pair-tone entries on each of 64 O1 tiles. The tangent was strictly smaller than the box in all 507,904 entries, with no ties; every child maximum exceeded the tangent. The smallest box-minus-tangent and child-minus-tangent margins were 1.219302 and 0.228126 aggregate nats. Table 10 now states that the tangent remains binding throughout the four width budgets. No original result was changed.\n\nWe also replaced model codenames in the assistance disclosure with OpenAI ChatGPT, Google Gemini and Anthropic Claude. The statement describes assistance and author responsibility without adding an unconfirmed claim that all outputs have already undergone human author verification.",
+      "response": "1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.\n\n2. Online Methods contains 4,948 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.\n\n3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.\n\n4. On all 507,904 checked O1 entries, the parent tangent was strictly tighter than the box and the maximum child bound. Table 10 gives the binding term and the effect of deeper partitions.\n\nThe manuscript-preparation statement identifies the three providers, describes assistance with text, derivations, scripts and figure code, and states the authors' responsibility.",
       "location_keys": [
         "sionna",
         "methods",
@@ -53,77 +53,77 @@
     }
   ],
   "locations": {
-    "pdf_sha256": "9de9bf0e55567bec40aba314ff1cbb827c23d40a3ed6fa4cd118e6c62018a35d",
+    "pdf_sha256": "f63b242a445e3ee93defb8567ee905e8345ee14860547c6e250e4df1ee45defa",
     "locations": {
       "abstract": {
         "page_start": 1,
         "page_end": 1,
         "line_start": 21,
         "line_end": 33,
-        "anchor_start": "Certifying coupled discrete",
-        "anchor_end": "coverage remains below nominal"
+        "anchor_start": "A scheduler can find a high",
+        "anchor_end": "in the local-clock recording"
       },
       "noise": {
         "page_start": 7,
-        "page_end": 8,
-        "line_start": 321,
-        "line_end": 327,
+        "page_end": 7,
+        "line_start": 313,
+        "line_end": 318,
         "anchor_start": "Mean per-entry difference powers",
         "anchor_end": "these stored pairs cannot distinguish them"
       },
       "limitation": {
         "page_start": 8,
         "page_end": 8,
-        "line_start": 355,
-        "line_end": 357,
+        "line_start": 349,
+        "line_end": 351,
         "anchor_start": "If quiet-slot variance understates",
         "anchor_end": "appropriate noise model"
       },
       "o1": {
         "page_start": 6,
         "page_end": 6,
-        "line_start": 256,
-        "line_end": 265,
+        "line_start": 246,
+        "line_end": 257,
         "anchor_start": "Refining all 16 scheduled entries",
-        "anchor_end": "They do not establish the exact 32-user decomposition"
+        "anchor_end": "the 32-user physical optimum remains unresolved"
       },
       "protocol": {
         "page_start": 18,
         "page_end": 18,
-        "line_start": 814,
-        "line_end": 826,
+        "line_start": 805,
+        "line_end": 816,
         "anchor_start": "The configuration was fixed before",
         "anchor_end": "not capped identically on each topology"
       },
       "sionna": {
         "page_start": 15,
         "page_end": 15,
-        "line_start": 675,
-        "line_end": 677,
+        "line_start": 665,
+        "line_end": 667,
         "anchor_start": "The native experiments used Sionna",
         "anchor_end": "parameter tables"
       },
       "methods": {
-        "page_start": 13,
+        "page_start": 12,
         "page_end": 13,
-        "line_start": 553,
-        "line_end": 592,
+        "line_start": 542,
+        "line_end": 581,
         "anchor_start": "Building and checking the interval",
         "anchor_end": "integer decomposition numerators"
       },
       "availability": {
         "page_start": 19,
         "page_end": 20,
-        "line_start": 857,
-        "line_end": 882,
+        "line_start": 849,
+        "line_end": 876,
         "anchor_start": "Data availability",
-        "anchor_end": "Matching uses the LEMON graph library"
+        "anchor_end": "decoding conventions from RENEWLab"
       },
       "disclosure": {
         "page_start": 19,
         "page_end": 19,
-        "line_start": 852,
-        "line_end": 856,
+        "line_start": 843,
+        "line_end": 848,
         "anchor_start": "Large language models",
         "anchor_end": "responsibility for the final content"
       }

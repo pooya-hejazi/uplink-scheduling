@@ -19,10 +19,15 @@ words=[];text='';offsets=[];rulers={}
 with pdfplumber.open(PDF) as doc:
     for page_no,page in enumerate(doc.pages,1):
         extracted=page.extract_words(x_tolerance=1.5,y_tolerance=3)
+        # Extract the narrow ruler independently so figure labels cannot split its digits.
+        ruler_x = 487.57 if page_no % 2 else 100.68
+        strip = page.crop((ruler_x-.3, 67, ruler_x+22, 627))
+        rulers[page_no] = [w for w in strip.extract_words(x_tolerance=1.5, y_tolerance=1)
+                           if w['text'].isdigit() and abs(w['x0']-ruler_x)<.2]
+        first = 46*(page_no-1)+1
+        assert [int(w['text']) for w in rulers[page_no]] == list(range(first,first+46)), page_no
         def margin(w):
-            return w['text'].isdigit() and len(w['text'])>=3 and (abs(w['x0']-100.68)<.2 or abs(w['x0']-487.57)<.2)
-        rulers[page_no]=[w for w in extracted if margin(w)]
-        assert len(rulers[page_no])==46, (page_no,len(rulers[page_no]))
+            return w['text'].isdigit() and ruler_x-.3 <= w['x0'] < ruler_x+22
         for w in extracted:
             if margin(w) or not 60<w['top']<650:continue
             content=norm(w['text'])
@@ -31,7 +36,9 @@ with pdfplumber.open(PDF) as doc:
 
 def locate(begin,end=None):
     start=text.find(norm(begin));assert start>=0,begin
-    finish=(start+len(norm(begin))) if end is None else text.find(norm(end),start)+len(norm(end))
+    end_start = start if end is None else text.find(norm(end), start)
+    assert end_start >= start, (begin, end)
+    finish = end_start + len(norm(end or begin))
     assert finish>start,(begin,end)
     a,b=words[offsets[start]],words[offsets[finish-1]]
     low=[w for w in rulers[a['page']] if w['top']<=a['top']+1.6]

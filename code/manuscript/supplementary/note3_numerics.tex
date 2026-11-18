@@ -124,6 +124,12 @@ candidate boxes are enclosed with exact rational arithmetic and outward
 inside its archived global enclosure. The number 512 counts instances,
 each of which may have several stationary or boundary candidates.
 
+For the small-system comparisons we evaluated \(R_{\rm fix}-L\) separately on the nominal channel, using the implemented powers and both complex filters from each replayed decision. We represented each stored real and imaginary component and each power tick as a rational number. If \(v_i\) receives user \(i\) with partner \(j\), the exact ratio
+\[
+1+\frac{p_i|v_i^Hh_i|^2}{\|v_i\|^2+p_j|v_i^Hh_j|^2}
+\]
+uses only rational operations. We multiplied these ratios, enclosed their logarithm by directed division and adjacent 75-digit decimal bounds, and subtracted the integer-encoded floor before normalization by \(S\ln2\). Every interval for \(R_{\rm fix}-L\) was nonnegative and lay below \(1.41\times10^{-12}\) bit/s/Hz across 512 analytic cases at each of \(K=2,4,6,8\) and 64 O1 tiles at each of \(K=2,4\). Thus in these 2,176 decisions the numerical floor accounts for at most this much of the reported optimum-to-floor shortfall. The projected floors on uncertain hardware channels have a different source of conservatism. The Source Data for Supplementary Table~\ref{supp:decomposition} include all 2,176 per-action enclosures.
+
 The seven corruption controls alter, respectively, a sum-preserving transfer
 between decomposition terms, the covered-table digest, an odd set, a primal user
 assignment by duplication, the sign of a lower-rate tick, the denominator,

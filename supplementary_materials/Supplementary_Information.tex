@@ -33,7 +33,7 @@ Pooya Hejazi and Masoud Sabaei
 \noindent The seven notes give the mathematical derivations, numerical enclosures, solver specification, extended simulations and measurement processing underlying the Article. Rates are normalized per occupied tone in bit/s/Hz unless stated as aggregate nats. Supplementary Tables 1--16 and Supplementary Figures 1--8 retain the observation units and computational scope of their source experiments.
 \section{Comparison with closely related work}
 \label{suppnote:literature}
-The comparison identifies the model and guarantee supplied by each approach. Matching, continuous enclosures and conformal ranks are established ingredients; their roles in the present action-specific interval are distinguished below.
+The closest wireless studies address pairing, frequency allocation or continuous powers. The optimization and inference studies supply matching witnesses, power enclosures or coverage guarantees. Table~\ref{supp:comparison} lists the receiver or model in which each guarantee applies and the step it informs here.
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{3pt}
 \caption{Ten closely related studies and their relation to the paired scheduling interval.}\label{supp:comparison}
@@ -88,7 +88,7 @@ $r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
 If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
 
 \subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
-The following derivation establishes the continuous-power bound, vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. 
+We first bound the power choice on every pair and tone, then show how to verify the resulting discrete ceiling. 
 
 Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
 \begin{equation}
@@ -170,6 +170,14 @@ The upper relaxation gives $D(H)\le R_\beta$, while feasibility of the assigned 
 \end{equation}
 Every bracket is nonnegative and bounded by that edge's adjusted range. There are $S$ brackets, proving the last inequality. When $H_{e,s}=a_e+b_s$, choosing $\beta_s=b_s$ makes every range zero and gives $R_\beta=D(H)=A_\beta$. All quantities in equation~(\ref{supp:theorem2}) must use one identical table. With quantized scores the argument is exact in ticks. Its comparison with an unrounded table requires the explicit quantization allowance.
 
+\paragraph{What the best tone prices can certify.}
+Let \(c\) be a perfect user matching with an arbitrary tone assigned to each edge. A tone may be repeated. Write \(v_c\) for its table score and \(n_{cs}\) for the number of pairs it assigns to tone \(s\). For this finite set of configurations, \(R_\beta=\max_c\{v_c+\sum_s\beta_s(1-n_{cs})\}\). Consider the linear program
+\[
+ \max_{\pi_c\ge0}\ \sum_c\pi_c v_c,\qquad
+ \sum_c\pi_c=1,\qquad \sum_c\pi_c n_{cs}=1\quad\text{for every }s .
+\]
+Its dual minimizes \(t+\sum_s\beta_s\) subject to \(t+\sum_s\beta_s n_{cs}\ge v_c\) for every \(c\), with \(t,\beta_s\) free. Eliminating \(t\) gives \(\inf_\beta R_\beta\). A feasible labelled schedule gives a feasible point mass and the scores are finite, so linear-programming duality gives equality. Thus even optimal prices require one use of each tone only on average across a mixture. A single transmission requires these counts in each schedule.
+
 \subsection{Exact four-user physical counterexample}
 Take $S=N=2$ with unit powers and unit noise. Define
 $a=(1,0)$, $b=(0,1)$, $c=(3/5,4/5)$ and $d=(-4/5,3/5)$, and assign ordered user vectors $(a,b,c,d)$ on tone 1 and $(a,c,b,d)$ on tone 2. All norms equal one, so a pair's rate is $2\ln(2-r/2)$. For each choice of the pair on tone 1, its complement must occupy tone 2. These are the six feasible labelled schedules. The following exact arithmetic lists both squared overlaps, both logarithm arguments and their product.
@@ -196,7 +204,9 @@ Therefore $R_\beta\ge2c_{\mathrm{orth}}+|\beta_1-\beta_2|\ge4\ln2$. Equal prices
  \inf_\beta R_\beta-D=4\ln2-2\ln(91/25)=2\ln(100/91)>0.
  \label{supp:four-user-gap}
 \end{equation}
-Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pair and restores $4\lambda$ in the bound, so it leaves this gap unchanged. The channel construction thus exhibits an irreducible loss caused by discarding tone labels.
+Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pair and restores $4\lambda$ in the bound, so it leaves this gap unchanged. Giving equal probability to the two orthogonal matchings, each using only its preferred tone, attains the relaxed value while balancing both tone counts on average.
+
+The price gap persists under channel perturbations. If \(\|H'-H\|_\infty\le\eta\) entrywise, the score of every \(S\)-edge configuration changes by at most \(S\eta\). This bounds the change in \(D\) and in every \(R_\beta\), uniformly in \(\beta\), so the optimally priced gap changes by at most \(2S\eta\). Here \(S=2\), and it remains positive whenever \(\eta<\tfrac12\ln(100/91)\) nats per pair. At fixed unit powers and positive noise the pair rates are continuous in the channel vectors, giving an open neighbourhood of physical channels with a positive gap.
 
 \subsection{Exact six-user signed-score fixture}
 The second fixture tests how loose the all-edge range can be. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set
@@ -773,7 +783,7 @@ ray & 64 & 20 & 0.134 & 0.648 & 2.180 & 4.790\\
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Absolute native rates at 10 dB. Each row has 512 topologies. Entries are medians in bit/s/Hz. The best ceiling is selected within each topology across all seven methods, then summarized. Retention is the median of paired lower/best-upper ratios. Repeated learned calls use the smallest lower and upper values separately; each remains valid.}\label{supp:rates}
+\caption{Native rates at 10 dB on 512 topologies per size. Rates are medians in bit/s/Hz. $U_{\rm best}$ is the smallest verified ceiling across all seven methods on the same topology. Retention is the median of $100 L/U_{\rm best}$. Across repeated calls each endpoint minimum is taken separately.}\label{supp:rates}
 \begin{tabular}{llllll}\toprule
 $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 \midrule
@@ -800,10 +810,9 @@ $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
 \bottomrule\end{tabular}
 \par\medskip\begin{minipage}{\linewidth}\small
-The archived matching control starts from equal powers and then allows feasible power refinement. Its label is made explicit here: it is not a fixed-equal-power comparator. Sequential equal-power retains 0.10 W per user. Exact fixed-equal-power enumeration is reported separately for the six-user hardware inputs.
-
-The zero-price, matching-plus-power-refinement and subgradient controls use the same initial equal-power matching, tone assignment and four feasible power-refinement steps. Their pairing, powers and stored filters therefore coincide; their upper calculations differ. The identical lower endpoints hold topology by topology, not just at the median.
-\end{minipage}\end{table}
+The three matching controls share the same starting pairs and four power-refinement steps. They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on 0, 0 and 0 of 512 topologies using its own ceiling, and on 408, 395 and 426 using the common ceiling. These paired comparisons use rate alone. Supplementary Table 6 Source Data gives the counts by profile.
+\end{minipage}
+\end{table}
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
@@ -837,9 +846,9 @@ Each campaign uses the same 512 topologies, three repeats and rotating method or
 
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Ceiling slack and action suboptimality. For a physical reference $V^*\in[V_-,V_+]$, contributions lie in $[U-V_+,U-V_-]$ and $[V_--L,V_+-L]$. Means, medians and endpoint quartiles are reported separately.}\label{supp:decomposition}
+\caption{Ceiling slack and shortfall to the rate floor. A reference $V^*\in[V_-,V_+]$ puts $U-V^*$ in $[U-V_+,U-V_-]$ and $V^*-L$ in $[V_--L,V_+-L]$. The latter includes $R_{\rm fix}-L$.}\label{supp:decomposition}
 \begin{tabular}{lllll}\toprule
-$K$ & Channel / reference & Statistic & Ceiling slack & Action suboptimality\\
+$K$ & Channel / reference & Statistic & Ceiling slack & Optimum to floor\\
 \midrule
 2 & Analytic / roots & Mean & [0.23467, 0.23467] & [0.00340, 0.00340]\\
  &  & 25th percentile & [0.00006, 0.00006] & [1.3e-11, 1.3e-11]\\
@@ -865,7 +874,7 @@ Native 3GPP / exact DP & Mean & 0.01756 & 0.01517\\
  & Median & 0.01481 & 0.00389\\
  & 75th percentile & 0.02518 & 0.02214\\
 \bottomrule\end{tabular}\par\smallskip
-For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz. Reference widths (median; maximum) for $K=2$: 5.32907e-15; 8.88178e-15, $K=4$: 5.85335e-05; 0.514074, $K=6$: 7.33722e-05; 0.854413, $K=8$: 0.000150431; 0.929094.
+For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz. The two-user median and maximum root widths are 5.12548e-15 and 5.12548e-15 bit/s/Hz. These use outward conversion of the difference in nats. For the box references the median and maximum widths are $K=4$: 5.85335e-05; 0.514074, $K=6$: 7.33722e-05; 0.854413, $K=8$: 0.000150431; 0.929094.
 
 \end{minipage}
 \end{table}
@@ -962,7 +971,7 @@ Entries refined & Entries changed & Scheduled in shortlist & Median $G$ & Median
 64 & 0 & 1.118334 & 1.080005\\
 256 & 16 & 1.117494 & 0.867040\\
 \bottomrule\end{tabular}\par\smallskip
-\noindent\begin{tabular}{rlrrrr}\toprule $K$ & Statistic & Gap & Ceiling slack & Action loss & Reference width\\\midrule
+\noindent\begin{tabular}{rlrrrr}\toprule $K$ & Statistic & Gap & Ceiling slack & Optimum to floor & Reference width\\\midrule
 2 & Mean & 1.173983 & [1.03877, 1.03877] & [0.13522, 0.13522] & 1.37e-15\\
 2 & Median & 1.340835 & [1.18529, 1.18529] & [0.09974, 0.09974] & 1.33e-15\\
 4 & Mean & 1.056186 & [0.90425, 0.90425] & [0.15193, 0.15193] & 9.55e-07\\
@@ -1497,6 +1506,12 @@ candidate boxes are enclosed with exact rational arithmetic and outward
 inside its archived global enclosure. The number 512 counts instances,
 each of which may have several stationary or boundary candidates.
 
+For the small-system comparisons we evaluated \(R_{\rm fix}-L\) separately on the nominal channel, using the implemented powers and both complex filters from each replayed decision. We represented each stored real and imaginary component and each power tick as a rational number. If \(v_i\) receives user \(i\) with partner \(j\), the exact ratio
+\[
+1+\frac{p_i|v_i^Hh_i|^2}{\|v_i\|^2+p_j|v_i^Hh_j|^2}
+\]
+uses only rational operations. We multiplied these ratios, enclosed their logarithm by directed division and adjacent 75-digit decimal bounds, and subtracted the integer-encoded floor before normalization by \(S\ln2\). Every interval for \(R_{\rm fix}-L\) was nonnegative and lay below \(1.41\times10^{-12}\) bit/s/Hz across 512 analytic cases at each of \(K=2,4,6,8\) and 64 O1 tiles at each of \(K=2,4\). Thus in these 2,176 decisions the numerical floor accounts for at most this much of the reported optimum-to-floor shortfall. The projected floors on uncertain hardware channels have a different source of conservatism. The Source Data for Supplementary Table~\ref{supp:decomposition} include all 2,176 per-action enclosures.
+
 The seven corruption controls alter, respectively, a sum-preserving transfer
 between decomposition terms, the covered-table digest, an odd set, a primal user
 assignment by duplication, the sign of a lower-rate tick, the denominator,
@@ -1564,7 +1579,6 @@ Intentional corruptions &7/7 rejected&One unmodified positive control and seven 
 \bibitem{deepmimo} Alkhateeb, A. \href{https://arxiv.org/abs/1902.06435}{DeepMIMO: a generic deep learning dataset for millimeter wave and massive MIMO applications}. \emph{Proc. Inf. Theory Appl. Workshop (ITA)}, 1–8 (2019).
 \bibitem{zafari} Zafari, M. \href{https://doi.org/10.21227/74ez-b275}{Distributed Multi-User MIMO Datasets}. \emph{IEEE DataPort} (2024).
 \bibitem{renew} Doost-Mohammady, R. et al. \href{https://doi.org/10.1109/ACSSC.2018.8645391}{RENEW: programmable and observable massive MIMO networks}. \emph{Proc. 52nd Asilomar Conf. Signals Syst. Comput.}, 1654–1658 (2018).
-\bibitem{shepard} Shepard, C., Ding, J., Guerra, R. E. \& Zhong, L. \href{https://doi.org/10.1109/ACSSC.2016.7869082}{Understanding real many-antenna MU-MIMO channels}. \emph{Proc. 50th Asilomar Conf. Signals Syst. Comput.}, 461–467 (2016).
 \bibitem{barnhart} Barnhart, C., Johnson, E. L., Nemhauser, G. L., Savelsbergh, M. W. P. \& Vance, P. H. \href{https://doi.org/10.1287/opre.46.3.316}{Branch-and-price: column generation for solving huge integer programs}. \emph{Oper. Res.} \textbf{46}, 316–329 (1998).
 \bibitem{matthiesen} Matthiesen, B., Hellings, C., Jorswieck, E. A. \& Utschick, W. \href{https://doi.org/10.1109/TSP.2020.2983284}{Mixed monotonic programming for fast global optimization}. \emph{IEEE Trans. Signal Process.} \textbf{68}, 2529–2544 (2020).
 \bibitem{yului} Yu, W. \& Lui, R. \href{https://doi.org/10.1109/TCOMM.2006.877962}{Dual methods for nonconvex spectrum optimization of multicarrier systems}. \emph{IEEE Trans. Commun.} \textbf{54}, 1310–1322 (2006).
@@ -1583,6 +1597,7 @@ Intentional corruptions &7/7 rejected&One unmodified positive control and seven 
 \bibitem{zhangsync2026} Zhang, C. et al. \href{https://doi.org/10.1038/s41467-026-76739-2}{Sub-picosecond synchronized multi-faceted fronthaul with one-sample-per-symbol coherent detection}. \emph{Nat. Commun.} \textbf{17}, 9747 (2026).
 \bibitem{ni2026} Ni, Z. et al. \href{https://doi.org/10.1038/s41467-026-74485-z}{Fully-connected microwave photonic multi-beamformer with fast beam-steering for broadband wireless communication}. \emph{Nat. Commun.} \textbf{17}, 7743 (2026).
 \bibitem{lemon} Dezső, B., Jüttner, A. \& Kovács, P. \href{https://doi.org/10.1016/j.entcs.2011.06.003}{LEMON – an open source C++ graph template library}. \emph{Electron. Notes Theor. Comput. Sci.} \textbf{264}, 23–45 (2011).
+\bibitem{shepard} Shepard, C., Ding, J., Guerra, R. E. \& Zhong, L. \href{https://doi.org/10.1109/ACSSC.2016.7869082}{Understanding real many-antenna MU-MIMO channels}. \emph{Proc. 50th Asilomar Conf. Signals Syst. Comput.}, 461–467 (2016).
 \end{thebibliography}
 
 \end{document}

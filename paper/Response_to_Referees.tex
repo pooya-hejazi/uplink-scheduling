@@ -14,11 +14,11 @@
 
 \begin{document}
 
-\begin{center}\Large\bfseries Response to the third-round referee report\end{center}
+\begin{center}\Large\bfseries Response to the third-round pre-submission review\end{center}
 
 \textbf{Bounding the rate loss of individual paired wireless uplink schedules}
 
-This revision addresses the supplied third-round report and is prepared for Nature Computational Science. The main body contains 3,487 words, the Abstract 133 and Online Methods 4,767 by a conservative whitespace count including TeX notation. Original confirmatory records remain unchanged; the new diagnostics are exploratory. DOI registration remains deferred until acceptance at the authors' request.
+This response addresses the supplied technical review. The current Article contains 3,414 main-text words and a 144-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.
 
 Locations below use the printed Article PDF margin ruler, not LaTeX source lines. Supplementary locations refer to its printed page numbers.
 
@@ -42,7 +42,7 @@ The single-projection magnitude residual, before frame maximization, has median 
 
 The raw mean powers exceed the independent unit-variance pilot-noise prediction of two; phase alignment does not reduce them to that scale. Modest relative errors on large quiet-slot-normalized channel powers can therefore coexist with large absolute residuals. The pairs do not identify whether the excess comes from signal-dependent distortion, synchronization/window leakage, correlated errors or underestimation of pilot-period noise. We state that hardware rates depend on the frozen quiet-slot noise metric. If it understates active-period noise and distortion, rates are optimistic and gaps, pass fractions and floor ratios require recalculation. We do not call all rates unconditional upper bounds: these data do not estimate the active-period variance or establish a correction factor. The limitation is stated in Results, Discussion and Supplementary Note 6.
 
-\textbf{Locations.} Article pp. 7–8, lines 321–327; Article pp. 8, lines 355–357; Supplementary Table 13 and Note 6, pp. 25–26.
+\textbf{Locations.} Article pp. 7, lines 313–318; Article pp. 8, lines 349–351; Supplementary Table 13 and Note 6, pp. 25–26.
 
 \section*{T2}
 
@@ -53,9 +53,9 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 \par\noindent - "No significant benefit" is accurate, but with only four or five discordant topologies the test could hardly reach 0.05. "Was not established" is the more careful wording, and the Discussion already uses it.
 \par\noindent - Results now compress pairs of values with slashes ("0.0549/0.0645 bit/s/Hz", "32/64-user", "HUB/LO", "1.080005/0.867040"). Write these out ("\ldots{} and \ldots{}, respectively"). In the O1 sentence, three partition depths are followed by two values; make clear that 16 children is the baseline.\end{quote}
 
-\textbf{Response.} The 133-word Abstract explicitly defines two single-antenna users per tone, separate linear filters and no successive interference cancellation. It uses power-interval bounds, a checkable matching certificate and calibration along deployed filters, and says that learned proposals “did not establish a benefit over” the compute-matched controls. Its numerical claims are retained. Slash-compressed counts, paired values and labels in Results and Discussion are written out, including the Fig. 4d iteration budgets. The O1 paragraph now explicitly gives the 16-child baseline (median T4 1.113253 and G 1.119582), the 64-child results (1.080005 and 1.118334) and the 256-child results (0.867040 and 1.117494 bit/s/Hz). The main body remains 3,487 words under the author's selected Nature Computational Science limit of 3,500, rather than the longer limit assumed in the supplied revision prompt.
+\textbf{Response.} The 144-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.
 
-\textbf{Locations.} Article pp. 1, lines 021–033; Article pp. 6, lines 256–265; Supplementary Table 10, p. 19.
+\textbf{Locations.} Article pp. 1, lines 021–033; Article pp. 6, lines 246–257; Supplementary Table 10, p. 19.
 
 \section*{T3}
 
@@ -64,11 +64,9 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 \par\noindent - Code is still cited only by a GitHub URL. Deposit the release and the Source Data in a DOI-issuing archive and cite the DOIs. The journal will require this before acceptance.
 \par\noindent - The protocol manifest is "timestamped 13 November" with no year, one day before the previous revision. Give the year, and say explicitly that it records the exploratory revision controls; the original thresholds are described, correctly, as "fixed before evaluating the held-out test cohort, rather than externally registered".\end{quote}
 
-\textbf{Response.} The full date, 13 November 2026, is given with the recorded source freeze and pilot-lock times. The accompanying provenance inventory records existing pre-test files, not an external preregistration. The original thresholds were fixed before held-out evaluation; the iteration-matched, time-budget, depth-sweep and phase-invariant controls are explicitly exploratory revision analyses. The new noise-scale check is likewise exploratory.
+\textbf{Response.} The Methods give the source-freeze and pilot-lock times on 13 November 2026. The archived records document which thresholds preceded held-out evaluation. The compute controls, partition-depth tests, phase-invariant scores and noise-scale checks are exploratory. The Source Data and Supplementary Software accompany the Article. The private repository provides reproduction instructions and a contact for access. The authors have prepared a private archival package and plan to register a DOI after acceptance.
 
-The complete Source Data and custom software accompany the Article as Source Data and Supplementary Software 1, with the private GitHub repository named in both availability statements. At the authors' explicit direction, DOI registration is deferred until acceptance. The complete offline archival package and metadata are prepared privately; no DOI is fabricated, no public archival record has been created and no unfilled DOI marker appears in the manuscript. This requested external deposit remains deferred, rather than represented as completed.
-
-\textbf{Locations.} Article pp. 18, lines 814–826; Article pp. 19–20, lines 857–882; Supplementary Software 1; private offline archival-deposit status.
+\textbf{Locations.} Article pp. 18, lines 805–816; Article pp. 19–20, lines 849–876; Supplementary Software 1; private offline archival-deposit status.
 
 \section*{T4}
 
@@ -77,9 +75,7 @@ The complete Source Data and custom software accompany the Article as Source Dat
 \par\noindent - Supply a point-by-point response letter with PDF line numbers and a marked-changes PDF. I had neither this round.
 \par\noindent - If the matching certificate is also the subject of another manuscript under review, that manuscript should be made available to the referees through the editor. I cannot tell from these files whether this has been done.\end{quote}
 
-\textbf{Response.} This response quotes the complete T1–T5 sections verbatim and supplies locations from the printed Article PDF margin ruler. Both marked-change PDFs compare with the preceding round-two submission at commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417; the exact baseline sources and their hashes accompany them.
-
-The confidential editorial\_only submission folder contains Related\_manuscript\_equal\_power.pdf and Related\_manuscript\_phase\_error.pdf, together with the equal-power supplement and an editorial note explaining the relation to the present Article. They are prepared for the editor to forward to referees. No journal submission has been made from this workspace, so we do not assert that the editor or referees have already received them. They are excluded from GitHub and are not cited or discussed in the main Article.
+\textbf{Response.} The complete T1–T5 comments are reproduced with printed PDF line locations. Both marked documents compare the current edition with the previous review baseline. The two related manuscripts, one accompanying supplement and an overlap note are available in the confidential editorial package for the editor to assess.
 
 \textbf{Locations.} Article/SI marked PDFs and confidential editorial\_only folder.
 
@@ -92,17 +88,17 @@ The confidential editorial\_only submission folder contains Related\_manuscript\
 \par\noindent 3. The compiled layout of Supplementary Tables 3, 7, 9 and 13 should be checked by eye; I could only read the text layer.
 \par\noindent 4. Supplementary Table 10 note: "the child mixed signal/interference bounds remain above the parent tangent/box bound" — add one sentence saying this means the tangent bound, not the box bound, is the binding one on these channels.\end{quote}
 
-\textbf{Response.} 1. The archived native generator explicitly sets spec\_version='19.2' for both CDL and UMa. Its documented environment specifies Sionna 2.2.0, consistent with the official v2.2.0 release and versioned API. The retained generation log records successful channel-generation counts but has no package-version banner, so it is not independent runtime attestation of that patch version. We retain the documented release and explicit generator option and supply this distinction in the verification record.
+\textbf{Response.} 1. The native generator passes spec\_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.
 
-2. We removed the three duplicated tail subsections from Online Methods. Methods now contains 4,767 whitespace-delimited words, conservatively counting TeX notation and headings. Numerical constants and decoding details needed for reproduction remain in Methods and Supplementary Notes 4–7. The original learned-versus-baseline bootstrap intervals and subgradient summary from the deleted tail were retained in Supplementary Note 4.
+2. Online Methods contains 4,948 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
 
-3. We inspected the compiled tables. Table 3 now uses Method, K, Profile consistently in both panels, repeated headers and the table generator. Tables 7, 8, 9, 10 and 13 were checked visually for alignment and legibility. Table 13 includes the new diagnostics with explicit pooling and units.
+3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.
 
-4. We did not infer the active bound from unchanged ticks alone. Reusing the production enclosure arithmetic, we compared both parent candidates and the maximum of all 16 child bounds for all 7,936 pair-tone entries on each of 64 O1 tiles. The tangent was strictly smaller than the box in all 507,904 entries, with no ties; every child maximum exceeded the tangent. The smallest box-minus-tangent and child-minus-tangent margins were 1.219302 and 0.228126 aggregate nats. Table 10 now states that the tangent remains binding throughout the four width budgets. No original result was changed.
+4. On all 507,904 checked O1 entries, the parent tangent was strictly tighter than the box and the maximum child bound. Table 10 gives the binding term and the effect of deeper partitions.
 
-We also replaced model codenames in the assistance disclosure with OpenAI ChatGPT, Google Gemini and Anthropic Claude. The statement describes assistance and author responsibility without adding an unconfirmed claim that all outputs have already undergone human author verification.
+The manuscript-preparation statement identifies the three providers, describes assistance with text, derivations, scripts and figure code, and states the authors' responsibility.
 
-\textbf{Locations.} Article pp. 15, lines 675–677; Article pp. 13, lines 553–592; Article pp. 19, lines 852–856; Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25.
+\textbf{Locations.} Article pp. 15, lines 665–667; Article pp. 12–13, lines 542–581; Article pp. 19, lines 843–848; Supplementary Table 3, pp. 11–12; Table 7, p. 16; Table 8, p. 17; Table 9, p. 18; Table 10, p. 19; Table 13, p. 25.
 
 \section*{Additional verification (report Part C)}
 

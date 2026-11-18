@@ -1,6 +1,6 @@
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Absolute native rates at 10 dB. Each row has 512 topologies. Entries are medians in bit/s/Hz. The best ceiling is selected within each topology across all seven methods, then summarized. Retention is the median of paired lower/best-upper ratios. Repeated learned calls use the smallest lower and upper values separately; each remains valid.}\label{supp:rates}
+\caption{Native rates at 10 dB on 512 topologies per size. Rates are medians in bit/s/Hz. $U_{\rm best}$ is the smallest verified ceiling across all seven methods on the same topology. Retention is the median of $100 L/U_{\rm best}$. Across repeated calls each endpoint minimum is taken separately.}\label{supp:rates}
 \begin{tabular}{llllll}\toprule
 $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 \midrule
@@ -27,7 +27,6 @@ $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
 \bottomrule\end{tabular}
 \par\medskip\begin{minipage}{\linewidth}\small
-The archived matching control starts from equal powers and then allows feasible power refinement. Its label is made explicit here: it is not a fixed-equal-power comparator. Sequential equal-power retains 0.10 W per user. Exact fixed-equal-power enumeration is reported separately for the six-user hardware inputs.
-
-The zero-price, matching-plus-power-refinement and subgradient controls use the same initial equal-power matching, tone assignment and four feasible power-refinement steps. Their pairing, powers and stored filters therefore coincide; their upper calculations differ. The identical lower endpoints hold topology by topology, not just at the median.
-\end{minipage}\end{table}
+The three matching controls share the same starting pairs and four power-refinement steps. They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on 0, 0 and 0 of 512 topologies using its own ceiling, and on 408, 395 and 426 using the common ceiling. These paired comparisons use rate alone. Supplementary Table 6 Source Data gives the counts by profile.
+\end{minipage}
+\end{table}

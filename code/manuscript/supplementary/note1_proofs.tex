@@ -34,7 +34,7 @@ $r=|h_{is}^Hh_{js}|^2/(\|h_{is}\|^2\|h_{js}\|^2)$ gives
 If either norm vanishes, define $r=0$; its coefficient in both SINR expressions then vanishes. The oracle $V(h)$ maximizes the sum of these recomputed-MMSE pair rates over all feasible decisions. Continuity on a compact power set and finiteness of the labelled assignments ensure attainment. The achieved functional $R_{\mathrm{fix}}(h)$ evaluates the stored combiners at their implemented powers, so $R_{\mathrm{fix}}(h)\le V(h)$.
 
 \subsection{Theorem 1. Continuous powers, matching and a checkable upper witness}
-The following derivation establishes the continuous-power bound, vertex-price repair and upward quantization used by the matching relaxation. All arguments are stated here without reliance on an unpublished result. 
+We first bound the power choice on every pair and tone, then show how to verify the resulting discrete ceiling. 
 
 Fix a nonempty channel set $\mathcal H$, a power price $\lambda\ge0$ and real tone prices $\beta_s$. Let every entry of a complete table satisfy
 \begin{equation}
@@ -116,6 +116,14 @@ The upper relaxation gives $D(H)\le R_\beta$, while feasibility of the assigned 
 \end{equation}
 Every bracket is nonnegative and bounded by that edge's adjusted range. There are $S$ brackets, proving the last inequality. When $H_{e,s}=a_e+b_s$, choosing $\beta_s=b_s$ makes every range zero and gives $R_\beta=D(H)=A_\beta$. All quantities in equation~(\ref{supp:theorem2}) must use one identical table. With quantized scores the argument is exact in ticks. Its comparison with an unrounded table requires the explicit quantization allowance.
 
+\paragraph{What the best tone prices can certify.}
+Let \(c\) be a perfect user matching with an arbitrary tone assigned to each edge. A tone may be repeated. Write \(v_c\) for its table score and \(n_{cs}\) for the number of pairs it assigns to tone \(s\). For this finite set of configurations, \(R_\beta=\max_c\{v_c+\sum_s\beta_s(1-n_{cs})\}\). Consider the linear program
+\[
+ \max_{\pi_c\ge0}\ \sum_c\pi_c v_c,\qquad
+ \sum_c\pi_c=1,\qquad \sum_c\pi_c n_{cs}=1\quad\text{for every }s .
+\]
+Its dual minimizes \(t+\sum_s\beta_s\) subject to \(t+\sum_s\beta_s n_{cs}\ge v_c\) for every \(c\), with \(t,\beta_s\) free. Eliminating \(t\) gives \(\inf_\beta R_\beta\). A feasible labelled schedule gives a feasible point mass and the scores are finite, so linear-programming duality gives equality. Thus even optimal prices require one use of each tone only on average across a mixture. A single transmission requires these counts in each schedule.
+
 \subsection{Exact four-user physical counterexample}
 Take $S=N=2$ with unit powers and unit noise. Define
 $a=(1,0)$, $b=(0,1)$, $c=(3/5,4/5)$ and $d=(-4/5,3/5)$, and assign ordered user vectors $(a,b,c,d)$ on tone 1 and $(a,c,b,d)$ on tone 2. All norms equal one, so a pair's rate is $2\ln(2-r/2)$. For each choice of the pair on tone 1, its complement must occupy tone 2. These are the six feasible labelled schedules. The following exact arithmetic lists both squared overlaps, both logarithm arguments and their product.
@@ -142,7 +150,9 @@ Therefore $R_\beta\ge2c_{\mathrm{orth}}+|\beta_1-\beta_2|\ge4\ln2$. Equal prices
  \inf_\beta R_\beta-D=4\ln2-2\ln(91/25)=2\ln(100/91)>0.
  \label{supp:four-user-gap}
 \end{equation}
-Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pair and restores $4\lambda$ in the bound, so it leaves this gap unchanged. The channel construction thus exhibits an irreducible loss caused by discarding tone labels.
+Here power is fixed and $P=4$. A common power price subtracts $2\lambda$ per pair and restores $4\lambda$ in the bound, so it leaves this gap unchanged. Giving equal probability to the two orthogonal matchings, each using only its preferred tone, attains the relaxed value while balancing both tone counts on average.
+
+The price gap persists under channel perturbations. If \(\|H'-H\|_\infty\le\eta\) entrywise, the score of every \(S\)-edge configuration changes by at most \(S\eta\). This bounds the change in \(D\) and in every \(R_\beta\), uniformly in \(\beta\), so the optimally priced gap changes by at most \(2S\eta\). Here \(S=2\), and it remains positive whenever \(\eta<\tfrac12\ln(100/91)\) nats per pair. At fixed unit powers and positive noise the pair rates are continuous in the channel vectors, giving an open neighbourhood of physical channels with a positive gap.
 
 \subsection{Exact six-user signed-score fixture}
 The second fixture tests how loose the all-edge range can be. Enumerate the 15 unordered pairs $e_t$ lexicographically, starting with $t=0$, and index the three tones by $s=0,1,2$. Set

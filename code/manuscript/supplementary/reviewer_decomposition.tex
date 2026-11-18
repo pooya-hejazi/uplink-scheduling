@@ -1,8 +1,8 @@
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Ceiling slack and action suboptimality. For a physical reference $V^*\in[V_-,V_+]$, contributions lie in $[U-V_+,U-V_-]$ and $[V_--L,V_+-L]$. Means, medians and endpoint quartiles are reported separately.}\label{supp:decomposition}
+\caption{Ceiling slack and shortfall to the rate floor. A reference $V^*\in[V_-,V_+]$ puts $U-V^*$ in $[U-V_+,U-V_-]$ and $V^*-L$ in $[V_--L,V_+-L]$. The latter includes $R_{\rm fix}-L$.}\label{supp:decomposition}
 \begin{tabular}{lllll}\toprule
-$K$ & Channel / reference & Statistic & Ceiling slack & Action suboptimality\\
+$K$ & Channel / reference & Statistic & Ceiling slack & Optimum to floor\\
 \midrule
 2 & Analytic / roots & Mean & [0.23467, 0.23467] & [0.00340, 0.00340]\\
  &  & 25th percentile & [0.00006, 0.00006] & [1.3e-11, 1.3e-11]\\
@@ -28,7 +28,7 @@ Native 3GPP / exact DP & Mean & 0.01756 & 0.01517\\
  & Median & 0.01481 & 0.00389\\
  & 75th percentile & 0.02518 & 0.02214\\
 \bottomrule\end{tabular}\par\smallskip
-For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz. Reference widths (median; maximum) for $K=2$: 5.32907e-15; 8.88178e-15, $K=4$: 5.85335e-05; 0.514074, $K=6$: 7.33722e-05; 0.854413, $K=8$: 0.000150431; 0.929094.
+For $K=2$, rational polynomial-root isolation encloses the physical optimum. At $K=4,6,8$, continuous box references allow 192 splits and remain unresolved at $10^{-6}$ bit/s/Hz. Quartiles and medians summarize each bracket endpoint separately; the 25th--75th percentile rows describe their IQRs. At $K=16$, exact integer DP optimizes the upper-score table, giving $V_{\rm tab}\geq V^*$; the displayed $U-V_{\rm tab}$ and $V_{\rm tab}-L$ are an algebraic table-reference split, not physical slack and action loss. No trend across these different channel families is implied. All entries use 512 topologies per size and bit/s/Hz. The two-user median and maximum root widths are 5.12548e-15 and 5.12548e-15 bit/s/Hz. These use outward conversion of the difference in nats. For the box references the median and maximum widths are $K=4$: 5.85335e-05; 0.514074, $K=6$: 7.33722e-05; 0.854413, $K=8$: 0.000150431; 0.929094.
 
 \end{minipage}
 \end{table}

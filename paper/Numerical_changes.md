@@ -1,6 +1,6 @@
-# Numerical changes and sources — third revision
+# Numerical changes and sources
 
-The CSV enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
+The CSV includes the 18 November pre-submission edition and enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
 
 Paths below are relative to code/manuscript/revision in GitHub, or Gate_4/revision in Supplementary Software 1.
 
@@ -15,3 +15,12 @@ Paths below are relative to code/manuscript/revision in GitHub, or Gate_4/revisi
 | Methods summaries moved to Supplementary Note 4 | Existing primary audit tables and simulation summaries | Original learned-versus-baseline intervals, subgradient passes and time retained |
 
 The diagnostic does not identify active-period noise variance or an impairment mechanism. It does not rescale archived hardware rates. All original confirmatory inputs and all 591 first-revision numerical records retain their hashes. DOI registration is deferred until acceptance by author decision.
+
+## Current edition
+
+| Result | Source | Calculation |
+|---|---|---|
+| At 32 and 64 users, 395/512 and 426/512 zero-price actions meet the rate-gap threshold with a common ceiling. Both counts are 0/512 with the method's own ceiling. | Supplementary Table 6 Source Data, blocks reviewer_absolute_rates and action_common_ceiling_counts | Group the seven endpoints by profile, topology and user count, take their minimum upper endpoint and subtract the original zero-price floor. No runtime threshold is applied. |
+| All 2,176 fixed-filter rates lie less than 1.41 × 10⁻¹² bit/s/Hz above their floors | Supplementary Table 8 Source Data, block action_fixed_filter_checks | Exact rational complex inner products, receiver powers and noise terms, followed by directed 75-digit logarithms and conversion to occupied-band units. |
+| Two-user continuous roots have maximum width 5.125483 × 10⁻¹⁵ bit/s/Hz | Supplementary Table 8 Source Data, block action_two_user_root_widths | Subtract the binary64 bounds in nats, then convert the width outwards. Subtracting separately displayed rates can change the last few bits. |
+| Four-user pricing gap persists on a neighbourhood | Supplementary Note 2 and Figure 2 Source Data, block fig2_channels | Exact four-user enumeration and linear-programming duality. Uniform score perturbations of size η move an S-edge feasible or relaxed optimum by at most Sη. |
