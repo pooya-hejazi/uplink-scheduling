@@ -76,12 +76,15 @@ def source_data(source, destination):
                 archive.read(name) == text.encode("utf-8") for name, text in entries.items()
             )
     if not matches:
-        with tempfile.TemporaryDirectory(dir=destination) as scratch:
-            replacement = Path(scratch) / path.name
+        with tempfile.NamedTemporaryFile(dir=destination, suffix=".partial", delete=False) as tmp:
+            replacement = Path(tmp.name)
+        try:
             with zipfile.ZipFile(replacement, "w") as archive:
                 for name, text in entries.items():
                     archive.writestr(zipfile.ZipInfo(name), text.encode("utf-8"), compress_type=zipfile.ZIP_DEFLATED)
             replacement.replace(path)
+        finally:
+            replacement.unlink(missing_ok=True)
     path.with_suffix(".sha256").write_text(hashlib.sha256(path.read_bytes()).hexdigest() + "  " + path.name + "\n", encoding="ascii")
 
 
