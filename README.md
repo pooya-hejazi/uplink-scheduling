@@ -15,6 +15,8 @@ This public repository contains the code and Source Data for the Article by **Po
 
 Source modules under `code/` are grouped as `mathematics`, `channel_models`, `schedulers`, `experiments`, `manuscript` and `document_tools`. **Run every command below from the same `code` directory.** Original identifiers within immutable inputs preserve their provenance; they are not repository folders.
 
+The journal upload packages contain the compiled manuscript and its LaTeX sources, and the single Supplementary Information PDF. [Paper ZIP](submission/paper.zip) · [Supplementary materials ZIP](submission/supplementary_materials.zip)
+
 ## Quick reproduction from included data
 
 The numerical CPU environment uses CPython 3.13.5 on Windows 11. Keep assertions enabled; do not use Python `-O`.
