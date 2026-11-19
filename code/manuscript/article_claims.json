@@ -1,7 +1,7 @@
 {
   "article_pages": 29,
   "certificate_pages": 3,
-  "abstract_whitespace_words": 141,
+  "abstract_whitespace_words": 148,
   "introduction_paragraphs": 4,
   "results_subsections": 6,
   "figures": {
@@ -12,7 +12,7 @@
     "fig5_phase": "cc6576f4a186332ee1f8c89972bf1a9301af4b98da6d6dbe1a1473631a912bcd",
     "fig6_hardware": "c24dff41410753820d3fd69411c6484f14d844c233b3b8d2aa701676c6b9dde4"
   },
-  "article_sha256": "a745dea8999b26df65a7a2ea354b36da530fdd928ee34218599363b31b5fb1cc",
+  "article_sha256": "fd8c251b43b09f501d6767a0befc339094ca7a05bb9dbc1b5d346c6190c551a7",
   "audit_certificate_json_sha256": "62b6fca787188fe6dd571fdc33734b9b781bd8faa3de57da8ee3e08b0a0a5aeb",
   "primary_counts": {
     "32": {

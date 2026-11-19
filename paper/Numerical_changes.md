@@ -1,6 +1,6 @@
 # Numerical changes and sources
 
-The CSV includes the 18 November pre-submission edition and enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
+The CSV includes the 19 November pre-submission edition and enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
 
 Paths below are relative to code/manuscript/revision in GitHub, or Gate_4/revision in Supplementary Software 1.
 
@@ -24,3 +24,5 @@ The diagnostic does not identify active-period noise variance or an impairment m
 | All 2,176 fixed-filter rates lie less than 1.41 × 10⁻¹² bit/s/Hz above their floors | Supplementary Table 8 Source Data, block action_fixed_filter_checks | Exact rational complex inner products, receiver powers and noise terms, followed by directed 75-digit logarithms and conversion to occupied-band units. |
 | Two-user continuous roots have maximum width 5.125483 × 10⁻¹⁵ bit/s/Hz | Supplementary Table 8 Source Data, block action_two_user_root_widths | Subtract the binary64 bounds in nats, then convert the width outwards. Subtracting separately displayed rates can change the last few bits. |
 | Four-user pricing gap persists on a neighbourhood | Supplementary Note 2 and Figure 2 Source Data, block fig2_channels | Exact four-user enumeration and linear-programming duality. Uniform score perturbations of size η move an S-edge feasible or relaxed optimum by at most Sη. |
+
+The 19 November wording brings the existing four-user result and the unchanged-schedule counts into the abstract. The 24–28% figures are medians of per-frame projected-floor/later-pilot-rate ratios. The joint residual counts are 1,583/1,614 (HUB) and 1,146/1,513 (LO), using the phase-invariant score rows underlying Supplementary Table 13. No simulation result or measurement changed in this revision.

@@ -1,13 +1,18 @@
 source_file,paragraph,occurrence,reported_token,context
-main_nature.tex,3,1,512,"osition identifies where the bound loses precision. On 512 simulated topologies with known channels, deterministic search gave median gaps of 0"
-main_nature.tex,3,2,0.061,"own channels, deterministic search gave median gaps of 0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the im"
-main_nature.tex,3,3,0.067,"ls, deterministic search gave median gaps of 0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the improvement "
-main_nature.tex,3,4,32,"earch gave median gaps of 0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the improvement came from tighte"
-main_nature.tex,3,5,64,"ave median gaps of 0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the improvement came from tightening th"
-main_nature.tex,3,6,18,"aps of 0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the improvement came from tightening the bound. Lea"
-main_nature.tex,3,7,80,"0.061 and 0.067 bit/s/Hz for 32 and 64 users in 18 and 80 ms, respectively. Most of the improvement came from tightening the bound. Learned pr"
-main_nature.tex,3,8,24,e median ratio of the floor to the later-pilot rate to 24--28\%. Residual coverage fell below nominal in the local-clock recording. \end{abstr
-main_nature.tex,3,9,-28,edian ratio of the floor to the later-pilot rate to 24--28\%. Residual coverage fell below nominal in the local-clock recording. \end{abstract}
+main_nature.tex,3,1,512,"ces leave a gap in a four-user fixed-power example. On 512 simulated topologies with known channels, deterministic search gave median upper bou"
+main_nature.tex,3,2,0.061,"nistic search gave median upper bounds on rate loss of 0.061 and 0.067 bit/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospec"
+main_nature.tex,3,3,0.067,"rch gave median upper bounds on rate loss of 0.061 and 0.067 bit/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospectively, th"
+main_nature.tex,3,4,32,"er bounds on rate loss of 0.061 and 0.067 bit/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospectively, the tightest of se"
+main_nature.tex,3,5,64,"ds on rate loss of 0.061 and 0.067 bit/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospectively, the tightest of seven cei"
+main_nature.tex,3,6,18,"067 bit/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospectively, the tightest of seven ceilings certified 395 and 426 unc"
+main_nature.tex,3,7,80,"/s/Hz for 32 and 64 users, with median times of 18 and 80 ms. Retrospectively, the tightest of seven ceilings certified 395 and 426 unchanged "
+main_nature.tex,3,8,395,"rospectively, the tightest of seven ceilings certified 395 and 426 unchanged zero-price schedules within 0.15 bit/s/Hz of optimality. Learned p"
+main_nature.tex,3,9,426,"vely, the tightest of seven ceilings certified 395 and 426 unchanged zero-price schedules within 0.15 bit/s/Hz of optimality. Learned prices sh"
+main_nature.tex,3,10,0.15,fied 395 and 426 unchanged zero-price schedules within 0.15 bit/s/Hz of optimality. Learned prices showed no clear advantage over longer determi
+main_nature.tex,3,11,24,"n ratios of projected floors to later-pilot rates were 24--28\%. Joint residual coverage, nominally 95\%, was 75.74\% in the local-clock recor"
+main_nature.tex,3,12,-28,"atios of projected floors to later-pilot rates were 24--28\%. Joint residual coverage, nominally 95\%, was 75.74\% in the local-clock recording"
+main_nature.tex,3,13,95,"ates were 24--28\%. Joint residual coverage, nominally 95\%, was 75.74\% in the local-clock recording. \end{abstract}"
+main_nature.tex,3,14,75.74,"24--28\%. Joint residual coverage, nominally 95\%, was 75.74\% in the local-clock recording. \end{abstract}"
 main_nature.tex,7,1,1,s and successive recorded pilots~. Supplementary Table~1 compares the closest formulations.
 main_nature.tex,10,1,2,"We consider \(K=2S\) single-antenna users and \(S\) tones. Each user transmits on one tone, and two us"
 main_nature.tex,12,1,2,ne term for the delivered matching (Supplementary Note~2).
@@ -374,8 +379,8 @@ results_continued.tex,17,13,6.76,"or fraction frame by frame gave medians of 17.
 results_continued.tex,17,14,1.153,"5\% and 6.76\%. Vector-to-projected radius ratios were 1.153 and 1.145, compared with 2.144 in the Gaussian benchmark. Median widths using the pr"
 results_continued.tex,17,15,1.145,"76\%. Vector-to-projected radius ratios were 1.153 and 1.145, compared with 2.144 in the Gaussian benchmark. Median widths using the projected fl"
 results_continued.tex,17,16,2.144,"cted radius ratios were 1.153 and 1.145, compared with 2.144 in the Gaussian benchmark. Median widths using the projected floor were 23.075 and 2"
-results_continued.tex,17,17,23.075,"enchmark. Median widths using the projected floor were 23.075 and 26.830 bit/s/Hz. Every floor held. On LO, however, both residuals fell within th"
-results_continued.tex,17,18,26.830,"edian widths using the projected floor were 23.075 and 26.830 bit/s/Hz. Every floor held. On LO, however, both residuals fell within their calibra"
+results_continued.tex,17,17,23.075,enchmark. Median widths using the projected floor were 23.075 and 26.830 bit/s/Hz. On every test frame the stored action's later-pilot rate met it
+results_continued.tex,17,18,26.830,edian widths using the projected floor were 23.075 and 26.830 bit/s/Hz. On every test frame the stored action's later-pilot rate met its floor. On
 results_continued.tex,17,19,70.26,h residuals fell within their calibrated radii in only 70.26\% of frames against a nominal 95\%. The slack in the rate bound was sufficient to ke
 results_continued.tex,17,20,95,ated radii in only 70.26\% of frames against a nominal 95\%. The slack in the rate bound was sufficient to keep the floors valid in this recor
 results_continued.tex,18,1,0.0419,"Median absolute phase rotations were 0.0419 rad on HUB (IQR 0.0200--0.0712) and 0.2599 rad on LO (0.2331--0.2863), equivalent to"
@@ -402,33 +407,48 @@ results_continued.tex,19,7,4.564," and 111.72. Median projected floors rose to 6
 results_continued.tex,19,8,27.51,"ian projected floors rose to 6.028 and 4.564 bit/s/Hz (27.51\% and 24.46\% of paired later rates), with vector floors of 4.155 and 2.514. Median "
 results_continued.tex,19,9,24.46,"d floors rose to 6.028 and 4.564 bit/s/Hz (27.51\% and 24.46\% of paired later rates), with vector floors of 4.155 and 2.514. Median widths using"
 results_continued.tex,19,10,4.155," 24.46\% of paired later rates), with vector floors of 4.155 and 2.514. Median widths using the projected floor narrowed to 20.421 and 22.246 bit"
-results_continued.tex,19,11,2.514,"f paired later rates), with vector floors of 4.155 and 2.514. Median widths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. Flo"
-results_continued.tex,19,12,20.421,"4. Median widths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. Floor and interval coverage remained 100\%, while joint residua"
-results_continued.tex,19,13,22.246,"idths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. Floor and interval coverage remained 100\%, while joint residual coverage "
-results_continued.tex,19,14,100," 22.246 bit/s/Hz. Floor and interval coverage remained 100\%, while joint residual coverage was 98.08\% on HUB and 75.74\% on LO (Fig.~c,d; Sup"
-results_continued.tex,19,15,98.08,"rage remained 100\%, while joint residual coverage was 98.08\% on HUB and 75.74\% on LO (Fig.~c,d; Supplementary Table~13). Thus phase-invariant "
-results_continued.tex,19,16,75.74,", while joint residual coverage was 98.08\% on HUB and 75.74\% on LO (Fig.~c,d; Supplementary Table~13). Thus phase-invariant calibration raised "
-results_continued.tex,19,17,13,"n HUB and 75.74\% on LO (Fig.~c,d; Supplementary Table~13). Thus phase-invariant calibration raised the floor in both recordings, while residu"
-results_continued.tex,19,18,90,minal. Exhaustive fixed-equal-power enumeration of all 90 early-input schedules remained within median ceiling excesses of \(3.33\times10^{-5}
-results_continued.tex,19,19,3.33,schedules remained within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers 
-results_continued.tex,19,20,0,emained within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.
-results_continued.tex,19,21,-5,ined within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 o
-results_continued.tex,19,22,6.86,median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.
-results_continued.tex,19,23,0,ing excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO
-results_continued.tex,19,24,-5," excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, fa"
-results_continued.tex,19,25,18.40,"{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectiv"
-results_continued.tex,19,26,121.62,"Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above t"
-results_continued.tex,19,27,12.25,"HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above the independent-noise prediction of two. Agains"
-results_continued.tex,19,28,43.95,"1.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above the independent-noise prediction of two. Against mean ear"
-results_continued.tex,19,29,1,"-noise prediction of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both "
-results_continued.tex,19,30,256.87,"oise prediction of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-"
-results_continued.tex,19,31,1,"tion of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-depend"
-results_continued.tex,19,32,074.46,"on of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent err"
-results_continued.tex,19,33,-20.11,"f 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent error and underestimated pilot-period noi"
-results_continued.tex,19,34,-13.88,"1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent error and underestimated pilot-period noise could explai"
-results_continued.tex,19,35,13,red pairs cannot distinguish them (Supplementary Table~13).
+results_continued.tex,19,11,2.514,"f paired later rates), with vector floors of 4.155 and 2.514. Median widths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. The"
+results_continued.tex,19,12,20.421,4. Median widths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. The combined interval contained the later-pilot rate of the sto
+results_continued.tex,19,13,22.246,idths using the projected floor narrowed to 20.421 and 22.246 bit/s/Hz. The combined interval contained the later-pilot rate of the stored schedul
+results_continued.tex,19,14,98.08,"e. Both residuals lay within their calibrated radii on 98.08\% of HUB frames and 75.74\% of LO frames (Fig.~c,d; Supplementary Table~13). This te"
+results_continued.tex,19,15,75.74,"in their calibrated radii on 98.08\% of HUB frames and 75.74\% of LO frames (Fig.~c,d; Supplementary Table~13). This tests the stored action; nei"
+results_continued.tex,19,16,13,"nd 75.74\% of LO frames (Fig.~c,d; Supplementary Table~13). This tests the stored action; neither the optimal rate nor decoded throughput was "
+results_continued.tex,19,17,90,erved. Exhaustive fixed-equal-power enumeration of all 90 early-input schedules remained within median ceiling excesses of \(3.33\times10^{-5}
+results_continued.tex,19,18,3.33,schedules remained within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers 
+results_continued.tex,19,19,0,emained within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.
+results_continued.tex,19,20,-5,ined within median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 o
+results_continued.tex,19,21,6.86,median ceiling excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.
+results_continued.tex,19,22,0,ing excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO
+results_continued.tex,19,23,-5," excesses of \(3.33\times10^{-5}\) and \(6.86\times10^{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, fa"
+results_continued.tex,19,24,18.40,"{-5}\) bit/s/Hz. Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectiv"
+results_continued.tex,19,25,121.62,"Mean per-entry difference powers were 18.40 on HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above t"
+results_continued.tex,19,26,12.25,"HUB and 121.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above the independent-noise prediction of two. Agains"
+results_continued.tex,19,27,43.95,"1.62 on LO, falling after phase alignment to 12.25 and 43.95, respectively, still above the independent-noise prediction of two. Against mean ear"
+results_continued.tex,19,28,1,"-noise prediction of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both "
+results_continued.tex,19,29,256.87,"oise prediction of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-"
+results_continued.tex,19,30,1,"tion of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-depend"
+results_continued.tex,19,31,074.46,"on of two. Against mean early powers of 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent err"
+results_continued.tex,19,32,-20.11,"f 1,256.87 and 1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent error and underestimated pilot-period noi"
+results_continued.tex,19,33,-13.88,"1,074.46, these aligned residuals are \(-20.11\) and \(-13.88\) dB. Both signal-dependent error and underestimated pilot-period noise could explai"
+results_continued.tex,19,34,13,red pairs cannot distinguish them (Supplementary Table~13).
 results_continued.tex,20,1,14,erlap measurements are reported in Supplementary Table~14 and Supplementary Fig.~8. These data describe user separation at a fixed array and c
 results_continued.tex,20,2,8,orted in Supplementary Table~14 and Supplementary Fig.~8. These data describe user separation at a fixed array and complement experiments tha
+results_continued.tex,21,1,1,"ts.}{\textbf{a}, Solid curves show the fraction of all 1,873 post-prefix frames with an early-input certificate below the indicated gap withi"
+results_continued.tex,21,2,873,".}{\textbf{a}, Solid curves show the fraction of all 1,873 post-prefix frames with an early-input certificate below the indicated gap within 25"
+results_continued.tex,21,3,250,early-input certificate below the indicated gap within 250 ms. Dashed curves show the early ceiling minus the exhaustive 90-schedule fixed-equa
+results_continued.tex,21,4,90,"hed curves show the early ceiling minus the exhaustive 90-schedule fixed-equal-power optimum, without a timing cutoff. All curves retain abste"
+results_continued.tex,21,5,0.30,"rves retain abstentions in the denominator; gaps above 0.30 lie outside the displayed range. \textbf{b}, Later-LTS rate of the stored action min"
+results_continued.tex,21,6,1,"he stored action minus its uncalibrated early floor on 1,870 HUB and 1,769 LO eligible frames; the two LTS windows begin 16~$\mu$s apart. \te"
+results_continued.tex,21,7,870," stored action minus its uncalibrated early floor on 1,870 HUB and 1,769 LO eligible frames; the two LTS windows begin 16~$\mu$s apart. \textbf"
+results_continued.tex,21,8,1,"on minus its uncalibrated early floor on 1,870 HUB and 1,769 LO eligible frames; the two LTS windows begin 16~$\mu$s apart. \textbf{c}, The f"
+results_continued.tex,21,9,769," minus its uncalibrated early floor on 1,870 HUB and 1,769 LO eligible frames; the two LTS windows begin 16~$\mu$s apart. \textbf{c}, The first"
+results_continued.tex,21,10,16,"nd 1,769 LO eligible frames; the two LTS windows begin 16~$\mu$s apart. \textbf{c}, The first two measures compare the stored action's later-p"
+results_continued.tex,21,11,95,"l inside their calibrated radii. The dotted line marks 95\%. \textbf{d}, Median projected floors and vector ceilings, with diamonds for later "
+results_continued.tex,21,12,1,"de and phase-aligned vector residuals. HUB and LO have 1,614 and 1,513 test frames; Supplementary Table~13 gives paired widths and floor frac"
+results_continued.tex,21,13,614," and phase-aligned vector residuals. HUB and LO have 1,614 and 1,513 test frames; Supplementary Table~13 gives paired widths and floor fraction"
+results_continued.tex,21,14,1,"se-aligned vector residuals. HUB and LO have 1,614 and 1,513 test frames; Supplementary Table~13 gives paired widths and floor fractions.}{fi"
+results_continued.tex,21,15,513,"-aligned vector residuals. HUB and LO have 1,614 and 1,513 test frames; Supplementary Table~13 gives paired widths and floor fractions.}{fig:hw"
+results_continued.tex,21,16,13," have 1,614 and 1,513 test frames; Supplementary Table~13 gives paired widths and floor fractions.}{fig:hw}"
 results_continued.tex,23,1,16,"On the simulated 16-antenna arrays, zero-price matching often selected a schedule close to the optimum. "
 results_continued.tex,25,1,64,"ish an advantage over either deterministic control. At 64 users, extra deterministic iterations gave the smaller median gap. The primary media"
 results_continued.tex,25,2,18,ve the smaller median gap. The primary median times of 18--80 ms also constrain how the method could be used. The channel must remain informat
@@ -461,7 +481,7 @@ methods.tex,4,2,2,"athcal H\), let \(\mathcal Q=\mathcal H\times[p_-,p_+]^2\) co
 methods.tex,4,3,2,"}        \bigl\{q_{e,s}(a,b;h')-\lambda(a+b)\bigr\},\\[2pt]  V(h)&\leq\lambda P+D(H)\leq\lambda P+\sum_{s=1}^{S}\beta_s+M(w). \end{aligned}  "
 methods.tex,4,4,1,",\\[2pt]  V(h)&\leq\lambda P+D(H)\leq\lambda P+\sum_{s=1}^{S}\beta_s+M(w). \end{aligned}  \end{equation} For the first rate inequality in equ"
 methods.tex,5,1,2,es each vertex once and contains at most \(\lfloor |B|/2\rfloor\) edges inside \(B\). Summing the inequalities thus bounds its weight by \(\s
-methods.tex,5,2,2,t by \(\sum_i\alpha_i+\sum_{B\in\mathcal B}\lfloor |B|/2\rfloor z_B\). Equality with the proposed matching certifies optimality. When this wi
+methods.tex,5,2,2,t by \(\sum_i\alpha_i+\sum_{B\in\mathcal B}\lfloor |B|/2\rfloor z_B\). Equality certifies that the proposed matching maximizes the priced edg
 methods.tex,6,1,2,"\subsection*{Theorem 2: label conflict and four-term accounting} Let \(m_\beta\) attain \(M(w)\), \(R_\beta"
 methods.tex,6,2,0,"\) is an upper bound, \begin{equation} \begin{aligned} 0 &\le R_\beta-D(H)\le\dc=R_\beta-A_\beta,\\ \dc &=\sum_{e\in m_\beta}\bigl(w_e-H_{e,s"
 methods.tex,6,3,4,"two orthogonal disjoint matchings imply lower bounds \(4\ln2\pm(\beta_2-\beta_1)\) on \(R_\beta\). No edge can earn more than \(2\ln2\), so e"

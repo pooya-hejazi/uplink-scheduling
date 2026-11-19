@@ -1,6 +1,6 @@
 # Scientific revision record
 
-**Bounding the rate loss of individual paired wireless uplink schedules** by Pooya Hejazi and Masoud Sabaei. The 18 November 2026 edition for *Nature Computational Science* contains 3,444 main-text words, a 141-word abstract, 4,895 Online Methods words, six main figures, seven supplementary notes, sixteen supplementary tables, eight supplementary figures and 51 references. Counts include mathematical notation and headings.
+**Bounding the rate loss of individual paired wireless uplink schedules** by Pooya Hejazi and Masoud Sabaei. The 19 November 2026 edition for *Nature Computational Science* contains 3,487 main-text words, a 148-word abstract, 4,912 Online Methods words, six main figures, seven supplementary notes, sixteen supplementary tables, eight supplementary figures and 51 references. Counts include mathematical notation and headings.
 
 Figures 1–3 illustrate the receive array, the exact four-user construction and directional channel error. Figure 5 distinguishes the optimum-to-floor shortfall from the loss of the deployed decision. All figure geometry and plotted values can be regenerated from the supplied code.
 

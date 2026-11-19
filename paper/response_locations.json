@@ -1,27 +1,27 @@
 {
-  "pdf_sha256": "a745dea8999b26df65a7a2ea354b36da530fdd928ee34218599363b31b5fb1cc",
+  "pdf_sha256": "fd8c251b43b09f501d6767a0befc339094ca7a05bb9dbc1b5d346c6190c551a7",
   "locations": {
     "abstract": {
       "page_start": 1,
       "page_end": 1,
       "line_start": 21,
-      "line_end": 32,
+      "line_end": 33,
       "anchor_start": "We derive a per-channel bound",
       "anchor_end": "in the local-clock recording"
     },
     "noise": {
       "page_start": 7,
       "page_end": 7,
-      "line_start": 315,
-      "line_end": 320,
+      "line_start": 316,
+      "line_end": 321,
       "anchor_start": "Mean per-entry difference powers",
       "anchor_end": "these stored pairs cannot distinguish them"
     },
     "limitation": {
       "page_start": 8,
       "page_end": 8,
-      "line_start": 353,
-      "line_end": 355,
+      "line_start": 354,
+      "line_end": 356,
       "anchor_start": "If quiet-slot variance understates",
       "anchor_end": "appropriate noise model"
     },

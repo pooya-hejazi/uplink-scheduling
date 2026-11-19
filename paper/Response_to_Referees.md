@@ -2,7 +2,7 @@
 
 **Bounding the rate loss of individual paired wireless uplink schedules**
 
-This response addresses the supplied technical review. The current Article contains 3,444 main-text words and a 141-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.
+This response addresses the supplied technical review. The current Article contains 3,487 main-text words and a 148-word abstract by a conservative count including mathematical notation. The original confirmatory experiment and the subsequent exploratory analyses are identified in the Article.
 
 Locations below use the printed Article PDF margin ruler, not LaTeX source lines. Supplementary locations refer to its printed page numbers.
 
@@ -26,7 +26,7 @@ The single-projection magnitude residual, before frame maximization, has median 
 
 The raw mean powers exceed the independent unit-variance pilot-noise prediction of two; phase alignment does not reduce them to that scale. Modest relative errors on large quiet-slot-normalized channel powers can therefore coexist with large absolute residuals. The pairs do not identify whether the excess comes from signal-dependent distortion, synchronization/window leakage, correlated errors or underestimation of pilot-period noise. We state that hardware rates depend on the frozen quiet-slot noise metric. If it understates active-period noise and distortion, rates are optimistic and gaps, pass fractions and floor ratios require recalculation. We do not call all rates unconditional upper bounds: these data do not estimate the active-period variance or establish a correction factor. The limitation is stated in Results, Discussion and Supplementary Note 6.
 
-**Locations.** Article pp. 7, lines 315–320; Article pp. 8, lines 353–355; Supplementary Table 13 and Note 6, pp. 26–27.
+**Locations.** Article pp. 7, lines 316–321; Article pp. 8, lines 354–356; Supplementary Table 13 and Note 6, pp. 26–27.
 
 ## T2
 
@@ -37,9 +37,9 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 > - "No significant benefit" is accurate, but with only four or five discordant topologies the test could hardly reach 0.05. "Was not established" is the more careful wording, and the Discussion already uses it.
 > - Results now compress pairs of values with slashes ("0.0549/0.0645 bit/s/Hz", "32/64-user", "HUB/LO", "1.080005/0.867040"). Write these out ("… and …, respectively"). In the O1 sentence, three partition depths are followed by two values; make clear that 16 children is the baseline.
 
-**Response.** The 141-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It describes the ceiling, the four-term accounting and the limited evidence for an improvement from learned prices at comparable compute budgets. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.
+**Response.** The 148-word abstract identifies the paired uplink, the linear receiver and its treatment of interference. It states the fixed-power four-user result, distinguishes timed upper bounds on rate loss from retrospective certification of unchanged schedules, and reports the observed residual coverage on recorded pilots. The Results and Methods retain the four-term accounting. The O1 comparison reports the 16-, 64- and 256-child values for the local contribution and the full gap. Figure 4d gives both iteration budgets.
 
-**Locations.** Article pp. 1, lines 021–032; Article pp. 6, lines 245–256; Supplementary Table 10, p. 20.
+**Locations.** Article pp. 1, lines 021–033; Article pp. 6, lines 245–256; Supplementary Table 10, p. 20.
 
 ## T3
 
@@ -74,7 +74,7 @@ The raw mean powers exceed the independent unit-variance pilot-noise prediction 
 
 **Response.** 1. The native generator passes spec_version='19.2' to both CDL and UMa. The documented environment specifies Sionna 2.2.0. The saved generation log reports channel counts and contains no patch-version banner.
 
-2. Online Methods contains 4,895 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
+2. Online Methods contains 4,912 whitespace-delimited words including notation. The detailed solver and decoding records are in Supplementary Notes 4–7.
 
 3. The compiled supplementary tables were checked for layout. The simulation controls, geometry and phase diagnostics retain separate labels and units.
 
