@@ -61,6 +61,8 @@ def main():
         ('supplementary_materials', 'Supplementary_Information.tex', 'previous_Supplementary_Information.tex', 'Supplementary_Information_diff')]:
         target = submission/directory
         old = (baseline/previous).read_text(encoding='utf-8')
+        if directory == 'paper' and old.startswith('% Generated from the editable ') and old.splitlines()[1].startswith(r'\documentclass'):
+            old = old.split('\n', 1)[1]
         current_text = (target/current).read_text(encoding='utf-8')
         replacements = {}
         if directory == 'paper':
