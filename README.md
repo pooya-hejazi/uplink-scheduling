@@ -2,15 +2,15 @@
 
 **[Pooya Hejazi](https://github.com/pooya-hejazi) is the repository author and maintainer.** Please direct questions about the code, datasets and reproduction to him.
 
-This public repository contains the code and Source Data for the Article by **Pooya Hejazi and Masoud Sabaei**, prepared for *Nature Computational Science*. Scientific correspondence is specified in the Article.
+The Article by **Pooya Hejazi and Masoud Sabaei** is prepared for *Communications Engineering*. Masoud Sabaei is the corresponding author. This repository contains the research code, measurements derived from the recordings, and the figures and tables used in the Article. [Article PDF](paper/main.pdf) · [Supplementary Information](supplementary_materials/Supplementary_Information.pdf) · [Source Data](data/Source_Data.zip)
 
 ## Contents
 
 | Directory | Contents |
 |---|---|
 | `code/` | All executable research/document code; one entry point, `run.py` |
-| `paper/` | Article, source, six figures, exact referee response, marked changes and numerical-change ledger |
-| `supplementary_materials/` | Scientific supplement, marked changes and eight supplementary figures |
+| `paper/` | Current Article, source, six figures and numerical-change ledger. The earlier response and marked documents are retained as historical material. |
+| `supplementary_materials/` | Scientific supplement, its source, eight supplementary figures and the earlier marked version |
 | `data/` | Annotated [Source Data](data/Source_Data.zip), input archive names, sizes and SHA-256 digests |
 
 Source modules under `code/` are grouped as `mathematics`, `channel_models`, `schedulers`, `experiments`, `manuscript` and `document_tools`. **Run every command below from the same `code` directory.** Original identifiers within immutable inputs preserve their provenance; they are not repository folders.
@@ -34,7 +34,7 @@ python run.py figures
 
 These commands verify exact mathematical fixtures and archived audit records, recalculate scalar summaries/tables and regenerate all six main figures. No GPU or source recordings are needed. Figure outputs are in `code/manuscript/figures/` and `results/figures/`. Generated-file bytes may differ across plotting/TeX versions; numerical CSVs and hashes identify the supplied edition. Use a working copy when regenerating files covered by the manifest.
 
-The main text has 3,487 words and the abstract has 148. The separate Online Methods section has 4,912 words. Counts include TeX notation. The supplement has seven notes, sixteen tables, eight figures and the Article's 51 references. `paper/Numerical_changes.md` maps numerical changes to exact data sources; its CSV enumerates numeric occurrences in changed text blocks, including retained numbers in rewritten passages.
+The Article contains six figures. The supplement contains seven notes, sixteen numbered tables, eight figures and 51 references. Table 13a reports paired-pilot results. Table 13b reports hard decisions on the recorded six-user data. The numerical-change ledger identifies the source of each new measurement. [Ledger](paper/Numerical_changes.md)
 
 ## Complete experiment inputs
 
@@ -66,6 +66,7 @@ python run.py round2-refinement
 python run.py round2-small-reference
 python run.py round3-bounds
 python run.py verify-action-rates
+python run.py seven-method-cost
 python run.py supplementary-figures
 ```
 
@@ -84,13 +85,32 @@ Install Tectonic; use Perl and latexdiff for marked changes. From `code`:
 ```sh
 python run.py build-paper --tectonic PATH_TO_TECTONIC
 python run.py build-supplement --tectonic PATH_TO_TECTONIC
-python run.py build-response --tectonic PATH_TO_TECTONIC
-python run.py build-diffs --tectonic PATH_TO_TECTONIC --perl PATH_TO_PERL --latexdiff PATH_TO_LATEXDIFF
 ```
 
 Add `--only-cached` for offline TeX builds after its resources have been cached. The builders update `paper/` and `supplementary_materials/`. The Source Data archive at `data/Source_Data.zip` has one annotated file for each of the six main figures, eight supplementary figures and sixteen supplementary tables, plus exact fixtures, README and checksums.
 
-The response quotes T1–T5 verbatim. Locations refer to **printed PDF margin lines**, and supplementary locations to printed pages. Its location map is recalculated if the Article PDF changes. Marked PDFs compare against the archived preceding submission, identified in `paper/marked_changes/README.md`; changed supplementary tables show full previous and revised versions to preserve alignment.
+The supplied T1–T5 response, line references, numerical-occurrence CSV and marked PDFs document the preceding edition. Their original paper and source remain available at [commit 98874b4](https://github.com/pooya-hejazi/uplink-scheduling/tree/98874b4e66491251c2e403de38c22e9ef3bfdf78). To reproduce those historical documents, run the response and diff builders at that commit.
+
+## Six-user receiver and timing results
+
+Each Rice distributed chain-A recording has six transmitters sharing one data slot. The first 512 frames were reserved for amplitude calibration. The receiver scored 1,488 of the 1,489 subsequent frames per recording. Frame 2,000 contained zero samples. Each user contributed 714,240 QPSK symbols or 1,428,480 uncoded bits. Each clock configuration contributed one acquisition.
+
+| Clock | Symbol errors / 4,285,440 | Bit errors / 8,570,880 | BER | Pooled RMS EVM |
+|---|---:|---:|---:|---:|
+| HUB | 4,717 | 5,084 | 0.0593% | 19.97% |
+| LO | 2,593,589 | 3,182,737 | 37.13% | 163.92% |
+
+Obtain a source HDF5 and the accompanying files beginning with `ul_data_b_`, `ul_data_f_` and `ul_data_t_` for users 0–5 from the Rice collection. The capture names are in Supplementary Note 6. The receiver verifies the acquisition SHA-256, the frequency-bin order, the constellation labels and a synthetic zero-noise control. The CSVs contain per-user counts, squared errors and reference energies. The JSON files identify the transmitter-reference digests and calibration gains. These commands accept source files directly. [Rice collection](https://renew.rice.edu/dataset-distributed.html) · [Control records](code/manuscript/revision/payload_data) · [Per-user Fig. 6 data](code/manuscript/source_data)
+
+```sh
+python run.py hardware-payload --mode HUB --capture /path/to/hub-chain-A.hdf5 --references /path/to/HUB-sidecars
+python run.py hardware-payload --mode LO --capture /path/to/lo-chain-A.hdf5 --references /path/to/LO-sidecars
+python run.py lo-alignment --capture /path/to/lo-chain-A.hdf5
+```
+
+The separate LO timing sensitivity uses the original four calibration frames and the original pilot energy criterion. Extending its search limits from ±64 to ±96 or ±128 samples moved the sixth user's selected offset from +64 to −94. The six-user data receiver used its fixed common FFT offset throughout. The recordings contain no packet or CRC log for the scheduler's two-user decisions.
+
+For the seven-ceiling comparison, the median sum of seven representative solver calls was 208.45 ms at 32 users and 1,429.72 ms at 64 users. Summing all fifteen archived calls gave 539.58 and 3,732.28 ms. The underlying calls were timed separately. The 395/512 and 426/512 counts apply the rate threshold alone. [Per-topology timings](code/manuscript/supplementary/data/seven_method_call_times.csv)
 
 ## Recorded-pilot replay
 

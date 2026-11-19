@@ -41,6 +41,12 @@ def collect():
     for filename,original in [('fig4_time_control','time_control_summary'),('fig4_paired_tests','time_control_paired_tests'),('fig5_decomposition_distribution','decomposition_distribution'),('fig5_integer_table_reference','integer_table_reference'),('fig6_phase_HUB','hardware_phase_HUB'),('fig6_phase_LO','hardware_phase_LO'),('fig6_comparison_HUB','hardware_comparison_HUB'),('fig6_comparison_LO','hardware_comparison_LO')]:
         path=dst/'revision/round2_data'/(original+'.csv')
         put(filename,pd.read_csv(path));files.append(path.relative_to(dst.parent).as_posix())
+    for mode in ('HUB', 'LO'):
+        files.extend([f'Gate_4/source_data/fig6_payload_{mode}.csv',
+                      f'Gate_4/supplementary/data/payload_frames_{mode}.csv',
+                      f'Gate_4/revision/payload_data/payload_controls_{mode}.json'])
+    files.extend(['Gate_4/supplementary/data/seven_method_call_times.csv',
+                  'Gate_4/supplementary/data/lo_alignment_sensitivity.csv'])
     (src/'input_sha256.txt').write_text(''.join(hashlib.sha256((dst.parent/p).read_bytes()).hexdigest()+'  '+p+'\n' for p in files))
 if '--collect' in sys.argv:collect()
 def data(n):return pd.read_csv(src/(n+'.csv'))
@@ -308,8 +314,9 @@ def phase():
     save(f,'fig5_phase')
 
 def hardware():
-    f,ax=two();a,b,c,d=ax.flat
-    for panel,letter in zip(ax.flat,'abcd'):title(panel,letter,'')
+    f,ax=plt.subplots(3,2,figsize=(7.03,6.95),layout='constrained',gridspec_kw={'wspace':.075,'hspace':.12})
+    a,b,c,d,e,g=ax.flat
+    for panel,letter in zip(ax.flat,'abcdef'):title(panel,letter,'')
     summaries=[]
     for j,(name,col) in enumerate([('HUB',navy),('LO',amber)]):
         old=data('fig6_'+name);valid=old[np.isfinite(old.G)];timely=valid[valid.ms<=250]
@@ -319,6 +326,11 @@ def hardware():
         dif=(valid.later_LTS_fixed_action_rate-valid.L_proxy).dropna().sort_values().to_numpy()
         b.step(dif,np.arange(1,len(dif)+1)/len(dif),where='post',color=col,label=name)
         comparison=data('fig6_comparison_'+name)
+        payload=data('fig6_payload_'+name)
+        marker='o' if name=='HUB' else 's'
+        offset=-.09 if name=='HUB' else .09
+        e.scatter(payload.user+offset,100*payload.ber,marker=marker,s=19,color=col,label=name)
+        g.scatter(payload.user+offset,payload.evm_rms_percent,marker=marker,s=19,color=col,label=name)
         for m,row in enumerate(comparison.itertuples()):
             y=2*j+m
             for offset,field,alpha in [(-.22,'floor_coverage',1),(0,'interval_coverage',.65),(.22,'joint_score_coverage',.3)]:
@@ -332,9 +344,19 @@ def hardware():
     a.axvline(.1,color=grey,ls=':',lw=1);a.set_xlim(0,.30);a.set_xlabel('Early-input gap (bit/s/Hz)');a.set_ylabel('Fraction of 1,873 frames');pct(a);tidy(a);a.legend(frameon=False,loc='lower right',fontsize=5.9)
     b.axvline(0,color=grey,ls=':',lw=1);b.set_xlabel('Later rate − early floor (bit/s/Hz)');b.set_ylabel('Fraction of eligible frames');pct(b);tidy(b);b.legend(frameon=False)
     c.set_xticks(range(4),['HUB\nraw','HUB\nphase','LO\nraw','LO\nphase']);c.set_ylabel('Observed test-frame fraction');pct(c);tidy(c);c.axhline(.95,color=grey,ls=':',lw=.7)
-    c.legend(handles=[patches.Patch(color=grey,alpha=v,label=l) for v,l in [(1,'Projected floor'),(.65,'Combined interval'),(.3,'Both residual events')]],frameon=False,fontsize=6,loc='lower center')
+    c.legend(handles=[patches.Patch(color=grey,alpha=v,label=l) for v,l in [(1,'Projected floor'),(.65,'Combined interval'),(.3,'Both residual events')]],
+             frameon=True,facecolor='white',edgecolor='none',framealpha=.95,fontsize=6,loc='lower center')
     d.set_yticks(range(4),['HUB raw','HUB phase','LO raw','LO phase']);d.set_ylim(3.65,-.6);d.set_xlim(left=0);d.set_xlabel('Median rate endpoint (bit/s/Hz)');tidy(d,'x')
     d.scatter([],[],marker='D',color=ink,label='Later rate');d.scatter([],[],marker='^',color=grey,label='Vector floor');d.legend(frameon=False,fontsize=5.8,loc='lower center',ncol=2)
+    for axis,ylabel in ((e,'Uncoded bit error rate (%)'),(g,'RMS error vector magnitude (%)')):
+        axis.set(xticks=range(6),xlabel='User in six-user transmission',ylabel=ylabel)
+        tidy(axis)
+    e.set_yscale('log')
+    e.set_ylim(.001,100)
+    e.set_yticks([.001,.01,.1,1,10,100],['0.001','0.01','0.1','1','10','100'])
+    e.legend(frameon=False,loc='center right')
+    g.set_ylim(bottom=0)
+    g.legend(frameon=False,loc='upper left')
     save(f,'fig6_hardware')
 if __name__=='__main__':
     for fn in (pipes,conflict,uncertainty,scaling,phase,hardware):fn()

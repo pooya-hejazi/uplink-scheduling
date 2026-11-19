@@ -61,15 +61,32 @@ def run(script,args=(),cwd=None):
 def main():
     tasks=['verify-math','verify-records','verify-inputs','prepare','figures','supplementary-figures','reviewer-rates','reviewer-decomposition','reviewer-refinement','reviewer-compute','hardware-decode','hardware-evaluate','round2-summary','round2-time-pilot','round2-time-control','round2-refinement','round2-small-reference','round2-hardware','build-paper','build-supplement','build-response','build-diffs','build-native','verify-scheduler','generate-training','train','confirmatory-test','summarize']
     tasks.extend(['round2-check', 'round3-hardware', 'round3-bounds', 'verify-action-rates'])
+    tasks.extend(['hardware-payload', 'lo-alignment', 'seven-method-cost'])
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('task',choices=tasks)
     parser.add_argument('--mode',choices=['HUB','LO'])
+    parser.add_argument('--capture', type=Path, help='Original Rice distributed chain-A HDF5 file')
+    parser.add_argument('--references', type=Path, help='Directory containing the six sets of transmitter reference files')
     parser.add_argument('--tectonic')
     parser.add_argument('--perl',default='perl')
     parser.add_argument('--latexdiff')
     parser.add_argument('--only-cached',action='store_true')
     a=parser.parse_args()
     manuscript=CODE/'manuscript'
+    if a.task in ('hardware-payload', 'lo-alignment'):
+        if a.capture is None:
+            parser.error(f'{a.task} requires --capture')
+        output = ROOT/'results'/'payload'
+        if a.task == 'hardware-payload':
+            if a.mode is None or a.references is None:
+                parser.error('hardware-payload requires --mode and --references')
+            run(CODE/'channel_models/rice_payload.py',
+                ['--mode', a.mode, '--capture', a.capture.resolve(), '--references', a.references.resolve(), '--output', output])
+        else:
+            output.mkdir(parents=True, exist_ok=True)
+            run(CODE/'channel_models/rice_alignment_sensitivity.py',
+                ['--capture', a.capture.resolve(), '--output', output/'lo_alignment_sensitivity.csv'])
+        return
     if a.task=='verify-math':run(CODE/'mathematics/verify_gate1.py');return
     if a.task=='verify-records':run(manuscript/'audit/issue.py',['verify']);return
     if a.task=='verify-inputs':verify_inputs();return
@@ -97,6 +114,11 @@ def main():
     if (a.task.startswith('hardware-') or a.task in ('round2-hardware','round3-hardware')) and a.mode is None:parser.error('Hardware tasks require --mode HUB or --mode LO')
     prepare()
     if a.task=='prepare':return
+    if a.task=='seven-method-cost':
+        run(manuscript/'revision/seven_method_cost.py',
+            [WORK/'Gate_3/results', manuscript/'supplementary/data/reviewer_absolute_rates.csv',
+             ROOT/'results/seven_method_call_times.csv'])
+        return
     if a.task=='verify-action-rates':
         target = WORK/'Gate_4/revision'
         target.mkdir(parents=True, exist_ok=True)

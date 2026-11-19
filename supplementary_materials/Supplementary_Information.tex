@@ -59,10 +59,10 @@ Johnstone and Cox~\cite{johnstone} & Robust optimization & Conformal ellipsoidal
 There are $K=2S$ users and $S$ labelled tones. A feasible decision partitions the users into $S$ unordered pairs, assigns those pairs bijectively to the tones, and chooses powers satisfying $p_-\le p_i\le p_+$ and $\sum_i p_i\le P$, where $0<p_-\le p_+$ and $P\ge Kp_-$. Each user appears once. On tone $s$ carrying $e=\{i,j\}$, the noise-whitened observation is
 \begin{equation}
  y_s=\sqrt{p_i}h_{is}x_i+\sqrt{p_j}h_{js}x_j+n_s,
- \qquad \mathbb E[n_sn_s^H]=I_N.
+ \qquad n_s\sim\mathcal{CN}(0,I_N).
  \label{supp:observation}
 \end{equation}
-The Gaussian symbols are independent with unit variance. Each user has a separate linear combiner and treats its partner as interference. All sums below are in aggregate nats. Dividing by $S\ln2$ gives the rate per occupied bandwidth in bit/s/Hz used in the Article.
+The user symbols are independent, unit-variance proper complex Gaussian variables. The proper complex Gaussian noise is independent of both symbols. Each user has a separate linear combiner and treats its partner as interference. All sums below are in aggregate nats. Dividing by $S\ln2$ gives the rate per occupied bandwidth in bit/s/Hz used in the Article.
 
 For a nonzero combiner $v$, set $B_i=I_N+p_jh_{js}h_{js}^H$, which is positive definite. Cauchy--Schwarz gives
 \begin{equation}
@@ -805,7 +805,7 @@ $K$ & Method & $L$ & $U$ & $U_{\rm best}$ & Retained (\%)\\
 64 & Network only & 15.4015 & 15.5230 & 15.4897 & 99.388\\
 \bottomrule\end{tabular}
 \par\medskip\begin{minipage}{\linewidth}\small
-The three matching controls share the same starting pairs and four power-refinement steps. They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on 0, 0 and 0 of 512 topologies using its own ceiling, and on 408, 395 and 426 using the common ceiling. These paired comparisons use rate alone. Supplementary Table 6 Source Data gives the counts by profile.
+The three matching controls share the same starting pairs and four power-refinement steps. They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on 0, 0 and 0 of 512 topologies using its own ceiling, and on 408, 395 and 426 using the common ceiling. These paired comparisons use rate alone. At 32 and 64 users, the median sums of seven representative call times were 208.45 and 1,429.72 ms. Summing all 15 archived calls gave medians of 539.58 and 3,732.28 ms. Source Data gives the counts by profile and both timing sums for each topology.
 \end{minipage}
 \end{table}
 
@@ -1091,7 +1091,7 @@ streams, using repetitions indexed 1 through 8. Equal scores prefer the
 smallest absolute shift. HUB shifts are $(0,-6,-6,-8,-4,-2)$ samples and LO
 shifts are $(-12,-10,-10,-16,-10,64)$. The same shift applies to both windows,
 which remain disjoint. The LO sixth-user shift reaches the search boundary,
-an observable limitation of this alignment rule.
+so we repeated the prefix-only search on its four calibration frames (64, 72, 80 and 88). With even offsets up to $\pm96$ or $\pm128$ samples, the largest log energy ratio was 4.8531 at $-94$ samples, compared with 4.8417 at $+64$. The two offsets differ by 158 samples, close to two 80-sample pilot periods. The wider search changes the selected window for little gain in this criterion (0.050 dB). It does not identify a physical delay. The paired-pilot analysis retains its original offsets. The six-user data receiver uses a separate common offset.
 
 Frames 0--127 form a reserved calibration prefix. Quality checks use frames
 $32,40,\ldots,120$ whose minimum six-user aggregate pilot/noise power ratio
@@ -1178,9 +1178,11 @@ The vector alignment minimizes separately for each user/tone; the diagnostic pha
 
 As a thermal-noise-only benchmark, independently drawn proper complex pilot errors of unit variance give difference variance two. A unit-filter projection then has tail probability \(\exp(-x^2/2)\); a union bound over 12 projections gives the 97.5\% threshold \(\sqrt{2\log(12/0.025)}=3.51391\). The expected maximum for 12 independent projections is 2.44453. Holding the observed early filters fixed and retaining correlations between projections, 16,384 Monte Carlo blocks per capture give expected maxima 2.44987 (HUB) and 2.44705 (LO), with Monte Carlo standard errors 0.00377 and 0.00378. This benchmark isolates noise and does not model the dependence of estimated filters on their noisy pilots, cross-stream noise correlation, or drift. The observed raw radii of 87.36 and 165.26 greatly exceed it. Removing phase sensitivity raises the floors, yet LO joint-event coverage remains 75.74\%, below nominal 95\%; its universal floor coverage is sustained by slack.
 
+\FloatBarrier
+\begingroup\renewcommand{\thetable}{\arabic{table}a}
 \begin{table}[htbp]\centering\small
 \setlength{\tabcolsep}{4pt}
-\caption{Chronological RENEW calibration: raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are bit/s/Hz; radii use whitened digital channel units. Percentages describe these recordings.}\label{supp:hardware_calibration}
+\caption{Chronological RENEW pilot calibration with raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are in bit/s/Hz. Channel radii use digital units after division by the quiet-slot standard deviation. Percentages describe these recordings.}\label{supp:hardware_calibration}
 \begin{tabular}{lllll}\toprule
 Quantity & HUB raw & HUB phase & LO raw & LO phase\\
 \midrule
@@ -1209,6 +1211,34 @@ The phase score uses projection-magnitude differences for $L_P$ and phase-aligne
 \end{minipage}
 \end{table}
 
+\endgroup
+\FloatBarrier
+\begin{table}[!htbp]\ContinuedFloat\renewcommand{\thetable}{\arabic{table}b}\centering\small
+\caption{Detection of the recorded six-user QPSK transmission. Each user contributed 714,240 scored symbols or 1,428,480 uncoded bits in each capture. User indices follow the transmitter filenames. SER and BER denote symbol and bit error rates. EVM is pooled root-mean-square error vector magnitude relative to the transmitted symbols.}
+\label{supp:payload}
+\begin{tabular}{llrrrrr}\toprule
+Clock & User & Symbol errors & Bit errors & SER (\%) & BER (\%) & EVM (\%)\\
+\midrule
+HUB & 0 & 706 & 744 & 0.0988 & 0.0521 & 22.81\\
+HUB & 1 & 230 & 240 & 0.0322 & 0.0168 & 16.56\\
+HUB & 2 & 885 & 929 & 0.1239 & 0.0650 & 23.63\\
+HUB & 3 & 2,607 & 2,837 & 0.3650 & 0.1986 & 28.43\\
+HUB & 4 & 269 & 314 & 0.0377 & 0.0220 & 11.29\\
+HUB & 5 & 20 & 20 & 0.0028 & 0.0014 & 10.19\\
+\midrule
+LO & 0 & 474,573 & 599,951 & 66.4445 & 41.9993 & 156.85\\
+LO & 1 & 459,133 & 572,502 & 64.2827 & 40.0777 & 150.92\\
+LO & 2 & 394,072 & 465,339 & 55.1736 & 32.5758 & 108.96\\
+LO & 3 & 502,837 & 649,250 & 70.4017 & 45.4504 & 220.12\\
+LO & 4 & 420,804 & 504,141 & 58.9163 & 35.2921 & 148.12\\
+LO & 5 & 342,170 & 391,554 & 47.9069 & 27.4105 & 177.68\\
+\bottomrule\end{tabular}
+\par\medskip\begin{minipage}{0.96\linewidth}\small
+The first 512 frames were reserved for amplitude calibration. The pilot screen retained 463 HUB and 453 LO calibration frames. Both captures supplied 1,488 of 1,489 test frames. In each, the final frame (index 2,000) contained no pilot or data samples and failed the six-user pilot check. All scored users shared the same frame denominator. Rotating the reference by one OFDM symbol gave pooled bit error rates of 50.28\% and 50.12\%, respectively. The frames are repeated observations from one capture per clock mode.
+\end{minipage}
+\end{table}
+
+\FloatBarrier
 \paragraph{Noise scale of the stored pilot differences.}
 We pooled the 1,614 HUB and 1,513 LO test frames, six users, 64 and 63
 retained streams, respectively, and three tones. This gives 1,859,328 HUB
@@ -1219,7 +1249,7 @@ We summarized both \(|h^{(1)}-h^{(0)}|^2\) and
 \(|e^{-\mathrm{i}\theta^*}h^{(1)}-h^{(0)}|^2\), with equal weight per entry.
 Their pooled means and medians, and
 \(10\log_{10}(\operatorname{mean}|\Delta h|^2/
-\operatorname{mean}|h^{(0)}|^2)\), appear in Supplementary Table~13.
+\operatorname{mean}|h^{(0)}|^2)\), appear in Supplementary Table~13a.
 The denominator is a pooled mean, not a mean of individual ratios.
 Stream-by-tone summaries and frame-level means accompany the Source Data.
 Projection quantiles pool 19,368 HUB and 18,156 LO individual terms
@@ -1276,7 +1306,7 @@ replication. Full-capture SHA-256 digests are
 HUB\quad\nolinkurl{aec556198de39208757fddc294af77d4f701d7a24b9f1feb3f1fdc09d36bc0d2}\\
 LO\quad\nolinkurl{e5fabc009dce96e527b6919ce744f0b41408f337e0d5334b8dadfa0f13699844}.
 \end{quote}
-We have one acquisition per distributed clock mode. Its frames, user subsets, RF chains and tones all belong to that acquisition. The recorded payload used all six users. For a schedule that transmits only the selected pair on each tone, the two disjoint LTS windows let us compare pilot-based rates, but provide no decoded payload measurement. Additional acquisitions would be needed to estimate population coverage or attribute the difference to the clock mode.
+We have one acquisition per distributed clock mode. Its frames, user subsets, RF chains and tones all belong to that acquisition. The recorded data slot carried all six users on each occupied data tone. Supplementary Table~\ref{supp:payload} reports symbol decisions for that transmission. The paired schedule could be evaluated only on the disjoint LTS windows. Additional acquisitions would be needed to estimate population coverage or attribute the difference to the clock mode.
 
 The separate CPU implementation reconstructed the full RENEW distributions from archived accepted-frame
 and abstention records. Its authenticated source spot check fetched frame 128

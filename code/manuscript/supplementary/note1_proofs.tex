@@ -5,10 +5,10 @@
 There are $K=2S$ users and $S$ labelled tones. A feasible decision partitions the users into $S$ unordered pairs, assigns those pairs bijectively to the tones, and chooses powers satisfying $p_-\le p_i\le p_+$ and $\sum_i p_i\le P$, where $0<p_-\le p_+$ and $P\ge Kp_-$. Each user appears once. On tone $s$ carrying $e=\{i,j\}$, the noise-whitened observation is
 \begin{equation}
  y_s=\sqrt{p_i}h_{is}x_i+\sqrt{p_j}h_{js}x_j+n_s,
- \qquad \mathbb E[n_sn_s^H]=I_N.
+ \qquad n_s\sim\mathcal{CN}(0,I_N).
  \label{supp:observation}
 \end{equation}
-The Gaussian symbols are independent with unit variance. Each user has a separate linear combiner and treats its partner as interference. All sums below are in aggregate nats. Dividing by $S\ln2$ gives the rate per occupied bandwidth in bit/s/Hz used in the Article.
+The user symbols are independent, unit-variance proper complex Gaussian variables. The proper complex Gaussian noise is independent of both symbols. Each user has a separate linear combiner and treats its partner as interference. All sums below are in aggregate nats. Dividing by $S\ln2$ gives the rate per occupied bandwidth in bit/s/Hz used in the Article.
 
 For a nonzero combiner $v$, set $B_i=I_N+p_jh_{js}h_{js}^H$, which is positive definite. Cauchy--Schwarz gives
 \begin{equation}

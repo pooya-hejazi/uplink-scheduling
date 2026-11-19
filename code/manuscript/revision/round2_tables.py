@@ -71,7 +71,13 @@ def build():
              'They give identical lower endpoints on each topology. Sequential equal-power uses 0.10 W per user. '
              'At 16, 32 and 64 users, the zero-price decision meets the 0.15-bit/s/Hz gap on '
              f'{own} of 512 topologies using its own ceiling, and on {counts} using the common ceiling. '
-             'These paired comparisons use rate alone. Supplementary Table 6 Source Data gives the counts by profile.')
+             'These paired comparisons use rate alone.')
+    cost = pd.read_csv(SUP/'data/seven_method_call_times.csv').groupby('users').median(numeric_only=True)
+    seven = cost.seven_call_sum_ms
+    full = cost.all_15_calls_ms
+    after += (f' At 32 and 64 users, the median sums of seven representative call times were {seven[32]:,.2f} and {seven[64]:,.2f} ms.'
+              f' Summing all 15 archived calls gave medians of {full[32]:,.2f} and {full[64]:,.2f} ms.'
+              ' Source Data gives the counts by profile and both timing sums for each topology.')
     table('reviewer_rates.tex',r'Native rates at 10 dB on 512 topologies per size. Rates are medians in bit/s/Hz. '
           r'$U_{\rm best}$ is the smallest verified ceiling across all seven methods on the same topology. '
           r'Retention is the median of $100 L/U_{\rm best}$. Across repeated calls each endpoint minimum is taken separately.',
@@ -166,7 +172,7 @@ def build():
         ('Single magnitude residual: median', 'projection_median', 'projection_median'),
         ('Single magnitude residual: 97.5th percentile', 'projection_q975', 'projection_q975')]:
         rows.append([label, *[f'{r[key]:.3f}' for r in scale for key in (rawkey, phasekey)]])
-    table('reviewer_hardware.tex', r'Chronological RENEW calibration: raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are bit/s/Hz; radii use whitened digital channel units. Percentages describe these recordings.', 'supp:hardware_calibration',
+    table('reviewer_hardware.tex', r'Chronological RENEW pilot calibration with raw complex differences and phase-invariant residuals. Each capture uses 256 calibration frames and rank 251, followed by 1,614 HUB or 1,513 LO test frames. Rates are in bit/s/Hz. Channel radii use digital units after division by the quiet-slot standard deviation. Percentages describe these recordings.', 'supp:hardware_calibration',
           ['Quantity', 'HUB raw', 'HUB phase', 'LO raw', 'LO phase'], rows,
           r'The phase score uses projection-magnitude differences for $L_P$ and phase-aligned vectors for $L_F,U_F$. The combined interval is $[\max(L_P,L_F),U_F]$; floor percentages are medians of paired $100L_P/R_{\rm later}$ ratios. Difference powers pool frames, users, retained streams and tones; ratios divide their mean by mean early power. Independent unit-variance pilot noise predicts raw mean power two. The single magnitude residual is phase invariant, so its quantiles repeat across raw/phase columns; it pools the 12 scheduled projections per test frame before maximization. Note~6 defines the normalization and its limits. Exhaustive fixed-equal-power early schedules give median ceiling excesses of $3.33\times10^{-5}$ (HUB) and $6.86\times10^{-5}$ (LO) bit/s/Hz, a discrete reference. LO fails nominal 95\% joint coverage under both scores; its rate floors hold through slack.')
     print('Round-two tables and scalar source data generated.')

@@ -42,7 +42,11 @@ def figures(text):
                 pos += 1
             args.append(text[begin:pos - 1])
         items.append(args)
-        text = text[:start] + text[pos:]
+        image = (r"\begin{figure}[!htbp]\centering" + "\n"
+                 + rf"\includegraphics[width=\linewidth,height=.72\textheight,keepaspectratio]{{figures/{args[0]}.pdf}}" + "\n"
+                 + rf"\par\smallskip\refstepcounter{{figure}}\label{{{args[3]}}}\textbf{{Fig.~\thefigure.}}" + "\n"
+                 + r"\end{figure}")
+        text = text[:start] + image + text[pos:]
     assert len(items) == 6 and len({item[3] for item in items}) == 6
     return text, items
 
@@ -74,9 +78,9 @@ def main():
     abstract = source.split(r"\begin{abstract}", 1)[1].split(r"\end{abstract}", 1)[0].strip()
     body = source.split(r"\end{abstract}", 1)[1].split(r"\end{document}", 1)[0]
     body, items = figures(body)
-    body = body.replace(r"\section*{Introduction}", "").replace(r"\section*{Methods}", r"\section*{Online Methods}")
+    body = body.replace(r"\section*{Discussion}", r"\FloatBarrier\section*{Discussion}")
     header = r"""\documentclass[lineno,pdflatex,sn-nature]{sn-jnl}
-\usepackage{graphicx,amsmath,amssymb,booktabs,xcolor}
+\usepackage{graphicx,amsmath,amssymb,booktabs,xcolor,placeins}
 \setcitestyle{super,comma,open={},close={}}
 \renewcommand{\bibnumfmt}[1]{#1.}
 \urlstyle{same}
@@ -91,13 +95,9 @@ def main():
 \abstract{ABSTRACT}
 \maketitle
 """.replace("TITLE", title).replace("ABSTRACT", abstract)
-    # Figures and their legends follow declarations, in order of first mention.
-    end = []
-    for filename, caption, legend, label in items:
-        end.append(r"\clearpage\begin{figure}[p]\centering" + "\n"
-                   + rf"\includegraphics[width=\linewidth]{{figures/{filename}.pdf}}" + "\n"
-                   + rf"\caption{{\textbf{{{caption}}} {legend}}}\label{{{label}}}" + "\n"
-                   + r"\end{figure}")
+    end = [r"\clearpage\section*{Figure legends}"]
+    for _, caption, legend, label in items:
+        end.append(rf"\noindent\textbf{{Fig.~\ref{{{label}}} | {caption}}} {legend}\par\medskip")
     final = inline_macros(header + body + "\n" + "\n".join(end) + "\n\\end{document}\n")
     assert r"\input{" not in final and r"\begin{thebibliography}" in final
     assert final.count(r"\begin{figure}") == 6

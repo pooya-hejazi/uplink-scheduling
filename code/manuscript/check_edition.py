@@ -23,6 +23,35 @@ def rows(p):return list(csv.DictReader(p.open(encoding='utf-8-sig')))
 def rd(name):return rows(root/'source_data'/(name+'.csv'))
 def close(x,y,t=2e-12):assert math.isclose(float(x),float(y),abs_tol=t,rel_tol=t),(x,y)
 
+def check_payload():
+    pooled = {}
+    for mode, expected in [('HUB', (4717, 5084)), ('LO', (2593589, 3182737))]:
+        frame_path = root/'supplementary/data'/f'payload_frames_{mode}.csv'
+        controls = json.loads((root/'revision/payload_data'/f'payload_controls_{mode}.json').read_text())
+        assert h(frame_path) == controls['frame_csv_sha256']
+        by_user = defaultdict(list)
+        for row in rows(frame_path):
+            by_user[int(row['user'])].append(row)
+        assert set(by_user) == set(range(6))
+        for summary in rd('fig6_payload_'+mode):
+            group = by_user[int(summary['user'])]
+            assert [int(r['frame']) for r in group] == list(range(512, 2001))
+            assert group[-1]['status'] == 'weak_or_missing_user_pilot'
+            scored = group[:-1]
+            assert all(r['status']=='scored' for r in scored)
+            for field in ('symbols', 'bits', 'symbol_errors', 'bit_errors'):
+                assert sum(int(r[field]) for r in scored) == int(summary[field])
+            energy = sum(float(r['reference_energy']) for r in scored)
+            err = sum(float(r['squared_error']) for r in scored)
+            close(summary['evm_rms_percent'], 100*math.sqrt(err/energy))
+        good = [r for group in by_user.values() for r in group if r['status']=='scored']
+        totals = {f: sum(int(r[f]) for r in good) for f in ('symbols', 'bits', 'symbol_errors', 'bit_errors', 'shifted_reference_bit_errors')}
+        assert (totals['symbols'], totals['bits']) == (4285440, 8570880)
+        assert (totals['symbol_errors'], totals['bit_errors']) == expected
+        totals['evm_rms_percent'] = 100*math.sqrt(sum(float(r['squared_error']) for r in good)/sum(float(r['reference_energy']) for r in good))
+        pooled[mode] = totals
+    return pooled
+
 def check_round3():
     data=root/'revision/round3_data'
     reports={}
@@ -247,7 +276,7 @@ def main():
     headings = re.findall(r'\\section\*\{([^}]+)\}',tex)
     assert [v for v in headings if v in declarations] == list(declarations)
     abstract=tex.split(r'\begin{abstract}')[1].split(r'\end{abstract}')[0].strip()
-    assert 0<len(abstract.split())<=150
+    assert 150 <= len(abstract.split()) <= 250
     references, nature_venues = check_references(tex)
     assert not any(t in tex for t in ['TODO','TBD','PLACEHOLDER'])
     audit=root/'audit';j=json.loads((audit/'Gate_4_Audit_Certificate.json').read_text());assert j['disposition']=='PASS_WITH_SCOPE_LIMITS'
@@ -276,7 +305,7 @@ def main():
         svg = ET.parse(root/'figures'/(figure+'.svg'))
         return [' '.join(''.join(e.itertext()).split()) for e in svg.findall('.//{*}text')]
     assert all(letter in labels(calls[3]) for letter in 'abcd')
-    assert all(letter in labels(calls[5]) for letter in 'abcd')
+    assert all(letter in labels(calls[5]) for letter in 'abcdef')
     assert any(''.join(s.split())=='6.02×10−7' for s in labels(calls[0]))
     n,t=render('main_nature');ncert,tcert=render('Gate_4_Audit_Certificate');nsupp,tsupp=render('Supplementary_Information')
     for name, pdftext in [('main_nature',t), ('Supplementary_Information',tsupp)]:
@@ -291,8 +320,8 @@ def main():
     assert re.findall(r'\\bibitem\{([^}]+)\}', supplement) == [r['key'] for r in references]
     assert len(re.findall(r'\\label\{supp:(?:table\d+|comparison|rates|compute|decomposition|refinement|hardware_calibration)\}', supplement)) == 16
     assert len(re.findall(r'\\label\{supp:fig\d+\}', supplement)) == 8
-    for index in range(1, 17):
-        assert re.search(r'Supplementary\s+Table\s+'+str(index)+r'\b', tsupp), index
+    for number in [*range(1, 13), '13a', '13b', *range(14, 17)]:
+        assert re.search(r'Supplementary\s+Table\s+'+str(number)+r'\b', tsupp), number
     for index in range(1, 9):
         assert re.search(r'Supplementary\s+Figure\s+'+str(index)+r'\b', tsupp), index
         assert len(PdfReader(root/'supplementary'/'figures'/f'sfig{index}.pdf').pages) == 1
@@ -318,7 +347,8 @@ def main():
         assert r['url'] in supplement and escape_reference(r['title']) in supplement, r['key']
     assert len(rows(root/'supplementary/data/closest_studies.csv')) == 10
     assert all(v in t for v in ('0.03125','0.0625'))
-    assert all(re.search(r'(?:Figure|Fig\.)\s*'+str(i)+r'\s*[.:]?\s+[A-Z]',t) for i in range(1,7));assert 'Data availability' in t and 'Code availability' in t and '8,192' in t and '0.0625' in t
+    assert all(re.search(r'(?:Figure|Fig\.)\s*'+str(i)+r'\s*[.:|]?\s+[A-Z]',t) for i in range(1,7))
+    assert all(token in t for token in ('Data availability', 'Code availability', '8,192', '0.0625'))
     assert '8,192' in tcert and '12,288' in tcert and '0.0625' in tcert and '0.03125' in tcert
     intrograph=Image.new('RGB',(2*550,3*413),'#e1e8e9')
     for i,f in enumerate(calls):
@@ -349,6 +379,7 @@ def main():
     info['fixed_filter_checks'] = {'count':len(fixed),'maximum_upper_bit_per_s_Hz':max(float(r['rate_minus_floor_hi']) for r in fixed)}
     info['smallest_ceiling_zero_price_counts'] = {'16':408,'32':395,'64':426}
     info['round3']=check_round3()
+    info['six_user_payload'] = check_payload()
     (root/'article_claims.json').write_text(json.dumps(info,indent=2)+'\n');print(json.dumps(info,indent=2))
 if __name__=='__main__':main()
 

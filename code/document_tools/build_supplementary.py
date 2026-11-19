@@ -16,7 +16,7 @@ SUPPLEMENTARY_DATA = {'Supplementary_Figure_1': ('Exact upper-table assignment o
 
 SUPPLEMENTARY_DATA.update({
     'Supplementary_Table_6': ('Absolute rates, own and common verified ceilings, and paired threshold counts by channel profile.',
-        ['reviewer_absolute_rates', 'reviewer_absolute_rate_summary', 'round2_achieved_rate_comparison', 'action_common_ceiling_counts']),
+        ['reviewer_absolute_rates', 'reviewer_absolute_rate_summary', 'round2_achieved_rate_comparison', 'action_common_ceiling_counts', 'seven_method_call_times']),
     'Supplementary_Table_7': ('Three-repeat paired iteration and median-time-budget controls, exact discordant counts and timing-only pilot.',
         ['reviewer_compute_calls', 'reviewer_compute_blocks', 'reviewer_compute_summary',
          'round2_iteration_paired_tests', 'round2_latency_increments', 'round2_time_budget_pilot',
@@ -26,7 +26,7 @@ SUPPLEMENTARY_DATA.update({
     'Supplementary_Table_10': ('O1 table-entry diagnostics, selected-entry partition depths, and resolved two/four-user continuous references.',
         ['reviewer_refinement_sweep', 'reviewer_refinement_summary', 'round2_o1_budget_entries',
          'round2_o1_depth', 'round2_o1_depth_summary', 'round2_o1_small_references']),
-    'Supplementary_Table_13': ('Raw and phase-invariant chronological calibration, per-user phase diagnostics and all 90 early fixed-power schedules.',
+    'Supplementary_Table_13': ('Raw and phase-invariant chronological calibration, per-user phase diagnostics, all 90 early fixed-power schedules and recorded six-user QPSK errors. The payload blocks contain dimensionless reference energies, squared symbol errors and exact error counts.',
         ['reviewer_hardware_calibration_HUB', 'reviewer_hardware_calibration_LO',
          'round2_hardware_phase_HUB', 'round2_hardware_phase_LO',
          'round2_hardware_comparison_HUB', 'round2_hardware_comparison_LO',
@@ -38,6 +38,9 @@ SUPPLEMENTARY_DATA['Supplementary_Table_13'][1].extend([
     'round3_hardware_scale_summary', *[
         f'round3_hardware_scale_{kind}_{mode}'
         for kind in ('frames', 'stream_tone') for mode in ('HUB', 'LO')]])
+
+
+SUPPLEMENTARY_DATA['Supplementary_Table_13'][1].extend(['payload_frames_HUB', 'payload_frames_LO', 'lo_alignment_sensitivity'])
 
 
 def annotated(name, description, files):

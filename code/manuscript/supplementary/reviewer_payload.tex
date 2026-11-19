@@ -1,0 +1,24 @@
+\begin{table}[!htbp]\ContinuedFloat\renewcommand{\thetable}{\arabic{table}b}\centering\small
+\caption{Detection of the recorded six-user QPSK transmission. Each user contributed 714,240 scored symbols or 1,428,480 uncoded bits in each capture. User indices follow the transmitter filenames. SER and BER denote symbol and bit error rates. EVM is pooled root-mean-square error vector magnitude relative to the transmitted symbols.}
+\label{supp:payload}
+\begin{tabular}{llrrrrr}\toprule
+Clock & User & Symbol errors & Bit errors & SER (\%) & BER (\%) & EVM (\%)\\
+\midrule
+HUB & 0 & 706 & 744 & 0.0988 & 0.0521 & 22.81\\
+HUB & 1 & 230 & 240 & 0.0322 & 0.0168 & 16.56\\
+HUB & 2 & 885 & 929 & 0.1239 & 0.0650 & 23.63\\
+HUB & 3 & 2,607 & 2,837 & 0.3650 & 0.1986 & 28.43\\
+HUB & 4 & 269 & 314 & 0.0377 & 0.0220 & 11.29\\
+HUB & 5 & 20 & 20 & 0.0028 & 0.0014 & 10.19\\
+\midrule
+LO & 0 & 474,573 & 599,951 & 66.4445 & 41.9993 & 156.85\\
+LO & 1 & 459,133 & 572,502 & 64.2827 & 40.0777 & 150.92\\
+LO & 2 & 394,072 & 465,339 & 55.1736 & 32.5758 & 108.96\\
+LO & 3 & 502,837 & 649,250 & 70.4017 & 45.4504 & 220.12\\
+LO & 4 & 420,804 & 504,141 & 58.9163 & 35.2921 & 148.12\\
+LO & 5 & 342,170 & 391,554 & 47.9069 & 27.4105 & 177.68\\
+\bottomrule\end{tabular}
+\par\medskip\begin{minipage}{0.96\linewidth}\small
+The first 512 frames were reserved for amplitude calibration. The pilot screen retained 463 HUB and 453 LO calibration frames. Both captures supplied 1,488 of 1,489 test frames. In each, the final frame (index 2,000) contained no pilot or data samples and failed the six-user pilot check. All scored users shared the same frame denominator. Rotating the reference by one OFDM symbol gave pooled bit error rates of 50.28\% and 50.12\%, respectively. The frames are repeated observations from one capture per clock mode.
+\end{minipage}
+\end{table}

@@ -1,5 +1,18 @@
 # Numerical changes and sources
 
+## Communications Engineering edition, 19 November 2026
+
+| New result | Reproducible source |
+|---|---|
+| In 1,488 scored frames per capture, HUB yielded 4,717 symbol errors and 5,084 bit errors. LO yielded 2,593,589 and 3,182,737. The denominators are 4,285,440 symbols and 8,570,880 bits per capture. Pooled RMS EVM is 19.97% and 163.92%. | [Fig. 6 per-user results](../code/manuscript/source_data/) and [Table 13 per-frame counts and energies](../code/manuscript/supplementary/data/) |
+| Six-user reference checks cover 480 symbols per transmitter, the time-domain FFT convention, pilot signs and a synthetic zero-noise superposition. A one-symbol reference rotation gives pooled BER of 50.28% and 50.12%. | [Receiver and control](../code/channel_models/rice_payload.py) and [acquisition, reference and scalar-ledger digests](../code/manuscript/revision/payload_data/) |
+| The median sums of seven individually timed solver calls are 208.45 ms and 1,429.72 ms. Summing all 15 archived calls gives 539.58 ms and 3,732.28 ms. | [Table 6 timing ledger](../code/manuscript/supplementary/data/seven_method_call_times.csv) |
+| In the four calibration frames of the LO user-5 pilot replay, the ±64-sample search selected +64. The ±96 and ±128 searches both selected −94. The difference in the occupied-to-null energy criterion is 0.050 dB. | [All offset scores](../code/manuscript/supplementary/data/lo_alignment_sensitivity.csv) |
+
+The measurements refer to the two original Rice acquisitions. Their simultaneous six-user data slot carries the known transmitter patterns. Packet goodput for policy-selected pairs requires different observations.
+
+## Preceding edition at commit 98874b4
+
 The CSV includes the 19 November pre-submission edition and enumerates numeric occurrences in changed paragraphs and tables compared with round-two commit 376c7ed27de583eb064cdf9cf7c48c0c50da2417. Reworded or relocated paragraphs include retained numbers; they are not all new measurements. Reference keys and cross-reference labels are excluded. No numerical result has been replaced by an unfilled marker.
 
 Paths below are relative to code/manuscript/revision in GitHub, or Gate_4/revision in Supplementary Software 1.
